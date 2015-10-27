@@ -1,4 +1,4 @@
-# town
+# Town
 Project of simulation life in medieval town
 
 #Симуляция общества.
