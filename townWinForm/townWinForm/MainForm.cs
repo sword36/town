@@ -15,7 +15,10 @@ namespace townWinForm
         private Town town;
 
         private Timer animationTimer;
-        private long lastTime;        
+        private long lastTime;
+
+        private Graphics g;
+        private Bitmap bitmap;   
 
         public MainForm()
         {
@@ -30,6 +33,9 @@ namespace townWinForm
             animationTimer.Tick += AnimationTimer_Tick;
             lastTime = DateTime.Now.Ticks;
 
+            //Drawing
+            bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+            g = pictureBox.CreateGraphics();
         }
 
         private void update(int dt)
@@ -39,7 +45,15 @@ namespace townWinForm
 
         private void draw()
         {
+            Graphics tempGraphics;
 
+            using (tempGraphics = Graphics.FromImage(bitmap))
+            {
+                tempGraphics.Clear(Color.White);
+                town.Draw(tempGraphics);
+            }
+
+            g.DrawImage(bitmap, new Point(0, 0));
         }
 
         private void AnimationTimer_Tick(object sender, EventArgs e)
@@ -48,6 +62,7 @@ namespace townWinForm
             lastTime = DateTime.Now.Ticks;
 
             update(dt);
+            draw();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
