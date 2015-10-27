@@ -8,6 +8,10 @@ namespace townWinForm
 {
     public static class Config
     {
+        //Citizens
         public static int MaxCitizens = 50;
+
+        //Display
+        public static int FPS = 30;
     }
 }

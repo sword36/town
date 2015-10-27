@@ -7,13 +7,23 @@ using System.Drawing;
 
 namespace townWinForm
 {
-    public class Town
+    public class Town : IDrawable
     {
         public List<Human> Citizens;
 
         public Town()
         {
             Citizens = new List<Human>();
+        }
+
+        public void Update(int dt)
+        {
+
+        }
+
+        public void Draw(Graphics g)
+        {
+
         }
     }
 }
