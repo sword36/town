@@ -12,9 +12,18 @@ namespace townWinForm
 {
     public partial class MainForm : Form
     {
+        private Town town;
+
         public MainForm()
         {
             InitializeComponent();
+
+            town = new Town();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
