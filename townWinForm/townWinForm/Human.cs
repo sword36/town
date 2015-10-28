@@ -7,7 +7,18 @@ using System.Drawing;
 
 namespace townWinForm
 {
-    public class Human
+    public class Human : IDrawable
     {
+        public Human()
+        {
+
+        }
+
+        public void Draw(Graphics g)
+        {
+
+        }
+
+        public BehaviourModel Behaviour;
     }
 }

@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BehaviourModels\BehaviourModel.cs" />
+    <Compile Include="BehaviourModels\Craftsman.cs" />
+    <Compile Include="BehaviourModels\Farmer.cs" />
+    <Compile Include="BehaviourModels\Guardian.cs" />
+    <Compile Include="BehaviourModels\Thief.cs" />
+    <Compile Include="BehaviourModels\Trader.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="House.cs" />
