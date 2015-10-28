@@ -46,6 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buildings\Building.cs" />
+    <Compile Include="Buildings\ProductionBuilding.cs" />
+    <Compile Include="Buildings\ProductionBuildings\Barracks.cs" />
+    <Compile Include="Buildings\ProductionBuildings\Factory.cs" />
+    <Compile Include="Buildings\ProductionBuildings\Farm.cs" />
+    <Compile Include="Buildings\ProductionBuildings\Market.cs" />
+    <Compile Include="Buildings\ProductionBuildings\ThievesGuild.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Buildings\House.cs" />
     <Compile Include="BehaviourModels\BehaviourModel.cs" />
     <Compile Include="BehaviourModels\Craftsman.cs" />
     <Compile Include="BehaviourModels\Farmer.cs" />
@@ -87,7 +96,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
