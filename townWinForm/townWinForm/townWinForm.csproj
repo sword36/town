@@ -46,9 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Building.cs" />
+    <Compile Include="Buildings\Building.cs" />
+    <Compile Include="Buildings\ProductionBuilding.cs" />
+    <Compile Include="Buildings\ProductionBuildings\Barracks.cs" />
+    <Compile Include="Buildings\ProductionBuildings\Factory.cs" />
+    <Compile Include="Buildings\ProductionBuildings\Farm.cs" />
+    <Compile Include="Buildings\ProductionBuildings\Market.cs" />
+    <Compile Include="Buildings\ProductionBuildings\ThievesGuild.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="House.cs" />
+    <Compile Include="Buildings\House.cs" />
     <Compile Include="Human.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="MainForm.cs">
