@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Building.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Human.cs" />
     <Compile Include="IDrawable.cs" />
