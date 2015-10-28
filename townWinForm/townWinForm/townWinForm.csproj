@@ -53,7 +53,6 @@
     <Compile Include="Buildings\ProductionBuildings\Farm.cs" />
     <Compile Include="Buildings\ProductionBuildings\Market.cs" />
     <Compile Include="Buildings\ProductionBuildings\ThievesGuild.cs" />
-    <Compile Include="Config.cs" />
     <Compile Include="Buildings\House.cs" />
     <Compile Include="BehaviourModels\BehaviourModel.cs" />
     <Compile Include="BehaviourModels\Craftsman.cs" />
