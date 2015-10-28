@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace townWinForm
 {
-    public abstract class Building
+    public class House : Building
     {
+
     }
 }
