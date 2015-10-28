@@ -46,15 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Buildings\Building.cs" />
-    <Compile Include="Buildings\ProductionBuilding.cs" />
-    <Compile Include="Buildings\ProductionBuildings\Barracks.cs" />
-    <Compile Include="Buildings\ProductionBuildings\Factory.cs" />
-    <Compile Include="Buildings\ProductionBuildings\Farm.cs" />
-    <Compile Include="Buildings\ProductionBuildings\Market.cs" />
-    <Compile Include="Buildings\ProductionBuildings\ThievesGuild.cs" />
+    <Compile Include="BehaviourModels\BehaviourModel.cs" />
+    <Compile Include="BehaviourModels\Craftsman.cs" />
+    <Compile Include="BehaviourModels\Farmer.cs" />
+    <Compile Include="BehaviourModels\Guardian.cs" />
+    <Compile Include="BehaviourModels\Thief.cs" />
+    <Compile Include="BehaviourModels\Trader.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="Buildings\House.cs" />
     <Compile Include="Human.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="MainForm.cs">
