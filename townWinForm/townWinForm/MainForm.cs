@@ -18,13 +18,18 @@ namespace townWinForm
         private long lastTime;
 
         private Graphics g;
-        private Bitmap bitmap;   
+        private Bitmap bitmap;
+
+        private SettingsForm settingsForm;
 
         public MainForm()
         {
             InitializeComponent();
 
             town = new Town();
+
+            //Forms
+            settingsForm = new SettingsForm();
 
             //Timer
             animationTimer = new Timer();
@@ -79,6 +84,17 @@ namespace townWinForm
         private void MainForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pause();
+            settingsForm.UpdateInputsFromConfig();
+
+            settingsForm.ShowDialog();
+
+            settingsForm.ErrorLabel.Visible = false;
+            unPause();
         }
     }
 }
