@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace townWinForm.BehaviourModels
+namespace townWinForm
 {
-    public class Thief : BehaviourModel
+    public abstract class BehaviourModel : IUpdatable
     {
+        public abstract void Update(int dt);
     }
 }

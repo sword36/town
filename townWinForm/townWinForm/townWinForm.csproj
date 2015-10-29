@@ -54,18 +54,19 @@
     <Compile Include="Buildings\ProductionBuildings\Market.cs" />
     <Compile Include="Buildings\ProductionBuildings\ThievesGuild.cs" />
     <Compile Include="Buildings\House.cs" />
-    <Compile Include="BehaviourModels\BehaviourModel.cs" />
-    <Compile Include="BehaviourModels\Craftsman.cs" />
-    <Compile Include="BehaviourModels\Farmer.cs" />
-    <Compile Include="BehaviourModels\Guardian.cs" />
-    <Compile Include="BehaviourModels\Thief.cs" />
-    <Compile Include="BehaviourModels\Trader.cs" />
+    <Compile Include="Citizens\BehaviourModels\BehaviourModel.cs" />
+    <Compile Include="Citizens\BehaviourModels\Craftsman.cs" />
+    <Compile Include="Citizens\BehaviourModels\Farmer.cs" />
+    <Compile Include="Citizens\BehaviourModels\Guardian.cs" />
+    <Compile Include="Citizens\BehaviourModels\Thief.cs" />
+    <Compile Include="Citizens\BehaviourModels\Trader.cs" />
+    <Compile Include="Citizens\StateFSM.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Graph\Edge.cs" />
     <Compile Include="Graph\Graph.cs" />
     <Compile Include="Graph\Node.cs" />
-    <Compile Include="Human.cs" />
     <Compile Include="IDrawable.cs" />
+    <Compile Include="IUpdatable.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

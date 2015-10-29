@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace townWinForm.BehaviourModels
+namespace townWinForm
 {
-    public class Guardian : BehaviourModel
+    public interface IUpdatable
     {
-
+        void Update(int dt);
     }
 }

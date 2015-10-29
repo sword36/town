@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace townWinForm
 {
-    public class Human : IDrawable
+    public class Human : IDrawable, IUpdatable
     {
         public Human()
         {
@@ -17,6 +17,11 @@ namespace townWinForm
         public void Draw(Graphics g)
         {
 
+        }
+
+        public void Update(int dt)
+        {
+            Behaviour.Update(dt);
         }
 
         public BehaviourModel Behaviour;
