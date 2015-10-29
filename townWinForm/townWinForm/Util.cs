@@ -65,8 +65,8 @@ namespace townWinForm
         /// <summary>
         /// Returns a random point in circle 
         /// </summary>
-        /// <param name="Center of the circle"></param>
-        /// <param name="Circle's radius"></param>
+        /// <param name="center">Center of the circle</param>
+        /// <param name="radius">Circle's radius</param>
         /// <returns></returns>
         public static PointF GetRandomPointInCircle(PointF center, float radius)
         {
