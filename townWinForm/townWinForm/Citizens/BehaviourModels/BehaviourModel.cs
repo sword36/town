@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace townWinForm
 {
-    public abstract class BehaviourModel
+    public abstract class BehaviourModel : IUpdatable
     {
-
+        public abstract void Update(int dt);
     }
 }
