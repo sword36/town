@@ -56,6 +56,17 @@ namespace townWinForm
             g.DrawImage(bitmap, new Point(0, 0));
         }
 
+        private void pause()
+        {
+            animationTimer.Enabled = false;
+        }
+
+        private void unPause()
+        {
+            lastTime = DateTime.Now.Ticks;
+            animationTimer.Enabled = true;
+        }
+
         private void AnimationTimer_Tick(object sender, EventArgs e)
         {
             int dt = (int)((DateTime.Now.Ticks - lastTime) / 10000);
