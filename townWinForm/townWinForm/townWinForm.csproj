@@ -61,6 +61,9 @@
     <Compile Include="BehaviourModels\Thief.cs" />
     <Compile Include="BehaviourModels\Trader.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Graph\Edge.cs" />
+    <Compile Include="Graph\Graph.cs" />
+    <Compile Include="Graph\Node.cs" />
     <Compile Include="Human.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="MainForm.cs">
