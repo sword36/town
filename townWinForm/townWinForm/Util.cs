@@ -61,6 +61,24 @@ namespace townWinForm
             return Distance(new PointF(a.X + a.Width / 2, a.Y + a.Height / 2), b);
         }
 
+        //Returns a random point in circle 
+        /// <summary>
+        /// Returns a random point in circle 
+        /// </summary>
+        /// <param name="Center of the circle"></param>
+        /// <param name="Circle's radius"></param>
+        /// <returns></returns>
+        public static PointF GetRandomPointInCircle(PointF center, float radius)
+        {
+            double t = 2 * Math.PI * rand.NextDouble();
+            double u = rand.NextDouble() * rand.NextDouble();
+            double r = u > 1 ? 2 - u : u;
+            float resx = center.X + (float)(radius * r * Math.Cos(t));
+            float resy = center.Y + (float)(radius * r * Math.Sin(t));
+            PointF result = new PointF(resx, resy);
+            return result;
+        }
+
         //Throw Exception with message if valute not into interval [left; right]
         //Need to validate inputs
         public static void ValidateInterval(int left, int right, int value, string message)
