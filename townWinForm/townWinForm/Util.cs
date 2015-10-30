@@ -9,6 +9,7 @@ namespace townWinForm
 {
     public static class Util
     {
+        
         private static Random rand = new Random(DateTime.Now.Millisecond);
 
         //Return positive valure from interval [number - delta; number + delta]
@@ -67,7 +68,7 @@ namespace townWinForm
         /// </summary>
         /// <param name="center">Center of the circle</param>
         /// <param name="radius">Circle's radius</param>
-        /// <returns></returns>
+        /// <returns>PointF</returns>
         public static PointF GetRandomPointInCircle(PointF center, float radius)
         {
             double t = 2 * Math.PI * rand.NextDouble();
@@ -78,6 +79,7 @@ namespace townWinForm
             PointF result = new PointF(resx, resy);
             return result;
         }
+
 
         //Throw Exception with message if valute not into interval [left; right]
         //Need to validate inputs
