@@ -19,6 +19,11 @@ namespace townWinForm
             return randNum > 0 ? randNum : 0;
         }
 
+        public static int GetRandomFromInterval(int a, int b)
+        {
+            return rand.Next(a, b);
+        }
+
         //Return float value(positive and negative) from interval [number - delta; number + delta]
         public static float GetRandomDistribution(float number, float delta)
         {

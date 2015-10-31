@@ -14,8 +14,17 @@ namespace townWinForm
 
         //Citizens
         public static int MaxCitizens = 50;
+        public static int MaxHappiness = 100;
+        public static int StartHappiness = 75;
+        public static int StartHappinessDelta = 25;
+        public static string[] ProfList = new string[] {"craftsman", "farmer", "guardian", "thief", "trader"};
+        public static int MaxProfLevel = 10;
 
         //Display
         public static int FPS = 30;
+
+        //Economic
+        public static int StartMoney = 1000;
+        public static int StartMoneyDelta = 500;
     }
 }
