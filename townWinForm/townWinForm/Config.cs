@@ -17,5 +17,7 @@ namespace townWinForm
 
         //Display
         public static int FPS = 30;
+
+        public static int TileSize = 50;
     }
 }

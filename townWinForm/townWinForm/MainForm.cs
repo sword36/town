@@ -25,6 +25,7 @@ namespace townWinForm
         public MainForm()
         {
             InitializeComponent();
+            DoubleBuffered = true;
 
             town = new Town();
 
@@ -78,12 +79,8 @@ namespace townWinForm
             lastTime = DateTime.Now.Ticks;
 
             update(dt);
-            draw();
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
+            Refresh();
+            //draw();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -95,6 +92,12 @@ namespace townWinForm
 
             settingsForm.ErrorLabel.Visible = false;
             unPause();
+        }
+
+        private void draw(object sender, PaintEventArgs e)
+        {
+            e.Graphics.Clear(Color.White);
+            town.Draw(e.Graphics);
         }
     }
 }
