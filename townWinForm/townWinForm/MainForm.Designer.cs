@@ -45,6 +45,7 @@
             this.pictureBox.Size = new System.Drawing.Size(639, 298);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
+            this.pictureBox.Visible = false;
             // 
             // menuStrip
             // 
@@ -81,7 +82,7 @@
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MainForm";
             this.Text = "Town";
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.draw);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();

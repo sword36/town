@@ -26,5 +26,7 @@ namespace townWinForm
         //Economic
         public static int StartMoney = 1000;
         public static int StartMoneyDelta = 500;
+
+        public static int TileSize = 50;
     }
 }
