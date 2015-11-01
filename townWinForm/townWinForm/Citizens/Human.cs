@@ -12,9 +12,10 @@ namespace townWinForm
         public BehaviourModel Behaviour { get; set; }
         public PointF Position { get; set; }
         public bool IsAlive { get; set; }
-        public int Happiness { get; set; }
+        public float Happiness { get; set; }
         public int Money { get; set; }
         public string CurrentProf { get; set; }
+        public float Energy { get; set; }
 
         public Dictionary<String, int> ProfSkills;
 
@@ -29,6 +30,7 @@ namespace townWinForm
         {
             Money = Util.GetRandomDistribution(Config.StartMoney, Config.StartMoneyDelta);
             Happiness = Util.GetRandomDistribution(Config.StartHappiness, Config.StartHappinessDelta);
+            Energy = Config.MaxEnergy;
             IsAlive = true;
 
             //set all proffesion skills to 1 level
@@ -37,6 +39,7 @@ namespace townWinForm
                 ProfSkills.Add(prof, 1);
             }
 
+            //random proffesion from Config.ProfList
             CurrentProf = Config.ProfList[Util.GetRandomFromInterval(0, Config.ProfList.Length - 1)];
         }
 
@@ -59,12 +62,18 @@ namespace townWinForm
                 case "trader":
                     Behaviour = new BehaviourModels.Trader(this);
                     break;
+                default: throw new Exception("Wrong proffession");
             }
         }
 
         public void Move(PointF p)
         {
 
+        }
+
+        public void Work()
+        {
+            Energy -= Behaviour.WorkCost;
         }
 
         public void Attack(Human target)

@@ -15,6 +15,7 @@ namespace townWinForm.BehaviourModels
         {
             body = h;
             StateMachine = new StackFSM();
+            base.WorkCost = Config.CraftsmanWorkCost;
         }
 
         public override void Update(int dt)
