@@ -16,6 +16,8 @@ namespace townWinForm
         public int Money { get; set; }
         public string CurrentProf { get; set; }
         public float Energy { get; set; }
+        public Building Home { get; set; }
+        public Building WorkBuilding { get; set; }
 
         public Dictionary<String, int> ProfSkills;
 
@@ -41,6 +43,8 @@ namespace townWinForm
 
             //random proffesion from Config.ProfList
             CurrentProf = Config.ProfList[Util.GetRandomFromInterval(0, Config.ProfList.Length - 1)];
+
+            initBehaviourModel(CurrentProf);
         }
 
         private void initBehaviourModel(string prof)
@@ -48,19 +52,19 @@ namespace townWinForm
             switch(prof)
             {
                 case "craftsman":
-                    Behaviour = new BehaviourModels.Craftsman(this);
+                    Behaviour = new BehaviourModels.Craftsman(this, ProfSkills[prof]);
                     break;
                 case "farmer":
-                    Behaviour = new BehaviourModels.Farmer(this);
+                    Behaviour = new BehaviourModels.Farmer(this, ProfSkills[prof]);
                     break;
                 case "guardian":
-                    Behaviour = new BehaviourModels.Guardian(this);
+                    Behaviour = new BehaviourModels.Guardian(this, ProfSkills[prof]);
                     break;
                 case "thief":
-                    Behaviour = new BehaviourModels.Thief(this);
+                    Behaviour = new BehaviourModels.Thief(this, ProfSkills[prof]);
                     break;
                 case "trader":
-                    Behaviour = new BehaviourModels.Trader(this);
+                    Behaviour = new BehaviourModels.Trader(this, ProfSkills[prof]);
                     break;
                 default: throw new Exception("Wrong proffession");
             }
@@ -71,9 +75,14 @@ namespace townWinForm
 
         }
 
-        public void Work()
+        public void Move(RectangleF rect)
         {
-            Energy -= Behaviour.WorkCost;
+            Move(new PointF(rect.X + rect.Width / 2, rect.Y + rect.Height / 2));
+        }
+
+        public void Work(int dt)
+        {
+            Energy -= Behaviour.WorkCost * dt;
         }
 
         public void Attack(Human target)

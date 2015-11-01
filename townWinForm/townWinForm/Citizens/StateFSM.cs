@@ -12,6 +12,12 @@ namespace townWinForm
     {
         private List<string> stack;
 
+        public StackFSM(string startState)
+        {
+            stack = new List<string>();
+            PushState(startState);
+        }
+
         //Remove and return current state
         public string PopState()
         {

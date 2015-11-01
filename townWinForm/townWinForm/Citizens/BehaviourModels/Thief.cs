@@ -9,18 +9,35 @@ namespace townWinForm.BehaviourModels
     public class Thief : BehaviourModel
     {
         public StackFSM StateMachine;
-        private Human body;
 
-        public Thief(Human h)
+        public Thief(Human h, int level)
         {
             body = h;
-            StateMachine = new StackFSM();
+            Level = level;
+            StateMachine = new StackFSM("idle");
             base.WorkCost = Config.ThiefWorkCost;
         }
 
         public override void Update(int dt)
         {
-
+            switch (StateMachine.GetCurrentState())
+            {
+                case "idle":
+                    idle(dt);
+                    break;
+                case "work":
+                    work(dt);
+                    break;
+                case "goToWork":
+                    goToWork(dt);
+                    break;
+                case "goHome":
+                    goHome(dt);
+                    break;
+                case "sleep":
+                    sleep(dt);
+                    break;
+            }
         }
     }
 }

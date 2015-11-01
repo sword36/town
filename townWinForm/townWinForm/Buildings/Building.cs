@@ -10,6 +10,6 @@ namespace townWinForm
     public abstract class Building : IDrawable
     {
         public abstract void Draw(Graphics g);
-
+        public RectangleF Position { get; set; }
     }
 }
