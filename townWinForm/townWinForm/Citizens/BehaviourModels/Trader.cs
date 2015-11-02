@@ -23,7 +23,7 @@ namespace townWinForm.BehaviourModels
             switch (StateMachine.GetCurrentState())
             {
                 case "idle":
-                    idle(dt);
+                    rest(dt);
                     break;
                 case "work":
                     work(dt);

@@ -36,6 +36,7 @@ namespace townWinForm
             Happiness = Util.GetRandomDistribution(Config.StartHappiness, Config.StartHappinessDelta);
             Energy = Config.MaxEnergy;
             IsAlive = true;
+            ProfSkills = new Dictionary<string, int>();
 
             //set all proffesion skills to 1 level
             foreach(string prof in Config.ProfList)
@@ -72,19 +73,24 @@ namespace townWinForm
             }
         }
 
-        public void Move(PointF p)
+        public void Move(PointF p, int dt)
         {
 
         }
 
-        public void Move(RectangleF rect)
+        public void Move(RectangleF rect, int dt)
         {
-            Move(new PointF(rect.X + rect.Width / 2, rect.Y + rect.Height / 2));
+            Move(new PointF(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), dt);
         }
 
-        public void Work(int dt)
+        public float DistanceToHome()
         {
-            Energy -= Behaviour.WorkCost * dt;
+            return Util.Distance(Home.Position, Position);
+        }
+
+        public float DistanceToWork()
+        {
+            return Util.Distance(WorkBuilding.Position, Position);
         }
 
         public void Attack(Human target)

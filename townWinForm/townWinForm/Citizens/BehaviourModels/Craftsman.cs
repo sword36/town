@@ -18,7 +18,7 @@ namespace townWinForm.BehaviourModels
             WorkCost = Config.CraftsmanWorkCost;
         }
 
-        private void idle(int dt)
+        private void rest(int dt)
         {
             if (body.Energy > 30)
             {
@@ -32,13 +32,14 @@ namespace townWinForm.BehaviourModels
             {
                 StateMachine.PushState("sleep");
             }
-            base.idle(dt);
+            base.rest(dt);
         }
 
         private void work(int dt)
         {
             if (body.Energy < 30)
             {
+                if (true) { }
                 StateMachine.PopState();
                 StateMachine.PushState("goHome");
             }
@@ -69,8 +70,8 @@ namespace townWinForm.BehaviourModels
         {
             switch (StateMachine.GetCurrentState())
             {
-                case "idle":
-                    idle(dt);
+                case "rest":
+                    rest(dt);
                     break;
                 case "work":
                     work(dt);

@@ -21,6 +21,12 @@ namespace townWinForm
         public static int MaxProfLevel = 10;
         public static int MaxEnergy = 100;
         public static float EnergyForSleep = 1;
+        public static float HappyForSleep = 0.5f;
+        public static float EnergyLowerBoundToUnhappy = 50;
+        public static float UnhappyForWork = 1;
+        public static float EnergyMoveCost = 0.2f;
+        public static float EnergyForRest = 2;
+        public static float HappyForRest = 1;
 
         //Behaviours
         public static float CraftsmanWorkCost = 3;

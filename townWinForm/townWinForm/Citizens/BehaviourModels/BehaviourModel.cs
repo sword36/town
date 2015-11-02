@@ -15,25 +15,60 @@ namespace townWinForm
 
         public virtual void Update(int dt) { }
 
-        //do nothing
-        protected virtual void idle(int dt)
+        //increase energy and happiness
+        protected virtual void rest(int dt)
         {
+            float dEnergy = Config.EnergyForRest * dt;
+            if (body.Energy + dEnergy <= Config.MaxEnergy)
+            {
+                body.Energy += dEnergy;
+            }
 
+            float dHappy = Config.HappyForRest * dt;
+            if (body.Happiness + dHappy <= Config.MaxHappiness)
+            {
+                body.Happiness += dHappy;
+            }
         }
 
         protected virtual void goHome(int dt)
         {
-            body.Move(body.Home.Position);
+            float dEnergy = Config.EnergyMoveCost * dt;
+            //move
+            if (body.Energy - dEnergy >= 0)
+            {
+                body.Energy -= dEnergy;
+                body.Move(body.Home.Position, dt);
+            }
         }
 
         protected virtual void goToWork(int dt)
         {
-            body.Move(body.WorkBuilding.Position);
+            float dEnergy = Config.EnergyMoveCost * dt;
+            //move
+            if (body.Energy - dEnergy >= 0)
+            {
+                body.Energy -= dEnergy;
+                body.Move(body.WorkBuilding.Position, dt);
+            }
         }
 
+        //decrease energy, and if energy in low level then decrease happiness
         protected virtual void work(int dt)
         {
-            body.Work(dt);
+            float dEnergy = WorkCost * dt;
+            if (body.Energy - dEnergy >= 0)
+            {
+                body.Energy -= dEnergy;
+            } 
+            if (body.Energy < Config.EnergyLowerBoundToUnhappy)
+            {
+                float dHappy = Config.UnhappyForWork * dt;
+                if (body.Happiness - dHappy >= 0)
+                {
+                    body.Happiness -= dHappy;
+                }
+            }
         }
 
         protected virtual void attack(int dt)
@@ -41,9 +76,20 @@ namespace townWinForm
             body.Attack();
         }
 
+        //increase energy and happiness
         protected virtual void sleep(int dt)
         {
-            body.Energy += Config.EnergyForSleep * dt;
+            float dEnergy = Config.EnergyForSleep * dt;
+            if (body.Energy + dEnergy <= Config.MaxEnergy)
+            {
+                body.Energy += dEnergy;
+            }
+
+            float dHappy = Config.EnergyForSleep * dt;
+            if (body.Happiness + dHappy <= Config.MaxHappiness)
+            {
+                body.Happiness += dHappy;
+            }
         }
     }
 }
