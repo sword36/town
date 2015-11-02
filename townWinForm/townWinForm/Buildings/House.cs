@@ -13,5 +13,10 @@ namespace townWinForm
         {
             
         }
+
+        public House(int x, int y) : base(x, y)
+        {
+
+        }
     }
 }

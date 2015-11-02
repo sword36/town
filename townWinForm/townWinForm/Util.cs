@@ -208,5 +208,14 @@ namespace townWinForm
 
             return true;
         }
+
+        public static bool IsInList(List<int> l, int val)
+        {
+            for (int i = 0; i < l.Count; i++)
+            {
+                if (l[i] == val) return true;
+            }
+            return false;
+        }
     }
 }

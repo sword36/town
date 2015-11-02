@@ -26,7 +26,42 @@ namespace townWinForm
             matrix2 = new int[Config.TownWidth, Config.TownHeight];
             MatrixInit();
             CreateStreets();
+            InitBuildings();
+            int a = 0;
 
+        }
+
+        
+
+        private void InitBuildings()
+        {
+            List<int> idCounter = new List<int>();
+            for (int x = 0; x < Config.TownWidth; x++)
+            {
+                
+                for (int y = 0; y < Config.TownHeight; y++)
+                {
+                    if (matrix[x, y] != 0)
+                    {
+                        int w = 0;
+                        int h = 0;
+                        int buildIndex = matrix[x, y];
+
+                        if (Util.IsInList(idCounter, buildIndex))
+                            continue;
+
+                        while (matrix[x + w, y] == buildIndex)
+                            w++;
+
+                        while (matrix[x, y + h] == buildIndex)
+                            h++;
+
+                        Structures.Add(new House(w, h));
+                        idCounter.Add(buildIndex);
+                    }
+                    
+                }
+            }
         }
 
         private void MatrixInit()
