@@ -14,9 +14,29 @@ namespace townWinForm
 
         public List<Human> Citizens;
 
+        private int[,] matrix;
+
         public Town()
         {
             Citizens = new List<Human>();
+            matrix = new int[Config.TownWidth, Config.TownHeight];
+
+        }
+
+        private void MatrixInit()
+        {
+            for (int x = 0; x < Config.TownWidth; x++)
+            {
+                for (int y = 0; y < Config.TownHeight; y++)
+                {
+                    matrix[x, y] = 0;
+                }
+            }
+
+            Random rand = new Random(DateTime.Now.Millisecond);
+
+
+
         }
 
         public void Update(long dt)
@@ -26,15 +46,15 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
-            for (int x = 0; x < 50; x++)
+            for (int x = 0; x < Config.TownWidth; x++)
             {
-                for (int y = 0; y < 50; y++)
+                for (int y = 0; y < Config.TownHeight; y++)
                 {
 
                     if (Util.CheckPoint(new PointF(Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy)))
                     {
-                        g.FillRectangle(new SolidBrush(Color.Gainsboro), 50 * x + Config.dx, 50 * y + Config.dy, 50, 50);
-                        g.DrawRectangle(Pens.Red, 50 * x + Config.dx, 50 * y + Config.dy, 50,50);
+                        g.FillRectangle(new SolidBrush(Color.Gainsboro), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
+                        g.DrawRectangle(Pens.Red, Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
                     }
                 }
 
