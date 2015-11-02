@@ -84,6 +84,7 @@
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(137, 45);
             this.trackBar1.TabIndex = 17;
+            this.trackBar1.Value = 15;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // ScrollSpeedLabel
