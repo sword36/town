@@ -21,6 +21,8 @@ namespace townWinForm
 
         public Dictionary<String, int> ProfSkills;
 
+        private static float dx = 0;
+        private static float dy = 0;
         private int hp;
         private int damage;
         private Human attackTarget = null;
@@ -140,6 +142,12 @@ namespace townWinForm
         public void Update(int dt)
         {
             Behaviour.Update(dt);
+        }
+
+        public void UpdateD(float dx, float dy)
+        {
+            Human.dx = dx;
+            Human.dy = dy;
         }
 
     }

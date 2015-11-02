@@ -30,6 +30,8 @@ namespace townWinForm
         public static float TraderWorkCost = 1;
 
         //Display
+        public static float dx = 0;
+        public static float dy = 0;
         public static int FPS = 30;
 
         //Economic

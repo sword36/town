@@ -11,7 +11,7 @@ namespace townWinForm
     {
         public override void Draw(Graphics g)
         {
-
+            
         }
     }
 }

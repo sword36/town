@@ -9,7 +9,6 @@ namespace townWinForm
 {
     public static class Util
     {
-        
         private static Random rand = new Random(DateTime.Now.Millisecond);
 
         //Return positive valure from interval [number - delta; number + delta]
@@ -94,6 +93,11 @@ namespace townWinForm
             {
                 throw new Exception(message);
             }
+        }
+
+        public static void Move()
+        {
+
         }
     }
 }

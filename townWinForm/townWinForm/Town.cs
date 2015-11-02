@@ -9,6 +9,9 @@ namespace townWinForm
 {
     public class Town : IDrawable
     {
+        private float dx = 0;
+        private float dy = 0;
+
         public List<Human> Citizens;
 
         public Town()
@@ -22,6 +25,11 @@ namespace townWinForm
         }
 
         public void Draw(Graphics g)
+        {
+
+        }
+
+        private void UpdateD(float dx, float dy)
         {
 
         }
