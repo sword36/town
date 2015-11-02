@@ -54,8 +54,10 @@ namespace townWinForm
 
         //Town
         public static float TileSize = 25;
-        public static int TownWidth = 63;
-        public static int TownHeight = 66;
+        public static int StreetHeight = 12;
+        public static int TownWidth = 40;
+        public static int TownHeight = StreetHeight * 4;
+        
 
         //Display
         public static float dx = 0;

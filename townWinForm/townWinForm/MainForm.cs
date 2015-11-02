@@ -99,6 +99,13 @@ namespace townWinForm
                         Close();
                         break;
                     }
+
+                case Keys.Space:
+                    {
+                        Config.dx = 0;
+                        Config.dy = 0;
+                        break;
+                    }
             }
         }
 

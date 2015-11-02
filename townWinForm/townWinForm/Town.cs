@@ -53,7 +53,7 @@ namespace townWinForm
                 }
             }
 
-            for (int yy = 0; yy < Config.TownHeight; yy += 11)
+            for (int yy = 0; yy < Config.TownHeight; yy += Config.StreetHeight)
 
             for (int i = 0; i < Config.TownWidth; i++)
             {
@@ -64,18 +64,18 @@ namespace townWinForm
                         int w = rand.Next(5, 7);
                         int h = rand.Next(5, 7);
 
-                        if (Config.TownWidth - i <= 9)
+                        if (Config.TownWidth - i <= 11)
                         {
                             switch (Config.TownWidth - i)
                                 {
-                                    case 11:
-                                        {
-                                            w = 6;
-                                            break;
-                                        }
                                     case 10:
                                         {
                                             w = 5;
+                                            break;
+                                        }
+                                    case 11:
+                                        {
+                                            w = 6;
                                             break;
                                         }
                                     default:
@@ -94,7 +94,7 @@ namespace townWinForm
                                 //matrix[i + x, y + h] = buildIndex + 1;
                             }
 
-                            for (int y = h; y < 11; y++)
+                            for (int y = h; y < Config.StreetHeight; y++)
                             {
                                 matrix[i + x, yy + y] = buildIndex + 1;
                             }
