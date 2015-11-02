@@ -152,6 +152,8 @@ namespace townWinForm
         /// <returns></returns>
         public static Color GetRandomColor(int seed)
         {
+            if (seed == 0) return Color.FromArgb(215, 215, 215);
+            else return Color.FromArgb(40, 40, 40);
             Random rnd = new Random(seed);
             return Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255));
         }
