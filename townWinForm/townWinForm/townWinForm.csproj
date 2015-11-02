@@ -82,6 +82,9 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Things\Food.cs" />
+    <Compile Include="Things\Product.cs" />
+    <Compile Include="Things\Thing.cs" />
     <Compile Include="Town.cs" />
     <Compile Include="Util.cs" />
     <EmbeddedResource Include="MainForm.resx">

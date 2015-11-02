@@ -35,6 +35,12 @@ namespace townWinForm
         public static float ThiefWorkCost = 2;
         public static float TraderWorkCost = 1;
 
+        //Things
+        public static float ProductCost = 300;
+        public static float ProductCostDelta = 200;
+        public static float FoodCost = 200;
+        public static float FoodCostDelta = 150;
+
         //Display
         public static float dx = 0;
         public static float dy = 0;
