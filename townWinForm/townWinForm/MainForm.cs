@@ -27,6 +27,10 @@ namespace townWinForm
             InitializeComponent();
             DoubleBuffered = true;
 
+            WindowState = FormWindowState.Normal;
+            FormBorderStyle = FormBorderStyle.None;
+            Bounds = Screen.PrimaryScreen.Bounds;
+
             town = new Town();
 
             //Forms
@@ -98,6 +102,23 @@ namespace townWinForm
         {
             e.Graphics.Clear(Color.White);
             town.Draw(e.Graphics);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void MainForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    {
+                        Close();
+                        break;
+                    }
+            }
         }
     }
 }
