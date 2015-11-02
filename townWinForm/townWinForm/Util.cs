@@ -131,5 +131,27 @@ namespace townWinForm
             if (UpdateCamera != null)
                 UpdateCamera(Config.dx, Config.dy);
         }
+
+        //Returs random color
+        /// <summary>
+        /// Returs random color
+        /// </summary>
+        /// <returns>Random color</returns>
+        public static Color GetRandomColor()
+        {
+            return Color.FromArgb(rand.Next(255), rand.Next(255), rand.Next(255));
+        }
+
+        //Returns random color, using seed
+        /// <summary>
+        /// Returns random color
+        /// </summary>
+        /// <param name="seed">Seed for Random function</param>
+        /// <returns></returns>
+        public static Color GetRandomColor(int seed)
+        {
+            Random rnd = new Random(seed);
+            return Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255));
+        }
     }
 }
