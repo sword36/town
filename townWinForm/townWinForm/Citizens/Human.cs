@@ -144,7 +144,7 @@ namespace townWinForm
             Behaviour.Update(dt);
         }
 
-        public void UpdateD(float dx, float dy)
+        public static void UpdateD(float dx, float dy)
         {
             Human.dx = dx;
             Human.dy = dy;

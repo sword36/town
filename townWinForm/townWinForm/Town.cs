@@ -9,8 +9,8 @@ namespace townWinForm
 {
     public class Town : IDrawable
     {
-        private float dx = 0;
-        private float dy = 0;
+        private static float dx = 0;
+        private static float dy = 0;
 
         public List<Human> Citizens;
 
@@ -26,12 +26,13 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
-
+            g.DrawRectangle(Pens.Red, 100 + dx, 100 + dy, 100, 100);
         }
 
-        private void UpdateD(float dx, float dy)
+        public static void UpdateD(float dx, float dy)
         {
-
+            Town.dx = dx;
+            Town.dy = dy;
         }
     }
 }

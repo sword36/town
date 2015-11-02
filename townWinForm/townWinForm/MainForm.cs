@@ -50,6 +50,7 @@ namespace townWinForm
 
         private void update(int dt)
         {
+            Util.Move(MousePosition, Width, Height, dt);
             town.Update(dt);
         }
 
@@ -84,7 +85,6 @@ namespace townWinForm
 
             update(dt);
             Refresh();
-            //draw();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -119,6 +119,13 @@ namespace townWinForm
                         break;
                     }
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            Util.UpdateCamera += Building.UpdateD;
+            Util.UpdateCamera += Human.UpdateD;
+            Util.UpdateCamera += Town.UpdateD;
         }
     }
 }

@@ -9,6 +9,9 @@ namespace townWinForm
 {
     public static class Util
     {
+        public delegate void CameraUpdatingHandler(float dx, float dy);
+        public static event CameraUpdatingHandler UpdateCamera;
+
         private static Random rand = new Random(DateTime.Now.Millisecond);
 
         //Return positive valure from interval [number - delta; number + delta]
@@ -95,9 +98,38 @@ namespace townWinForm
             }
         }
 
-        public static void Move()
+        //Changes dx and dy values
+        /// <summary>
+        /// //Changes dx and dy values
+        /// </summary>
+        /// <param name="MousePoint">Current mouse position</param>
+        /// <param name="Width">Window width</param>
+        /// <param name="Height">Window height</param>
+        /// <param name="dt">dt</param>
+        public static void Move(Point MousePoint, int Width, int Height, int dt)
         {
+            if (MousePoint.X <= 10)
+            {
+                Config.dx += 500 / dt;
+            }
 
+            if (MousePoint.X >= Width - 10)
+            {
+                Config.dx -= 500 / dt;
+            }
+
+            if (MousePoint.Y <= 10)
+            {
+                Config.dy += 500 / dt;
+            }
+
+            if (MousePoint.Y >= Height - 10)
+            {
+                Config.dy -= 500 / dt;
+            }
+
+            if (UpdateCamera != null)
+                UpdateCamera(Config.dx, Config.dy);
         }
     }
 }
