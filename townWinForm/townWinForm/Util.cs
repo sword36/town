@@ -106,26 +106,26 @@ namespace townWinForm
         /// <param name="Width">Window width</param>
         /// <param name="Height">Window height</param>
         /// <param name="dt">dt</param>
-        public static void Move(Point MousePoint, int Width, int Height, int dt)
+        public static void Move(Point MousePoint, int Width, int Height, long dt)
         {
             if (MousePoint.X <= 10)
             {
-                Config.dx += 500 / dt;
+                Config.dx += 300 % dt;
             }
 
             if (MousePoint.X >= Width - 10)
             {
-                Config.dx -= 500 / dt;
+                Config.dx -= 300 % dt;
             }
 
             if (MousePoint.Y <= 10)
             {
-                Config.dy += 500 / dt;
+                Config.dy += 300 % dt;
             }
 
             if (MousePoint.Y >= Height - 10)
             {
-                Config.dy -= 500 / dt;
+                Config.dy -= 300 % dt;
             }
 
             if (UpdateCamera != null)

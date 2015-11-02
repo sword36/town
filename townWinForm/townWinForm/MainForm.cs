@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace townWinForm
 {
@@ -16,9 +17,6 @@ namespace townWinForm
 
         private Timer animationTimer;
         private long lastTime;
-
-        private Graphics g;
-        private Bitmap bitmap;
 
         private SettingsForm settingsForm;
 
@@ -42,29 +40,12 @@ namespace townWinForm
             animationTimer.Enabled = true;
             animationTimer.Tick += AnimationTimer_Tick;
             lastTime = DateTime.Now.Ticks;
-
-            //Drawing
-            bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
-            g = pictureBox.CreateGraphics();
         }
 
         private void update(int dt)
         {
             Util.Move(MousePosition, Width, Height, dt);
             town.Update(dt);
-        }
-
-        private void draw()
-        {
-            Graphics tempGraphics;
-
-            using (tempGraphics = Graphics.FromImage(bitmap))
-            {
-                tempGraphics.Clear(Color.White);
-                town.Draw(tempGraphics);
-            }
-
-            g.DrawImage(bitmap, new Point(0, 0));
         }
 
         private void pause()
@@ -100,7 +81,7 @@ namespace townWinForm
 
         private void draw(object sender, PaintEventArgs e)
         {
-            e.Graphics.Clear(Color.White);
+            //e.Graphics.Clear(Color.White);
             town.Draw(e.Graphics);
         }
 

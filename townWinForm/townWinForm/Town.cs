@@ -19,14 +19,26 @@ namespace townWinForm
             Citizens = new List<Human>();
         }
 
-        public void Update(int dt)
+        public void Update(long dt)
         {
 
         }
 
         public void Draw(Graphics g)
         {
-            g.DrawRectangle(Pens.Red, 100 + dx, 100 + dy, 100, 100);
+            for (int x = 0; x < 50; x++)
+            {
+                for (int y = 0; y < 50; y++)
+                {
+
+                    //if (Util.CheckPoint(new PointF(Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy)))
+                    {
+                        g.FillRectangle(new SolidBrush(Color.Blue), 50 * x + Config.dx, 50 * y + Config.dy, 50, 50);
+                        g.DrawRectangle(Pens.Red, 50 * x + Config.dx, 50 * y + Config.dy, 50,50);
+                    }
+                }
+
+            }
         }
 
         public static void UpdateD(float dx, float dy)
