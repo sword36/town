@@ -33,6 +33,7 @@ namespace townWinForm
         public static float dx = 0;
         public static float dy = 0;
         public static int FPS = 30;
+        public static float TileSize = 50;
 
         //Economic
         public static int StartMoney = 1000;

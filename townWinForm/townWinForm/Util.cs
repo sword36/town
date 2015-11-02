@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace townWinForm
 {
@@ -152,6 +154,57 @@ namespace townWinForm
         {
             Random rnd = new Random(seed);
             return Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255));
+        }
+
+        //Checks the point of getting into the area of the screen
+        public static bool CheckPoint(PointF point)
+        {
+            if (point.X + Config.TileSize < 0)
+            {
+                return false;
+            }
+
+            if (point.Y + Config.TileSize < 0)
+            {
+                return false;
+            }
+
+            if (point.X >= SystemInformation.PrimaryMonitorSize.Width)
+            {
+                return false;
+            }
+
+            if (point.Y >= SystemInformation.PrimaryMonitorSize.Height)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool CheckPoint(Point point)
+        {
+            if (point.X < 0)
+            {
+                return false;
+            }
+
+            if (point.Y < 0)
+            {
+                return false;
+            }
+
+            if (point.X >= SystemInformation.PrimaryMonitorSize.Width)
+            {
+                return false;
+            }
+
+            if (point.Y >= SystemInformation.PrimaryMonitorSize.Height)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
