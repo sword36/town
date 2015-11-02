@@ -82,6 +82,7 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Things\Bag.cs" />
     <Compile Include="Things\Food.cs" />
     <Compile Include="Things\Product.cs" />
     <Compile Include="Things\Thing.cs" />

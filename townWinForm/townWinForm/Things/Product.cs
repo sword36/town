@@ -9,9 +9,10 @@ namespace townWinForm.Things
     //Not food
     public class Product : Thing
     {
-        public Product(float price)
+        public Product(float price, float weight)
         {
             Price = price;
+            Weight = weight;
         }
 
         public Product()

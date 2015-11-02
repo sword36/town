@@ -9,5 +9,6 @@ namespace townWinForm.Things
     public abstract class Thing
     {
         public float Price { get; set; }
+        public float Weight { get; set }
     }
 }

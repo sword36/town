@@ -8,12 +8,13 @@ namespace townWinForm.Things
 {
     public class Food : Thing
     {
-        public float Energy;
+        public float Energy { get; set; }
 
-        public Food(float price, float energy)
+        public Food(float price, float energy, float weight)
         {
             Price = price;
             Energy = energy;
+            Weight = weight;
         }
 
         public Food()
