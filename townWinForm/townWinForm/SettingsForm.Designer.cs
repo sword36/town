@@ -32,6 +32,9 @@
             this.maxCitizensLabel = new System.Windows.Forms.Label();
             this.ErrorLabel = new System.Windows.Forms.Label();
             this.maxCitizensInput = new System.Windows.Forms.TextBox();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.ScrollSpeedLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // SettingsOK
@@ -74,17 +77,39 @@
             this.maxCitizensInput.Size = new System.Drawing.Size(137, 20);
             this.maxCitizensInput.TabIndex = 16;
             // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(193, 48);
+            this.trackBar1.Maximum = 15;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(137, 45);
+            this.trackBar1.TabIndex = 17;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // ScrollSpeedLabel
+            // 
+            this.ScrollSpeedLabel.AutoSize = true;
+            this.ScrollSpeedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ScrollSpeedLabel.Location = new System.Drawing.Point(12, 48);
+            this.ScrollSpeedLabel.Name = "ScrollSpeedLabel";
+            this.ScrollSpeedLabel.Size = new System.Drawing.Size(83, 16);
+            this.ScrollSpeedLabel.TabIndex = 18;
+            this.ScrollSpeedLabel.Text = "Max citizens:";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(342, 322);
+            this.Controls.Add(this.ScrollSpeedLabel);
+            this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.maxCitizensInput);
             this.Controls.Add(this.ErrorLabel);
             this.Controls.Add(this.maxCitizensLabel);
             this.Controls.Add(this.SettingsOK);
             this.Name = "SettingsForm";
             this.Text = "Settings";
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,5 +121,7 @@
         private System.Windows.Forms.Label maxCitizensLabel;
         public System.Windows.Forms.Label ErrorLabel;
         private System.Windows.Forms.TextBox maxCitizensInput;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label ScrollSpeedLabel;
     }
 }

@@ -21,12 +21,15 @@ namespace townWinForm
 
         private void updateConfigFromInputs()
         {
+            Config.ScrollSpeed = 250 + trackBar1.Value * 50;
             Config.MaxCitizens = checkAndGetFromTextBox(this.maxCitizensInput, 10, 100, "Max citizens error");
         }
 
         public void UpdateInputsFromConfig()
         {
+            ScrollSpeedLabel.Text = "Scroll Speed: " + (250 + trackBar1.Value * 50).ToString();
             maxCitizensInput.Text = Config.MaxCitizens.ToString();
+            
         }
 
         public SettingsForm()
@@ -47,6 +50,11 @@ namespace townWinForm
                 this.DialogResult = DialogResult.None;
             }
             
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            ScrollSpeedLabel.Text = "Scroll Speed: " + (250 + trackBar1.Value * 50).ToString();
         }
     }
 }

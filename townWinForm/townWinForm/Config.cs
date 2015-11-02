@@ -34,6 +34,7 @@ namespace townWinForm
         public static float dy = 0;
         public static int FPS = 30;
         public static float TileSize = 50;
+        public static float ScrollSpeed = 250;
 
         //Economic
         public static int StartMoney = 1000;

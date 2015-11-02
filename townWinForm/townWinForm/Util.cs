@@ -112,22 +112,22 @@ namespace townWinForm
         {
             if (MousePoint.X <= 10)
             {
-                Config.dx += 300 % dt;
+                Config.dx += Config.ScrollSpeed / dt;
             }
 
             if (MousePoint.X >= Width - 10)
             {
-                Config.dx -= 300 % dt;
+                Config.dx -= Config.ScrollSpeed / dt;
             }
 
             if (MousePoint.Y <= 10)
             {
-                Config.dy += 300 % dt;
+                Config.dy += Config.ScrollSpeed / dt;
             }
 
             if (MousePoint.Y >= Height - 10)
             {
-                Config.dy -= 300 % dt;
+                Config.dy -= Config.ScrollSpeed / dt;
             }
 
             if (UpdateCamera != null)

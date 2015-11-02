@@ -31,9 +31,9 @@ namespace townWinForm
                 for (int y = 0; y < 50; y++)
                 {
 
-                    //if (Util.CheckPoint(new PointF(Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy)))
+                    if (Util.CheckPoint(new PointF(Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy)))
                     {
-                        g.FillRectangle(new SolidBrush(Color.Blue), 50 * x + Config.dx, 50 * y + Config.dy, 50, 50);
+                        g.FillRectangle(new SolidBrush(Color.Gainsboro), 50 * x + Config.dx, 50 * y + Config.dy, 50, 50);
                         g.DrawRectangle(Pens.Red, 50 * x + Config.dx, 50 * y + Config.dy, 50,50);
                     }
                 }
