@@ -16,6 +16,7 @@ namespace townWinForm.BehaviourModels
             Level = level;
             StateMachine = new StackFSM("rest");
             base.WorkCost = Config.TraderWorkCost;
+            h.Bag.MaxCapacity = Config.ThiefBagCapacity;
         }
 
         public override void Update(int dt)

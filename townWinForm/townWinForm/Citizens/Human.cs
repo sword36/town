@@ -18,6 +18,7 @@ namespace townWinForm
         public float Energy { get; set; }
         public Building Home { get; set; }
         public Building WorkBuilding { get; set; }
+        public Bag Bag { get; set; }
 
         public Dictionary<String, int> ProfSkills;
 
@@ -36,6 +37,7 @@ namespace townWinForm
             Energy = Config.MaxEnergy;
             IsAlive = true;
             ProfSkills = new Dictionary<string, int>();
+            Bag = new Bag();
 
             //set all proffesion skills to 1 level
             foreach(string prof in Config.ProfList)

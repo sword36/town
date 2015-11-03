@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace townWinForm.Things
+namespace townWinForm
 {
     public class OverloadedBagExeption : Exception
     {
@@ -31,12 +31,28 @@ namespace townWinForm.Things
             {
                 return maxCapacity;
             }
+            //if setted MaxCapacity smaller then current weight - drop some things
+            set
+            {
+                while (weight > value)
+                {
+                    DropRandom();
+                }   
+                maxCapacity = value;
+            }
         }
 
         public Bag(float maxCapacity_)
         {
             weight = 0;
             maxCapacity = maxCapacity_;
+            things = new List<Thing>();
+        }
+
+        public Bag()
+        {
+            weight = 0;
+            maxCapacity = 0;
             things = new List<Thing>();
         }
 
@@ -78,6 +94,16 @@ namespace townWinForm.Things
                 }
             }
             return null;
+        }
+
+        public void DropRandom()
+        {
+            int l = things.Count;
+            if (l != 0)
+            {
+                int i = Util.GetRandomFromInterval(0, l);
+                things.RemoveAt(i);
+            }
         }
     }
 }
