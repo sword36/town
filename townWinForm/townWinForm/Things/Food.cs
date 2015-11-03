@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace townWinForm.Things
+namespace townWinForm
 {
     public class Food : Thing
     {

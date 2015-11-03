@@ -18,6 +18,7 @@ namespace townWinForm
         public float Energy { get; set; }
         public Building Home { get; set; }
         public Building WorkBuilding { get; set; }
+        public Bag Bag { get; set; }
 
         public Dictionary<String, int> ProfSkills;
 
