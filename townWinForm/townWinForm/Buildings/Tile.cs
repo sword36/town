@@ -52,5 +52,8 @@ namespace townWinForm
             Tile.dx = dx;
             Tile.dy = dy;
         }
+
+
+
     }
 }

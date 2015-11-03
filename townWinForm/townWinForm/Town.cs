@@ -12,6 +12,10 @@ namespace townWinForm
         private static float dx = 0;
         private static float dy = 0;
 
+        private List<Point> path;
+        public Point MousePosition;
+        public Point CurrentTile;
+
         public List<Human> Citizens;
         public List<Building> Structures;
 
@@ -28,7 +32,12 @@ namespace townWinForm
             CreateStreets();
             InitBuildings();
             InitAstarMatrix();
+            path = PathNode.FindPath(AstarMatrix, new Point(0, 0), new Point(Config.TownWidth - 3, Config.TownHeight - 3));
+        }
 
+        public void FindPath(Point start, Point finish)
+        {
+            path = PathNode.FindPath(AstarMatrix, start, finish);
         }
 
         public void InitAstarMatrix()
@@ -245,6 +254,11 @@ namespace townWinForm
                     g.FillRectangle(new SolidBrush(Util.GetRandomColor(AstarMatrix[x, y])), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
                 }
 
+            }
+
+            foreach (var p in path)
+            {
+                g.FillRectangle(new SolidBrush(Color.Red), Config.TileSize * p.X + Config.dx, Config.TileSize * p.Y + Config.dy, Config.TileSize, Config.TileSize);
             }
         }
 

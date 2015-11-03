@@ -64,9 +64,7 @@
     <Compile Include="Citizens\Human.cs" />
     <Compile Include="Citizens\StateFSM.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="Graph\Edge.cs" />
-    <Compile Include="Graph\Graph.cs" />
-    <Compile Include="Graph\Node.cs" />
+    <Compile Include="AStar\PathNode.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="IUpdatable.cs" />
     <Compile Include="MainForm.cs">
