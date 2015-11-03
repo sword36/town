@@ -52,6 +52,7 @@ namespace townWinForm.BehaviourModels
                 if (true) { }
                 StateMachine.PopState();
                 StateMachine.PushState("goHome");
+                StateMachine.EnqueueState("rest");
             }
             base.work(dt);
         }
@@ -59,21 +60,30 @@ namespace townWinForm.BehaviourModels
         private void goToWork(int dt)
         {
             base.goToWork(dt);
+            if (body.Energy < 5)
+            {
+                StateMachine.PushState("rest");
+            }
         }
 
         private void goHome(int dt)
         {
             base.goHome(dt);
+            if (body.Energy < 5)
+            {
+                StateMachine.PushState("rest");
+            }
         }
 
         private void sleep(int dt)
         {
+            base.sleep(dt);
+
             if (body.Energy > 90)
             {
                 StateMachine.PopState();
-                StateMachine.PushState("idle");
+                StateMachine.PushState("rest");
             }
-            base.sleep(dt);
         }
 
         public override void Update(int dt)
