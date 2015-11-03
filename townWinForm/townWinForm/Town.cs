@@ -27,11 +27,44 @@ namespace townWinForm
             MatrixInit();
             CreateStreets();
             InitBuildings();
-            int a = 0;
+            InitAstarMatrix();
 
         }
 
-        
+        public void InitAstarMatrix()
+        {
+            for (int x = 0; x < Config.TownWidth; x++)
+            {
+                for (int y = 0; y < Config.TownHeight; y++)
+                {
+                    AstarMatrix[x, y] = 1;
+                }
+            }
+
+            foreach (var s in Structures)
+            {
+                for (int x = 0; x < s.Position.Width; x++)
+                {
+                    for (int y = 0; y < s.Position.Height; y++)
+                    {
+                        
+                        if (s.LocalEntrance == new PointF(x, y))
+                        {
+                            AstarMatrix[s.Position.X + x, s.Position.Y + y] = 1;
+                        }
+                        else
+                        {
+                            AstarMatrix[s.Position.X + x, s.Position.Y + y] = int.MaxValue;
+                        }
+
+                        if ((x != 0) && (y != 0) && (x != s.Position.Width - 1) && (y != s.Position.Height - 1))
+                        {
+                            AstarMatrix[s.Position.X + x, s.Position.Y + y] = 1;
+                        }
+                    }
+                }
+            }
+        }
 
         private void InitBuildings()
         {
@@ -56,7 +89,7 @@ namespace townWinForm
                         while (matrix[x, y + h] == buildIndex)
                             h++;
 
-                        Structures.Add(new House(w, h));
+                        Structures.Add(new House(x, y, w, h));
                         idCounter.Add(buildIndex);
                     }
                     
@@ -186,16 +219,30 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
-            for (int x = 0; x < Config.TownWidth; x++)
+            /*for (int x = 0; x < Config.TownWidth; x++)
             {
                 for (int y = 0; y < Config.TownHeight; y++)
                 {
 
                     if (Util.CheckPoint(new PointF(Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy)))
                     {
-                        g.FillRectangle(new SolidBrush(Util.GetRandomColor(matrix[x, y])), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
+                        g.FillRectangle(new SolidBrush(Color.FromArgb(250, 250, 250)), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
                         g.DrawRectangle(Pens.Red, Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
                     }
+                }
+
+            }
+
+            foreach (var s in Structures)
+            {
+                s.Draw(g);
+            }*/
+
+            for (int x = 0; x < Config.TownWidth; x++)
+            {
+                for (int y = 0; y < Config.TownHeight; y++)
+                {
+                    g.FillRectangle(new SolidBrush(Util.GetRandomColor(AstarMatrix[x, y])), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
                 }
 
             }

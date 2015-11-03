@@ -54,6 +54,7 @@
     <Compile Include="Buildings\ProductionBuildings\Market.cs" />
     <Compile Include="Buildings\ProductionBuildings\ThievesGuild.cs" />
     <Compile Include="Buildings\House.cs" />
+    <Compile Include="Buildings\Tile.cs" />
     <Compile Include="Citizens\BehaviourModels\BehaviourModel.cs" />
     <Compile Include="Citizens\BehaviourModels\Craftsman.cs" />
     <Compile Include="Citizens\BehaviourModels\Farmer.cs" />
