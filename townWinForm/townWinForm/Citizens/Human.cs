@@ -31,7 +31,7 @@ namespace townWinForm
         private int waitTime = 0;
         private PointF tempTarget;
         private Town town;
-        private List<PathNode> path;
+        private List<Point> path;
 
         public Human(Town t)
         {
@@ -42,7 +42,7 @@ namespace townWinForm
             IsAlive = true;
             ProfSkills = new Dictionary<string, int>();
             Bag = new Bag();
-            path = new List<PathNode>();
+            path = new List<Point>();
 
             //set all proffesion skills to 1 level
             foreach(string prof in Config.ProfList)
@@ -101,12 +101,12 @@ namespace townWinForm
 
         }
 
-        public void Move(List<PathNode> pN, int dt)
+        public void Move(List<Point> pN, int dt)
         {
             if (pN.Count != 0)
             {
                 path = pN;
-                tempTarget = path.First().Position;
+                tempTarget = path.First();
                 path.RemoveAt(0);
                 MoveAlongThePath(dt);
             }
@@ -123,7 +123,7 @@ namespace townWinForm
             {
                 if (path.Count != 0)
                 {
-                    tempTarget = path.First().Position;
+                    tempTarget = path.First();
                     path.RemoveAt(0);
                 } else
                 {
@@ -132,6 +132,14 @@ namespace townWinForm
             }
             moveToTempTarget(dt);
             return false;   
+        }
+
+        public void moveToTempTarget(int dt)
+        {
+            double angle = Math.Atan2(tempTarget.Y - Position.Y, tempTarget.X - Position.X);
+            double dx = Speed * dt * Math.Cos(angle);
+            double dy = Speed * dt * Math.Sin(angle);
+            Position = new PointF(Position.X + (float)dx, Position.Y + (float)dy);
         }
 
         public void Move(RectangleF rect, int dt)
@@ -188,7 +196,7 @@ namespace townWinForm
             }
         }
 
-        public List<PathNode> Path
+        public List<Point> Path
         {
             get
             {
@@ -218,14 +226,6 @@ namespace townWinForm
         {
             Human.dx = dx;
             Human.dy = dy;
-        }
-
-        public void moveToTempTarget(int dt)
-        {
-            double angle = Math.Atan2(tempTarget.Y - Position.Y, tempTarget.X - Position.X);
-            double dx = Speed * dt * Math.Cos(angle);
-            double dy = Speed * dt * Math.Sin(angle);
-            Position = new PointF(Position.X + (float)dx, Position.Y + (float)dy);
         }
     }
 }
