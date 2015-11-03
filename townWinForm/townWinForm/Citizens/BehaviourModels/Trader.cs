@@ -14,7 +14,7 @@ namespace townWinForm.BehaviourModels
         {
             body = h;
             Level = level;
-            StateMachine = new StackFSM("idle");
+            StateMachine = new StackFSM("rest");
             base.WorkCost = Config.TraderWorkCost;
         }
 

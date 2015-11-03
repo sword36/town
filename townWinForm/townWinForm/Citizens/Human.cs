@@ -23,7 +23,6 @@ namespace townWinForm
 
         private static float dx = 0;
         private static float dy = 0;
-        private int hp;
         private int damage;
         private Human attackTarget = null;
         private Human activeTarget = null;
@@ -111,19 +110,11 @@ namespace townWinForm
 
         public void TakeDamage(int dmg)
         {
-            hp -= dmg;
+            Energy -= dmg;
 
-            if (hp <= 0)
+            if (Energy <= 0)
             {
                 IsAlive = false;
-            }
-        }
-
-        public int Hp
-        {
-            get
-            {
-                return hp;
             }
         }
 
