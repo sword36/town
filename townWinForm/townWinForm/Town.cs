@@ -12,6 +12,9 @@ namespace townWinForm
         private static float dx = 0;
         private static float dy = 0;
 
+        private Point si = new Point(2, 2);
+        private Point fi = new Point(Config.TownWidth - 3, Config.TownHeight - 3);
+
         private List<Point> path;
         public Point MousePosition;
         public Point CurrentTile;
@@ -32,7 +35,19 @@ namespace townWinForm
             CreateStreets();
             InitBuildings();
             InitAstarMatrix();
-            path = PathNode.FindPath(AstarMatrix, new Point(2, 2), new Point(Config.TownWidth - 3, Config.TownHeight - 3));
+            path = PathNode.FindPath(AstarMatrix, si, fi);
+        }
+
+        public void SetStartTile(Point index)
+        {
+            si = index;
+            path = PathNode.FindPath(AstarMatrix, index, fi);
+        }
+
+        public void SetFinishTile(Point index)
+        {
+            fi = index;
+            path = PathNode.FindPath(AstarMatrix, si, index);
         }
 
         public void FindPath(Point start, Point finish)

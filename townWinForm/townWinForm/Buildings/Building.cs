@@ -22,14 +22,22 @@ namespace townWinForm
         protected PointF entrance;
         protected PointF localEntrance;
 
+        //Entrance in town
         public PointF Entrance
         {
             get { return entrance; }
         }
 
+        //Entrance in building
         public PointF LocalEntrance
         {
             get { return localEntrance; }
+        }
+
+        //Left upper point's position
+        public PointF LeftPosition
+        {
+            get { return Util.ConvertIndexToInt(Position.Location); }
         }
 
         public Rectangle Position { get; set; }

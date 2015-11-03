@@ -237,5 +237,28 @@ namespace townWinForm
         {
             return new PointF(index.X * Config.TileSize + Config.dx, index.Y * Config.TileSize + Config.dy);
         }
+
+        public static Point ConvertIntToIndex(PointF num)
+        {
+            //int dx = (int)Math.Ceiling(Config.dx % Config.TileSize);
+            int x = (int)((num.X - Config.dx) / Config.TileSize);
+
+            //int dy = (int)Math.Ceiling(Config.dy % Config.TileSize);
+            int y = (int)((num.Y - Config.dy) / Config.TileSize);
+
+            if (x >= Config.TownWidth)
+                x = Config.TownWidth - 1;
+
+            if (y >= Config.TownHeight)
+                y = Config.TownHeight - 1;
+
+            if (x < 0)
+                x = 0;
+
+            if (y < 0)
+                y = 0;
+
+            return new Point(x, y);
+        }
     }
 }

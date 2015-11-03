@@ -123,7 +123,7 @@ namespace townWinForm
         {
             if (e.Delta > 0)
             {
-                if (Config.Zoom < 2)
+                if (Config.Zoom < 3)
                 {
                     Config.Zoom += 0.05f;
 
@@ -134,7 +134,7 @@ namespace townWinForm
 
             if (e.Delta < 0)
             {
-                if (Config.Zoom > 0.5)
+                if (Config.Zoom > 0.1)
                 {
 
                     Config.Zoom -= 0.05f;
@@ -144,6 +144,23 @@ namespace townWinForm
                 }
             }
         }
-        
+
+        private void MainForm_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Point targetTile = Util.ConvertIntToIndex(e.Location);
+
+                town.SetStartTile(targetTile);
+            }
+
+
+            if (e.Button == MouseButtons.Right)
+            {
+                Point targetTile = Util.ConvertIntToIndex(e.Location);
+
+                town.SetFinishTile(targetTile);
+            }
+        }
     }
 }
