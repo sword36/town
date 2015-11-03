@@ -25,6 +25,8 @@ namespace townWinForm
             InitializeComponent();
             DoubleBuffered = true;
 
+            MouseWheel += Zoom;
+
             WindowState = FormWindowState.Normal;
             FormBorderStyle = FormBorderStyle.None;
             Bounds = Screen.PrimaryScreen.Bounds;
@@ -99,6 +101,13 @@ namespace townWinForm
                         Close();
                         break;
                     }
+
+                case Keys.Space:
+                    {
+                        Config.dx = 0;
+                        Config.dy = 0;
+                        break;
+                    }
             }
         }
 
@@ -107,6 +116,27 @@ namespace townWinForm
             Util.UpdateCamera += Building.UpdateD;
             Util.UpdateCamera += Human.UpdateD;
             Util.UpdateCamera += Town.UpdateD;
+            Util.UpdateCamera += Tile.UpdateD;
         }
+
+        private void Zoom(object sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                if (Config.Zoom < 2)
+                {
+                    Config.Zoom += 0.05f;
+                }
+            }
+
+            if (e.Delta < 0)
+            {
+                if (Config.Zoom > 0.5)
+                {
+                    Config.Zoom -= 0.05f;
+                }
+            }
+        }
+        
     }
 }

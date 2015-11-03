@@ -12,21 +12,98 @@ namespace townWinForm
         private static float dx = 0;
         private static float dy = 0;
 
+        private List<Point> path;
+        public Point MousePosition;
+        public Point CurrentTile;
+
         public List<Human> Citizens;
         public List<Building> Structures;
 
         private int[,] matrix;
-        private int[,] matrix2;
+        private int[,] AstarMatrix;
 
         public Town()
         {
             Citizens = new List<Human>();
             Structures = new List<Building>();
             matrix = new int[Config.TownWidth, Config.TownHeight];
-            matrix2 = new int[Config.TownWidth, Config.TownHeight];
+            AstarMatrix = new int[Config.TownWidth, Config.TownHeight];
             MatrixInit();
             CreateStreets();
+            InitBuildings();
+            InitAstarMatrix();
+            path = PathNode.FindPath(AstarMatrix, new Point(2, 2), new Point(Config.TownWidth - 3, Config.TownHeight - 3));
+        }
 
+        public void FindPath(Point start, Point finish)
+        {
+            path = PathNode.FindPath(AstarMatrix, start, finish);
+        }
+
+        public void InitAstarMatrix()
+        {
+            for (int x = 0; x < Config.TownWidth; x++)
+            {
+                for (int y = 0; y < Config.TownHeight; y++)
+                {
+                    AstarMatrix[x, y] = 1;
+                }
+            }
+
+            foreach (var s in Structures)
+            {
+                for (int x = 0; x < s.Position.Width; x++)
+                {
+                    for (int y = 0; y < s.Position.Height; y++)
+                    {
+                        
+                        if (s.LocalEntrance == new PointF(x, y))
+                        {
+                            AstarMatrix[s.Position.X + x, s.Position.Y + y] = 1;
+                        }
+                        else
+                        {
+                            AstarMatrix[s.Position.X + x, s.Position.Y + y] = int.MaxValue;
+                        }
+
+                        if ((x != 0) && (y != 0) && (x != s.Position.Width - 1) && (y != s.Position.Height - 1))
+                        {
+                            AstarMatrix[s.Position.X + x, s.Position.Y + y] = 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void InitBuildings()
+        {
+            List<int> idCounter = new List<int>();
+            for (int x = 0; x < Config.TownWidth; x++)
+            {
+                
+                for (int y = 0; y < Config.TownHeight; y++)
+                {
+                    if (matrix[x, y] != 0)
+                    {
+                        int w = 0;
+                        int h = 0;
+                        int buildIndex = matrix[x, y];
+
+                        if (Util.IsInList(idCounter, buildIndex))
+                            continue;
+
+                        while (matrix[x + w, y] == buildIndex)
+                            w++;
+
+                        while (matrix[x, y + h] == buildIndex)
+                            h++;
+
+                        Structures.Add(new House(x, y, w, h));
+                        idCounter.Add(buildIndex);
+                    }
+                    
+                }
+            }
         }
 
         private void MatrixInit()
@@ -36,7 +113,7 @@ namespace townWinForm
                 for (int y = 0; y < Config.TownHeight; y++)
                 {
                     matrix[x, y] = 0;
-                    matrix2[x, y] = 2;
+                    AstarMatrix[x, y] = 2;
                 }
             }
 
@@ -53,7 +130,7 @@ namespace townWinForm
                 }
             }
 
-            for (int yy = 0; yy < Config.TownHeight; yy += 11)
+            for (int yy = 0; yy < Config.TownHeight; yy += Config.StreetHeight)
 
             for (int i = 0; i < Config.TownWidth; i++)
             {
@@ -64,18 +141,18 @@ namespace townWinForm
                         int w = rand.Next(5, 7);
                         int h = rand.Next(5, 7);
 
-                        if (Config.TownWidth - i <= 9)
+                        if (Config.TownWidth - i <= 11)
                         {
                             switch (Config.TownWidth - i)
                                 {
-                                    case 11:
-                                        {
-                                            w = 6;
-                                            break;
-                                        }
                                     case 10:
                                         {
                                             w = 5;
+                                            break;
+                                        }
+                                    case 11:
+                                        {
+                                            w = 6;
                                             break;
                                         }
                                     default:
@@ -94,7 +171,7 @@ namespace townWinForm
                                 //matrix[i + x, y + h] = buildIndex + 1;
                             }
 
-                            for (int y = h; y < 11; y++)
+                            for (int y = h; y < Config.StreetHeight; y++)
                             {
                                 matrix[i + x, yy + y] = buildIndex + 1;
                             }
@@ -111,31 +188,25 @@ namespace townWinForm
         {
             for (int x = 0; x < Config.TownWidth; x++)
             {
-                matrix2[x, 0] = 0;
-                matrix2[x, Config.TownHeight - 1] = 0;
+                AstarMatrix[x, 0] = 0;
+                AstarMatrix[x, Config.TownHeight - 1] = 0;
                 for (int y = 0; y < Config.TownHeight; y++)
                 {
-                    matrix2[0, y] = 0;
-                    matrix2[Config.TownWidth - 1, y] = 0;
+                    AstarMatrix[0, y] = 0;
+                    AstarMatrix[Config.TownWidth - 1, y] = 0;
 
                     if (x != Config.TownWidth - 1)
                     if (matrix[x, y] != matrix[x + 1, y])
                     {
-                        //if ((matrix[x, y] != 0) && (matrix[x + 1, y] != 0))
-                        {
-                            matrix2[x, y] = 0;
-                            matrix2[x + 1, y] = 0;
-                        }
+                        AstarMatrix[x, y] = 0;
+                        AstarMatrix[x + 1, y] = 0;
                     }
 
                     if (y != Config.TownHeight - 1)
                     if (matrix[x, y] != matrix[x, y + 1])
                     {
-                        //if ((matrix[x, y] != 0) && (matrix[x, y + 1] != 0))
-                        {
-                            matrix2[x, y] = 0;
-                            matrix2[x, y + 1] = 0;
-                        }
+                        AstarMatrix[x, y] = 0;
+                        AstarMatrix[x, y + 1] = 0;
                     }
                 }
             }
@@ -144,8 +215,8 @@ namespace townWinForm
             {
                 for (int y = 0; y < Config.TownHeight; y++)
                 {
-                    if (matrix2[x, y] == 0)
-                    matrix[x, y] = matrix2[x, y];
+                    if (AstarMatrix[x, y] == 0)
+                    matrix[x, y] = AstarMatrix[x, y];
                 }
             }
         }
@@ -164,12 +235,33 @@ namespace townWinForm
 
                     if (Util.CheckPoint(new PointF(Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy)))
                     {
-                        g.FillRectangle(new SolidBrush(Util.GetRandomColor(matrix[x, y])), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
-                        g.DrawRectangle(Pens.Red, Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
+                        g.FillRectangle(new SolidBrush(Color.FromArgb(250, 250, 250)), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
+                        //g.DrawRectangle(new Pen(Color.FromArgb(60, 240, 10, 10)), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
                     }
                 }
 
             }
+
+            foreach (var p in path)
+            {
+                g.FillRectangle(new SolidBrush(Color.Red), Config.TileSize * p.X + Config.dx, Config.TileSize * p.Y + Config.dy, Config.TileSize, Config.TileSize);
+            }
+
+            foreach (var s in Structures)
+            {
+                s.Draw(g);
+            }
+
+            /*for (int x = 0; x < Config.TownWidth; x++)
+            {
+                for (int y = 0; y < Config.TownHeight; y++)
+                {
+                    g.FillRectangle(new SolidBrush(Util.GetRandomColor(AstarMatrix[x, y])), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
+                }
+
+            }*/
+
+            
         }
 
         public static void UpdateD(float dx, float dy)

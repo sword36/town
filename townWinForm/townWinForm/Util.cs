@@ -16,6 +16,21 @@ namespace townWinForm
 
         private static Random rand = new Random(DateTime.Now.Millisecond);
 
+        public static int GetRandomNumber()
+        {
+            return rand.Next();
+        }
+
+        public static int GetRandomNumber(int maxValue)
+        {
+            return rand.Next(maxValue);
+        }
+
+        public static int GetRandomNumber(int minValue, int maxValue)
+        {
+            return rand.Next(minValue, maxValue);
+        }
+
         //Return positive valure from interval [number - delta; number + delta]
         public static int GetRandomDistribution(int number, int delta)
         {
@@ -152,7 +167,7 @@ namespace townWinForm
         /// <returns></returns>
         public static Color GetRandomColor(int seed)
         {
-            if (seed == 0) return Color.FromArgb(215, 215, 215);
+            if (seed == 1) return Color.FromArgb(215, 215, 215);
             else return Color.FromArgb(40, 40, 40);
             Random rnd = new Random(seed);
             return Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255));
@@ -207,6 +222,20 @@ namespace townWinForm
             }
 
             return true;
+        }
+
+        public static bool IsInList(List<int> l, int val)
+        {
+            for (int i = 0; i < l.Count; i++)
+            {
+                if (l[i] == val) return true;
+            }
+            return false;
+        }
+
+        public static PointF ConvertIndexToInt(PointF index)
+        {
+            return new PointF(index.X * Config.tileSize + Config.dx, index.Y * Config.tileSize + Config.dy);
         }
     }
 }
