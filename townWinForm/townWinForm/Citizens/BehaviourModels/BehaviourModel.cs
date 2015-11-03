@@ -64,8 +64,16 @@ namespace townWinForm
             }
         }
 
-        protected virtual void goHome(int dt)
+        protected virtual bool goHome(int dt)
         {
+            if (body.Path.Count == 0)
+            {
+                body.Move(body.Town.FindPath(body.Position, body.Home.Position), dt);
+            } else
+            {
+                return body.MoveAlongThePath(dt);
+            }
+
             float dEnergy = Config.EnergyMoveCost * dt;
             //move
             if (body.Energy - dEnergy > 0)
@@ -76,10 +84,20 @@ namespace townWinForm
             {
                 body.Energy = 0;
             }
+            return false;
         }
 
-        protected virtual void goToWork(int dt)
+        protected virtual bool goToWork(int dt)
         {
+            if (body.Path.Count == 0)
+            {
+                body.Move(body.Town.FindPath(body.Position, body.WorkBuilding.Position), dt);
+            }
+            else
+            {
+                return body.MoveAlongThePath(dt);
+            }
+
             float dEnergy = Config.EnergyMoveCost * dt;
             //move
             if (body.Energy - dEnergy > 0)
@@ -90,6 +108,7 @@ namespace townWinForm
             {
                 body.Energy = 0;
             }
+            return false;
         }
 
         //decrease energy, and if energy in low level then decrease happiness

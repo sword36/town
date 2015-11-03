@@ -29,6 +29,7 @@ namespace townWinForm
         public static float HappyForRest = 1;
         public static float UnhappyForNoFood = 10;
         public static float HomeNear = 200;
+        public static float MovePrecision = 5;
 
         //Behaviours
         public static float CraftsmanWorkCost = 3;
@@ -42,6 +43,12 @@ namespace townWinForm
         public static float GuardianBagCapacity = 100;
         public static float ThiefBagCapacity = 250;
         public static float TraderBagCapacity = 300;
+
+        public static float CraftsmanSpeed = 0.2f;
+        public static float FarmerSpeed = 0.2f;
+        public static float GuardianSpeed = 0.15f;
+        public static float ThiefSpeed = 0.25f;
+        public static float TraderSpeed = 0.1f;
 
         //Things
         public static float ProductCost = 300;

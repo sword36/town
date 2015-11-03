@@ -17,13 +17,14 @@ namespace townWinForm.BehaviourModels
             StateMachine = new StackFSM("rest");
             base.WorkCost = Config.ThiefWorkCost;
             h.Bag.MaxCapacity = Config.ThiefBagCapacity;
+            h.Speed = Config.ThiefSpeed;
         }
 
         public override void Update(int dt)
         {
             switch (StateMachine.GetCurrentState())
             {
-                case "idle":
+                case "rest":
                     rest(dt);
                     break;
                 case "work":

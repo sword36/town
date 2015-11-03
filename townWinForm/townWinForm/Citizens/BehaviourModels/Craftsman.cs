@@ -17,6 +17,7 @@ namespace townWinForm.BehaviourModels
             StateMachine = new StackFSM("rest");
             WorkCost = Config.CraftsmanWorkCost;
             h.Bag.MaxCapacity = Config.CraftsmanBagCapacity;
+            h.Speed = Config.CraftsmanSpeed;
         }
 
         private void rest(int dt)
@@ -59,8 +60,9 @@ namespace townWinForm.BehaviourModels
 
         private void goToWork(int dt)
         {
-            base.goToWork(dt);
-            if (body.Energy < 5)
+            bool isAtHome = base.goToWork(dt);
+
+            if (body.Energy < 5 || isAtHome)
             {
                 StateMachine.PushState("rest");
             }
@@ -68,8 +70,9 @@ namespace townWinForm.BehaviourModels
 
         private void goHome(int dt)
         {
-            base.goHome(dt);
-            if (body.Energy < 5)
+            bool isAtHome = base.goHome(dt);
+
+            if (body.Energy < 5 || isAtHome)
             {
                 StateMachine.PushState("rest");
             }
