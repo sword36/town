@@ -147,20 +147,7 @@ namespace townWinForm
 
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                Point targetTile = Util.ConvertIntToIndex(e.Location);
-
-                town.SetStartTile(targetTile);
-            }
-
-
-            if (e.Button == MouseButtons.Right)
-            {
-                Point targetTile = Util.ConvertIntToIndex(e.Location);
-
-                town.SetFinishTile(targetTile);
-            }
+            
         }
     }
 }

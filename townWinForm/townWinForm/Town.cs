@@ -16,6 +16,7 @@ namespace townWinForm
         private Point fi = new Point(Config.TownWidth - 3, Config.TownHeight - 3);
 
         private List<Point> path;
+        private List<PointF> pathF;
         public Point MousePosition;
         public Point CurrentTile;
 
@@ -35,24 +36,18 @@ namespace townWinForm
             CreateStreets();
             InitBuildings();
             InitAstarMatrix();
-            path = PathNode.FindPath(AstarMatrix, si, fi);
-        }
-
-        public void SetStartTile(Point index)
-        {
-            si = index;
-            path = PathNode.FindPath(AstarMatrix, index, fi);
-        }
-
-        public void SetFinishTile(Point index)
-        {
-            fi = index;
-            path = PathNode.FindPath(AstarMatrix, si, index);
+            //path = FindPath(new Point(1000, 1000), Structures[10]);
         }
 
         public void FindPath(Point start, Point finish)
         {
             path = PathNode.FindPath(AstarMatrix, start, finish);
+        }
+
+        public List<PointF> FindPath(Point start, Building finish)
+        {
+            pathF = PathNode.FindPath(AstarMatrix, Util.ConvertIntToIndex(start), finish.Entrance);
+            return pathF;
         }
 
         public void InitAstarMatrix()
@@ -255,11 +250,6 @@ namespace townWinForm
                     }
                 }
 
-            }
-
-            foreach (var p in path)
-            {
-                g.FillRectangle(new SolidBrush(Color.Red), Config.TileSize * p.X + Config.dx, Config.TileSize * p.Y + Config.dy, Config.TileSize, Config.TileSize);
             }
 
             foreach (var s in Structures)
