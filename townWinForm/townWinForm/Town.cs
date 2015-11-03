@@ -32,7 +32,7 @@ namespace townWinForm
             CreateStreets();
             InitBuildings();
             InitAstarMatrix();
-            path = PathNode.FindPath(AstarMatrix, new Point(0, 0), new Point(Config.TownWidth - 3, Config.TownHeight - 3));
+            path = PathNode.FindPath(AstarMatrix, new Point(2, 2), new Point(Config.TownWidth - 3, Config.TownHeight - 3));
         }
 
         public void FindPath(Point start, Point finish)
@@ -228,7 +228,7 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
-            /*for (int x = 0; x < Config.TownWidth; x++)
+            for (int x = 0; x < Config.TownWidth; x++)
             {
                 for (int y = 0; y < Config.TownHeight; y++)
                 {
@@ -236,22 +236,8 @@ namespace townWinForm
                     if (Util.CheckPoint(new PointF(Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy)))
                     {
                         g.FillRectangle(new SolidBrush(Color.FromArgb(250, 250, 250)), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
-                        g.DrawRectangle(Pens.Red, Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
+                        //g.DrawRectangle(new Pen(Color.FromArgb(60, 240, 10, 10)), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
                     }
-                }
-
-            }
-
-            foreach (var s in Structures)
-            {
-                s.Draw(g);
-            }*/
-
-            for (int x = 0; x < Config.TownWidth; x++)
-            {
-                for (int y = 0; y < Config.TownHeight; y++)
-                {
-                    g.FillRectangle(new SolidBrush(Util.GetRandomColor(AstarMatrix[x, y])), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
                 }
 
             }
@@ -260,6 +246,22 @@ namespace townWinForm
             {
                 g.FillRectangle(new SolidBrush(Color.Red), Config.TileSize * p.X + Config.dx, Config.TileSize * p.Y + Config.dy, Config.TileSize, Config.TileSize);
             }
+
+            foreach (var s in Structures)
+            {
+                s.Draw(g);
+            }
+
+            /*for (int x = 0; x < Config.TownWidth; x++)
+            {
+                for (int y = 0; y < Config.TownHeight; y++)
+                {
+                    g.FillRectangle(new SolidBrush(Util.GetRandomColor(AstarMatrix[x, y])), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
+                }
+
+            }*/
+
+            
         }
 
         public static void UpdateD(float dx, float dy)

@@ -25,6 +25,8 @@ namespace townWinForm
             InitializeComponent();
             DoubleBuffered = true;
 
+            MouseWheel += Zoom;
+
             WindowState = FormWindowState.Normal;
             FormBorderStyle = FormBorderStyle.None;
             Bounds = Screen.PrimaryScreen.Bounds;
@@ -117,6 +119,24 @@ namespace townWinForm
             Util.UpdateCamera += Tile.UpdateD;
         }
 
+        private void Zoom(object sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                if (Config.Zoom < 2)
+                {
+                    Config.Zoom += 0.05f;
+                }
+            }
+
+            if (e.Delta < 0)
+            {
+                if (Config.Zoom > 0.5)
+                {
+                    Config.Zoom -= 0.05f;
+                }
+            }
+        }
         
     }
 }

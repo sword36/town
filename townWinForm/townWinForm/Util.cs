@@ -232,5 +232,10 @@ namespace townWinForm
             }
             return false;
         }
+
+        public static PointF ConvertIndexToInt(PointF index)
+        {
+            return new PointF(index.X * Config.tileSize + Config.dx, index.Y * Config.tileSize + Config.dy);
+        }
     }
 }

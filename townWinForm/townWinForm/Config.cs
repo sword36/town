@@ -55,7 +55,7 @@ namespace townWinForm
         //Town
         public static float TileSize
         {
-            get { return 25 * Zoom; }
+            get { return tileSize * Zoom; }
         }
 
         public static float tileSize = 25;
@@ -65,12 +65,10 @@ namespace townWinForm
         
 
         //Display
-
-
         public static float dx = 0;
         public static float dy = 0;
         public static int FPS = 30;
-        public static float ScrollSpeed = 1000 * Zoom;
+        public static float ScrollSpeed = 1000;
 
         //Economic
         public static int StartMoney = 1000;
