@@ -74,6 +74,22 @@ namespace townWinForm
             }
         }
 
+        public float Eat()
+        {
+            Food f = Bag.GetFood();
+            if (f != null)
+            {
+                if (Energy + f.Energy <= Config.MaxEnergy)
+                {
+                    Energy += f.Energy;
+                }
+                return f.Energy;
+            } else
+            {
+                return 0;
+            }
+        }
+
         public void Move(PointF p, int dt)
         {
 

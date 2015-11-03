@@ -19,15 +19,48 @@ namespace townWinForm
         protected virtual void rest(int dt)
         {
             float dEnergy = Config.EnergyForRest * dt;
-            if (body.Energy + dEnergy <= Config.MaxEnergy)
+            if (body.Energy + dEnergy < Config.MaxEnergy)
             {
                 body.Energy += dEnergy;
+            } else
+            {
+                body.Energy = Config.MaxEnergy;
             }
 
             float dHappy = Config.HappyForRest * dt;
             if (body.Happiness + dHappy <= Config.MaxHappiness)
             {
                 body.Happiness += dHappy;
+            } else
+            {
+                body.Happiness = Config.MaxHappiness;
+            }
+        }
+
+        protected virtual void eat()
+        {
+            try
+            {
+                float dHappy = body.Eat();
+                if (body.Happiness + dHappy < Config.MaxHappiness)
+                {
+                    body.Happiness += dHappy;
+                }
+                else
+                {
+                    body.Happiness = Config.MaxHappiness;
+                }
+            }
+            catch (NoFoodExeption ex)
+            {
+                if (body.Happiness - Config.UnhappyForNoFood > 0)
+                {
+                    body.Happiness -= Config.UnhappyForNoFood;
+                }
+                else
+                {
+                    body.Happiness = 0;
+                }
             }
         }
 
@@ -35,10 +68,13 @@ namespace townWinForm
         {
             float dEnergy = Config.EnergyMoveCost * dt;
             //move
-            if (body.Energy - dEnergy >= 0)
+            if (body.Energy - dEnergy > 0)
             {
                 body.Energy -= dEnergy;
                 body.Move(body.Home.Position, dt);
+            } else
+            {
+                body.Energy = 0;
             }
         }
 
@@ -46,10 +82,13 @@ namespace townWinForm
         {
             float dEnergy = Config.EnergyMoveCost * dt;
             //move
-            if (body.Energy - dEnergy >= 0)
+            if (body.Energy - dEnergy > 0)
             {
                 body.Energy -= dEnergy;
                 body.Move(body.WorkBuilding.Position, dt);
+            } else
+            {
+                body.Energy = 0;
             }
         }
 
@@ -57,16 +96,23 @@ namespace townWinForm
         protected virtual void work(int dt)
         {
             float dEnergy = WorkCost * dt;
-            if (body.Energy - dEnergy >= 0)
+            if (body.Energy - dEnergy > 0)
             {
                 body.Energy -= dEnergy;
-            } 
+            } else
+            {
+                body.Energy = 0;
+            }
+
             if (body.Energy < Config.EnergyLowerBoundToUnhappy)
             {
                 float dHappy = Config.UnhappyForWork * dt;
-                if (body.Happiness - dHappy >= 0)
+                if (body.Happiness - dHappy > 0)
                 {
                     body.Happiness -= dHappy;
+                } else
+                {
+                    body.Happiness = Config.MaxHappiness;
                 }
             }
         }
@@ -83,12 +129,18 @@ namespace townWinForm
             if (body.Energy + dEnergy <= Config.MaxEnergy)
             {
                 body.Energy += dEnergy;
+            } else
+            {
+                body.Energy = Config.MaxEnergy;
             }
 
             float dHappy = Config.EnergyForSleep * dt;
             if (body.Happiness + dHappy <= Config.MaxHappiness)
             {
                 body.Happiness += dHappy;
+            } else
+            {
+                body.Happiness += Config.MaxHappiness;
             }
         }
     }

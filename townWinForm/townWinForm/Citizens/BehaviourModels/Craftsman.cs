@@ -21,17 +21,26 @@ namespace townWinForm.BehaviourModels
 
         private void rest(int dt)
         {
-            if (body.Energy > 30)
+            if (body.Energy > 80)
             {
                 StateMachine.PopState();
                 StateMachine.PushState("goToWork");
-            } else if (body.Energy > 10)
+            } else if (body.Energy < 50)
             {
-                StateMachine.PopState();
-                StateMachine.PushState("goHome");
-            } else
+                eat();
+            }
+            else if (body.Energy < 20)
             {
-                StateMachine.PushState("sleep");
+                if (body.DistanceToHome() < Config.HomeNear)
+                {
+                    StateMachine.PopState();
+                    StateMachine.PushState("goHome");
+                    StateMachine.EnqueueState("sleep");
+                } else
+                {
+                    StateMachine.PopState();
+                    StateMachine.PushState("sleep");
+                }
             }
             base.rest(dt);
         }
