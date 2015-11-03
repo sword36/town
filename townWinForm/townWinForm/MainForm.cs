@@ -115,5 +115,7 @@ namespace townWinForm
             Util.UpdateCamera += Human.UpdateD;
             Util.UpdateCamera += Town.UpdateD;
         }
+
+        
     }
 }

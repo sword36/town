@@ -16,14 +16,14 @@ namespace townWinForm
         public List<Building> Structures;
 
         private int[,] matrix;
-        private int[,] matrix2;
+        private int[,] AstarMatrix;
 
         public Town()
         {
             Citizens = new List<Human>();
             Structures = new List<Building>();
             matrix = new int[Config.TownWidth, Config.TownHeight];
-            matrix2 = new int[Config.TownWidth, Config.TownHeight];
+            AstarMatrix = new int[Config.TownWidth, Config.TownHeight];
             MatrixInit();
             CreateStreets();
             InitBuildings();
@@ -71,7 +71,7 @@ namespace townWinForm
                 for (int y = 0; y < Config.TownHeight; y++)
                 {
                     matrix[x, y] = 0;
-                    matrix2[x, y] = 2;
+                    AstarMatrix[x, y] = 2;
                 }
             }
 
@@ -146,31 +146,25 @@ namespace townWinForm
         {
             for (int x = 0; x < Config.TownWidth; x++)
             {
-                matrix2[x, 0] = 0;
-                matrix2[x, Config.TownHeight - 1] = 0;
+                AstarMatrix[x, 0] = 0;
+                AstarMatrix[x, Config.TownHeight - 1] = 0;
                 for (int y = 0; y < Config.TownHeight; y++)
                 {
-                    matrix2[0, y] = 0;
-                    matrix2[Config.TownWidth - 1, y] = 0;
+                    AstarMatrix[0, y] = 0;
+                    AstarMatrix[Config.TownWidth - 1, y] = 0;
 
                     if (x != Config.TownWidth - 1)
                     if (matrix[x, y] != matrix[x + 1, y])
                     {
-                        //if ((matrix[x, y] != 0) && (matrix[x + 1, y] != 0))
-                        {
-                            matrix2[x, y] = 0;
-                            matrix2[x + 1, y] = 0;
-                        }
+                        AstarMatrix[x, y] = 0;
+                        AstarMatrix[x + 1, y] = 0;
                     }
 
                     if (y != Config.TownHeight - 1)
                     if (matrix[x, y] != matrix[x, y + 1])
                     {
-                        //if ((matrix[x, y] != 0) && (matrix[x, y + 1] != 0))
-                        {
-                            matrix2[x, y] = 0;
-                            matrix2[x, y + 1] = 0;
-                        }
+                        AstarMatrix[x, y] = 0;
+                        AstarMatrix[x, y + 1] = 0;
                     }
                 }
             }
@@ -179,8 +173,8 @@ namespace townWinForm
             {
                 for (int y = 0; y < Config.TownHeight; y++)
                 {
-                    if (matrix2[x, y] == 0)
-                    matrix[x, y] = matrix2[x, y];
+                    if (AstarMatrix[x, y] == 0)
+                    matrix[x, y] = AstarMatrix[x, y];
                 }
             }
         }

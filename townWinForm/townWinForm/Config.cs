@@ -10,7 +10,7 @@ namespace townWinForm
     {
         //Common
         public static int GameSpeed = 1; //control: Track bar
-        public static int Zoom = 1; //control: Track bar
+        public static float Zoom = 1; //control: Track bar
 
         //Citizens
         public static int MaxCitizens = 50;
@@ -53,17 +53,24 @@ namespace townWinForm
         public static float FoodWeightDelta = 20;
 
         //Town
-        public static float TileSize = 25;
+        public static float TileSize
+        {
+            get { return 25 * Zoom; }
+        }
+
+        public static float tileSize = 25;
         public static int StreetHeight = 12;
-        public static int TownWidth = 50;
-        public static int TownHeight = StreetHeight * 3;
+        public static int TownWidth = 60;
+        public static int TownHeight = StreetHeight * 4;
         
 
         //Display
+
+
         public static float dx = 0;
         public static float dy = 0;
         public static int FPS = 30;
-        public static float ScrollSpeed = 1000;
+        public static float ScrollSpeed = 1000 * Zoom;
 
         //Economic
         public static int StartMoney = 1000;
