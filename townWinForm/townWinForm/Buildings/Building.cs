@@ -34,6 +34,12 @@ namespace townWinForm
             get { return localEntrance; }
         }
 
+        //Left upper point's position
+        public PointF LeftPosition
+        {
+            get { return Util.ConvertIndexToInt(Position.Location); }
+        }
+
         public Rectangle Position { get; set; }
 
         private static float dx = 0;
