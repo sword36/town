@@ -16,6 +16,7 @@ namespace townWinForm.BehaviourModels
             Level = level;
             StateMachine = new StackFSM("idle");
             base.WorkCost = Config.FarmerWorkCost;
+            h.Bag.MaxCapacity = Config.FarmerBagCapacity;
         }
 
         public override void Update(int dt)

@@ -38,6 +38,7 @@ namespace townWinForm
             Energy = Config.MaxEnergy;
             IsAlive = true;
             ProfSkills = new Dictionary<string, int>();
+            Bag = new Bag();
 
             //set all proffesion skills to 1 level
             foreach(string prof in Config.ProfList)

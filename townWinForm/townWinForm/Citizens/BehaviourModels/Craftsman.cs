@@ -16,6 +16,7 @@ namespace townWinForm.BehaviourModels
             Level = level;
             StateMachine = new StackFSM("idle");
             WorkCost = Config.CraftsmanWorkCost;
+            h.Bag.MaxCapacity = Config.CraftsmanBagCapacity;
         }
 
         private void rest(int dt)
