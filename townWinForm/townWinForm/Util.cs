@@ -235,7 +235,7 @@ namespace townWinForm
 
         public static PointF ConvertIndexToInt(PointF index)
         {
-            return new PointF(index.X * Config.tileSize + Config.dx, index.Y * Config.tileSize + Config.dy);
+            return new PointF(index.X * Config.TileSize + Config.dx, index.Y * Config.TileSize + Config.dy);
         }
     }
 }

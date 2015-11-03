@@ -126,6 +126,9 @@ namespace townWinForm
                 if (Config.Zoom < 2)
                 {
                     Config.Zoom += 0.05f;
+
+                    Config.dx -= (MousePosition.X - Config.dx) / Config.TileSize;
+                    Config.dy -= (MousePosition.Y - Config.dy) / Config.TileSize;
                 }
             }
 
@@ -133,7 +136,11 @@ namespace townWinForm
             {
                 if (Config.Zoom > 0.5)
                 {
+
                     Config.Zoom -= 0.05f;
+
+                    Config.dx += (MousePosition.X - Config.dx) / Config.TileSize;
+                    Config.dy += (MousePosition.Y - Config.dy) / Config.TileSize;
                 }
             }
         }

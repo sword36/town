@@ -58,7 +58,7 @@ namespace townWinForm
             get { return tileSize * Zoom; }
         }
 
-        public static float tileSize = 25;
+        private static float tileSize = 25;
         public static int StreetHeight = 12;
         public static int TownWidth = 60;
         public static int TownHeight = StreetHeight * 4;
