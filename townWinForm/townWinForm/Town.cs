@@ -58,6 +58,7 @@ namespace townWinForm
             return pathF;
         }
 
+
         public void InitAstarMatrix()
         {
             for (int x = 0; x < Config.TownWidth; x++)
