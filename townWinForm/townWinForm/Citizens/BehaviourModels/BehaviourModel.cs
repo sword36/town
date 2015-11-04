@@ -68,7 +68,8 @@ namespace townWinForm
         {
             if (body.Path.Count == 0)
             {
-                body.Move(body.Town.FindPath(body.Position, body.Home.Position), dt);
+                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.Home);
+                body.Move(path, dt);
             } else
             {
                 return body.MoveAlongThePath(dt);
@@ -91,7 +92,8 @@ namespace townWinForm
         {
             if (body.Path.Count == 0)
             {
-                body.Move(body.Town.FindPath(body.Position, body.WorkBuilding.Position), dt);
+                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.Home);
+                body.Move(path, dt);
             }
             else
             {

@@ -25,6 +25,7 @@ namespace townWinForm
 
         private int[,] matrix;
         private int[,] AstarMatrix;
+        private Human h;
 
         public Town()
         {
@@ -37,6 +38,9 @@ namespace townWinForm
             InitBuildings();
             InitAstarMatrix();
             //path = FindPath(new Point(1000, 1000), Structures[10]);
+            h = new Human(this);
+            h.Home = Structures.ElementAt(2);
+            h.WorkBuilding = Structures.ElementAt(4);
         }
 
         public void FindPath(Point start, Point finish)
@@ -241,7 +245,7 @@ namespace townWinForm
 
         public void Update(long dt)
         {
-
+            h.Update((int)dt);
         }
 
         public void Draw(Graphics g)

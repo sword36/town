@@ -31,7 +31,7 @@ namespace townWinForm
         private int waitTime = 0;
         private PointF tempTarget;
         private Town town;
-        private List<Point> path;
+        private List<PointF> path;
 
         public Human(Town t)
         {
@@ -42,7 +42,7 @@ namespace townWinForm
             IsAlive = true;
             ProfSkills = new Dictionary<string, int>();
             Bag = new Bag();
-            path = new List<Point>();
+            path = new List<PointF>();
 
             //set all proffesion skills to 1 level
             foreach(string prof in Config.ProfList)
@@ -101,7 +101,7 @@ namespace townWinForm
 
         }
 
-        public void Move(List<Point> pN, int dt)
+        public void Move(List<PointF> pN, int dt)
         {
             if (pN.Count != 0)
             {
@@ -196,7 +196,7 @@ namespace townWinForm
             }
         }
 
-        public List<Point> Path
+        public List<PointF> Path
         {
             get
             {
