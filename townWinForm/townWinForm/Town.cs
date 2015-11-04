@@ -41,6 +41,7 @@ namespace townWinForm
             h = new Human(this);
             h.Home = Structures.ElementAt(2);
             h.WorkBuilding = Structures.ElementAt(4);
+            h.Position = Util.ConvertIndexToInt(h.Home.Entrance);
         }
 
         public void FindPath(Point start, Point finish)
@@ -59,7 +60,7 @@ namespace townWinForm
                 finalPath.Add(Util.ConvertIndexToInt(pathF[i]));
             }
 
-            return pathF;
+            return finalPath;
         }
 
         public void InitAstarMatrix()
@@ -268,6 +269,8 @@ namespace townWinForm
             {
                 s.Draw(g);
             }
+
+            h.Draw(g);
 
             /*for (int x = 0; x < Config.TownWidth; x++)
             {

@@ -12,6 +12,7 @@ namespace townWinForm
         public float WorkCost { get; set; }
         protected Human body;
         public int Level { get; set; }
+        protected bool isGoing = false;
 
         public virtual void Update(int dt) { }
 
@@ -66,13 +67,19 @@ namespace townWinForm
 
         protected virtual bool goHome(int dt)
         {
-            if (body.Path.Count == 0)
+            if (!isGoing)
             {
+                isGoing = true;
                 var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.Home);
                 body.Move(path, dt);
             } else
             {
-                return body.MoveAlongThePath(dt);
+                bool isAtHome = body.MoveAlongThePath(dt);
+                if (isAtHome)
+                {
+                    isGoing = false;
+                }
+                return isAtHome;
             }
 
             float dEnergy = Config.EnergyMoveCost * dt;
@@ -90,18 +97,25 @@ namespace townWinForm
 
         protected virtual bool goToWork(int dt)
         {
-            if (body.Path.Count == 0)
+            //if didn't go before, we should find the path
+            if (!isGoing)
             {
+                isGoing = true;
                 var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.Home);
                 body.Move(path, dt);
             }
+            //if path exist already, go along the path
             else
             {
-                return body.MoveAlongThePath(dt);
+                bool isAtWork = body.MoveAlongThePath(dt);
+                if (isAtWork)
+                {
+                    isGoing = false;
+                }
+                return isAtWork;
             }
 
             float dEnergy = Config.EnergyMoveCost * dt;
-            //move
             if (body.Energy - dEnergy > 0)
             {
                 body.Energy -= dEnergy;

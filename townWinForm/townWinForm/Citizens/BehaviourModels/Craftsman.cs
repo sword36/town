@@ -22,6 +22,8 @@ namespace townWinForm.BehaviourModels
 
         private void rest(int dt)
         {
+            base.rest(dt);
+
             if (body.Energy > 80)
             {
                 StateMachine.PopState();
@@ -36,34 +38,41 @@ namespace townWinForm.BehaviourModels
                 {
                     StateMachine.PopState();
                     StateMachine.PushState("goHome");
-                    StateMachine.EnqueueState("sleep");
+                    //StateMachine.EnqueueState("sleep");
                 } else
                 {
                     StateMachine.PopState();
                     StateMachine.PushState("sleep");
                 }
             }
-            base.rest(dt);
         }
 
         private void work(int dt)
         {
+            base.work(dt);
+
             if (body.Energy < 30)
             {
                 if (true) { }
                 StateMachine.PopState();
                 StateMachine.PushState("goHome");
-                StateMachine.EnqueueState("rest");
+                //StateMachine.EnqueueState("rest");
             }
-            base.work(dt);
         }
 
         private void goToWork(int dt)
         {
-            bool isAtHome = base.goToWork(dt);
-
-            if (body.Energy < 5 || isAtHome)
+            bool isAtWork = base.goToWork(dt);
+            if (isAtWork)
             {
+                StateMachine.PopState();
+                StateMachine.PushState("work");
+                return;
+            }
+
+            if (body.Energy < 5)
+            {
+                //not pop state
                 StateMachine.PushState("rest");
             }
         }
@@ -72,8 +81,16 @@ namespace townWinForm.BehaviourModels
         {
             bool isAtHome = base.goHome(dt);
 
-            if (body.Energy < 5 || isAtHome)
+            if (isAtHome)
             {
+                StateMachine.PopState();
+                StateMachine.PushState("rest");
+                return;
+            }
+
+            if (body.Energy < 5)
+            {
+                StateMachine.PopState();
                 StateMachine.PushState("rest");
             }
         }
@@ -91,6 +108,7 @@ namespace townWinForm.BehaviourModels
 
         public override void Update(int dt)
         {
+            dt = 50;
             switch (StateMachine.GetCurrentState())
             {
                 case "rest":

@@ -109,12 +109,15 @@ namespace townWinForm
                 tempTarget = path.First();
                 path.RemoveAt(0);
                 MoveAlongThePath(dt);
+            } else //last point
+            {
+                MoveAlongThePath(dt);
             }
         }
 
         public bool MoveAlongThePath(int dt)
         {
-            if (path == null || path.Count == 0)
+            if (path == null)
             {
                 throw new Exception("Wrong path");
             }
@@ -214,7 +217,8 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
-            g.FillRectangle(Brushes.Black, Position.X, Position.Y, 30, 30);
+            g.FillRectangle(Brushes.Black, Position.X + Human.dx, Position.Y + Human.dy,
+                Config.TileSize, Config.TileSize);
         }
 
         public void Update(int dt)
