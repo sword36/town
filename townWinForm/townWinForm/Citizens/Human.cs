@@ -19,6 +19,7 @@ namespace townWinForm
         public Building Home { get; set; }
         public Building WorkBuilding { get; set; }
         public Bag Bag { get; set; }
+        public float Speed { get; set; }
 
         public Dictionary<String, int> ProfSkills;
 
@@ -28,16 +29,20 @@ namespace townWinForm
         private Human attackTarget = null;
         private Human activeTarget = null;
         private int waitTime = 0;
+        private PointF tempTarget;
+        private Town town;
+        private List<Point> path;
 
-
-        public Human()
+        public Human(Town t)
         {
+            town = t;
             Money = Util.GetRandomDistribution(Config.StartMoney, Config.StartMoneyDelta);
             Happiness = Util.GetRandomDistribution(Config.StartHappiness, Config.StartHappinessDelta);
             Energy = Config.MaxEnergy;
             IsAlive = true;
             ProfSkills = new Dictionary<string, int>();
             Bag = new Bag();
+            path = new List<Point>();
 
             //set all proffesion skills to 1 level
             foreach(string prof in Config.ProfList)
@@ -48,8 +53,9 @@ namespace townWinForm
             //random proffesion from Config.ProfList
             CurrentProf = Config.ProfList[Util.GetRandomFromInterval(0, Config.ProfList.Length - 1)];
 
-            initBehaviourModel(CurrentProf);
+            initBehaviourModel("craftsman"); //CurrentProf
         }
+
 
         private void initBehaviourModel(string prof)
         {
@@ -74,9 +80,66 @@ namespace townWinForm
             }
         }
 
+        public float Eat()
+        {
+            Food f = Bag.GetFood();
+            if (f != null)
+            {
+                if (Energy + f.Energy <= Config.MaxEnergy)
+                {
+                    Energy += f.Energy;
+                }
+                return f.Energy;
+            } else
+            {
+                return 0;
+            }
+        }
+
         public void Move(PointF p, int dt)
         {
 
+        }
+
+        public void Move(List<Point> pN, int dt)
+        {
+            if (pN.Count != 0)
+            {
+                path = pN;
+                tempTarget = path.First();
+                path.RemoveAt(0);
+                MoveAlongThePath(dt);
+            }
+        }
+
+        public bool MoveAlongThePath(int dt)
+        {
+            if (path == null || path.Count == 0)
+            {
+                throw new Exception("Wrong path");
+            }
+
+            if (Util.Distance(Position, tempTarget) < Config.MovePrecision)
+            {
+                if (path.Count != 0)
+                {
+                    tempTarget = path.First();
+                    path.RemoveAt(0);
+                } else
+                {
+                    return true;
+                }
+            }
+            moveToTempTarget(dt);
+            return false;   
+        }
+
+        public void moveToTempTarget(int dt)
+        {
+            double angle = Math.Atan2(tempTarget.Y - Position.Y, tempTarget.X - Position.X);
+            double dx = Speed * dt * Math.Cos(angle);
+            double dy = Speed * dt * Math.Sin(angle);
+            Position = new PointF(Position.X + (float)dx, Position.Y + (float)dy);
         }
 
         public void Move(RectangleF rect, int dt)
@@ -133,6 +196,22 @@ namespace townWinForm
             }
         }
 
+        public List<Point> Path
+        {
+            get
+            {
+                return path;
+            }
+        }
+
+        public Town Town
+        {
+            get
+            {
+                return town;
+            }
+        }
+
         public void Draw(Graphics g)
         {
             g.FillRectangle(Brushes.Black, Position.X, Position.Y, 30, 30);
@@ -148,6 +227,5 @@ namespace townWinForm
             Human.dx = dx;
             Human.dy = dy;
         }
-
     }
 }
