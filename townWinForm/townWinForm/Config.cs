@@ -17,7 +17,7 @@ namespace townWinForm
         public static int MaxHappiness = 100;
         public static int StartHappiness = 75;
         public static int StartHappinessDelta = 25;
-        public static string[] ProfList = new string[] {"craftsman", "farmer", "guardian", "thief", "trader"};
+        public static string[] ProfList = new string[] {"craftsman", "farmer", "guardian", "trader", "thief"};
         public static int MaxProfLevel = 10;
         public static int MaxEnergy = 100;
         public static float EnergyForSleep = 1;
