@@ -74,8 +74,8 @@ namespace townWinForm
         private static float tileSize = 15;
         public static int minBuildingSize = 6;
         public static int maxBuildingSize = 8;
-        public static int TownWidth = 60;
-        public static int TownHeight = StreetHeight * 4;
+        public static int TownWidth = 70;
+        public static int TownHeight = StreetHeight * 5;
 
         #endregion
 

@@ -17,7 +17,6 @@ namespace townWinForm
         private Point si = new Point(2, 2);
         private Point fi = new Point(Config.TownWidth - 3, Config.TownHeight - 3);
 
-        private List<Point> path;
         private List<PointF> pathF;
         public Point MousePosition;
         public Point CurrentTile;
@@ -95,10 +94,10 @@ namespace townWinForm
         //Buildings initialization
         private void InitBuildings()
         {
+            Random rand = new Random();
             List<int> idCounter = new List<int>();
             for (int x = 0; x < Config.TownWidth; x++)
             {
-                
                 for (int y = 0; y < Config.TownHeight; y++)
                 {
                     if (matrix[x, y] != 0)
@@ -116,6 +115,9 @@ namespace townWinForm
                         while (matrix[x, y + h] == buildIndex)
                             h++;
 
+                        
+
+                        if (rand.Next() % 6 != 0)
                         Structures.Add(new House(x, y, w, h));
                         idCounter.Add(buildIndex);
                     }
@@ -150,35 +152,39 @@ namespace townWinForm
             }
 
             for (int yy = 0; yy < Config.TownHeight; yy += Config.StreetHeight)
-
-            for (int i = 0; i < Config.TownWidth; i++)
             {
+                for (int i = 0; i < Config.TownWidth; i++)
                 {
                     if (matrix[i, yy] == 0)
                     {
                         int w = rand.Next(Config.minBuildingSize, Config.maxBuildingSize);
                         int h = rand.Next(Config.minBuildingSize, Config.maxBuildingSize);
 
-                        if (Config.TownWidth - i <= 11)
+                        if (Config.TownWidth - i <= Config.StreetHeight + 4)
                         {
                             switch (Config.TownWidth - i)
-                                {
-                                    case 10:
-                                        {
-                                            w = 5;
-                                            break;
-                                        }
-                                    case 11:
-                                        {
-                                            w = 6;
-                                            break;
-                                        }
-                                    default:
-                                        {
-                                            w = Config.TownWidth - i;
-                                            break;
-                                        }
-                                }
+                            {
+                                case 16:
+                                case 15:
+                                case 14:
+                                    {
+                                        w = Config.maxBuildingSize;
+                                        break;
+                                    }
+
+                                case 18:
+                                case 13:
+                                case 12:
+                                    {
+                                        w = Config.minBuildingSize;
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        w = Config.TownWidth - i;
+                                        break;
+                                    }
+                            }
                         }
 
                         for (int x = 0; x < w; x++)
@@ -198,7 +204,6 @@ namespace townWinForm
                     }
                 }
             }
-
         }
 
         private void CreateStreets()
@@ -245,7 +250,7 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
-            Bitmap bitmap = new Bitmap((int)(Config.TileSize * Config.TownWidth), (int)(Config.TileSize * Config.TownHeight));
+            
             for (int x = 0; x < Config.TownWidth; x++)
             {
                 for (int y = 0; y < Config.TownHeight; y++)
@@ -254,7 +259,6 @@ namespace townWinForm
                     if (Util.CheckPoint(new PointF(Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy)))
                     {
                         g.FillRectangle(new SolidBrush(Color.FromArgb(250, 250, 250)), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
-                        //g.DrawRectangle(new Pen(Color.FromArgb(60, 240, 10, 10)), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
                     }
                 }
             }
@@ -263,15 +267,6 @@ namespace townWinForm
             {
                 s.Draw(g);
             }
-
-            /*for (int x = 0; x < Config.TownWidth; x++)
-            {
-                for (int y = 0; y < Config.TownHeight; y++)
-                {
-                    g.FillRectangle(new SolidBrush(Util.GetRandomColor(AstarMatrix[x, y])), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
-                }
-
-            }*/
 
             
         }
