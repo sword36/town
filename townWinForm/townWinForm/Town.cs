@@ -115,8 +115,6 @@ namespace townWinForm
                         while (matrix[x, y + h] == buildIndex)
                             h++;
 
-                        
-
                         if (rand.Next() % 6 != 0)
                         Structures.Add(new House(x, y, w, h));
                         idCounter.Add(buildIndex);
@@ -151,6 +149,7 @@ namespace townWinForm
                 }
             }
 
+
             for (int yy = 0; yy < Config.TownHeight; yy += Config.StreetHeight)
             {
                 for (int i = 0; i < Config.TownWidth; i++)
@@ -160,10 +159,12 @@ namespace townWinForm
                         int w = rand.Next(Config.minBuildingSize, Config.maxBuildingSize);
                         int h = rand.Next(Config.minBuildingSize, Config.maxBuildingSize);
 
-                        if (Config.TownWidth - i <= Config.StreetHeight + 4)
+                        if (Config.TownWidth - i <= Config.StreetHeight + 11)
                         {
                             switch (Config.TownWidth - i)
                             {
+                                case 24:
+                                case 23:
                                 case 16:
                                 case 15:
                                 case 14:
@@ -172,6 +173,11 @@ namespace townWinForm
                                         break;
                                     }
 
+                                case 25:
+                                case 22:
+                                case 21:
+                                case 20:
+                                case 19:
                                 case 18:
                                 case 13:
                                 case 12:

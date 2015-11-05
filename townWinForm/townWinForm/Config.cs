@@ -10,7 +10,6 @@ namespace townWinForm
     {
         #region Common
         public static int GameSpeed = 1; //control: Track bar
-        public static float Zoom = 1; //control: Track bar
 
         #endregion
 
@@ -63,9 +62,8 @@ namespace townWinForm
         #region Town
         public static float TileSize
         {
-            get { return tileSize * Zoom; }
+            get { return tileSize; }
         }
-
         public static int StreetHeight
         {
             get { return minBuildingSize + maxBuildingSize; }
