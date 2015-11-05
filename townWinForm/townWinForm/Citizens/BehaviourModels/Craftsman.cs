@@ -17,58 +17,98 @@ namespace townWinForm.BehaviourModels
             StateMachine = new StackFSM("rest");
             WorkCost = Config.CraftsmanWorkCost;
             h.Bag.MaxCapacity = Config.CraftsmanBagCapacity;
+            h.Speed = Config.CraftsmanSpeed;
         }
 
         private void rest(int dt)
         {
-            if (body.Energy > 30)
+            base.rest(dt);
+
+            if (body.Energy > 80)
             {
                 StateMachine.PopState();
                 StateMachine.PushState("goToWork");
-            } else if (body.Energy > 10)
+            } else if (body.Energy < 50)
             {
-                StateMachine.PopState();
-                StateMachine.PushState("goHome");
-            } else
-            {
-                StateMachine.PushState("sleep");
+                eat();
             }
-            base.rest(dt);
+            else if (body.Energy < 20)
+            {
+                if (body.DistanceToHome() < Config.HomeNear)
+                {
+                    StateMachine.PopState();
+                    StateMachine.PushState("goHome");
+                    //StateMachine.EnqueueState("sleep");
+                } else
+                {
+                    StateMachine.PopState();
+                    StateMachine.PushState("sleep");
+                }
+            }
         }
 
         private void work(int dt)
         {
+            base.work(dt);
+
             if (body.Energy < 30)
             {
                 if (true) { }
                 StateMachine.PopState();
                 StateMachine.PushState("goHome");
+                //StateMachine.EnqueueState("rest");
             }
-            base.work(dt);
         }
 
         private void goToWork(int dt)
         {
-            base.goToWork(dt);
+            bool isAtWork = base.goToWork(dt);
+            if (isAtWork)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("work");
+                return;
+            }
+
+            if (body.Energy < 5)
+            {
+                //not pop state
+                StateMachine.PushState("rest");
+            }
         }
 
         private void goHome(int dt)
         {
-            base.goHome(dt);
+            bool isAtHome = base.goHome(dt);
+
+            if (isAtHome)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("rest");
+                return;
+            }
+
+            if (body.Energy < 5)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("rest");
+            }
         }
 
         private void sleep(int dt)
         {
+            base.sleep(dt);
+
             if (body.Energy > 90)
             {
                 StateMachine.PopState();
-                StateMachine.PushState("idle");
+                StateMachine.PushState("rest");
             }
-            base.sleep(dt);
         }
 
         public override void Update(int dt)
         {
+            dt = 50;
             switch (StateMachine.GetCurrentState())
             {
                 case "rest":

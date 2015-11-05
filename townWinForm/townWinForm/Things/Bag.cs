@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace townWinForm
 {
-    public class OverloadedBagExeption : Exception
-    {
+    public class OverloadedBagExeption : Exception { }
 
-    }
+    public class NoFoodExeption : Exception { }
+
+    public class NoProductExeption : Exception { }
 
     public class Bag
     {
@@ -79,7 +80,7 @@ namespace townWinForm
                     return f;
                 }
             }
-            return null;
+            throw new NoFoodExeption();
         }
 
         public Product GetProduct()
@@ -93,7 +94,7 @@ namespace townWinForm
                     return p;
                 }
             }
-            return null;
+            throw new NoProductExeption();
         }
 
         public void DropRandom()

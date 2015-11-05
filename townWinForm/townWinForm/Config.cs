@@ -20,26 +20,35 @@ namespace townWinForm
         public static string[] ProfList = new string[] {"craftsman", "farmer", "guardian", "trader", "thief"};
         public static int MaxProfLevel = 10;
         public static int MaxEnergy = 100;
-        public static float EnergyForSleep = 1;
-        public static float HappyForSleep = 0.5f;
+        public static float EnergyForSleep = 0.01f;
+        public static float HappyForSleep = 0.005f;
         public static float EnergyLowerBoundToUnhappy = 50;
         public static float UnhappyForWork = 1;
-        public static float EnergyMoveCost = 0.2f;
-        public static float EnergyForRest = 2;
-        public static float HappyForRest = 1;
+        public static float EnergyMoveCost = 0.001f;
+        public static float EnergyForRest = 0.002f;
+        public static float HappyForRest = 0.001f;
+        public static float UnhappyForNoFood = 10;
+        public static float HomeNear = 200;
+        public static float MovePrecision = 10;
 
         //Behaviours
-        public static float CraftsmanWorkCost = 3;
-        public static float FarmerWorkCost = 5;
-        public static float GuardianWorkCost = 4;
-        public static float ThiefWorkCost = 2;
-        public static float TraderWorkCost = 1;
+        public static float CraftsmanWorkCost = 0.03f;
+        public static float FarmerWorkCost = 0.005f;
+        public static float GuardianWorkCost = 0.004f;
+        public static float ThiefWorkCost = 0.002f;
+        public static float TraderWorkCost = 0.001f;
 
         public static float CraftsmanBagCapacity = 200;
         public static float FarmerBagCapacity = 150;
         public static float GuardianBagCapacity = 100;
         public static float ThiefBagCapacity = 250;
         public static float TraderBagCapacity = 300;
+
+        public static float CraftsmanSpeed = 0.2f;
+        public static float FarmerSpeed = 0.2f;
+        public static float GuardianSpeed = 0.15f;
+        public static float ThiefSpeed = 0.25f;
+        public static float TraderSpeed = 0.1f;
 
         //Things
         public static float ProductCost = 300;
