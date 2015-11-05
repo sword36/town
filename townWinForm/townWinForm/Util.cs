@@ -87,12 +87,6 @@ namespace townWinForm
         }
 
         //Returns a random point in circle 
-        /// <summary>
-        /// Returns a random point in circle 
-        /// </summary>
-        /// <param name="center">Center of the circle</param>
-        /// <param name="radius">Circle's radius</param>
-        /// <returns>PointF</returns>
         public static PointF GetRandomPointInCircle(PointF center, float radius)
         {
             double t = 2 * Math.PI * rand.NextDouble();
@@ -116,13 +110,6 @@ namespace townWinForm
         }
 
         //Changes dx and dy values
-        /// <summary>
-        /// //Changes dx and dy values
-        /// </summary>
-        /// <param name="MousePoint">Current mouse position</param>
-        /// <param name="Width">Window width</param>
-        /// <param name="Height">Window height</param>
-        /// <param name="dt">dt</param>
         public static void Move(Point MousePoint, int Width, int Height, long dt)
         {
             if (MousePoint.X <= 10)
@@ -149,22 +136,13 @@ namespace townWinForm
                 UpdateCamera(Config.dx, Config.dy);
         }
 
-        //Returs random color
-        /// <summary>
-        /// Returs random color
-        /// </summary>
-        /// <returns>Random color</returns>
+        //Returns random color
         public static Color GetRandomColor()
         {
             return Color.FromArgb(rand.Next(255), rand.Next(255), rand.Next(255));
         }
 
         //Returns random color, using seed
-        /// <summary>
-        /// Returns random color
-        /// </summary>
-        /// <param name="seed">Seed for Random function</param>
-        /// <returns></returns>
         public static Color GetRandomColor(int seed)
         {
             if (seed == 1) return Color.FromArgb(215, 215, 215);
@@ -199,6 +177,7 @@ namespace townWinForm
             return true;
         }
 
+        //Checks is the point on the screen
         public static bool CheckPoint(Point point)
         {
             if (point.X < 0)
@@ -224,26 +203,17 @@ namespace townWinForm
             return true;
         }
 
-        public static bool IsInList(List<int> l, int val)
-        {
-            for (int i = 0; i < l.Count; i++)
-            {
-                if (l[i] == val) return true;
-            }
-            return false;
-        }
-
+        //Converts matrix indexes into screen coordinates
         public static PointF ConvertIndexToInt(PointF index)
         {
             return new PointF(index.X * Config.TileSize + Config.dx, index.Y * Config.TileSize + Config.dy);
         }
 
+        //Converts screen coordinates into matrix indexes
         public static Point ConvertIntToIndex(PointF num)
         {
-            //int dx = (int)Math.Ceiling(Config.dx % Config.TileSize);
             int x = (int)((num.X - Config.dx) / Config.TileSize);
 
-            //int dy = (int)Math.Ceiling(Config.dy % Config.TileSize);
             int y = (int)((num.Y - Config.dy) / Config.TileSize);
 
             if (x >= Config.TownWidth)
