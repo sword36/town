@@ -278,10 +278,7 @@ namespace townWinForm
             {
                 s.Draw(g);
             }
-
-           
-
-            
+            h.Draw(g);
         }
 
         public static void UpdateD(float dx, float dy)

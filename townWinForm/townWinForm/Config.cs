@@ -9,6 +9,7 @@ namespace townWinForm
     public static class Config
     {
         #region Common
+
         public static int GameSpeed = 1; //control: Track bar
 
         #endregion
@@ -52,7 +53,6 @@ namespace townWinForm
         public static float GuardianSpeed = 0.15f;
         public static float ThiefSpeed = 0.25f;
         public static float TraderSpeed = 0.1f;
-
         #endregion
 
         #region Things
