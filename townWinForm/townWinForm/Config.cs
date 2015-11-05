@@ -8,11 +8,13 @@ namespace townWinForm
 {
     public static class Config
     {
-        //Common
+        #region Common
         public static int GameSpeed = 1; //control: Track bar
         public static float Zoom = 1; //control: Track bar
 
-        //Citizens
+        #endregion
+
+        #region Citizens
         public static int MaxCitizens = 50;
         public static int MaxHappiness = 100;
         public static int StartHappiness = 75;
@@ -28,7 +30,9 @@ namespace townWinForm
         public static float EnergyForRest = 2;
         public static float HappyForRest = 1;
 
-        //Behaviours
+        #endregion
+
+        #region Behaviours
         public static float CraftsmanWorkCost = 3;
         public static float FarmerWorkCost = 5;
         public static float GuardianWorkCost = 4;
@@ -41,7 +45,9 @@ namespace townWinForm
         public static float ThiefBagCapacity = 250;
         public static float TraderBagCapacity = 300;
 
-        //Things
+        #endregion
+
+        #region Things
         public static float ProductCost = 300;
         public static float ProductCostDelta = 200;
         public static float ProductWeight = 50;
@@ -52,26 +58,39 @@ namespace townWinForm
         public static float FoodWeight = 30;
         public static float FoodWeightDelta = 20;
 
-        //Town
+        #endregion
+
+        #region Town
         public static float TileSize
         {
             get { return tileSize * Zoom; }
         }
 
-        private static float tileSize = 25;
-        public static int StreetHeight = 12;
+        public static int StreetHeight
+        {
+            get { return minBuildingSize + maxBuildingSize; }
+        }
+
+        private static float tileSize = 15;
+        public static int minBuildingSize = 6;
+        public static int maxBuildingSize = 8;
         public static int TownWidth = 60;
         public static int TownHeight = StreetHeight * 4;
-        
 
-        //Display
+        #endregion
+
+        #region Display
         public static float dx = 0;
         public static float dy = 0;
         public static int FPS = 30;
         public static float ScrollSpeed = 1000;
 
-        //Economic
+        #endregion
+
+        #region Economic
         public static int StartMoney = 1000;
         public static int StartMoneyDelta = 500;
+
+        #endregion
     }
 }

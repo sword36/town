@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Web;
+using System.Net;
 
 namespace townWinForm
 {
@@ -36,14 +38,9 @@ namespace townWinForm
             CreateStreets();
             InitBuildings();
             InitAstarMatrix();
-            //path = FindPath(new Point(1000, 1000), Structures[10]);
         }
 
-        public void FindPath(Point start, Point finish)
-        {
-            path = PathNode.FindPath(AstarMatrix, start, finish);
-        }
-
+        //Returns path from point start to finish building
         public List<PointF> FindPath(Point start, Building finish)
         {
             pathF = PathNode.FindPath(AstarMatrix, Util.ConvertIntToIndex(start), finish.Entrance);
@@ -58,7 +55,7 @@ namespace townWinForm
             return pathF;
         }
 
-
+        //Initialization of matrix for A* algorithm
         public void InitAstarMatrix()
         {
             for (int x = 0; x < Config.TownWidth; x++)
@@ -94,6 +91,8 @@ namespace townWinForm
             }
         }
 
+
+        //Buildings initialization
         private void InitBuildings()
         {
             List<int> idCounter = new List<int>();
@@ -108,7 +107,7 @@ namespace townWinForm
                         int h = 0;
                         int buildIndex = matrix[x, y];
 
-                        if (Util.IsInList(idCounter, buildIndex))
+                        if (idCounter.Contains(buildIndex))
                             continue;
 
                         while (matrix[x + w, y] == buildIndex)
@@ -125,6 +124,7 @@ namespace townWinForm
             }
         }
 
+        //First matrix initialization
         private void MatrixInit()
         {
             for (int x = 0; x < Config.TownWidth; x++)
@@ -132,7 +132,7 @@ namespace townWinForm
                 for (int y = 0; y < Config.TownHeight; y++)
                 {
                     matrix[x, y] = 0;
-                    AstarMatrix[x, y] = 2;
+                    AstarMatrix[x, y] = -1;
                 }
             }
 
@@ -153,12 +153,11 @@ namespace townWinForm
 
             for (int i = 0; i < Config.TownWidth; i++)
             {
-                //for (int j = 0; j < Config.TownHeight; j++)
                 {
                     if (matrix[i, yy] == 0)
                     {
-                        int w = rand.Next(5, 7);
-                        int h = rand.Next(5, 7);
+                        int w = rand.Next(Config.minBuildingSize, Config.maxBuildingSize);
+                        int h = rand.Next(Config.minBuildingSize, Config.maxBuildingSize);
 
                         if (Config.TownWidth - i <= 11)
                         {
@@ -187,7 +186,6 @@ namespace townWinForm
                             for (int y = 0; y < h; y++)
                             {
                                 matrix[i + x, yy + y] = buildIndex;
-                                //matrix[i + x, y + h] = buildIndex + 1;
                             }
 
                             for (int y = h; y < Config.StreetHeight; y++)
@@ -247,6 +245,7 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
+            Bitmap bitmap = new Bitmap((int)(Config.TileSize * Config.TownWidth), (int)(Config.TileSize * Config.TownHeight));
             for (int x = 0; x < Config.TownWidth; x++)
             {
                 for (int y = 0; y < Config.TownHeight; y++)
@@ -258,7 +257,6 @@ namespace townWinForm
                         //g.DrawRectangle(new Pen(Color.FromArgb(60, 240, 10, 10)), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
                     }
                 }
-
             }
 
             foreach (var s in Structures)

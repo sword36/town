@@ -224,26 +224,17 @@ namespace townWinForm
             return true;
         }
 
-        public static bool IsInList(List<int> l, int val)
-        {
-            for (int i = 0; i < l.Count; i++)
-            {
-                if (l[i] == val) return true;
-            }
-            return false;
-        }
-
+        //Converts matrix indexes into screen coordinates
         public static PointF ConvertIndexToInt(PointF index)
         {
             return new PointF(index.X * Config.TileSize + Config.dx, index.Y * Config.TileSize + Config.dy);
         }
 
+        //Converts screen coordinates into matrix indexes
         public static Point ConvertIntToIndex(PointF num)
         {
-            //int dx = (int)Math.Ceiling(Config.dx % Config.TileSize);
             int x = (int)((num.X - Config.dx) / Config.TileSize);
 
-            //int dy = (int)Math.Ceiling(Config.dy % Config.TileSize);
             int y = (int)((num.Y - Config.dy) / Config.TileSize);
 
             if (x >= Config.TownWidth)
