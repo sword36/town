@@ -21,7 +21,7 @@ namespace townWinForm
         public Bag Bag { get; set; }
         public float Speed { get; set; }
 
-        public Dictionary<String, int> ProfSkills;
+        public Dictionary<string, int> ProfSkills;
 
         private static float dx = 0;
         private static float dy = 0;
@@ -217,7 +217,7 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
-            g.FillRectangle(Brushes.Black, Position.X + Human.dx, Position.Y + Human.dy,
+            g.FillRectangle(Brushes.Black, Position.X + dx, Position.Y + dy,
                 Config.TileSize, Config.TileSize);
         }
 

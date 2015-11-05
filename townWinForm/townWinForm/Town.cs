@@ -39,8 +39,8 @@ namespace townWinForm
             InitBuildings();
             InitAstarMatrix();
             h = new Human(this);
-            h.Home = Structures.ElementAt(2);
-            h.WorkBuilding = Structures.ElementAt(4);
+            h.Home = Structures.ElementAt(1);
+            h.WorkBuilding = Structures.ElementAt(2);
             h.Position = Util.ConvertIndexToInt(h.Home.Entrance);
         }
 

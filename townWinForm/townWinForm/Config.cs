@@ -78,7 +78,7 @@ namespace townWinForm
             get { return minBuildingSize + maxBuildingSize; }
         }
 
-        private static float tileSize = 15;
+        private static float tileSize = 25;
         public static int minBuildingSize = 6;
         public static int maxBuildingSize = 8;
         public static int TownWidth = 70;
