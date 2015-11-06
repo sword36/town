@@ -8,12 +8,12 @@ namespace townWinForm
 {
     public static class Log
     {
-        public static List<string> All = new List<string>();
-        public static List<string> Buildings = new List<string>();
-        public static List<string> Citizens = new List<string>();
-        public static List<string> Things = new List<string>();
-        public static List<string> Paths = new List<string>();
-        public static List<string> Other = new List<string>();
+        private static List<string> all = new List<string>();
+        private static List<string> buildings = new List<string>();
+        private static List<string> citizens = new List<string>();
+        private static List<string> things = new List<string>();
+        private static List<string> paths = new List<string>();
+        private static List<string> other = new List<string>();
 
         //Format of adding is - "LogType:Message"
         //If LogType not exist it will be Add
@@ -24,7 +24,7 @@ namespace townWinForm
             //if not standart format (without ":")
             if (l == -1)
             {
-                Other.Add(log);
+                other.Add(log);
                 return;
             }
             
@@ -32,33 +32,63 @@ namespace townWinForm
             //The most longest length of LogType is 8
             if (type.Length > 8)
             {
-                Other.Add(log);
+                other.Add(log);
                 return;
             }
 
 
             string message = log.Substring(l, Config.MaxMessageLength);
 
-            All.Add(message);
+            all.Add(message);
             switch(type)
             {
                 case "all":
                     break; //because allready added
                 case "buildings":
-                    Buildings.Add(message);
+                    buildings.Add(message);
                     break;
                 case "citizens":
-                    Citizens.Add(message);
+                    citizens.Add(message);
                     break;
                 case "things":
-                    Things.Add(message);
+                    things.Add(message);
                     break;
                 case "paths":
-                    Paths.Add(message);
+                    paths.Add(message);
                     break;
                 default:
-                    Other.Add(message);
+                    other.Add(message);
                     break;
+            }
+        }
+
+        private static string listToSting(List<string> list)
+        {
+            string str = "";
+            foreach (string s in list)
+            {
+                str += list + "/n";
+            }
+            return str;
+        }
+
+        public static string Print(string type)
+        {
+            type = type.ToLower();
+            switch(type)
+            {
+                case "all":
+                    return listToSting(all);
+                case "buildings":
+                    return listToSting(buildings);
+                case "citizens":
+                    return listToSting(citizens);
+                case "thins":
+                    return listToSting(things);
+                case "paths":
+                    return listToSting(paths);
+                default:
+                    return listToSting(other);
             }
         }
     }
