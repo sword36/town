@@ -43,7 +43,6 @@ namespace townWinForm
                     c = Color.LawnGreen;
 
                 g.FillRectangle(new SolidBrush(c), x * Config.TileSize + dx, y * Config.TileSize + dy, Config.TileSize, Config.TileSize);
-                //g.DrawRectangle(new Pen(Color.FromArgb(60, 240, 10, 10)), x * Config.TileSize + dx, y * Config.TileSize + dy, Config.TileSize, Config.TileSize);
             }
         }
 

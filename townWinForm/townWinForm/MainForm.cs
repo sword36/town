@@ -33,7 +33,6 @@ namespace townWinForm
 
             //Forms
             settingsForm = new SettingsForm();
-
             //Timer
             animationTimer = new Timer();
             animationTimer.Interval = 1000 / Config.FPS;

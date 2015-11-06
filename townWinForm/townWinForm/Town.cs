@@ -41,8 +41,8 @@ namespace townWinForm
             InitBuildings();
             InitAstarMatrix();
             h = new Human(this);
-            h.Home = Structures.ElementAt(1);
-            h.WorkBuilding = Structures.ElementAt(2);
+            h.Home = Structures.ElementAt(0);
+            h.WorkBuilding = Structures.ElementAt(Structures.Count - 1);
             h.Position = Util.ConvertIndexToInt(h.Home.Entrance);
 
             homeToWork = FindPath(Util.ConvertFromPointF(h.Position), h.WorkBuilding);
@@ -52,14 +52,15 @@ namespace townWinForm
         //Returns path from point start to finish building
         public List<PointF> FindPath(Point start, Building finish)
         {
-            Point finishEntrance = Util.ConvertFromPointF(finish.Entrance);
+            Point finishEntrance = Util.ConvertFromPointF(finish.Room);
             path = PathNode.FindPath(AstarMatrix, Util.ConvertIntToIndex(start), finishEntrance);
 
             List<PointF> finalPath = new List<PointF>();
 
             for (int i = 0; i < path.Count; i++)
             {
-                finalPath.Add(Util.ConvertIndexToInt(path[i]));
+                PointF pathPoint = Util.ConvertIndexToInt(path[i]);
+                finalPath.Add(pathPoint);
             }
 
             return finalPath;
@@ -103,7 +104,7 @@ namespace townWinForm
                         }
                         else
                         {
-                            AstarMatrix[s.Position.X + x, s.Position.Y + y] = int.MaxValue;
+                            AstarMatrix[s.Position.X + x, s.Position.Y + y] = 2000;
                         }
 
                         if ((x != 0) && (y != 0) && (x != s.Position.Width - 1) && (y != s.Position.Height - 1))
@@ -294,11 +295,11 @@ namespace townWinForm
                 }
             }
 
-            foreach (var j in homeToWork)
-            {
-                g.FillRectangle(new SolidBrush(Color.FromArgb(250, 0, 0)), j.X + Config.dx, j.Y + Config.dy, Config.TileSize, Config.TileSize);
-
-            }
+            //foreach (var j in homeToWork)
+           // {
+            //    g.FillRectangle(new SolidBrush(Color.FromArgb(250, 0, 0)), j.X + Config.dx, j.Y + Config.dy, Config.TileSize, Config.TileSize);
+            //
+            //}
 
             foreach (var s in Structures)
             {

@@ -23,8 +23,8 @@ namespace townWinForm
 
         public Dictionary<string, int> ProfSkills;
 
-        private static float dx = 0;
-        private static float dy = 0;
+        public static float dx = 0;
+        public static float dy = 0;
         private int damage;
         private Human attackTarget = null;
         private Human activeTarget = null;
@@ -32,6 +32,7 @@ namespace townWinForm
         private PointF tempTarget;
         private Town town;
         private List<PointF> path;
+        private List<PointF> originalPath;
 
         public Human(Town t)
         {
@@ -43,9 +44,10 @@ namespace townWinForm
             ProfSkills = new Dictionary<string, int>();
             Bag = new Bag();
             path = new List<PointF>();
+            originalPath = new List<PointF>();
 
             //set all proffesion skills to 1 level
-            foreach(string prof in Config.ProfList)
+            foreach (string prof in Config.ProfList)
             {
                 ProfSkills.Add(prof, 1);
             }
@@ -55,6 +57,7 @@ namespace townWinForm
 
             initBehaviourModel("craftsman"); //CurrentProf
         }
+
 
 
         private void initBehaviourModel(string prof)
@@ -124,6 +127,7 @@ namespace townWinForm
 
             if (Util.Distance(Position, tempTarget) < Config.MovePrecision)
             {
+                Position = tempTarget;
                 if (path.Count != 0)
                 {
                     tempTarget = path.First();
@@ -217,7 +221,8 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
-            g.FillRectangle(Brushes.LightPink, Position.X + dx, Position.Y + dy,
+            g.FillRectangle(Brushes.Red, Position.X + dx, 
+                Position.Y + dy,
                 Config.TileSize, Config.TileSize);
         }
 
@@ -228,8 +233,9 @@ namespace townWinForm
 
         public static void UpdateD(float dx, float dy)
         {
-            Human.dx = dx;
-            Human.dy = dy;
+            Human.dx = dx - Config.TileSize / 2;
+            Human.dy = dy - Config.TileSize / 2;
+            
         }
     }
 }

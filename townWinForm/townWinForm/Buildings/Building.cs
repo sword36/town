@@ -20,12 +20,18 @@ namespace townWinForm
 
         protected Tile[,] Grid;
         protected PointF entrance;
+        protected PointF room;
         protected PointF localEntrance;
 
         //Entrance in town
         public PointF Entrance
         {
             get { return entrance; }
+        }
+
+        public PointF Room
+        {
+            get { return room; }
         }
 
         //Entrance in building
@@ -106,6 +112,8 @@ namespace townWinForm
                         break;
                     }
             }
+
+            room = new PointF(Position.X + 1, Position.Y + 1);
 
             for (int i = 0; i < width; i++)
             {

@@ -27,7 +27,7 @@ namespace townWinForm
         public static float EnergyLowerBoundToUnhappy = 50;
         public static float UnhappyForWork = 1;
         public static float EnergyMoveCost = 0.001f;
-        public static float EnergyForRest = 0.002f;
+        public static float EnergyForRest = 0.02f;
         public static float HappyForRest = 0.001f;
         public static float UnhappyForNoFood = 10;
         public static float HomeNear = 200;
