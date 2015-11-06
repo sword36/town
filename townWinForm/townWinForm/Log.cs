@@ -67,7 +67,7 @@ namespace townWinForm
             string str = "";
             foreach (string s in list)
             {
-                str += list + "/n";
+                str += s + Environment.NewLine;
             }
             return str;
         }
@@ -83,7 +83,7 @@ namespace townWinForm
                     return listToSting(buildings);
                 case "citizens":
                     return listToSting(citizens);
-                case "thins":
+                case "things":
                     return listToSting(things);
                 case "paths":
                     return listToSting(paths);

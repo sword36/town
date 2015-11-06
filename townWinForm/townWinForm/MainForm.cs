@@ -19,6 +19,7 @@ namespace townWinForm
         private long lastTime;
 
         private SettingsForm settingsForm;
+        private LogForm logForm;
 
         public MainForm()
         {
@@ -33,6 +34,7 @@ namespace townWinForm
 
             //Forms
             settingsForm = new SettingsForm();
+
             //Timer
             animationTimer = new Timer();
             animationTimer.Interval = 1000 / Config.FPS;
@@ -119,6 +121,13 @@ namespace townWinForm
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
         {
             
+        }
+
+        private void logToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            logForm = new LogForm();
+            logForm.Show();
+            logForm.TopMost = true;
         }
     }
 }
