@@ -99,5 +99,10 @@ namespace townWinForm
         public static int StartMoneyDelta = 500;
 
         #endregion
+
+        #region Log
+        public static int MaxMessageLength = 50;
+
+        #endregion
     }
 }

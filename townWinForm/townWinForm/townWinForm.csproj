@@ -75,6 +75,7 @@
     <Compile Include="AStar\PathNode.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="IUpdatable.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
