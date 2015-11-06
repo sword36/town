@@ -80,7 +80,7 @@ namespace townWinForm
             return null;
         }
 
-        public static List<PointF> FindPath(int[,] field, PointF start, PointF goal)
+        /*public static List<PointF> FindPath(int[,] field, PointF start, PointF goal)
         {
             // Шаг 1.
             var closedSet = new Collection<PathNode>();
@@ -128,6 +128,7 @@ namespace townWinForm
             // Шаг 10.
             return null;
         }
+        */
 
         private static int GetDistanceBetweenNeighbours()
         {
