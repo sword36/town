@@ -230,5 +230,10 @@ namespace townWinForm
 
             return new Point(x, y);
         }
+
+        public static Point ConvertFromPointF(PointF p)
+        {
+            return new Point((int)p.X, (int)p.Y);
+        }
     }
 }

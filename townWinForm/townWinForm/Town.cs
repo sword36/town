@@ -28,6 +28,7 @@ namespace townWinForm
         private int[,] AstarMatrix;
         private Human h;
 
+        private List<PointF> homeToWork = new List<PointF>();
         public Town()
         {
             Citizens = new List<Human>();
@@ -42,10 +43,28 @@ namespace townWinForm
             h.Home = Structures.ElementAt(1);
             h.WorkBuilding = Structures.ElementAt(2);
             h.Position = Util.ConvertIndexToInt(h.Home.Entrance);
+
+            homeToWork = FindPath(Util.ConvertFromPointF(h.Position), h.WorkBuilding);
+
         }
 
         //Returns path from point start to finish building
         public List<PointF> FindPath(Point start, Building finish)
+        {
+            Point finishEntrance = Util.ConvertFromPointF(finish.Entrance);
+            path = PathNode.FindPath(AstarMatrix, Util.ConvertIntToIndex(start), finishEntrance);
+
+            List<PointF> finalPath = new List<PointF>();
+
+            for (int i = 0; i < path.Count; i++)
+            {
+                finalPath.Add(Util.ConvertIndexToInt(path[i]));
+            }
+
+            return finalPath;
+        }
+
+        /*public List<PointF> FindPath(PointF start, Building finish)
         {
             pathF = PathNode.FindPath(AstarMatrix, Util.ConvertIntToIndex(start), finish.Entrance);
 
@@ -57,7 +76,7 @@ namespace townWinForm
             }
 
             return finalPath;
-        }
+        }*/
 
         //Initialization of matrix for A* algorithm
         public void InitAstarMatrix()
@@ -272,6 +291,12 @@ namespace townWinForm
                         g.FillRectangle(new SolidBrush(Color.FromArgb(250, 250, 250)), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
                     }
                 }
+            }
+
+            foreach (var j in homeToWork)
+            {
+                g.FillRectangle(new SolidBrush(Color.FromArgb(250, 0, 0)), j.X + Config.dx, j.Y + Config.dy, Config.TileSize, Config.TileSize);
+
             }
 
             foreach (var s in Structures)

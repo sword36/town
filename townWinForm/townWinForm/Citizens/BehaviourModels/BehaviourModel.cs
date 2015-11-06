@@ -101,7 +101,7 @@ namespace townWinForm
             if (!isGoing)
             {
                 isGoing = true;
-                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.Home);
+                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.WorkBuilding);
                 body.Move(path, dt);
             }
             //if path exist already, go along the path
