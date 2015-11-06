@@ -20,6 +20,7 @@ namespace townWinForm
         public Building WorkBuilding { get; set; }
         public Bag Bag { get; set; }
         public float Speed { get; set; }
+        private int id;
 
         public Dictionary<string, int> ProfSkills;
 
@@ -45,6 +46,7 @@ namespace townWinForm
             Bag = new Bag();
             path = new List<PointF>();
             originalPath = new List<PointF>();
+            id = Util.GetNewID();
 
             //set all proffesion skills to 1 level
             foreach (string prof in Config.ProfList)
@@ -216,6 +218,14 @@ namespace townWinForm
             get
             {
                 return town;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return id;
             }
         }
 

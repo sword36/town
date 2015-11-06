@@ -236,5 +236,10 @@ namespace townWinForm
         {
             return new Point((int)p.X, (int)p.Y);
         }
+
+        public static int GetNewID()
+        {
+            return Config.NextID++;
+        }
     }
 }

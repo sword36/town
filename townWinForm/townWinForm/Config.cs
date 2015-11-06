@@ -32,6 +32,7 @@ namespace townWinForm
         public static float UnhappyForNoFood = 10;
         public static float HomeNear = 200;
         public static float MovePrecision = 10;
+        public static int NextID = 0;
 
         #endregion
 
