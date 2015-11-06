@@ -58,6 +58,7 @@ namespace townWinForm
             CurrentProf = Config.ProfList[Util.GetRandomFromInterval(0, Config.ProfList.Length - 1)];
 
             initBehaviourModel("craftsman"); //CurrentProf
+            Log.Add("citizens:Human" + id + " created at " + DateTime.Now.ToShortTimeString());
         }
 
 

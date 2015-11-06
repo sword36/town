@@ -36,8 +36,12 @@ namespace townWinForm
                 return;
             }
 
+            l += 1; //to cut ":"
 
-            string message = log.Substring(l, Config.MaxMessageLength);
+            int messageL = log.Length - l;
+            int min = Math.Min(messageL, Config.MaxMessageLength);
+
+            string message = log.Substring(l, min);
 
             all.Add(message);
             switch(type)
