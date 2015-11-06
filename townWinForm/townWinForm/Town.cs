@@ -11,6 +11,8 @@ namespace townWinForm
 {
     public class Town : IDrawable
     {
+        private int minStructCount = Config.MaxCitizens + (int)Math.Ceiling((float)(Config.MaxCitizens / 4)) + 4 + 1;
+
         private static float dx = 0;
         private static float dy = 0;
 
@@ -140,13 +142,18 @@ namespace townWinForm
 
                         while (matrix[x, y + h] == buildIndex)
                             h++;
-
-                        if (rand.Next() % 6 != 0)
+                        
+                        if ((rand.Next() % 6 != 0))
                         Structures.Add(new House(x, y, w, h));
                         idCounter.Add(buildIndex);
                     }
                     
                 }
+            }
+
+            while (Structures.Count > minStructCount + 10)
+            {
+                Structures.RemoveAt(rand.Next(Structures.Count));
             }
         }
 
