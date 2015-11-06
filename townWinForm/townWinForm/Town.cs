@@ -55,7 +55,7 @@ namespace townWinForm
 
         public List<PointF> FindPath(Point start, Building finish)
         {
-            Point finishEntrance = new Point((int)finish.Entrance.X, (int)finish.Entrance.Y);
+            Point finishEntrance = Util.ConvertFromPointF(finish.Entrance);
             path = PathNode.FindPath(AstarMatrix, Util.ConvertIntToIndex(start), finishEntrance);
 
             List<PointF> finalPath = new List<PointF>();
