@@ -217,7 +217,7 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
-            g.FillRectangle(Brushes.Black, Position.X + dx, Position.Y + dy,
+            g.FillRectangle(Brushes.LightPink, Position.X + dx, Position.Y + dy,
                 Config.TileSize, Config.TileSize);
         }
 

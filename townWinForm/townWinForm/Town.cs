@@ -18,6 +18,7 @@ namespace townWinForm
         private Point fi = new Point(Config.TownWidth - 3, Config.TownHeight - 3);
 
         private List<PointF> pathF;
+        private List<Point> path;
         public Point MousePosition;
         public Point CurrentTile;
 
