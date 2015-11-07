@@ -58,7 +58,8 @@ namespace townWinForm
             CurrentProf = Config.ProfList[Util.GetRandomFromInterval(0, Config.ProfList.Length - 1)];
 
             initBehaviourModel("craftsman"); //CurrentProf
-            Log.Add("citizens:Human" + id + " created at " + DateTime.Now.ToShortTimeString());
+
+            Log.Add("citizens:Human" + id + " created");
         }
 
 
@@ -84,6 +85,8 @@ namespace townWinForm
                     break;
                 default: throw new Exception("Wrong proffession");
             }
+
+            Log.Add("citizens:Human" + id + " behaviour: " + prof);
         }
 
         public float Eat()

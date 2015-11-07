@@ -13,6 +13,7 @@ namespace townWinForm
         protected Human body;
         public int Level { get; set; }
         protected bool isGoing = false;
+        private int lastTryingEat = Config.TryEatInterval;
 
         public virtual void Update(int dt) { }
 
@@ -38,19 +39,28 @@ namespace townWinForm
             }
         }
 
-        protected virtual void eat()
+        protected virtual void eat(int dt)
         {
+            lastTryingEat += dt;
             try
             {
-                float dHappy = body.Eat();
-                if (body.Happiness + dHappy < Config.MaxHappiness)
+                if (lastTryingEat > Config.TryEatInterval)
                 {
-                    body.Happiness += dHappy;
+                    lastTryingEat = 0;
+
+                    float dHappy = body.Eat();
+                    if (body.Happiness + dHappy < Config.MaxHappiness)
+                    {
+                        body.Happiness += dHappy;
+                    }
+                    else
+                    {
+                        body.Happiness = Config.MaxHappiness;
+                    }
+
+                    Log.Add("citizens:Human" + body.Id + " eat: " + dHappy);
                 }
-                else
-                {
-                    body.Happiness = Config.MaxHappiness;
-                }
+
             }
             catch (NoFoodExeption ex)
             {
@@ -62,6 +72,8 @@ namespace townWinForm
                 {
                     body.Happiness = 0;
                 }
+
+                Log.Add("citizens:Human" + body.Id + " can't eat: " + " no food");
             }
         }
 
@@ -72,12 +84,16 @@ namespace townWinForm
                 isGoing = true;
                 var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.Home);
                 body.Move(path, dt);
-            } else
+
+                Log.Add("citizens:Human" + body.Id + " go home");
+            }
+            else
             {
                 bool isAtHome = body.MoveAlongThePath(dt);
                 if (isAtHome)
                 {
                     isGoing = false;
+                    Log.Add("citizens:Human" + body.Id + " came home");
                 }
                 return isAtHome;
             }
@@ -103,6 +119,8 @@ namespace townWinForm
                 isGoing = true;
                 var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.WorkBuilding);
                 body.Move(path, dt);
+
+                Log.Add("citizens:Human" + body.Id + " go to work");
             }
             //if path exist already, go along the path
             else
@@ -111,6 +129,7 @@ namespace townWinForm
                 if (isAtWork)
                 {
                     isGoing = false;
+                    Log.Add("citizens:Human" + body.Id + " came at work");
                 }
                 return isAtWork;
             }
@@ -177,6 +196,8 @@ namespace townWinForm
             {
                 body.Happiness += Config.MaxHappiness;
             }
+
+            Log.Add("citizens:Human" + body.Id + " sleep");
         }
     }
 }

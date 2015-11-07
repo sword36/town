@@ -30,7 +30,7 @@ namespace townWinForm.BehaviourModels
                 StateMachine.PushState("goToWork");
             } else if (body.Energy < 50)
             {
-                eat();
+                eat(dt);
             }
             else if (body.Energy < 20)
             {
@@ -47,15 +47,24 @@ namespace townWinForm.BehaviourModels
             }
         }
 
+        private bool isWorking = false;
+
         private void work(int dt)
         {
             base.work(dt);
+            if (!isWorking)
+            {
+                isWorking = true;
+                Log.Add("citizens:Human" + body.Id + " working");
+            }
 
             if (body.Energy < 30)
             {
                 if (true) { }
                 StateMachine.PopState();
                 StateMachine.PushState("goHome");
+                isWorking = false;
+                Log.Add("citizens:Human" + body.Id + " finish work");
                 //StateMachine.EnqueueState("rest");
             }
         }

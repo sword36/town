@@ -33,6 +33,7 @@ namespace townWinForm
         public static float HomeNear = 200;
         public static float MovePrecision = 10;
         public static int NextID = 0;
+        public static int TryEatInterval = 1000;
 
         #endregion
 
