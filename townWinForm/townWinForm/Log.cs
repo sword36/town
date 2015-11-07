@@ -75,6 +75,8 @@ namespace townWinForm
                     other.Add(message);
                     break;
             }
+
+            FireUpdate();
         }
 
         private static string listToSting(List<string> list)
