@@ -52,7 +52,11 @@ namespace townWinForm
             int min = Math.Min(messageL, Config.MaxMessageLength);
 
             string message = log.Substring(l, min);
-            message = DateTime.Now.ToShortTimeString() + ": " + message;
+
+            string seconds = DateTime.Now.Second.ToString();
+            seconds = seconds.Length == 1 ? "0" + seconds : seconds;
+
+            message = DateTime.Now.ToShortTimeString() + "." + seconds + ": " + message;
 
             all.Add(message);
             switch(type)
