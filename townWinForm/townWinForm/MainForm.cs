@@ -126,6 +126,7 @@ namespace townWinForm
         private void logToolStripMenuItem_Click(object sender, EventArgs e)
         {
             logForm = new LogForm();
+            Log.UpdateEvent += logForm.Update;
             logForm.Show();
             logForm.TopMost = true;
         }

@@ -15,6 +15,16 @@ namespace townWinForm
         private static List<string> paths = new List<string>();
         private static List<string> other = new List<string>();
 
+        public delegate void logUpdateHandler();
+        public static event logUpdateHandler UpdateEvent;
+        public static void FireUpdate()
+        {
+            if (UpdateEvent != null)
+            {
+                UpdateEvent();
+            }
+        }
+
         //Format of adding is - "LogType:Message"
         //If LogType not exist it will be Add
         //If formate not standart it will be Other

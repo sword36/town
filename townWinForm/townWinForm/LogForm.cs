@@ -12,6 +12,7 @@ namespace townWinForm
 {
     public partial class LogForm : Form
     {
+        private string type = "all";
         public LogForm()
         {
             InitializeComponent();
@@ -24,12 +25,17 @@ namespace townWinForm
             comboBox.Items.Add("Path");
             comboBox.Items.Add("Other");
 
-            textBox.Text = Log.Print("all");
+            textBox.Text = Log.Print(type);
         }
 
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string type = comboBox.Text;
+            type = comboBox.Text;
+            textBox.Text = Log.Print(type);
+        }
+
+        public void Update()
+        {
             textBox.Text = Log.Print(type);
         }
     }
