@@ -9,6 +9,7 @@ namespace townWinForm
 {
     public class Tile : IDrawable
     {
+        
         private static float dx;
         private static float dy;
 
@@ -43,6 +44,7 @@ namespace townWinForm
                     c = Color.LawnGreen;
 
                 g.FillRectangle(new SolidBrush(c), x * Config.TileSize + dx, y * Config.TileSize + dy, Config.TileSize, Config.TileSize);
+                
             }
         }
 

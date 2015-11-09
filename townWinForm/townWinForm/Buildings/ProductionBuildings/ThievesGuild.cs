@@ -11,7 +11,20 @@ namespace townWinForm.Buildings.ProductionBuildings
     {
         public override void Draw(Graphics g)
         {
+            base.Draw(g);
+        }
+
+        public override bool AddWorker(Human h)
+        {
             
+            if (h.CurrentProf != "thief")
+            {
+                return false;
+            }
+
+            Workers.Add(h);
+            h.WorkBuilding = this;
+            return true;
         }
     }
 }
