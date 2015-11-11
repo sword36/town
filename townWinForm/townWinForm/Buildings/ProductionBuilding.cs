@@ -20,6 +20,7 @@ namespace townWinForm.Buildings
 
             Workers.Add(h);
             h.WorkBuilding = this;
+            h.Home = this;
             return true;
         }
     }

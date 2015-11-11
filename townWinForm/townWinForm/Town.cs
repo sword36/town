@@ -12,7 +12,7 @@ namespace townWinForm
     public class Town : IDrawable
     {
         
-        private int minStructCount = Config.Houses + Config.Productions + 
+        private int minStructCount = Config.Houses / Config.MaxResidents + 1 + Config.Productions + 
             Config.ThiefGuildsAmount + Config.BarracksAmount + Config.Markets;
 
         private static float dx = 0;
@@ -26,7 +26,7 @@ namespace townWinForm
         public Point MousePosition;
         public Point CurrentTile;
 
-        public List<>
+        
 
         public List<Human> Citizens;
         public List<Building> Structures;

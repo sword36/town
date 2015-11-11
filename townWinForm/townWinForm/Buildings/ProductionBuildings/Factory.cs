@@ -11,7 +11,7 @@ namespace townWinForm.Buildings.ProductionBuildings
     {
         public override void Draw(Graphics g)
         {
-
+            base.Draw(g);
         }
 
     }
