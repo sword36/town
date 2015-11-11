@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace townWinForm.Buildings.ProductionBuildings
+namespace townWinForm
 {
     public class Barracks : ProductionBuilding
     {

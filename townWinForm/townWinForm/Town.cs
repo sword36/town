@@ -11,9 +11,7 @@ namespace townWinForm
 {
     public class Town : IDrawable
     {
-        
-        private int minStructCount = Config.Houses / Config.MaxResidents + 1 + Config.Productions + 
-            Config.ThiefGuildsAmount + Config.BarracksAmount + Config.Markets;
+        private int minStructCount = Config.MaxCitizens + (int)Math.Ceiling((float)(Config.MaxCitizens / 4)) + 4 + 1;
 
         private static float dx = 0;
         private static float dy = 0;
@@ -26,10 +24,13 @@ namespace townWinForm
         public Point MousePosition;
         public Point CurrentTile;
 
-        
-
         public List<Human> Citizens;
-        public List<Building> Structures;
+
+        private List<Building> Structures;
+        private List<Tavern> Taverns;
+        private List<Barracks> Rax;
+        private List<House> Houses;
+        private List<ProductionBuilding> WorkShops;
 
         private int[,] matrix;
         private int[,] AstarMatrix;
@@ -38,10 +39,14 @@ namespace townWinForm
         private List<PointF> homeToWork = new List<PointF>();
         public Town()
         {
-            Random rand = new Random();
-            SetTownSize();
             Citizens = new List<Human>();
+
             Structures = new List<Building>();
+            Taverns = new List<Tavern>();
+            Rax = new List<Barracks>();
+            Houses = new List<House>();
+            WorkShops = new List<ProductionBuilding>();
+
             matrix = new int[Config.TownWidth, Config.TownHeight];
             AstarMatrix = new int[Config.TownWidth, Config.TownHeight];
             MatrixInit();
@@ -49,32 +54,12 @@ namespace townWinForm
             InitBuildings();
             InitAstarMatrix();
             h = new Human(this);
-            h.Home = Structures.ElementAt(rand.Next(Structures.Count));
-            h.WorkBuilding = Structures.ElementAt(rand.Next(Structures.Count));
+            h.Home = Structures.ElementAt(0);
+            h.WorkBuilding = Structures.ElementAt(Structures.Count - 1);
             h.Position = Util.ConvertIndexToInt(h.Home.Entrance);
 
             homeToWork = FindPath(Util.ConvertFromPointF(h.Position), h.WorkBuilding);
 
-        }
-
-        private void SetTownSize()
-        {
-            Random rand = new Random();
-            int sign = Math.Sign(rand.Next(-10, 10));
-            int n = 0;
-            int avg = Config.StreetHeight / 2;
-
-            while (n < minStructCount + minStructCount / 3)
-            {
-                if (sign > 0)
-                Config.Blocks++;
-
-                sign *= -1;
-
-                Config.TownWidth += avg;
-
-                n = Config.Blocks * 2 * Config.TownWidth / avg;
-            }
         }
 
         //Returns path from point start to finish building
@@ -177,7 +162,7 @@ namespace townWinForm
                 }
             }
 
-            while (Structures.Count > minStructCount + minStructCount / 10)
+            while (Structures.Count > minStructCount + 10)
             {
                 Structures.RemoveAt(rand.Next(Structures.Count));
             }
@@ -315,6 +300,7 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
+            
             for (int x = 0; x < Config.TownWidth; x++)
             {
                 for (int y = 0; y < Config.TownHeight; y++)
@@ -327,14 +313,17 @@ namespace townWinForm
                 }
             }
 
+            //foreach (var j in homeToWork)
+           // {
+            //    g.FillRectangle(new SolidBrush(Color.FromArgb(250, 0, 0)), j.X + Config.dx, j.Y + Config.dy, Config.TileSize, Config.TileSize);
+            //
+            //}
+
             foreach (var s in Structures)
             {
                 s.Draw(g);
             }
-
             h.Draw(g);
-
-
         }
 
         public static void UpdateD(float dx, float dy)

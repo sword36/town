@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace townWinForm.Buildings
+namespace townWinForm
 {
     public abstract class ProductionBuilding : Building
     {
