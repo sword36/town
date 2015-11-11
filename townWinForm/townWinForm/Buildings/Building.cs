@@ -9,6 +9,7 @@ namespace townWinForm
 {
     public abstract class Building : IDrawable
     {
+        public static Image roof = Image.FromFile("../../Town/roof1.jpg");
         static Random rand = new Random(DateTime.Now.Millisecond);
         protected static int idCounter = 0;
         protected int id;
@@ -52,10 +53,12 @@ namespace townWinForm
         private static float dy = 0;
         public virtual void Draw(Graphics g)
         {
+
             for (int x = 0; x < Position.Size.Width; x++)
             {
                 for (int y = 0; y < Position.Size.Height; y++)
                 {
+                    //g.DrawImage(roof, Position.Location.X * Config.TileSize + x * Config.TileSize + dx, Position.Location.Y * Config.TileSize + y * Config.TileSize + dy, Config.TileSize, Config.TileSize);
                     Grid[x, y].Draw(g);
                 }
             }

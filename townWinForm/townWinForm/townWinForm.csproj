@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,6 +63,7 @@
     <Compile Include="Buildings\ProductionBuildings\Market.cs" />
     <Compile Include="Buildings\ProductionBuildings\ThievesGuild.cs" />
     <Compile Include="Buildings\House.cs" />
+    <Compile Include="Buildings\Tavern.cs" />
     <Compile Include="Buildings\Tile.cs" />
     <Compile Include="Citizens\BehaviourModels\BehaviourModel.cs" />
     <Compile Include="Citizens\BehaviourModels\Craftsman.cs" />

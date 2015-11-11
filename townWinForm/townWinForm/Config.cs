@@ -19,7 +19,7 @@ namespace townWinForm
         public static int MaxHappiness = 100;
         public static int StartHappiness = 75;
         public static int StartHappinessDelta = 25;
-        public static string[] ProfList = new string[] {"craftsman", "farmer", "guardian", "trader", "thief"};
+        public static string[] ProfList = new string[] { "craftsman", "farmer", "guardian", "trader", "thief" };
         public static int MaxProfLevel = 10;
         public static int MaxEnergy = 100;
         public static float EnergyForSleep = 0.01f;
@@ -31,7 +31,7 @@ namespace townWinForm
         public static float HappyForRest = 0.001f;
         public static float UnhappyForNoFood = 10;
         public static float HomeNear = 200;
-        public static float MovePrecision = 10;
+        public static float MovePrecision = 6;
         public static int NextID = 0;
         public static int TryEatInterval = 1000;
 
@@ -79,12 +79,32 @@ namespace townWinForm
         {
             get { return minBuildingSize + maxBuildingSize; }
         }
+        public static int TownHeight
+        {
+            get { return StreetHeight * Blocks; }
+        }
 
-        private static float tileSize = 25;
+        public static int Houses
+        {
+            get { return MaxCitizens; }
+        }
+
+        public static int Productions
+        {
+            get { return MaxCitizens / MaxWorkers + 1; }
+        }
+
+
+        public static int MaxResidents = 2;
+        public static int MaxWorkers = 4;
+        public static int ThiefGuildsAmount = 2;
+        public static int BarracksAmount = 2;
+        public static int Markets = 1;
+        private static float tileSize = 20;
         public static int minBuildingSize = 6;
         public static int maxBuildingSize = 8;
-        public static int TownWidth = 70;
-        public static int TownHeight = StreetHeight * 5;
+        public static int TownWidth = 0;
+        public static int Blocks = 0;
         
         #endregion
 

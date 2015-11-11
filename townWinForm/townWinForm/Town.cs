@@ -25,7 +25,12 @@ namespace townWinForm
         public Point CurrentTile;
 
         public List<Human> Citizens;
-        public List<Building> Structures;
+
+        private List<Building> Structures;
+        private List<Tavern> Taverns;
+        private List<Barracks> Rax;
+        private List<House> Houses;
+        private List<ProductionBuilding> WorkShops;
 
         private int[,] matrix;
         private int[,] AstarMatrix;
@@ -35,7 +40,13 @@ namespace townWinForm
         public Town()
         {
             Citizens = new List<Human>();
+
             Structures = new List<Building>();
+            Taverns = new List<Tavern>();
+            Rax = new List<Barracks>();
+            Houses = new List<House>();
+            WorkShops = new List<ProductionBuilding>();
+
             matrix = new int[Config.TownWidth, Config.TownHeight];
             AstarMatrix = new int[Config.TownWidth, Config.TownHeight];
             MatrixInit();
