@@ -39,6 +39,7 @@ namespace townWinForm
         private List<PointF> homeToWork = new List<PointF>();
         public Town()
         {
+            SetTownSize();
             Citizens = new List<Human>();
 
             Structures = new List<Building>();
@@ -49,6 +50,7 @@ namespace townWinForm
 
             matrix = new int[Config.TownWidth, Config.TownHeight];
             AstarMatrix = new int[Config.TownWidth, Config.TownHeight];
+            
             MatrixInit();
             CreateStreets();
             InitBuildings();
@@ -60,6 +62,26 @@ namespace townWinForm
 
             homeToWork = FindPath(Util.ConvertFromPointF(h.Position), h.WorkBuilding);
 
+        }
+
+        private void SetTownSize()
+        {
+            Random rand = new Random();
+            int sign = Math.Sign(rand.Next(-10, 10));
+            int n = 0;
+            int avg = Config.StreetHeight / 2;
+
+            while (n < minStructCount + minStructCount / 3)
+            {
+                if (sign > 0)
+                    Config.Blocks++;
+
+                sign *= -1;
+
+                Config.TownWidth += avg;
+
+                n = Config.Blocks * 2 * Config.TownWidth / avg;
+            }
         }
 
         //Returns path from point start to finish building
@@ -78,20 +100,6 @@ namespace townWinForm
 
             return finalPath;
         }
-
-        /*public List<PointF> FindPath(PointF start, Building finish)
-        {
-            pathF = PathNode.FindPath(AstarMatrix, Util.ConvertIntToIndex(start), finish.Entrance);
-
-            List<PointF> finalPath = new List<PointF>();
-
-            for (int i = 0; i < pathF.Count; i++)
-            {
-                finalPath.Add(Util.ConvertIndexToInt(pathF[i]));
-            }
-
-            return finalPath;
-        }*/
 
         //Initialization of matrix for A* algorithm
         public void InitAstarMatrix()
@@ -312,12 +320,6 @@ namespace townWinForm
                     }
                 }
             }
-
-            //foreach (var j in homeToWork)
-           // {
-            //    g.FillRectangle(new SolidBrush(Color.FromArgb(250, 0, 0)), j.X + Config.dx, j.Y + Config.dy, Config.TileSize, Config.TileSize);
-            //
-            //}
 
             foreach (var s in Structures)
             {

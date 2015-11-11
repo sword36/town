@@ -86,7 +86,7 @@ namespace townWinForm
 
         public static int Houses
         {
-            get { return MaxCitizens; }
+            get { return MaxCitizens / MaxResidents + 1; }
         }
 
         public static int Productions
