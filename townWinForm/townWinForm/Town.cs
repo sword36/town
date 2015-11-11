@@ -144,6 +144,7 @@ namespace townWinForm
         {
             Random rand = new Random();
             List<int> idCounter = new List<int>();
+
             for (int x = 0; x < Config.TownWidth; x++)
             {
                 for (int y = 0; y < Config.TownHeight; y++)
@@ -163,7 +164,7 @@ namespace townWinForm
                         while (matrix[x, y + h] == buildIndex)
                             h++;
                         
-                        if ((rand.Next() % 6 != 0))
+                        if ((rand.Next() % 7 != 0))
                         Structures.Add(new House(x, y, w, h));
                         idCounter.Add(buildIndex);
                     }
@@ -171,7 +172,7 @@ namespace townWinForm
                 }
             }
 
-            while (Structures.Count > minStructCount + 10)
+            while (Structures.Count > minStructCount + minStructCount / 10)
             {
                 Structures.RemoveAt(rand.Next(Structures.Count));
             }
