@@ -11,7 +11,8 @@ namespace townWinForm
 {
     public class Town : IDrawable
     {
-        private int minStructCount = Config.MaxCitizens + (int)Math.Ceiling((float)(Config.MaxCitizens / 4)) + 4 + 1;
+        private int minStructCount = Config.Houses + Config.Productions + Config.ThiefGuildsAmount +
+            Config.BarracksAmount + Config.Markets + Config.Taverns;
 
         private static float dx = 0;
         private static float dy = 0;

@@ -94,7 +94,7 @@ namespace townWinForm
             get { return MaxCitizens / MaxWorkers + 1; }
         }
 
-
+        public static int Taverns = 2;
         public static int MaxResidents = 2;
         public static int MaxWorkers = 4;
         public static int ThiefGuildsAmount = 2;
