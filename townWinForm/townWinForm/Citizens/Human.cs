@@ -9,6 +9,7 @@ namespace townWinForm
 {
     public class Human : IDrawable, IUpdatable
     {
+        
         public BehaviourModel Behaviour { get; set; }
         public PointF Position { get; set; }
         public bool IsAlive { get; set; }
@@ -16,13 +17,20 @@ namespace townWinForm
         public int Money { get; set; }
         public string CurrentProf { get; set; }
         public float Energy { get; set; }
-        public Building Home { get; set; }
         public Building WorkBuilding { get; set; }
         public Bag Bag { get; set; }
         public float Speed { get; set; }
+        public Building Home
+        {
+            get { return home; }
+            set { home = value; }
+        }
+
         private int id;
 
         public Dictionary<string, int> ProfSkills;
+
+        private Building home;
 
         public static float dx = 0;
         public static float dy = 0;

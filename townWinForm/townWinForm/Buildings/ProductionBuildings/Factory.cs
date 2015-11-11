@@ -9,6 +9,10 @@ namespace townWinForm
 {
     public class Factory : ProductionBuilding
     {
+        public Factory(int x, int y, int width, int height) : base(x, y, width, height)
+        {
+
+        }
         public override void Draw(Graphics g)
         {
             base.Draw(g);

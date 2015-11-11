@@ -11,6 +11,11 @@ namespace townWinForm
     {
         protected List<Human> Workers;
 
+        public ProductionBuilding(int x, int y, int width, int height) : base(x, y, width, height)
+        {
+
+        }
+
         public virtual bool AddWorker(Human h)
         {
             if (Workers.Count >= Config.MaxWorkers)
