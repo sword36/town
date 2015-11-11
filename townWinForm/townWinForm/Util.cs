@@ -213,9 +213,9 @@ namespace townWinForm
         //Converts screen coordinates into matrix indexes
         public static Point ConvertIntToIndex(PointF num)
         {
-            int x = (int)((num.X + Config.TileSize / 2) / Config.TileSize);
+            int x = (int)((num.X - Config.TileSize / 2) / Config.TileSize);
 
-            int y = (int)((num.Y + Config.TileSize / 2) / Config.TileSize);
+            int y = (int)((num.Y - Config.TileSize / 2) / Config.TileSize);
 
             if (x >= Config.TownWidth)
                 x = Config.TownWidth - 1;
