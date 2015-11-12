@@ -53,7 +53,7 @@ namespace townWinForm.BehaviourModels
         {
             base.work(dt);
 
-            if (Util.GetRandomNumberF() < Config.ChanceToCraftFood)
+            if (Util.GetRandomNumberF() < Config.ChanceToCraftProduct)
             {
                 try
                 {
