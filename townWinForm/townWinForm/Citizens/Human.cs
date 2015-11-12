@@ -17,20 +17,25 @@ namespace townWinForm
         public int Money { get; set; }
         public string CurrentProf { get; set; }
         public float Energy { get; set; }
-        public Building WorkBuilding { get; set; }
+        public IWorkshop WorkBuilding { get; set; }
         public Bag Bag { get; set; }
         public float Speed { get; set; }
-        public Building Home
+        public IResidence Home
         {
             get { return home; }
-            set { home = value; }
+            set
+            {
+                if (home != null)
+                home.RemoveResident(this);
+                home = value;
+            }
         }
 
         private int id;
 
         public Dictionary<string, int> ProfSkills;
 
-        private Building home;
+        private IResidence home;
 
         public static float dx = 0;
         public static float dy = 0;

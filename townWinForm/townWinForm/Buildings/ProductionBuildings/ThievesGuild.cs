@@ -7,34 +7,39 @@ using System.Drawing;
 
 namespace townWinForm
 {
-    public class ThievesGuild : ProductionBuilding, IResidence
+    public class ThievesGuild : Building, IResidence, IWorkshop
     {
+        private List<Human> workers;
+
+        public List<Human> Workers
+        {
+            get { return workers; }
+        }
+
         private List<Human> residents;
         public List<Human> Residents
         {
             get { return residents; }
         }
 
-        public ThievesGuild(int x, int y, int width, int height) : base(x, y, width, height)
+        public ThievesGuild(int x, int y, int width, int height, string type) : base(x, y, width, height, type)
         {
-
+            residents = new List<Human>();
+            workers = new List<Human>();
         }
         public override void Draw(Graphics g)
         {
             base.Draw(g);
         }
 
-        public override bool AddWorker(Human h)
+        public void AddWorker(Human h)
         {
-            
-            if (h.CurrentProf != "thief")
-            {
-                return false;
-            }
+            workers.Add(h);
+        }
 
-            Workers.Add(h);
-            h.WorkBuilding = this;
-            return true;
+        public void RemoveWorker(Human h)
+        {
+            workers.Remove(h);
         }
 
         public void RemoveResident(Human h)
@@ -45,6 +50,11 @@ namespace townWinForm
         public void AddResident(Human h)
         {
             residents.Add(h);
+        }
+
+        public bool IsFree()
+        {
+            return true;
         }
     }
 }

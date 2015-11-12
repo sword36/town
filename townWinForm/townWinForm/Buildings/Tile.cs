@@ -9,7 +9,7 @@ namespace townWinForm
 {
     public class Tile : IDrawable
     {
-        
+        private string buildingType;
         private static float dx;
         private static float dy;
 
@@ -18,8 +18,9 @@ namespace townWinForm
 
         private bool Entrance;
 
-        public Tile(int x, int y, bool entrance = false)
+        public Tile(int x, int y, string type, bool entrance = false)
         {
+            buildingType = type;
             Entrance = entrance;
             this.x = x;
             this.y = y;
@@ -39,9 +40,52 @@ namespace townWinForm
         {
             if (Util.CheckPoint(new PointF(Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy)))
             {
-                Color c = Color.FromArgb(20, 20, 20);
-                if (Entrance)
-                    c = Color.LawnGreen;
+                Color c;
+                switch (buildingType)
+                {
+                    case "house":
+                        {
+                            c = Config.HouseColor;
+                            break;
+                        }
+                    case "tavern":
+                        {
+                            c = Config.TavernColor;
+                            break;
+                        }
+                    case "barracks":
+                        {
+                            c = Config.BarracksColor;
+                            break;
+                        }
+                    case "market":
+                        {
+                            c = Config.MarketColor;
+                            break;
+                        }
+                    case "guild":
+                        {
+                            c = Config.GuildColor;
+                            break;
+                        }
+                    case "farm":
+                        {
+                            c = Config.FarmColor;
+                            break;
+                        }
+                    case "factory":
+                        {
+                            c = Config.FactoryColor;
+                            break;
+                        }
+                    default:
+                        c = Color.Black;
+                        break;
+
+                }
+
+                if (IsEntrance())
+                    c = Color.LightGreen;
 
                 g.FillRectangle(new SolidBrush(c), x * Config.TileSize + dx, y * Config.TileSize + dy, Config.TileSize, Config.TileSize);
                 

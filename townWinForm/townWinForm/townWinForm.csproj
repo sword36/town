@@ -57,7 +57,7 @@
   <ItemGroup>
     <Compile Include="Buildings\Building.cs" />
     <Compile Include="Buildings\IResidence.cs" />
-    <Compile Include="Buildings\ProductionBuilding.cs" />
+    <Compile Include="Buildings\IWorkshop.cs" />
     <Compile Include="Buildings\ProductionBuildings\Barracks.cs" />
     <Compile Include="Buildings\ProductionBuildings\Factory.cs" />
     <Compile Include="Buildings\ProductionBuildings\Farm.cs" />

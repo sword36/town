@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace townWinForm
 {
@@ -14,6 +15,19 @@ namespace townWinForm
 
         #endregion
 
+        #region Colors
+
+        public static Color MarketColor = Color.Tan;
+        public static Color HouseColor = Color.DimGray;
+        public static Color FarmColor = Color.Peru;
+        public static Color GuildColor = Color.DarkSlateBlue;
+        public static Color BarracksColor = Color.Maroon;
+        public static Color TavernColor = Color.RosyBrown;
+        public static Color FactoryColor = Color.SandyBrown;
+        public static Color StreetColor = Color.Gainsboro;
+
+        #endregion
+
         #region Citizens
         public static int MaxCitizens = 50;
         public static int MaxHappiness = 100;
@@ -22,7 +36,7 @@ namespace townWinForm
         public static string[] ProfList = new string[] { "craftsman", "farmer", "guardian", "trader", "thief" };
         public static int MaxProfLevel = 10;
         public static int MaxEnergy = 100;
-        public static float EnergyForSleep = 0.01f;
+        public static float EnergyForSleep = 0.001f;
         public static float HappyForSleep = 0.005f;
         public static float EnergyLowerBoundToUnhappy = 50;
         public static float UnhappyForWork = 1;
@@ -86,13 +100,15 @@ namespace townWinForm
 
         public static int Houses
         {
-            get { return MaxCitizens / MaxResidents + 1; }
+            get { return MaxCitizens / MaxResidents + 7; }
         }
 
         public static int Productions
         {
             get { return MaxCitizens / MaxWorkers + 1; }
         }
+
+        public static string[] BuildingTypes = new string[] { "house", "tavern", "barracks", "market", "guild", "farm", "factory" };
 
         public static int Taverns = 2;
         public static int MaxResidents = 2;

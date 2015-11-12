@@ -9,7 +9,6 @@ namespace townWinForm
 {
     public abstract class Building : IDrawable
     {
-        public static Image roof = Image.FromFile("../../Town/roof1.jpg");
         static Random rand = new Random(DateTime.Now.Millisecond);
         protected static int idCounter = 0;
         protected int id;
@@ -25,7 +24,7 @@ namespace townWinForm
         protected PointF localEntrance;
 
         //Entrance in town
-        public PointF Entrance
+        public virtual PointF Entrance
         {
             get { return entrance; }
         }
@@ -36,7 +35,7 @@ namespace townWinForm
         }
 
         //Entrance in building
-        public PointF LocalEntrance
+        public virtual PointF LocalEntrance
         {
             get { return localEntrance; }
         }
@@ -58,13 +57,12 @@ namespace townWinForm
             {
                 for (int y = 0; y < Position.Size.Height; y++)
                 {
-                    //g.DrawImage(roof, Position.Location.X * Config.TileSize + x * Config.TileSize + dx, Position.Location.Y * Config.TileSize + y * Config.TileSize + dy, Config.TileSize, Config.TileSize);
                     Grid[x, y].Draw(g);
                 }
             }
         }
 
-        public Building(int x, int y, int width, int height)
+        public Building(int x, int y, int width, int height, string type)
         {
             id = ++idCounter;
             Point p = new Point(x, y);
@@ -77,7 +75,7 @@ namespace townWinForm
             {
                 for (int k = 0; k < height; k++)
                 {
-                    Grid[i, k] = new Tile(x + i, y + k);
+                    Grid[i, k] = new Tile(x + i, y + k, type);
                 }
             }
 

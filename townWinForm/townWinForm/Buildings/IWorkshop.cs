@@ -7,16 +7,18 @@ using System.Drawing;
 
 namespace townWinForm
 {
-    public interface IResidence
+    public interface IWorkshop
     {
         Rectangle Position { get; set; }
-        void RemoveResident(Human h);
-
-        void AddResident(Human h);
-
-        List<Human> Residents
+        List<Human> Workers
         {
             get;
         }
+
+        void AddWorker(Human h);
+
+        void RemoveWorker(Human h);
+
+        bool IsFree();
     }
 }

@@ -19,9 +19,9 @@ namespace townWinForm
         {
             base.Draw(g);
         }
-        public House(int x, int y, int width, int height) : base(x, y, width, height)
+        public House(int x, int y, int width, int height, string type) : base(x, y, width, height, type)
         {
-
+            residents = new List<Human>();
         }
 
         public void RemoveResident(Human h)
