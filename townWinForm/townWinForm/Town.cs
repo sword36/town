@@ -68,7 +68,7 @@ namespace townWinForm
                 GetWorkshop().AddWorker(h);
                 GetHome().AddResident(h);
                 //Building b = (Building)h.Home;
-                h.Position = (h.Home as Building).Room;
+                h.Position = Util.ConvertIndexToInt((h.Home as Building).Room);
                 Citizens.Add(h);
             }
         }
