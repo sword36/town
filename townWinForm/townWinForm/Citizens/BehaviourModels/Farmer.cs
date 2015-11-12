@@ -24,16 +24,16 @@ namespace townWinForm.BehaviourModels
         {
             base.rest(dt);
 
-            if (body.Energy > 80)
+            if (body.Energy > 90)
             {
                 StateMachine.PopState();
                 StateMachine.PushState("goToWork");
             }
-            else if (body.Energy < 50)
+            else if (body.Energy < 40)
             {
                 eat(dt);
             }
-            else if (body.Energy < 20)
+            else if (body.Energy < 15)
             {
                 if (body.DistanceToHome() < Config.HomeNear)
                 {
@@ -59,15 +59,15 @@ namespace townWinForm.BehaviourModels
             {
                 try
                 {
-                    Product p = new Product();
-                    this.body.Bag.Add(p);
-                    Log.Add("things:Product with price: " + p.Price + " crafted by craftsman, id:" + this.body.Id);
-                    Log.Add("citizens:Human" + body.Id + " crafted new product with price: " + p.Price);
+                    Food f = new Food();
+                    this.body.Bag.Add(f);
+                    Log.Add("things:Food with price: " + f.Price + " crafted by farmer, id:" + this.body.Id);
+                    Log.Add("citizens:Human" + body.Id + " crafted new food with price: " + f.Price);
 
                 }
                 catch (OverloadedBagExeption ex)
                 {
-                    Log.Add("citizens:Human" + body.Id + " haven't enougth place for new product");
+                    Log.Add("citizens:Human" + body.Id + " haven't enougth place for new food");
                 }
             }
 
@@ -77,7 +77,7 @@ namespace townWinForm.BehaviourModels
                 Log.Add("citizens:Human" + body.Id + " working");
             }
 
-            if (body.Energy < 30)
+            if (body.Energy < 25)
             {
                 if (true) { }
                 StateMachine.PopState();
@@ -127,7 +127,7 @@ namespace townWinForm.BehaviourModels
         {
             base.sleep(dt);
 
-            if (body.Energy > 90)
+            if (body.Energy > 95)
             {
                 StateMachine.PopState();
                 StateMachine.PushState("rest");
