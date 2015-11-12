@@ -29,12 +29,13 @@ namespace townWinForm
         public void AddWorker(Human h)
         {
             workers.Add(h);
+            h.WorkBuilding = this;
         }
 
         public void RemoveWorker(Human h)
         {
             workers.Remove(h);
-            h.WorkBuilding = this;
+            
         }
 
         public bool IsFree()

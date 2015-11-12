@@ -65,10 +65,10 @@ namespace townWinForm
             for (int i = 0; i < Config.MaxCitizens; i++)
             {
                 Human h = new Human(this);
-                h.WorkBuilding = GetWorkshop();
-                h.Home = GetHome();
-                Building b = (Building)h.Home;
-                h.Position = b.Room;
+                GetWorkshop().AddWorker(h);
+                GetHome().AddResident(h);
+                //Building b = (Building)h.Home;
+                h.Position = (h.Home as Building).Room;
                 Citizens.Add(h);
             }
         }

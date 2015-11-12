@@ -17,7 +17,16 @@ namespace townWinForm
         public int Money { get; set; }
         public string CurrentProf { get; set; }
         public float Energy { get; set; }
-        public IWorkshop WorkBuilding { get; set; }
+        public IWorkshop WorkBuilding
+        {
+            get { return work; }
+            set
+            {
+                if (work != null)
+                    work.RemoveWorker(this);
+                work = value;
+            }
+        }
         public Bag Bag { get; set; }
         public float Speed { get; set; }
         public IResidence Home
@@ -36,6 +45,7 @@ namespace townWinForm
         public Dictionary<string, int> ProfSkills;
 
         private IResidence home;
+        private IWorkshop work;
 
         public static float dx = 0;
         public static float dy = 0;
