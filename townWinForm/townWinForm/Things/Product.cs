@@ -18,6 +18,7 @@ namespace townWinForm
         public Product()
         {
             Price = Util.GetRandomDistribution(Config.ProductCost, Config.ProductCostDelta);
+            Weight = Util.GetRandomDistribution(Config.ProductWeight, Config.ProductWeightDelta);
         }
     }
 }

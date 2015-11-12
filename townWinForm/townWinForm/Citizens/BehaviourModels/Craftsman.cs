@@ -52,6 +52,23 @@ namespace townWinForm.BehaviourModels
         private void work(int dt)
         {
             base.work(dt);
+
+            if (Util.GetRandomNumberF() < Config.ChanceToCraftFood)
+            {
+                try
+                {
+                    Product p = new Product();
+                    this.body.Bag.Add(p);
+                    Log.Add("things:Product with price: " + p.Price + " crafted by craftsman, id:" + this.body.Id);
+                    Log.Add("citizens:Human" + body.Id + " crafted new product with price: " + p.Price);
+
+                }
+                catch (OverloadedBagExeption ex)
+                {
+                    Log.Add("citizens:Human" + body.Id + " haven't enougth place for new product");
+                }
+            }
+
             if (!isWorking)
             {
                 isWorking = true;

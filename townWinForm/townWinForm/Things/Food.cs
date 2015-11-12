@@ -21,6 +21,7 @@ namespace townWinForm
         {
             Price = Util.GetRandomDistribution(Config.FoodCost, Config.FoodCostDelta);
             Energy = Price / 10;
+            Weight = Util.GetRandomDistribution(Config.FoodWeight, Config.FoodWeightDelta);
         }
     }
 }

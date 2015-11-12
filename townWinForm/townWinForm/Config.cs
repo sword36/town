@@ -52,7 +52,7 @@ namespace townWinForm
         #endregion
 
         #region Behaviours
-        public static float CraftsmanWorkCost = 0.03f;
+        public static float CraftsmanWorkCost = 0.005f;
         public static float FarmerWorkCost = 0.005f;
         public static float GuardianWorkCost = 0.004f;
         public static float ThiefWorkCost = 0.002f;
@@ -69,6 +69,11 @@ namespace townWinForm
         public static float GuardianSpeed = 0.15f;
         public static float ThiefSpeed = 0.25f;
         public static float TraderSpeed = 0.1f;
+        #endregion
+
+        #region Craft
+        public static float ChanceToCraftFood = 1.0f / 150.0f; // 1 time in 5sec(with 30FPS)
+        public static float ChanceToCraftProduct = 1.0f / 180.0f; // 1 time in 6sec
         #endregion
 
         #region Things
@@ -139,7 +144,7 @@ namespace townWinForm
         #endregion
 
         #region Log
-        public static int MaxMessageLength = 50;
+        public static int MaxMessageLength = 100;
 
         #endregion
     }

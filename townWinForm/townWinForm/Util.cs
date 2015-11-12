@@ -21,6 +21,11 @@ namespace townWinForm
             return rand.Next();
         }
 
+        public static float GetRandomNumberF()
+        {
+            return (float)rand.NextDouble();
+        }
+
         public static int GetRandomNumber(int maxValue)
         {
             return rand.Next(maxValue);
