@@ -195,6 +195,17 @@ namespace townWinForm
                             while (matrix[x, y + h] == buildIndex)
                                 h++;
 
+                            if ((w >= 6) && (h >= 5) 
+                                && (Util.Distance(new PointF(x, y), new PointF(Config.TownWidth / 2, Config.TownHeight / 2)) <= 20)
+                                && (Markets.Count < Config.Markets))
+                            {
+                                Workshops.Add(new Market(x, y, w, h, "market"));
+                                Markets.Add(Workshops[Workshops.Count - 1] as Market);
+                                Structures.Add(Workshops[Workshops.Count - 1] as Building);
+                                idCounter.Add(buildIndex);
+                                continue;
+                            }
+
                             if ((rand.Next() % 5 == 0) && (Houses.Count < Config.Houses))
                             {
                                 Houses.Add(new House(x, y, w, h, "house"));
@@ -214,15 +225,6 @@ namespace townWinForm
                             if ((rand.Next() % 5 == 0) && (Workshops.Count < Config.Productions))
                             {
                                 Workshops.Add(new Factory(x, y, w, h, "factory"));
-                                Structures.Add(Workshops[Workshops.Count - 1] as Building);
-                                idCounter.Add(buildIndex);
-                                continue;
-                            }
-
-                            if ((rand.Next() % 5 == 0) && (Workshops.Count < Config.Markets))
-                            {
-                                Workshops.Add(new Market(x, y, w, h, "market"));
-                                Markets.Add(Workshops[Workshops.Count - 1] as Market);
                                 Structures.Add(Workshops[Workshops.Count - 1] as Building);
                                 idCounter.Add(buildIndex);
                                 continue;
