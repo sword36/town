@@ -74,7 +74,7 @@ namespace townWinForm.BehaviourModels
             if (!isWorking)
             {
                 isWorking = true;
-                Log.Add("citizens:Human" + body.Id + " working");
+                Log.Add("citizens:Human" + body.Id + " working(farmer)");
             }
 
             if (body.Energy < 25)
@@ -83,7 +83,7 @@ namespace townWinForm.BehaviourModels
                 StateMachine.PopState();
                 StateMachine.PushState("goHome");
                 isWorking = false;
-                Log.Add("citizens:Human" + body.Id + " finish work");
+                Log.Add("citizens:Human" + body.Id + " finish work(farmer)");
                 //StateMachine.EnqueueState("rest");
             }
         }
