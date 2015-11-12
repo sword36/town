@@ -59,6 +59,13 @@ namespace townWinForm
             CreateStreets();
             InitBuildings();
             InitAstarMatrix();
+
+            for (int i = 0; i < Config.MaxCitizens; i++)
+            {
+                Human h = new Human(this);
+                h.WorkBuilding = GetWorkshop();
+                Citizens.Add(h);
+            }
             h = new Human(this);
             h.Home = Houses.ElementAt(0);
             h.WorkBuilding = Workshops.ElementAt(Workshops.Count - 1);

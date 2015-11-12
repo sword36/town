@@ -29,7 +29,7 @@ namespace townWinForm
         #endregion
 
         #region Citizens
-        public static int MaxCitizens = 50;
+        public static int MaxCitizens = 30;
         public static int MaxHappiness = 100;
         public static int StartHappiness = 75;
         public static int StartHappinessDelta = 25;

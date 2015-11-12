@@ -70,7 +70,7 @@ namespace townWinForm
             //random proffesion from Config.ProfList
             CurrentProf = Config.ProfList[Util.GetRandomFromInterval(0, Config.ProfList.Length - 1)];
 
-            initBehaviourModel("craftsman"); //CurrentProf
+            initBehaviourModel(CurrentProf); 
 
             Log.Add("citizens:Human" + id + " created");
         }
