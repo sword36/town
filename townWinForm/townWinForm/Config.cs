@@ -17,13 +17,13 @@ namespace townWinForm
 
         #region Colors
 
-        public static Color MarketColor = Color.Black;
+        public static Color MarketColor = Color.LightSalmon;
         public static Color HouseColor = Color.DimGray;
         public static Color FarmColor = Color.DarkGoldenrod;
         public static Color GuildColor = Color.DarkSlateBlue;
         public static Color BarracksColor = Color.Maroon;
         public static Color TavernColor = Color.RosyBrown;
-        public static Color FactoryColor = Color.SandyBrown;
+        public static Color FactoryColor = Color.OrangeRed;
         public static Color StreetColor = Color.Gainsboro;
 
         #endregion

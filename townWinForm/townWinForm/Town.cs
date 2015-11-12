@@ -199,7 +199,7 @@ namespace townWinForm
                                 && (Util.Distance(new PointF(x, y), new PointF(Config.TownWidth / 2, Config.TownHeight / 2)) <= 20)
                                 && (Markets.Count < Config.Markets))
                             {
-                                Workshops.Add(new Market(x, y, w, h, "market"));
+                                Workshops.Add(new Market(x - 1, y - 1, w + 2, h + 2, "market"));
                                 Markets.Add(Workshops[Workshops.Count - 1] as Market);
                                 Structures.Add(Workshops[Workshops.Count - 1] as Building);
                                 idCounter.Add(buildIndex);
