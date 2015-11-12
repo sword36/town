@@ -17,8 +17,7 @@ namespace townWinForm
         private static float dx = 0;
         private static float dy = 0;
 
-        private Point si = new Point(2, 2);
-        private Point fi = new Point(Config.TownWidth - 3, Config.TownHeight - 3);
+        private Random rand = new Random(DateTime.Now.Millisecond);
 
         private List<Point> path;
         public Point MousePosition;
@@ -36,7 +35,6 @@ namespace townWinForm
 
         private int[,] matrix;
         private int[,] AstarMatrix;
-        private Human h;
 
         private List<PointF> homeToWork = new List<PointF>();
         public Town()
@@ -59,29 +57,38 @@ namespace townWinForm
             CreateStreets();
             InitBuildings();
             InitAstarMatrix();
+            InitPeople();
+        }
 
+        private void InitPeople()
+        {
             for (int i = 0; i < Config.MaxCitizens; i++)
             {
                 Human h = new Human(this);
                 h.WorkBuilding = GetWorkshop();
+                h.Home = GetHome();
+                Building b = (Building)h.Home;
+                h.Position = b.Room;
                 Citizens.Add(h);
             }
-            h = new Human(this);
-            h.Home = Houses.ElementAt(0);
-            h.WorkBuilding = Workshops.ElementAt(Workshops.Count - 1);
-            h.Position = Util.ConvertIndexToInt(new PointF(0, 0));
-
-            homeToWork = FindPath(Util.ConvertFromPointF(h.Position), h.WorkBuilding);
-
         }
 
         public IWorkshop GetWorkshop()
         {
-            Random rand = new Random(DateTime.Now.Millisecond);
             IWorkshop result = Workshops[rand.Next(Workshops.Count)];
             while (!result.IsFree())
             {
                 result = Workshops[rand.Next(Workshops.Count)];
+            }
+            return result;
+        }
+
+        public IResidence GetHome()
+        {
+            IResidence result = Houses[rand.Next(Houses.Count)];
+            while (!result.HavePlace())
+            {
+                result = Houses[rand.Next(Houses.Count)];
             }
             return result;
         }
@@ -401,7 +408,10 @@ namespace townWinForm
 
         public void Update(int dt)
         {
-            h.Update((int)dt);
+            foreach (Human h in Citizens)
+            {
+                h.Update(dt);
+            }
         }
 
         public void Draw(Graphics g)
@@ -423,7 +433,16 @@ namespace townWinForm
             {
                 s.Draw(g);
             }
-            h.Draw(g);
+
+            foreach (var p in Citizens)
+            {
+                p.Draw(g);
+            }
+
+            foreach (Human h in Citizens)
+            {
+                h.Draw(g);
+            }
         }
 
         public static void UpdateD(float dx, float dy)

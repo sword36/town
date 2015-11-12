@@ -18,5 +18,7 @@ namespace townWinForm
         {
             get;
         }
+
+        bool HavePlace();
     }
 }

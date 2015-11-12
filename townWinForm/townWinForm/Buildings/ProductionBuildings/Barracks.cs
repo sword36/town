@@ -40,11 +40,13 @@ namespace townWinForm
         public void AddResident(Human h)
         {
             residents.Add(h);
+            h.Home = this;
         }
 
         public void AddWorker(Human h)
         {
             workers.Add(h);
+            h.WorkBuilding = this;
         }
 
         public void RemoveWorker(Human h)
@@ -53,6 +55,11 @@ namespace townWinForm
         }
 
         public bool IsFree()
+        {
+            return true;
+        }
+
+        public bool HavePlace()
         {
             return true;
         }

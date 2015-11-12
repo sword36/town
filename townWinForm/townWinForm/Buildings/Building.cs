@@ -9,6 +9,7 @@ namespace townWinForm
 {
     public abstract class Building : IDrawable
     {
+        public static Color BuildingColor = Color.Black;
         static Random rand = new Random(DateTime.Now.Millisecond);
         protected static int idCounter = 0;
         protected int id;
@@ -62,6 +63,44 @@ namespace townWinForm
             }
         }
 
+        protected virtual void SetEntrance()
+        {
+            int side = rand.Next(0, 2);
+
+            switch (side)
+            {
+                //UP, DOWN
+                case 0:
+                    {
+                        bool up = rand.Next(0, 2) == rand.Next(0, 2);
+                        if (up)
+                        {
+                            Grid[rand.Next(1, Position.Width - 1), 0].SetEntrance();
+                        }
+                        else
+                        {
+                            Grid[rand.Next(1, Position.Width - 1), Position.Height - 1].SetEntrance();
+                        }
+                        break;
+                    }
+
+                //LEFT, RIGHT
+                default:
+                    {
+                        bool left = rand.Next(0, 2) == rand.Next(0, 2);
+                        if (left)
+                        {
+                            Grid[0, rand.Next(1, Position.Height - 1)].SetEntrance();
+                        }
+                        else
+                        {
+                            Grid[Position.Width - 1, rand.Next(1, Position.Height - 1)].SetEntrance();
+                        }
+                        break;
+                    }
+            }
+        }
+
         public Building(int x, int y, int width, int height, string type)
         {
             id = ++idCounter;
@@ -79,40 +118,7 @@ namespace townWinForm
                 }
             }
 
-            int side = rand.Next(0, 2);
-
-            switch (side)
-            {
-                //UP, DOWN
-                case 0:
-                    {
-                        bool up = rand.Next(0, 2) == rand.Next(0, 2);
-                        if (up)
-                        {
-                            Grid[rand.Next(1, width - 1), 0].SetEntrance();
-                        }
-                        else
-                        {
-                            Grid[rand.Next(1, width - 1), height - 1].SetEntrance();
-                        }
-                        break;
-                    }
-
-                //LEFT, RIGHT
-                default:
-                    {
-                        bool left = rand.Next(0, 2) == rand.Next(0, 2);
-                        if (left)
-                        {
-                            Grid[0, rand.Next(1, height - 1)].SetEntrance();
-                        }
-                        else
-                        {
-                            Grid[width - 1, rand.Next(1, height - 1)].SetEntrance();
-                        }
-                        break;
-                    }
-            }
+            SetEntrance();
 
             room = new PointF(Position.X + 1, Position.Y + 1);
 
