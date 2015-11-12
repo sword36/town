@@ -9,6 +9,7 @@ namespace townWinForm
 {
     public class Market : Building, IWorkshop
     {
+        
         private List<Human> workers;
 
         public List<Human> Workers
@@ -33,6 +34,7 @@ namespace townWinForm
         public void RemoveWorker(Human h)
         {
             workers.Remove(h);
+            h.WorkBuilding = this;
         }
 
         public bool IsFree()

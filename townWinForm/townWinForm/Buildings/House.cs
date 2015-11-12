@@ -32,6 +32,12 @@ namespace townWinForm
         public void AddResident(Human h)
         {
             residents.Add(h);
+            h.Home = this;
+        }
+
+        public bool HavePlace()
+        {
+            return residents.Count < Config.MaxResidents;
         }
     }
 }

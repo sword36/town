@@ -17,8 +17,7 @@ namespace townWinForm
         private static float dx = 0;
         private static float dy = 0;
 
-        private Point si = new Point(2, 2);
-        private Point fi = new Point(Config.TownWidth - 3, Config.TownHeight - 3);
+        private Random rand = new Random(DateTime.Now.Millisecond);
 
         private List<Point> path;
         public Point MousePosition;
@@ -59,6 +58,7 @@ namespace townWinForm
             CreateStreets();
             InitBuildings();
             InitAstarMatrix();
+            InitPeople();
             h = new Human(this);
             h.Home = Houses.ElementAt(0);
             h.WorkBuilding = Workshops.ElementAt(Workshops.Count - 1);
@@ -68,13 +68,27 @@ namespace townWinForm
 
         }
 
+        private void InitPeople()
+        {
+
+        }
+
         public IWorkshop GetWorkshop()
         {
-            Random rand = new Random(DateTime.Now.Millisecond);
             IWorkshop result = Workshops[rand.Next(Workshops.Count)];
             while (!result.IsFree())
             {
                 result = Workshops[rand.Next(Workshops.Count)];
+            }
+            return result;
+        }
+
+        public IResidence GetHome()
+        {
+            IResidence result = Houses[rand.Next(Houses.Count)];
+            while (!result.HavePlace())
+            {
+                result = Houses[rand.Next(Houses.Count)];
             }
             return result;
         }
@@ -415,6 +429,11 @@ namespace townWinForm
             foreach (var s in Structures)
             {
                 s.Draw(g);
+            }
+
+            foreach (var p in Citizens)
+            {
+                p.Draw(g);
             }
             h.Draw(g);
         }
