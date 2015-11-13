@@ -65,7 +65,7 @@ namespace townWinForm
             for (int i = 0; i < Config.MaxCitizens; i++)
             {
                 Human h = new Human(this);
-                GetWorkshop().AddWorker(h);
+                GetWorkshop(h.CurrentProf).AddWorker(h);
                 GetHome().AddResident(h);
                 //Building b = (Building)h.Home;
                 h.Position = Util.ConvertIndexToInt((h.Home as Building).Room);
@@ -73,14 +73,90 @@ namespace townWinForm
             }
         }
 
-        public IWorkshop GetWorkshop()
+        public IWorkshop GetGuild()
         {
-            IWorkshop result = Workshops[rand.Next(Workshops.Count)];
-            while (!result.IsFree())
+            if (Guilds.Count == 0)
+                return null;
+            int index = 0;
+            int n = Guilds[0].Workers.Count;
+            for (int i = 1; i < Guilds.Count; i++)
             {
-                result = Workshops[rand.Next(Workshops.Count)];
+                n = Math.Min(n, Guilds[i].Workers.Count);
+                if (n == Guilds[i].Workers.Count) index = i;
             }
-            return result;
+            return Guilds[index];
+        }
+
+        public IWorkshop GetBarracks()
+        {
+            if (Rax.Count == 0)
+                return null;
+            int index = 0;
+            int n = Rax[0].Workers.Count;
+            for (int i = 1; i < Rax.Count; i++)
+            {
+                n = Math.Min(n, Rax[i].Workers.Count);
+                if (n == Rax[i].Workers.Count) index = i;
+            }
+            return Rax[index];
+        }
+
+
+
+        public IWorkshop GetWorkshop(string prof)
+        {
+            switch (prof)
+            {
+                case "craftsman":
+                    {
+                        IWorkshop result = Workshops[rand.Next(Workshops.Count)];
+                        while ((!result.IsFree()) && !(result is Factory))
+                        {
+                            result = Workshops[rand.Next(Workshops.Count)];
+                        }
+                        return result;
+                    }
+
+                case "farmer":
+                    {
+                        IWorkshop result = Workshops[rand.Next(Workshops.Count)];
+                        while ((!result.IsFree()) && !(result is Farm))
+                        {
+                            result = Workshops[rand.Next(Workshops.Count)];
+                        }
+                        return result;
+                    }
+
+                case "trader":
+                    {
+                        IWorkshop result = Workshops[rand.Next(Workshops.Count)];
+                        while ((!result.IsFree()) && !(result is Market))
+                        {
+                            result = Workshops[rand.Next(Workshops.Count)];
+                        }
+                        return result;
+                    }
+
+                case "thief":
+                    {
+                        return GetGuild();
+                    }
+
+                case "guardian":
+                    {
+                        return GetBarracks();
+                    }
+
+                default:
+                    {
+                        IWorkshop result = Workshops[rand.Next(Workshops.Count)];
+                        while (!result.IsFree())
+                        {
+                            result = Workshops[rand.Next(Workshops.Count)];
+                        }
+                        return result;
+                    }
+            }
         }
 
         public IResidence GetHome()
