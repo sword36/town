@@ -9,6 +9,7 @@ namespace townWinForm
 {
     public class Farm : Building, IWorkshop
     {
+
         private List<Human> workers;
 
         public List<Human> Workers

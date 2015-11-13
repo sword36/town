@@ -9,6 +9,7 @@ namespace townWinForm
 {
     public abstract class Building : IDrawable
     {
+
         public static Color BuildingColor = Color.Black;
         static Random rand = new Random(DateTime.Now.Millisecond);
         protected static int idCounter = 0;
@@ -59,6 +60,7 @@ namespace townWinForm
                 for (int y = 0; y < Position.Size.Height; y++)
                 {
                     Grid[x, y].Draw(g);
+                    
                 }
             }
         }

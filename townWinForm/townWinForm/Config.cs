@@ -45,7 +45,7 @@ namespace townWinForm
         public static float HappyForRest = 0.001f;
         public static float UnhappyForNoFood = 10;
         public static float HomeNear = 200;
-        public static float MovePrecision = 6;
+        public static float MovePrecision = 10;
         public static int NextID = 0;
         public static int TryEatInterval = 1000;
 
@@ -132,7 +132,7 @@ namespace townWinForm
         #region Display
         public static float dx = 0;
         public static float dy = 0;
-        public static int FPS = 30;
+        public static int FPS = 15;
         public static float ScrollSpeed = 1000;
 
         #endregion

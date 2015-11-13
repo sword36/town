@@ -29,7 +29,7 @@ namespace townWinForm
         private List<Tavern> Taverns;
         private List<Market> Markets;
         private List<Barracks> Rax;
-        private List<House> Houses;
+        private List<IResidence> Houses;
         private List<IWorkshop> Workshops;
         private List<ThievesGuild> Guilds;
 
@@ -45,7 +45,7 @@ namespace townWinForm
             Structures = new List<Building>();
             Taverns = new List<Tavern>();
             Rax = new List<Barracks>();
-            Houses = new List<House>();
+            Houses = new List<IResidence>();
             Workshops = new List<IWorkshop>();
             Guilds = new List<ThievesGuild>();
             Markets = new List<Market>();
@@ -223,7 +223,7 @@ namespace townWinForm
                             if ((rand.Next() % 5 == 0) && (Houses.Count < Config.Houses))
                             {
                                 Houses.Add(new House(x, y, w, h, "house"));
-                                Structures.Add(Houses[Houses.Count - 1]);
+                                Structures.Add(Houses[Houses.Count - 1] as Building);
                                 idCounter.Add(buildIndex);
                                 continue;
                             }
