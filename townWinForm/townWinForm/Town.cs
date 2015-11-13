@@ -26,7 +26,7 @@ namespace townWinForm
         public List<Human> Citizens;
 
         private List<Building> Structures;
-        private List<Tavern> Taverns;
+        private List<Tavern> taverns;
         private List<Market> Markets;
         private List<Barracks> Rax;
         private List<House> Houses;
@@ -37,13 +37,22 @@ namespace townWinForm
         private int[,] AstarMatrix;
 
         private List<PointF> homeToWork = new List<PointF>();
+
+        public List<Tavern> Taverns
+        {
+            get
+            {
+                return taverns;
+            }
+        }
+
         public Town()
         {
             SetTownSize();
             Citizens = new List<Human>();
 
             Structures = new List<Building>();
-            Taverns = new List<Tavern>();
+            taverns = new List<Tavern>();
             Rax = new List<Barracks>();
             Houses = new List<House>();
             Workshops = new List<IWorkshop>();
@@ -67,7 +76,6 @@ namespace townWinForm
                 Human h = new Human(this);
                 GetWorkshop().AddWorker(h);
                 GetHome().AddResident(h);
-                //Building b = (Building)h.Home;
                 h.Position = Util.ConvertIndexToInt((h.Home as Building).Room);
                 Citizens.Add(h);
             }
@@ -260,10 +268,10 @@ namespace townWinForm
                                 continue;
                             }
 
-                            if ((rand.Next() % 5 == 0) && (Taverns.Count < Config.Taverns))
+                            if ((rand.Next() % 5 == 0) && (taverns.Count < Config.Taverns))
                             {
-                                Taverns.Add(new Tavern(x, y, w, h, "tavern"));
-                                Structures.Add(Taverns[Taverns.Count - 1]);
+                                taverns.Add(new Tavern(x, y, w, h, "tavern"));
+                                Structures.Add(taverns[taverns.Count - 1]);
                                 idCounter.Add(buildIndex);
                                 continue;
                             }

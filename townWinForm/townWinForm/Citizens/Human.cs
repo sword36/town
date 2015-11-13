@@ -27,6 +27,7 @@ namespace townWinForm
                 work = value;
             }
         }
+        public Tavern FavoriteTavern { get; set; }
         public Bag Bag { get; set; }
         public float Speed { get; set; }
         public IResidence Home

@@ -36,8 +36,10 @@ namespace townWinForm
         public static string[] ProfList = new string[] { "craftsman", "farmer", "guardian", "trader", "thief" };
         public static int MaxProfLevel = 10;
         public static int MaxEnergy = 100;
-        public static float EnergyForSleep = 0.001f;
+        public static float EnergyForDrink = 0.001f;
+        public static float EnergyForSleep = 0.003f;
         public static float HappyForSleep = 0.005f;
+        public static float HappyForDrink = 0.007f;
         public static float EnergyLowerBoundToUnhappy = 50;
         public static float UnhappyForWork = 1;
         public static float EnergyMoveCost = 0.001f;

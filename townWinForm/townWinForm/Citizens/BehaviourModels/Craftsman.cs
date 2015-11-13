@@ -134,7 +134,6 @@ namespace townWinForm.BehaviourModels
 
         public override void Update(int dt)
         {
-            dt = 50;
             switch (StateMachine.GetCurrentState())
             {
                 case "rest":

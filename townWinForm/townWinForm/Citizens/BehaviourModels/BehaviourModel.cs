@@ -39,6 +39,65 @@ namespace townWinForm
             }
         }
 
+        protected virtual bool goToTavern(int dt)
+        {
+            if (!isGoing)
+            {
+                isGoing = true;
+                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.FavoriteTavern);
+                body.Move(path, dt);
+
+                Log.Add("citizens:Human" + body.Id + " go to tavern");
+            }
+            else
+            {
+                bool isAtTavern = body.MoveAlongThePath(dt);
+                if (isAtTavern)
+                {
+                    isGoing = false;
+                    Log.Add("citizens:Human" + body.Id + " came to tavern");
+                }
+                return isAtTavern;
+            }
+
+            float dEnergy = Config.EnergyMoveCost * dt;
+            //move
+            if (body.Energy - dEnergy > 0)
+            {
+                body.Energy -= dEnergy;
+                body.Move(body.Home.Position, dt);
+            }
+            else
+            {
+                body.Energy = 0;
+            }
+            return false;
+        }
+
+        protected virtual void tavernDrink(int dt)
+        {
+            float dEnergy = Config.EnergyForDrink * dt;
+            if (body.Energy - dEnergy > 0)
+            {
+                body.Energy -= dEnergy;
+            }
+            else
+            {
+                body.Energy = 0;
+            }
+
+            float dHappy = Config.HappyForDrink * dt;
+            if (body.Happiness + dHappy > Config.MaxHappiness)
+            {
+                body.Happiness = Config.MaxHappiness;
+
+            }
+            else
+            {
+                body.Happiness -= dHappy;
+            }
+        }
+
         protected virtual void eat(int dt)
         {
             lastTryingEat += dt;
