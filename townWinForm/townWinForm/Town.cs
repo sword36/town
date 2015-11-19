@@ -234,7 +234,7 @@ namespace townWinForm
                     for (int y = 0; y < s.Position.Height; y++)
                     {
                         
-                        if (s.LocalEntrance == new PointF(x, y))
+                        if (s.Entrance == new PointF(x, y))
                         {
                             AstarMatrix[s.Position.X + x, s.Position.Y + y] = 1;
                         }
@@ -320,7 +320,7 @@ namespace townWinForm
                                 continue;
                             }
 
-                            if ((rand.Next() % 5 == 0) && (Guilds.Count < Config.ThiefGuildsAmount))
+                            if ((rand.Next() % 3 == 0) && (Guilds.Count < Config.ThiefGuildsAmount) && (w >= 5) && (h >= 5))
                             {
                                 Guilds.Add(new ThievesGuild(x, y, w, h, "guild"));
                                 Structures.Add(Guilds[Guilds.Count - 1] as Building);
@@ -328,7 +328,7 @@ namespace townWinForm
                                 continue;
                             }
 
-                            if ((rand.Next() % 5 == 0) && (Rax.Count < Config.BarracksAmount))
+                            if ((rand.Next() % 3 == 0) && (Rax.Count < Config.BarracksAmount) && (w >= 5) && (h >= 5))
                             {
                                 Rax.Add(new Barracks(x, y, w, h, "barracks"));
                                 Structures.Add(Rax[Rax.Count - 1]);
@@ -349,11 +349,6 @@ namespace townWinForm
 
                     }
                 }
-            }
-
-            //while (Structures.Count > minStructCount + minStructCount / 10)
-            {
-                //Structures.RemoveAt(rand.Next(Structures.Count));
             }
         }
 
@@ -492,27 +487,22 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
-            
-            for (int x = 0; x < Config.TownWidth; x++)
+            /*for (int x = 0; x < Config.TownWidth; x++)
             {
                 for (int y = 0; y < Config.TownHeight; y++)
                 {
-
-                    if (Util.CheckPoint(new PointF(Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy)))
+                    if (AstarMatrix[x, y] != 1)
                     {
-                        g.FillRectangle(new SolidBrush(Config.StreetColor), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
+                        g.FillRectangle(Brushes.Black, x * Config.TileSize + dx, y * Config.TileSize + dy, Config.TileSize, Config.TileSize);
                     }
+                    else g.FillRectangle(Brushes.White, x * Config.TileSize + dx, y * Config.TileSize + dy, Config.TileSize, Config.TileSize);
                 }
-            }
+            }*/
+            g.FillRectangle(new SolidBrush(Config.StreetColor), dx, dy, Config.TownWidth * Config.TileSize, Config.TownHeight * Config.TileSize);
 
             foreach (var s in Structures)
             {
                 s.Draw(g);
-            }
-
-            foreach (var p in Citizens)
-            {
-                p.Draw(g);
             }
 
             foreach (Human h in Citizens)

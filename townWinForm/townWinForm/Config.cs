@@ -23,7 +23,7 @@ namespace townWinForm
         public static Color GuildColor = Color.DarkSlateBlue;
         public static Color BarracksColor = Color.Maroon;
         public static Color TavernColor = Color.RosyBrown;
-        public static Color FactoryColor = Color.OrangeRed;
+        public static Color FactoryColor = Color.DarkGreen;
         public static Color StreetColor = Color.Gainsboro;
 
         #endregion
@@ -133,7 +133,7 @@ namespace townWinForm
         public static float dx = 0;
         public static float dy = 0;
         public static int FPS = 15;
-        public static float ScrollSpeed = 1000;
+        public static float ScrollSpeed = 2000;
 
         #endregion
 

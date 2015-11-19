@@ -115,7 +115,7 @@ namespace townWinForm
             Util.UpdateCamera += Building.UpdateD;
             Util.UpdateCamera += Human.UpdateD;
             Util.UpdateCamera += Town.UpdateD;
-            Util.UpdateCamera += Tile.UpdateD;
+            //Util.UpdateCamera += Tile.UpdateD;
         }
 
         private void MainForm_MouseClick(object sender, MouseEventArgs e)

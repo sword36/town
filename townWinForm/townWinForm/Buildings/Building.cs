@@ -1,29 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace townWinForm
 {
     public abstract class Building : IDrawable
     {
+        private string buildingType = "";
+        public Color BuildingColor = Color.Black;
 
-        public static Color BuildingColor = Color.Black;
         static Random rand = new Random(DateTime.Now.Millisecond);
         protected static int idCounter = 0;
         protected int id;
 
+        private static float dx = 0;
+        private static float dy = 0;
+
+        //Building id
         public int Id
         {
             get { return id; }
         }
 
-        protected Tile[,] Grid;
+
         protected PointF entrance;
         protected PointF room;
         protected PointF localEntrance;
+        protected List<PointF> OccupiedRooms;
+        protected List<PointF> FreeRooms;
 
         //Entrance in town
         public virtual PointF Entrance
@@ -33,13 +42,7 @@ namespace townWinForm
 
         public PointF Room
         {
-            get { return room; }
-        }
-
-        //Entrance in building
-        public virtual PointF LocalEntrance
-        {
-            get { return localEntrance; }
+            get { return FreeRooms[rand.Next(FreeRooms.Count)]; }
         }
 
         //Left upper point's position
@@ -50,19 +53,16 @@ namespace townWinForm
 
         public Rectangle Position { get; set; }
 
-        private static float dx = 0;
-        private static float dy = 0;
         public virtual void Draw(Graphics g)
         {
 
-            for (int x = 0; x < Position.Size.Width; x++)
-            {
-                for (int y = 0; y < Position.Size.Height; y++)
-                {
-                    Grid[x, y].Draw(g);
-                    
-                }
-            }
+            g.FillRectangle(new SolidBrush(BuildingColor), Position.Location.X * Config.TileSize + dx,
+                Position.Location.Y * Config.TileSize + dy, 
+                Position.Width * Config.TileSize,
+                Position.Height * Config.TileSize);
+
+            g.FillRectangle(Brushes.LightGreen, (Entrance.X + Position.Location.X) * Config.TileSize + dx, (Entrance.Y + Position.Location.Y) * Config.TileSize + dy, Config.TileSize, Config.TileSize);
+            
         }
 
         protected virtual void SetEntrance()
@@ -77,11 +77,11 @@ namespace townWinForm
                         bool up = rand.Next(0, 2) == rand.Next(0, 2);
                         if (up)
                         {
-                            Grid[rand.Next(1, Position.Width - 1), 0].SetEntrance();
+                            entrance = new PointF(Position.Location.X + rand.Next(1, Position.Width - 1), Position.Location.Y);
                         }
                         else
                         {
-                            Grid[rand.Next(1, Position.Width - 1), Position.Height - 1].SetEntrance();
+                            entrance = new PointF(Position.Location.X + rand.Next(1, Position.Width - 1), Position.Location.Y + Position.Height - 1);
                         }
                         break;
                     }
@@ -92,53 +92,89 @@ namespace townWinForm
                         bool left = rand.Next(0, 2) == rand.Next(0, 2);
                         if (left)
                         {
-                            Grid[0, rand.Next(1, Position.Height - 1)].SetEntrance();
+                            entrance = new PointF(Position.Location.X, Position.Location.Y + rand.Next(1, Position.Height - 1));
                         }
                         else
                         {
-                            Grid[Position.Width - 1, rand.Next(1, Position.Height - 1)].SetEntrance();
+                            entrance = new PointF(Position.Location.X + Position.Width - 1, Position.Location.Y + rand.Next(1, Position.Height - 1));
                         }
                         break;
                     }
             }
+            entrance = entrance - new Size(Position.Location.X, Position.Location.Y);
         }
 
         public Building(int x, int y, int width, int height, string type)
         {
+            FreeRooms = new List<PointF>();
+            OccupiedRooms = new List<PointF>();
+
+            buildingType = type;
             id = ++idCounter;
             Point p = new Point(x, y);
             Size s = new Size(width, height);
             Position = new Rectangle(p, s);
 
-            Grid = new Tile[width, height];
-
-            for (int i = 0; i < width; i++)
+            switch (buildingType)
             {
-                for (int k = 0; k < height; k++)
-                {
-                    Grid[i, k] = new Tile(x + i, y + k, type);
-                }
+                case "house":
+                    {
+                        BuildingColor = Config.HouseColor;
+                        break;
+                    }
+
+                case "tavern":
+                    {
+                        BuildingColor = Config.TavernColor;
+                        break;
+                    }
+
+                case "barracks":
+                    {
+                        BuildingColor = Config.BarracksColor;
+                        break;
+                    }
+
+                case "market":
+                    {
+                        BuildingColor = Config.MarketColor;
+                        break;
+                    }
+
+                case "guild":
+                    {
+                        BuildingColor = Config.GuildColor;
+                        break;
+                    }
+
+                case "farm":
+                    {
+                        BuildingColor = Config.FarmColor;
+                        break;
+                    }
+
+                case "factory":
+                    {
+                        BuildingColor = Config.FactoryColor;
+                        break;
+                    }
+
+                default:
+                    BuildingColor = Color.Black;
+                    break;
+
             }
 
             SetEntrance();
 
-            room = new PointF(Position.X + 1, Position.Y + 1);
-
-            for (int i = 0; i < width; i++)
+            for (int xx = 1; xx < Position.Width - 2; xx++)
             {
-                for (int k = 0; k < height; k++)
+                for (int yy = 1; yy < Position.Height - 2; yy++)
                 {
-                    if (Grid[i, k].IsEntrance())
-                    {
-                        entrance = new PointF(i + Position.X, k + Position.Y);
-                        localEntrance = new PointF(i, k);
-                        return;
-                    }
+                    FreeRooms.Add(new PointF(xx + Position.Location.X, yy + Position.Location.Y));
                 }
             }
         }
-
-        public Building() { }
 
         public static void UpdateD(float dx, float dy)
         {
