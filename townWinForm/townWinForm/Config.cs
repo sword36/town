@@ -17,7 +17,7 @@ namespace townWinForm
 
         #region Colors
 
-        public static Color MarketColor = Color.LightSalmon;
+        public static Color MarketColor = Color.DeepSkyBlue;
         public static Color HouseColor = Color.DimGray;
         public static Color FarmColor = Color.DarkGoldenrod;
         public static Color GuildColor = Color.DarkSlateBlue;
@@ -132,7 +132,7 @@ namespace townWinForm
 
         #region Display
         public static float dx = 0;
-        public static float dy = 0;
+        public static float dy = 24;
         public static int FPS = 30;
         public static float ScrollSpeed = 1000;
 

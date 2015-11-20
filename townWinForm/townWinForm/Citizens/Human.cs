@@ -304,5 +304,10 @@ namespace townWinForm
             Human.dy = dy - Config.TileSize / 2;
             
         }
+
+        public override string ToString()
+        {
+            return "Id: " + id + " X:" + Position.X + " Y:" + Position.Y;
+        }
     }
 }

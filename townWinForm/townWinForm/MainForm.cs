@@ -104,7 +104,7 @@ namespace townWinForm
                 case Keys.Space:
                     {
                         Config.dx = 0;
-                        Config.dy = 0;
+                        Config.dy = 24;
                         break;
                     }
             }
@@ -120,7 +120,6 @@ namespace townWinForm
 
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
         {
-            
         }
 
         private void logToolStripMenuItem_Click(object sender, EventArgs e)
