@@ -29,7 +29,7 @@ namespace townWinForm
         #endregion
 
         #region Citizens
-        public static int DyingTime = 1000;
+        public static int DyingTime = 500;
         public static int MaxCitizens = 50;
         public static int MaxHappiness = 100;
         public static int StartHappiness = 75;
@@ -37,7 +37,7 @@ namespace townWinForm
         public static string[] ProfList = new string[] { "craftsman", "farmer", "guardian", "trader", "thief" };
         public static int MaxProfLevel = 10;
         public static int MaxEnergy = 100;
-        public static float EnergyForDrink = 0.001f;
+        public static float EnergyForDrink = 0.001f;9
         public static float EnergyForSleep = 0.003f;
         public static float HappyForSleep = 0.005f;
         public static float HappyForDrink = 0.007f;

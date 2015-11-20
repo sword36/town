@@ -22,11 +22,12 @@ namespace townWinForm.BehaviourModels
 
         private void dying(int dt)
         {
-            string newState = base.dying(dt);
-            if (newState == "sleep")
+            bool isAlive = base.dying(dt);
+            if (isAlive)
             {
+                body.Energy = 1;
                 StateMachine.PopState();
-                StateMachine.PushState(newState);
+                StateMachine.PushState("sleep");
             }
         }
 
@@ -144,8 +145,12 @@ namespace townWinForm.BehaviourModels
 
         public override void Update(int dt)
         {
-            base.Update(dt);
-
+            if (body.Energy <= 0 && body.IsAlive)
+            {
+                body.IsAlive = false;
+                StateMachine.PopState();
+                StateMachine.PushState("dying");
+            } 
             switch (StateMachine.GetCurrentState())
             {
                 case "rest":

@@ -17,10 +17,6 @@ namespace townWinForm
 
         public virtual void Update(int dt)
         {
-            if (body.Energy <= 0)
-            {
-                body.Position = (body.Home as Building).Room;
-            }
         }
 
         //increase energy and happiness
@@ -143,27 +139,18 @@ namespace townWinForm
         }
 
         int timeToAlive = Config.DyingTime;
-        protected virtual string dying(int dt)
+        protected virtual bool dying(int dt)
         {
-            if (body.IsAlive)
-            {
-                body.IsAlive = false;
-            }
             timeToAlive -= dt;
             if (timeToAlive < 0)
             {
+                timeToAlive = Config.DyingTime;
                 body.IsAlive = true;
-                body.Position = (body.Home as Building).Room;
+                body.Position = Util.ConvertIndexToInt(new PointF(body.Home.Position.X + 1, body.Home.Position.Y + 1));
                 body.Happiness = Config.HappyAfterDeathe;
+                return true;
             }
-            
-            if (!body.IsAlive)
-            {
-                return "dying";
-            } else
-            {
-                return "sleep";
-            }
+            return false;
         }
 
         protected virtual bool goHome(int dt)
