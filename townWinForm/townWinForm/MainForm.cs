@@ -104,7 +104,7 @@ namespace townWinForm
                 case Keys.Space:
                     {
                         Config.dx = 0;
-                        Config.dy = 0;
+                        Config.dy = 24;
                         break;
                     }
             }
@@ -115,12 +115,11 @@ namespace townWinForm
             Util.UpdateCamera += Building.UpdateD;
             Util.UpdateCamera += Human.UpdateD;
             Util.UpdateCamera += Town.UpdateD;
-            Util.UpdateCamera += Tile.UpdateD;
+            //Util.UpdateCamera += Tile.UpdateD;
         }
 
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
         {
-            
         }
 
         private void logToolStripMenuItem_Click(object sender, EventArgs e)

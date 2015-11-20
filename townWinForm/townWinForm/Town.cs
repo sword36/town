@@ -14,6 +14,8 @@ namespace townWinForm
         private int minStructCount = Config.Houses + Config.Productions +
              Config.Markets + Config.Taverns;
 
+
+
         private static float dx = 0;
         private static float dy = 0;
 
@@ -29,7 +31,7 @@ namespace townWinForm
         private List<Tavern> taverns;
         private List<Market> Markets;
         private List<Barracks> Rax;
-        private List<House> Houses;
+        private List<IResidence> Houses;
         private List<IWorkshop> Workshops;
         private List<ThievesGuild> Guilds;
 
@@ -54,7 +56,7 @@ namespace townWinForm
             Structures = new List<Building>();
             taverns = new List<Tavern>();
             Rax = new List<Barracks>();
-            Houses = new List<House>();
+            Houses = new List<IResidence>();
             Workshops = new List<IWorkshop>();
             Guilds = new List<ThievesGuild>();
             Markets = new List<Market>();
@@ -74,21 +76,97 @@ namespace townWinForm
             for (int i = 0; i < Config.MaxCitizens; i++)
             {
                 Human h = new Human(this);
-                GetWorkshop().AddWorker(h);
+                GetWorkshop(h.CurrentProf).AddWorker(h);
                 GetHome().AddResident(h);
                 h.Position = Util.ConvertIndexToInt((h.Home as Building).Room);
                 Citizens.Add(h);
             }
         }
 
-        public IWorkshop GetWorkshop()
+        public IWorkshop GetGuild()
         {
-            IWorkshop result = Workshops[rand.Next(Workshops.Count)];
-            while (!result.IsFree())
+            if (Guilds.Count == 0)
+                return null;
+            int index = 0;
+            int n = Guilds[0].Workers.Count;
+            for (int i = 1; i < Guilds.Count; i++)
             {
-                result = Workshops[rand.Next(Workshops.Count)];
+                n = Math.Min(n, Guilds[i].Workers.Count);
+                if (n == Guilds[i].Workers.Count) index = i;
             }
-            return result;
+            return Guilds[index];
+        }
+
+        public IWorkshop GetBarracks()
+        {
+            if (Rax.Count == 0)
+                return null;
+            int index = 0;
+            int n = Rax[0].Workers.Count;
+            for (int i = 1; i < Rax.Count; i++)
+            {
+                n = Math.Min(n, Rax[i].Workers.Count);
+                if (n == Rax[i].Workers.Count) index = i;
+            }
+            return Rax[index];
+        }
+
+
+
+        public IWorkshop GetWorkshop(string prof)
+        {
+            switch (prof)
+            {
+                case "craftsman":
+                    {
+                        IWorkshop result = Workshops[rand.Next(Workshops.Count)];
+                        while ((!result.IsFree()) && !(result is Factory))
+                        {
+                            result = Workshops[rand.Next(Workshops.Count)];
+                        }
+                        return result;
+                    }
+
+                case "farmer":
+                    {
+                        IWorkshop result = Workshops[rand.Next(Workshops.Count)];
+                        while ((!result.IsFree()) && !(result is Farm))
+                        {
+                            result = Workshops[rand.Next(Workshops.Count)];
+                        }
+                        return result;
+                    }
+
+                case "trader":
+                    {
+                        IWorkshop result = Workshops[rand.Next(Workshops.Count)];
+                        while ((!result.IsFree()) && !(result is Market))
+                        {
+                            result = Workshops[rand.Next(Workshops.Count)];
+                        }
+                        return result;
+                    }
+
+                case "thief":
+                    {
+                        return GetGuild();
+                    }
+
+                case "guardian":
+                    {
+                        return GetBarracks();
+                    }
+
+                default:
+                    {
+                        IWorkshop result = Workshops[rand.Next(Workshops.Count)];
+                        while (!result.IsFree())
+                        {
+                            result = Workshops[rand.Next(Workshops.Count)];
+                        }
+                        return result;
+                    }
+            }
         }
 
         public IResidence GetHome()
@@ -166,7 +244,7 @@ namespace townWinForm
                     for (int y = 0; y < s.Position.Height; y++)
                     {
                         
-                        if (s.LocalEntrance == new PointF(x, y))
+                        if (s.Entrance == new PointF(x, y))
                         {
                             AstarMatrix[s.Position.X + x, s.Position.Y + y] = 1;
                         }
@@ -231,7 +309,7 @@ namespace townWinForm
                             if ((rand.Next() % 5 == 0) && (Houses.Count < Config.Houses))
                             {
                                 Houses.Add(new House(x, y, w, h, "house"));
-                                Structures.Add(Houses[Houses.Count - 1]);
+                                Structures.Add(Houses[Houses.Count - 1] as Building);
                                 idCounter.Add(buildIndex);
                                 continue;
                             }
@@ -252,7 +330,7 @@ namespace townWinForm
                                 continue;
                             }
 
-                            if ((rand.Next() % 5 == 0) && (Guilds.Count < Config.ThiefGuildsAmount))
+                            if ((rand.Next() % 3 == 0) && (Guilds.Count < Config.ThiefGuildsAmount) && (w >= 5) && (h >= 5))
                             {
                                 Guilds.Add(new ThievesGuild(x, y, w, h, "guild"));
                                 Structures.Add(Guilds[Guilds.Count - 1] as Building);
@@ -260,7 +338,7 @@ namespace townWinForm
                                 continue;
                             }
 
-                            if ((rand.Next() % 5 == 0) && (Rax.Count < Config.BarracksAmount))
+                            if ((rand.Next() % 3 == 0) && (Rax.Count < Config.BarracksAmount) && (w >= 5) && (h >= 5))
                             {
                                 Rax.Add(new Barracks(x, y, w, h, "barracks"));
                                 Structures.Add(Rax[Rax.Count - 1]);
@@ -281,11 +359,6 @@ namespace townWinForm
 
                     }
                 }
-            }
-
-            //while (Structures.Count > minStructCount + minStructCount / 10)
-            {
-                //Structures.RemoveAt(rand.Next(Structures.Count));
             }
         }
 
@@ -424,27 +497,11 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
-            
-            for (int x = 0; x < Config.TownWidth; x++)
-            {
-                for (int y = 0; y < Config.TownHeight; y++)
-                {
-
-                    if (Util.CheckPoint(new PointF(Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy)))
-                    {
-                        g.FillRectangle(new SolidBrush(Config.StreetColor), Config.TileSize * x + Config.dx, Config.TileSize * y + Config.dy, Config.TileSize, Config.TileSize);
-                    }
-                }
-            }
+            g.FillRectangle(new SolidBrush(Config.StreetColor), dx, dy, Config.TownWidth * Config.TileSize, Config.TownHeight * Config.TileSize);
 
             foreach (var s in Structures)
             {
                 s.Draw(g);
-            }
-
-            foreach (var p in Citizens)
-            {
-                p.Draw(g);
             }
 
             foreach (Human h in Citizens)
@@ -458,5 +515,17 @@ namespace townWinForm
             Town.dx = dx;
             Town.dy = dy;
         }
+
+        public Building IsHumanInBuilding(Human h)
+        {
+            Building b;
+            for (int i = 0; i < Structures.Count; i++)
+            {
+                if (Util.IsInRectangle(h.Position, Structures[i].Position))
+                    return Structures[i];
+            }
+            return null;
+        }
+
     }
 }

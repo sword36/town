@@ -21,7 +21,7 @@ namespace townWinForm
 
         private void updateConfigFromInputs()
         {
-            Config.ScrollSpeed = 250 + trackBar1.Value * 50;
+            Config.ScrollSpeed = (250 + trackBar1.Value * 50) * 2;
             Config.MaxCitizens = checkAndGetFromTextBox(this.maxCitizensInput, 10, 100, "Max citizens error");
         }
 
@@ -54,7 +54,7 @@ namespace townWinForm
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            ScrollSpeedLabel.Text = "Scroll Speed: " + (250 + trackBar1.Value * 50).ToString();
+            ScrollSpeedLabel.Text = "Scroll Speed: " + ((250 + trackBar1.Value * 50) * 2).ToString();
         }
     }
 }
