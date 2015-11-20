@@ -40,7 +40,16 @@ namespace townWinForm
             }
         }
 
+        protected Building currentBuilding;
+
         private int id;
+        protected PointF currentRoom;
+
+        public PointF CurrentRoom
+        {
+            get { return currentRoom; }
+            set { currentRoom = value; }
+        }
 
         public Dictionary<string, int> ProfSkills;
 
@@ -70,6 +79,7 @@ namespace townWinForm
             path = new List<PointF>();
             originalPath = new List<PointF>();
             id = Util.GetNewID();
+            currentBuilding = home as Building;
 
             //set all proffesion skills to 1 level
             foreach (string prof in Config.ProfList)
@@ -263,9 +273,29 @@ namespace townWinForm
                 Config.TileSize, Config.TileSize);
         }
 
+        private void UpdateBuilding()
+        {
+            Building b = town.IsHumanInBuilding(this);
+
+            if ((currentBuilding == null) && (b != null))
+            {
+                b.AddHuman(this);
+                currentBuilding = b;
+                return;
+            }
+
+            if ((currentBuilding != null) && (b == null))
+            {
+                currentBuilding.RemoveHuman(this);
+                currentBuilding = null;
+                return;
+            }
+        }
+
         public void Update(int dt)
         {
             Behaviour.Update(dt);
+            UpdateBuilding();
         }
 
         public static void UpdateD(float dx, float dy)

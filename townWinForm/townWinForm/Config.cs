@@ -45,7 +45,7 @@ namespace townWinForm
         public static float HappyForRest = 0.001f;
         public static float UnhappyForNoFood = 10;
         public static float HomeNear = 200;
-        public static float MovePrecision = 10;
+        public static float MovePrecision = 3;
         public static int NextID = 0;
         public static int TryEatInterval = 1000;
 
@@ -64,11 +64,12 @@ namespace townWinForm
         public static float ThiefBagCapacity = 250;
         public static float TraderBagCapacity = 300;
 
-        public static float CraftsmanSpeed = 0.2f;
-        public static float FarmerSpeed = 0.2f;
-        public static float GuardianSpeed = 0.15f;
-        public static float ThiefSpeed = 0.25f;
-        public static float TraderSpeed = 0.1f;
+        private static float MoveK = 1;
+        public static float CraftsmanSpeed = 0.1f / MoveK;
+        public static float FarmerSpeed = 0.1f / MoveK;
+        public static float GuardianSpeed = 0.075f / MoveK;
+        public static float ThiefSpeed = 0.125f / MoveK;
+        public static float TraderSpeed = 0.05f / MoveK;
         #endregion
 
         #region Craft
@@ -132,8 +133,8 @@ namespace townWinForm
         #region Display
         public static float dx = 0;
         public static float dy = 0;
-        public static int FPS = 15;
-        public static float ScrollSpeed = 2000;
+        public static int FPS = 30;
+        public static float ScrollSpeed = 1000;
 
         #endregion
 

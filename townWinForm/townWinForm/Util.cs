@@ -141,21 +141,6 @@ namespace townWinForm
                 UpdateCamera(Config.dx, Config.dy);
         }
 
-        //Returns random color
-        public static Color GetRandomColor()
-        {
-            return Color.FromArgb(rand.Next(255), rand.Next(255), rand.Next(255));
-        }
-
-        //Returns random color, using seed
-        public static Color GetRandomColor(int seed)
-        {
-            if (seed == 1) return Color.FromArgb(215, 215, 215);
-            else return Color.FromArgb(40, 40, 40);
-            Random rnd = new Random(seed);
-            return Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255));
-        }
-
         //Checks the point of getting into the area of the screen
         public static bool CheckPoint(PointF point)
         {
@@ -183,31 +168,7 @@ namespace townWinForm
         }
 
         //Checks is the point on the screen
-        public static bool CheckPoint(Point point)
-        {
-            if (point.X < 0)
-            {
-                return false;
-            }
-
-            if (point.Y < 0)
-            {
-                return false;
-            }
-
-            if (point.X >= SystemInformation.PrimaryMonitorSize.Width)
-            {
-                return false;
-            }
-
-            if (point.Y >= SystemInformation.PrimaryMonitorSize.Height)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
+       
         //Converts matrix indexes into screen coordinates
         public static PointF ConvertIndexToInt(PointF index)
         {
@@ -245,6 +206,24 @@ namespace townWinForm
         public static int GetNewID()
         {
             return Config.NextID++;
+        }
+
+        public static bool IsInRectangle(PointF p, RectangleF r)
+        {
+            PointF location = ConvertIndexToInt(r.Location);
+            location.X += Config.TileSize / 2;
+            location.Y += Config.TileSize / 2;
+
+            if ((p.X >= location.X) && (p.Y >= location.Y) && (p.X <= location.X + (r.Width - 1) * Config.TileSize) && (p.Y <= location.Y + (r.Height - 1) * Config.TileSize))
+                return true;
+            return false;
+        }
+
+        public static bool IsInRectangle(Point p, RectangleF r)
+        {
+            if ((p.X >= r.Location.X) && (p.Y >= r.Location.Y) && (p.X <= r.Location.X + r.Width) && (p.Y <= r.Location.Y + r.Height))
+                return true;
+            return false;
         }
     }
 }

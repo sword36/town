@@ -14,6 +14,8 @@ namespace townWinForm
         private int minStructCount = Config.Houses + Config.Productions +
              Config.Markets + Config.Taverns;
 
+
+
         private static float dx = 0;
         private static float dy = 0;
 
@@ -67,7 +69,6 @@ namespace townWinForm
                 Human h = new Human(this);
                 GetWorkshop(h.CurrentProf).AddWorker(h);
                 GetHome().AddResident(h);
-                //Building b = (Building)h.Home;
                 h.Position = Util.ConvertIndexToInt((h.Home as Building).Room);
                 Citizens.Add(h);
             }
@@ -487,17 +488,6 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
-            /*for (int x = 0; x < Config.TownWidth; x++)
-            {
-                for (int y = 0; y < Config.TownHeight; y++)
-                {
-                    if (AstarMatrix[x, y] != 1)
-                    {
-                        g.FillRectangle(Brushes.Black, x * Config.TileSize + dx, y * Config.TileSize + dy, Config.TileSize, Config.TileSize);
-                    }
-                    else g.FillRectangle(Brushes.White, x * Config.TileSize + dx, y * Config.TileSize + dy, Config.TileSize, Config.TileSize);
-                }
-            }*/
             g.FillRectangle(new SolidBrush(Config.StreetColor), dx, dy, Config.TownWidth * Config.TileSize, Config.TownHeight * Config.TileSize);
 
             foreach (var s in Structures)
@@ -515,6 +505,17 @@ namespace townWinForm
         {
             Town.dx = dx;
             Town.dy = dy;
+        }
+
+        public Building IsHumanInBuilding(Human h)
+        {
+            Building b;
+            for (int i = 0; i < Structures.Count; i++)
+            {
+                if (Util.IsInRectangle(h.Position, Structures[i].Position))
+                    return Structures[i];
+            }
+            return null;
         }
     }
 }

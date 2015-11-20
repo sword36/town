@@ -33,6 +33,7 @@ namespace townWinForm
         protected PointF localEntrance;
         protected List<PointF> OccupiedRooms;
         protected List<PointF> FreeRooms;
+        protected List<Human> PeopleIn;
 
         //Entrance in town
         public virtual PointF Entrance
@@ -42,7 +43,13 @@ namespace townWinForm
 
         public PointF Room
         {
-            get { return FreeRooms[rand.Next(FreeRooms.Count)]; }
+            get
+            {
+                PointF res = FreeRooms[rand.Next(FreeRooms.Count)];
+                //FreeRooms.Remove(res);
+                OccupiedRooms.Add(res);
+                return res;
+            }
         }
 
         //Left upper point's position
@@ -62,7 +69,7 @@ namespace townWinForm
                 Position.Height * Config.TileSize);
 
             g.FillRectangle(Brushes.LightGreen, (Entrance.X + Position.Location.X) * Config.TileSize + dx, (Entrance.Y + Position.Location.Y) * Config.TileSize + dy, Config.TileSize, Config.TileSize);
-            
+            g.DrawString(PeopleIn.Count.ToString(), SystemFonts.DialogFont, Brushes.Black, Position.Location.X * Config.TileSize + dx, Position.Location.Y * Config.TileSize + dy);
         }
 
         protected virtual void SetEntrance()
@@ -104,10 +111,23 @@ namespace townWinForm
             entrance = entrance - new Size(Position.Location.X, Position.Location.Y);
         }
 
+        public void AddHuman(Human h)
+        {
+            PeopleIn.Add(h);
+            if (h.Path.Count != 0)
+            h.CurrentRoom = Util.ConvertIntToIndex(h.Path.Last());
+        }
+
+        public void RemoveHuman(Human h)
+        {
+            PeopleIn.Remove(h);
+        }
+
         public Building(int x, int y, int width, int height, string type)
         {
             FreeRooms = new List<PointF>();
             OccupiedRooms = new List<PointF>();
+            PeopleIn = new List<Human>();
 
             buildingType = type;
             id = ++idCounter;
@@ -167,9 +187,9 @@ namespace townWinForm
 
             SetEntrance();
 
-            for (int xx = 1; xx < Position.Width - 2; xx++)
+            for (int xx = 1; xx < Position.Width - 1; xx++)
             {
-                for (int yy = 1; yy < Position.Height - 2; yy++)
+                for (int yy = 1; yy < Position.Height - 1; yy++)
                 {
                     FreeRooms.Add(new PointF(xx + Position.Location.X, yy + Position.Location.Y));
                 }
