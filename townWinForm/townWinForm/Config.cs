@@ -29,6 +29,7 @@ namespace townWinForm
         #endregion
 
         #region Citizens
+        public static int DyingTime = 1000;
         public static int MaxCitizens = 50;
         public static int MaxHappiness = 100;
         public static int StartHappiness = 75;
@@ -72,6 +73,8 @@ namespace townWinForm
         public static float GuardianSpeed = 0.075f / MoveK;
         public static float ThiefSpeed = 0.125f / MoveK;
         public static float TraderSpeed = 0.05f / MoveK;
+
+        public static float HappyAfterDeathe = 0;
         #endregion
 
         #region Craft

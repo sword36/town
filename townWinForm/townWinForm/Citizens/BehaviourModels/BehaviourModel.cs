@@ -15,7 +15,13 @@ namespace townWinForm
         protected bool isGoing = false;
         private int lastTryingEat = Config.TryEatInterval;
 
-        public virtual void Update(int dt) { }
+        public virtual void Update(int dt)
+        {
+            if (body.Energy <= 0)
+            {
+                body.Position = (body.Home as Building).Room;
+            }
+        }
 
         //increase energy and happiness
         protected virtual void rest(int dt)
@@ -133,6 +139,30 @@ namespace townWinForm
                 }
 
                 Log.Add("citizens:Human" + body.Id + " can't eat: " + " no food");
+            }
+        }
+
+        int timeToAlive = Config.DyingTime;
+        protected virtual string dying(int dt)
+        {
+            if (body.IsAlive)
+            {
+                body.IsAlive = false;
+            }
+            timeToAlive -= dt;
+            if (timeToAlive < 0)
+            {
+                body.IsAlive = true;
+                body.Position = (body.Home as Building).Room;
+                body.Happiness = Config.HappyAfterDeathe;
+            }
+            
+            if (!body.IsAlive)
+            {
+                return "dying";
+            } else
+            {
+                return "sleep";
             }
         }
 

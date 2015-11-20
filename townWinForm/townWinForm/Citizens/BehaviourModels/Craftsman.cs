@@ -20,6 +20,16 @@ namespace townWinForm.BehaviourModels
             h.Speed = Config.CraftsmanSpeed;
         }
 
+        private void dying(int dt)
+        {
+            string newState = base.dying(dt);
+            if (newState == "sleep")
+            {
+                StateMachine.PopState();
+                StateMachine.PushState(newState);
+            }
+        }
+
         private void rest(int dt)
         {
             base.rest(dt);
@@ -134,6 +144,8 @@ namespace townWinForm.BehaviourModels
 
         public override void Update(int dt)
         {
+            base.Update(dt);
+
             switch (StateMachine.GetCurrentState())
             {
                 case "rest":
@@ -150,6 +162,9 @@ namespace townWinForm.BehaviourModels
                     break;
                 case "sleep":
                     sleep(dt);
+                    break;
+                case "dying":
+                     dying(dt);
                     break;
             }
         }
