@@ -11,7 +11,14 @@ namespace townWinForm
     {
         
         public BehaviourModel Behaviour { get; set; }
-        public PointF Position { get; set; }
+        public PointF Position
+        {
+            get
+            { return position; }
+            set
+            { position = value; }
+        }
+        private PointF position;
         public bool IsAlive { get; set; }
         public float Happiness { get; set; }
         public int Money { get; set; }
@@ -35,7 +42,7 @@ namespace townWinForm
             set
             {
                 if (home != null)
-                home.RemoveResident(this);
+                    home.RemoveResident(this);
                 home = value;
             }
         }
@@ -67,12 +74,18 @@ namespace townWinForm
         private List<PointF> path;
         private List<PointF> originalPath;
 
+        public bool IsClicked
+        {
+            get; set;
+        }
+
         public Human(Town t)
         {
+            
             town = t;
             Money = Util.GetRandomDistribution(Config.StartMoney, Config.StartMoneyDelta);
             Happiness = Util.GetRandomDistribution(Config.StartHappiness, Config.StartHappinessDelta);
-            Energy = Config.MaxEnergy;
+            Energy = Config.MaxEnergy / 5;
             IsAlive = true;
             ProfSkills = new Dictionary<string, int>();
             Bag = new Bag();
@@ -268,7 +281,12 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
-            g.FillRectangle(Brushes.Red, Position.X + dx, 
+            if (IsClicked)
+            g.FillRectangle(Brushes.Chartreuse, Position.X + dx, 
+                Position.Y + dy,
+                Config.TileSize, Config.TileSize);
+            else
+                g.FillRectangle(Brushes.Red, Position.X + dx,
                 Position.Y + dy,
                 Config.TileSize, Config.TileSize);
         }

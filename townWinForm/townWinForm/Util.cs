@@ -219,9 +219,9 @@ namespace townWinForm
             return false;
         }
 
-        public static bool IsInRectangle(Point p, RectangleF r)
+        public static bool IsPointInRectangle(Point p, RectangleF rect)
         {
-            if ((p.X >= r.Location.X) && (p.Y >= r.Location.Y) && (p.X <= r.Location.X + r.Width) && (p.Y <= r.Location.Y + r.Height))
+            if ((p.X >= rect.X - Config.TileSize / 2) && (p.Y >= rect.Y - Config.TileSize / 2) && (p.Y <= rect.Y + rect.Height - Config.TileSize / 2) && (p.X <= rect.X + rect.Width - Config.TileSize / 2))
                 return true;
             return false;
         }

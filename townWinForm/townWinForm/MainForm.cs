@@ -6,16 +6,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using System.Diagnostics;
 
 namespace townWinForm
 {
+
     public partial class MainForm : Form
     {
+        Human clickedHuman = null;
         private Town town;
 
-        private Timer animationTimer;
+        private System.Windows.Forms.Timer animationTimer;
         private long lastTime;
 
         private SettingsForm settingsForm;
@@ -36,7 +39,7 @@ namespace townWinForm
             settingsForm = new SettingsForm();
 
             //Timer
-            animationTimer = new Timer();
+            animationTimer = new System.Windows.Forms.Timer();
             animationTimer.Interval = 1000 / Config.FPS;
             animationTimer.Enabled = true;
             animationTimer.Tick += AnimationTimer_Tick;
@@ -120,6 +123,22 @@ namespace townWinForm
 
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
         {
+            Human h = town.IsMouseOnHuman(e.Location - new Size((int)Config.dx, (int)Config.dy));
+
+            if ((h == clickedHuman) && (h != null))
+            {
+                clickedHuman.IsClicked = false;
+                clickedHuman = null;
+                return;
+            }
+
+            if (h != null)
+            {
+                if (clickedHuman != null)
+                clickedHuman.IsClicked = false;
+                h.IsClicked = true;
+                clickedHuman = h;
+            }
         }
 
         private void logToolStripMenuItem_Click(object sender, EventArgs e)

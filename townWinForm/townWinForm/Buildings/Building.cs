@@ -27,6 +27,12 @@ namespace townWinForm
             get { return id; }
         }
 
+        private Bag chest;
+
+        public Bag Chest
+        {
+            get { return chest; }
+        }
 
         protected PointF entrance;
         protected PointF room;
@@ -41,12 +47,16 @@ namespace townWinForm
             get { return entrance; }
         }
 
+        public PointF GlobalEntrance
+        {
+            get { return new PointF(Position.Location.X + entrance.X, Position.Location.Y + entrance.Y); }
+        }
+
         public PointF Room
         {
             get
             {
                 PointF res = FreeRooms[rand.Next(FreeRooms.Count)];
-                //FreeRooms.Remove(res);
                 OccupiedRooms.Add(res);
                 return res;
             }
@@ -125,6 +135,7 @@ namespace townWinForm
 
         public Building(int x, int y, int width, int height, string type)
         {
+            chest = new Bag(Config.BuildingBagCapacity);
             FreeRooms = new List<PointF>();
             OccupiedRooms = new List<PointF>();
             PeopleIn = new List<Human>();

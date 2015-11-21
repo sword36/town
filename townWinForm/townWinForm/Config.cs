@@ -9,6 +9,7 @@ namespace townWinForm
 {
     public static class Config
     {
+        
         #region Common
 
         public static int GameSpeed = 1; //control: Track bar
@@ -17,10 +18,10 @@ namespace townWinForm
 
         #region Colors
 
-        public static Color MarketColor = Color.DeepSkyBlue;
+        public static Color MarketColor = Color.Tomato;
         public static Color HouseColor = Color.DimGray;
         public static Color FarmColor = Color.DarkGoldenrod;
-        public static Color GuildColor = Color.DarkSlateBlue;
+        public static Color GuildColor = Color.Indigo;
         public static Color BarracksColor = Color.Maroon;
         public static Color TavernColor = Color.RosyBrown;
         public static Color FactoryColor = Color.DarkGreen;
@@ -45,7 +46,7 @@ namespace townWinForm
         public static float HappyForRest = 0.001f;
         public static float UnhappyForNoFood = 10;
         public static float HomeNear = 200;
-        public static float MovePrecision = 3;
+        public static float MovePrecision = 5;
         public static int NextID = 0;
         public static int TryEatInterval = 1000;
 
@@ -64,12 +65,13 @@ namespace townWinForm
         public static float ThiefBagCapacity = 250;
         public static float TraderBagCapacity = 300;
 
-        private static float MoveK = 1;
+
+        private static float MoveK = 1f;
         public static float CraftsmanSpeed = 0.1f / MoveK;
         public static float FarmerSpeed = 0.1f / MoveK;
-        public static float GuardianSpeed = 0.075f / MoveK;
-        public static float ThiefSpeed = 0.125f / MoveK;
-        public static float TraderSpeed = 0.05f / MoveK;
+        public static float GuardianSpeed = 0.125f / MoveK;
+        public static float ThiefSpeed = 0.15f / MoveK;
+        public static float TraderSpeed = 0.1f / MoveK;
         #endregion
 
         #region Craft
@@ -111,7 +113,7 @@ namespace townWinForm
 
         public static int Productions
         {
-            get { return MaxCitizens / MaxWorkers + 1; }
+            get { return MaxCitizens / MaxWorkers + 4; }
         }
 
         public static string[] BuildingTypes = new string[] { "house", "tavern", "barracks", "market", "guild", "farm", "factory" };
@@ -121,12 +123,14 @@ namespace townWinForm
         public static int MaxWorkers = 4;
         public static int ThiefGuildsAmount = 2;
         public static int BarracksAmount = 2;
-        public static int Markets = 1;
+        public static int Markets = MaxCitizens / 50 + 2;
         private static float tileSize = 20;
         public static int minBuildingSize = 6;
         public static int maxBuildingSize = 8;
         public static int TownWidth = 0;
         public static int Blocks = 0;
+
+        public static int BuildingBagCapacity = 1000;
         
         #endregion
 

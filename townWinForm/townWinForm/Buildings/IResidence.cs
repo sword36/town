@@ -14,6 +14,11 @@ namespace townWinForm
 
         void AddResident(Human h);
 
+        PointF Room
+        {
+            get;
+        }
+
         List<Human> Residents
         {
             get;
