@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-using VkNet.Model;
 
 namespace townWinForm
 {
@@ -74,6 +73,7 @@ namespace townWinForm
         private List<PointF> originalPath;
 
         private string name;
+        private Image img;
 
 
         public bool IsClicked
@@ -81,13 +81,17 @@ namespace townWinForm
             get; set;
         }
 
-        public Human(Town t, string u)
+        public Human(Town t)
         {
-            name = u;
             town = t;
+            KeyValuePair<string, Image> inf = town.GetInfo();
+
+            name = inf.Key;
+            img = inf.Value;
+
             Money = Util.GetRandomDistribution(Config.StartMoney, Config.StartMoneyDelta);
             Happiness = Util.GetRandomDistribution(Config.StartHappiness, Config.StartHappinessDelta);
-            Energy = Config.MaxEnergy / 5;
+            Energy = 1;
             IsAlive = true;
             ProfSkills = new Dictionary<string, int>();
             Bag = new Bag();
@@ -283,6 +287,9 @@ namespace townWinForm
 
         public void Draw(Graphics g)
         {
+            if (!Util.CheckPoint(Position))
+                return;
+
             if (IsClicked)
             {
                 g.FillRectangle(Brushes.Chartreuse, Position.X + dx,
@@ -291,17 +298,21 @@ namespace townWinForm
 
                 using (Font f = new Font("Courier New", 12, FontStyle.Regular))
                 {
-                    SizeF size = g.MeasureString(name, f);
+                    SizeF nameSize = g.MeasureString(name, f);
+                    SizeF profSize = g.MeasureString(CurrentProf, f);
+
+                    float width = Math.Max(nameSize.Width, profSize.Width);
 
                     g.FillRectangle(new SolidBrush(Color.FromArgb(100, 255, 255, 255)),
                         Position.X + Config.TileSize + 5 + dx,
-                        Position.Y + dy, size.Width + 10, size.Height + 10);
+                        Position.Y + dy, width + 10, nameSize.Height + profSize.Height + 10);
 
-                    g.DrawRectangle(new Pen(Color.FromArgb(100, 20, 20, 20)),
+                    g.DrawRectangle(new Pen(Color.FromArgb(100, 20, 20, 20), 2),
                         Position.X + Config.TileSize + 5 + dx,
-                        Position.Y + dy, size.Width + 10, size.Height + 10);
+                        Position.Y + dy, width + 10, nameSize.Height + profSize.Height + 10);
 
                     g.DrawString(name, f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + dy + 5);
+                    g.DrawString(CurrentProf, f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + nameSize.Height + dy + 5);
                 }
 
             }
@@ -310,6 +321,9 @@ namespace townWinForm
                 g.FillRectangle(Brushes.Red, Position.X + dx,
                 Position.Y + dy,
                 Config.TileSize, Config.TileSize);
+
+            if (img != null)
+            g.DrawImage(img, position.X + 2 + dx, position.Y + 2 + dy, Config.TileSize - 4, Config.TileSize - 4);
         }
 
         private void UpdateBuilding()

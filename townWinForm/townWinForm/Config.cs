@@ -46,7 +46,7 @@ namespace townWinForm
         public static float HappyForRest = 0.001f;
         public static float UnhappyForNoFood = 10;
         public static float HomeNear = 200;
-        public static float MovePrecision = 5;
+        public static float MovePrecision = 3;
         public static int NextID = 0;
         public static int TryEatInterval = 1000;
 
@@ -126,7 +126,7 @@ namespace townWinForm
         public static int ThiefGuildsAmount = 2;
         public static int BarracksAmount = 2;
         public static int Markets = MaxCitizens / 50 + 2;
-        private static float tileSize = 20;
+        private static float tileSize = 28;
         public static int minBuildingSize = 6;
         public static int maxBuildingSize = 8;
         public static int TownWidth = 0;

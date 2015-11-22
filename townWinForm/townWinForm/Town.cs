@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Web;
 using System.Net;
+using System.IO;
 
 namespace townWinForm
 {
@@ -13,8 +14,6 @@ namespace townWinForm
     {
         private int minStructCount = Config.Houses + Config.Productions +
              Config.Markets + Config.Taverns;
-
-        Vk vkapi;
 
 
         private static float dx = 0;
@@ -27,6 +26,7 @@ namespace townWinForm
         public Point CurrentTile;
 
         public List<Human> Citizens;
+        private Dictionary<string, Image> CitizensInfo = new Dictionary<string, Image>();
 
         private List<Building> Structures;
         private List<Tavern> Taverns;
@@ -42,7 +42,6 @@ namespace townWinForm
         private List<PointF> homeToWork = new List<PointF>();
         public Town()
         {
-            //vkapi = new Vk();
             SetTownSize();
             
 
@@ -56,7 +55,8 @@ namespace townWinForm
 
             matrix = new int[Config.TownWidth, Config.TownHeight];
             AstarMatrix = new int[Config.TownWidth, Config.TownHeight];
-            
+
+            InitInfo();
             MatrixInit();
             CreateStreets();
             InitBuildings();
@@ -64,12 +64,44 @@ namespace townWinForm
             InitPeople();
         }
 
+        public KeyValuePair<string, Image> GetInfo()
+        {
+            int index = rand.Next(CitizensInfo.Count);
+
+            KeyValuePair<string, Image> res = CitizensInfo.ElementAt(index);
+
+            CitizensInfo.Remove(res.Key);
+
+            return res;
+        }
+
+        private void InitInfo()
+        {
+            FileStream fs = new FileStream("..\\..\\Photos\\Info.txt", FileMode.Open, FileAccess.Read);
+            StreamReader sr = new StreamReader(fs);
+
+            string name = sr.ReadLine();
+
+            while (name != null)
+            {
+                Image image = Image.FromFile("..\\..\\Photos\\" + name + ".jpg");
+                {
+                    if (!CitizensInfo.ContainsKey(name))
+                    CitizensInfo.Add(name, image);
+                }
+                name = sr.ReadLine();
+            }
+
+            sr.Close();
+            fs.Close();
+        }
+
         private void InitPeople()
         {
             Citizens = new List<Human>();
             for (int i = 0; i < Config.MaxCitizens; i++)
             {
-                Human h = new Human(this, "");
+                Human h = new Human(this);
                 GetWorkshop(h.CurrentProf).AddWorker(h);
                 GetHome().AddResident(h);
                 h.Position = Util.ConvertIndexToInt(h.Home.Room);

@@ -24,11 +24,11 @@ namespace townWinForm
         private SettingsForm settingsForm;
         private LogForm logForm;
 
-        Vk vkapi;
+        //Vk vkapi;
 
         public MainForm()
         {
-            vkapi = new Vk();
+            //vkapi = new Vk();
             InitializeComponent();
             DoubleBuffered = true;
 

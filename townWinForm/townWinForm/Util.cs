@@ -144,22 +144,22 @@ namespace townWinForm
         //Checks the point of getting into the area of the screen
         public static bool CheckPoint(PointF point)
         {
-            if (point.X + Config.TileSize < 0)
+            if (point.X + Config.TileSize + Config.dx < 0)
             {
                 return false;
             }
 
-            if (point.Y + Config.TileSize < 0)
+            if (point.Y + Config.TileSize + Config.dy < 0)
             {
                 return false;
             }
 
-            if (point.X >= SystemInformation.PrimaryMonitorSize.Width)
+            if (point.X + Config.dx >= SystemInformation.PrimaryMonitorSize.Width)
             {
                 return false;
             }
 
-            if (point.Y >= SystemInformation.PrimaryMonitorSize.Height)
+            if (point.Y + Config.dy >= SystemInformation.PrimaryMonitorSize.Height)
             {
                 return false;
             }
