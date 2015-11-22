@@ -25,18 +25,18 @@ namespace townWinForm
             comboBox.Items.Add("Path");
             comboBox.Items.Add("Other");
 
-            textBox.Text = Log.Print(type);
+            textBox.AppendText(Log.Print(type));
         }
 
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             type = comboBox.Text;
-            textBox.Text = Log.Print(type);
+            textBox.AppendText(Log.Print(type));
         }
 
-        public void Update()
+        public void UpdateLog()
         {
-            textBox.Text = Log.Print(type);
+            textBox.AppendText(Log.Print(type));
         }
     }
 }
