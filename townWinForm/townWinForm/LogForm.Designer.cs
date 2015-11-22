@@ -38,13 +38,13 @@
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
             this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox.Size = new System.Drawing.Size(231, 237);
+            this.textBox.Size = new System.Drawing.Size(282, 237);
             this.textBox.TabIndex = 0;
             // 
             // comboBox
             // 
             this.comboBox.FormattingEnabled = true;
-            this.comboBox.Location = new System.Drawing.Point(249, 12);
+            this.comboBox.Location = new System.Drawing.Point(300, 12);
             this.comboBox.Name = "comboBox";
             this.comboBox.Size = new System.Drawing.Size(102, 21);
             this.comboBox.TabIndex = 1;
@@ -54,7 +54,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 261);
+            this.ClientSize = new System.Drawing.Size(414, 261);
             this.Controls.Add(this.comboBox);
             this.Controls.Add(this.textBox);
             this.Name = "LogForm";
