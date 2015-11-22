@@ -14,6 +14,7 @@ namespace townWinForm
         private int minStructCount = Config.Houses + Config.Productions +
              Config.Markets + Config.Taverns;
 
+        Vk vkapi;
 
 
         private static float dx = 0;
@@ -41,6 +42,7 @@ namespace townWinForm
         private List<PointF> homeToWork = new List<PointF>();
         public Town()
         {
+            vkapi = new Vk();
             SetTownSize();
             
 
