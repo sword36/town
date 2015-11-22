@@ -68,7 +68,7 @@ namespace townWinForm.BehaviourModels
             if (!isWorking)
             {
                 isWorking = true;
-                Log.Add("citizens:Human" + body.Id + " working(guardian)");
+                Log.Add("citizens:Human " + body.Name + " working(guardian)");
             }
 
             if (body.Energy < 30)
@@ -77,7 +77,7 @@ namespace townWinForm.BehaviourModels
                 StateMachine.PopState();
                 StateMachine.PushState("goHome");
                 isWorking = false;
-                Log.Add("citizens:Human" + body.Id + " finish work(guardian)");
+                Log.Add("citizens:Human " + body.Name + " finish work(guardian)");
                 //StateMachine.EnqueueState("rest");
             }
         }
@@ -135,6 +135,7 @@ namespace townWinForm.BehaviourModels
                 body.IsAlive = false;
                 StateMachine.PopState();
                 StateMachine.PushState("dying");
+                Log.Add("citizens:Human" + body.Name + " died");
             }
 
             switch (StateMachine.GetCurrentState())

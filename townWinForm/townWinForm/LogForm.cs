@@ -31,11 +31,13 @@ namespace townWinForm
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             type = comboBox.Text;
+            textBox.Text = "";
             textBox.AppendText(Log.Print(type));
         }
 
         public void UpdateLog()
         {
+            textBox.Text = "";
             textBox.AppendText(Log.Print(type));
         }
     }

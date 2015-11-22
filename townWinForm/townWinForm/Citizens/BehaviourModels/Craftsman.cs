@@ -70,20 +70,20 @@ namespace townWinForm.BehaviourModels
                 {
                     Product p = new Product();
                     this.body.Bag.Add(p);
-                    Log.Add("things:Product with price: " + p.Price + " crafted by craftsman, id:" + this.body.Id);
-                    Log.Add("citizens:Human" + body.Id + " crafted new product with price: " + p.Price);
+                    Log.Add("things:Product with price: " + p.Price + " crafted by craftsman, " + this.body.Name);
+                    Log.Add("citizens:Human" + body.Name + " crafted new product with price: " + p.Price);
 
                 }
                 catch (OverloadedBagExeption ex)
                 {
-                    Log.Add("citizens:Human" + body.Id + " haven't enougth place for new product");
+                    Log.Add("citizens:Human " + body.Name + " haven't enougth place for new product");
                 }
             }
 
             if (!isWorking)
             {
                 isWorking = true;
-                Log.Add("citizens:Human" + body.Id + " working(craftsman)");
+                Log.Add("citizens:Human " + body.Name + " working(craftsman)");
             }
 
             if (body.Energy < 30)
@@ -92,7 +92,7 @@ namespace townWinForm.BehaviourModels
                 StateMachine.PopState();
                 StateMachine.PushState("goHome");
                 isWorking = false;
-                Log.Add("citizens:Human" + body.Id + " finish work(craftsman)");
+                Log.Add("citizens:Human " + body.Name + " finish work(craftsman)");
                 //StateMachine.EnqueueState("rest");
             }
         }
@@ -150,6 +150,7 @@ namespace townWinForm.BehaviourModels
                 body.IsAlive = false;
                 StateMachine.PopState();
                 StateMachine.PushState("dying");
+                Log.Add("citizens:Human " + body.Name + " died");
             } 
             switch (StateMachine.GetCurrentState())
             {

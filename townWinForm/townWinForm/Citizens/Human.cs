@@ -73,7 +73,7 @@ namespace townWinForm
         private List<PointF> path;
         private List<PointF> originalPath;
 
-        private string name;
+        public string Name;
         private Image img;
 
 
@@ -87,7 +87,7 @@ namespace townWinForm
             town = t;
             KeyValuePair<string, Image> inf = town.GetInfo();
 
-            name = inf.Key;
+            Name = inf.Key;
             img = inf.Value;
 
             Money = Util.GetRandomDistribution(Config.StartMoney, Config.StartMoneyDelta);
@@ -112,7 +112,7 @@ namespace townWinForm
 
             initBehaviourModel(CurrentProf); 
 
-            Log.Add("citizens:Human" + id + " created");
+            Log.Add("citizens:Human" + Name + " created");
         }
 
 
@@ -139,7 +139,7 @@ namespace townWinForm
                 default: throw new Exception("Wrong proffession");
             }
 
-            Log.Add("citizens:Human" + id + " behaviour: " + prof);
+            Log.Add("citizens:Human" + Name + " behaviour: " + prof);
         }
 
         public float Eat()
@@ -299,7 +299,7 @@ namespace townWinForm
 
                 using (Font f = new Font("Courier New", 12, FontStyle.Regular))
                 {
-                    SizeF nameSize = g.MeasureString(name, f);
+                    SizeF nameSize = g.MeasureString(Name, f);
                     SizeF profSize = g.MeasureString(CurrentProf, f);
 
                     float width = Math.Max(nameSize.Width, profSize.Width);
@@ -312,7 +312,7 @@ namespace townWinForm
                         Position.X + Config.TileSize + 5 + dx,
                         Position.Y + dy, width + 10, nameSize.Height + profSize.Height + 10);
 
-                    g.DrawString(name, f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + dy + 5);
+                    g.DrawString(Name, f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + dy + 5);
                     g.DrawString(CurrentProf, f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + nameSize.Height + dy + 5);
                 }
 

@@ -49,7 +49,7 @@ namespace townWinForm
                 var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.FavoriteTavern);
                 body.Move(path, dt);
 
-                Log.Add("citizens:Human" + body.Id + " go to tavern");
+                Log.Add("citizens:Human " + body.Name + " go to tavern");
             }
             else
             {
@@ -57,7 +57,7 @@ namespace townWinForm
                 if (isAtTavern)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human" + body.Id + " came to tavern");
+                    Log.Add("citizens:Human " + body.Name + " came to tavern");
                 }
                 return isAtTavern;
             }
@@ -96,7 +96,7 @@ namespace townWinForm
             }
             else
             {
-                body.Happiness -= dHappy;
+                body.Happiness += dHappy;
             }
         }
 
@@ -119,7 +119,7 @@ namespace townWinForm
                         body.Happiness = Config.MaxHappiness;
                     }
 
-                    Log.Add("citizens:Human" + body.Id + " eat: " + dHappy);
+                    Log.Add("citizens:Human " + body.Name + " eat: " + dHappy);
                 }
 
             }
@@ -134,7 +134,7 @@ namespace townWinForm
                     body.Happiness = 0;
                 }
 
-                Log.Add("citizens:Human" + body.Id + " can't eat: " + " no food");
+                Log.Add("citizens:Human " + body.Name + " can't eat: " + " no food");
             }
         }
 
@@ -144,6 +144,7 @@ namespace townWinForm
             timeToAlive -= dt;
             if (timeToAlive < 0)
             {
+                Log.Add("citizens:Human " + body.Name + " alive");
                 timeToAlive = Config.DyingTime;
                 body.IsAlive = true;
                 body.Position = Util.ConvertIndexToInt(new PointF(body.Home.Position.X + 1, body.Home.Position.Y + 1));
@@ -161,7 +162,7 @@ namespace townWinForm
                 var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.Home);
                 body.Move(path, dt);
 
-                Log.Add("citizens:Human" + body.Id + " go home");
+                Log.Add("citizens:Human " + body.Name + " go home");
             }
             else
             {
@@ -169,7 +170,7 @@ namespace townWinForm
                 if (isAtHome)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human" + body.Id + " came home");
+                    Log.Add("citizens:Human " + body.Name + " came home");
                 }
                 return isAtHome;
             }
@@ -196,7 +197,7 @@ namespace townWinForm
                 var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.WorkBuilding);
                 body.Move(path, dt);
 
-                Log.Add("citizens:Human" + body.Id + " go to work");
+                Log.Add("citizens:Human " + body.Name + " go to work");
             }
             //if path exist already, go along the path
             else
@@ -205,7 +206,7 @@ namespace townWinForm
                 if (isAtWork)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human" + body.Id + " came at work");
+                    Log.Add("citizens:Human " + body.Name + " came at work");
                 }
                 return isAtWork;
             }
@@ -273,7 +274,7 @@ namespace townWinForm
                 body.Happiness += Config.MaxHappiness;
             }
 
-            Log.Add("citizens:Human" + body.Id + " sleep");
+            //Log.Add("citizens:Human" + body.Name + " sleep");
         }
     }
 }
