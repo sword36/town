@@ -20,6 +20,17 @@ namespace townWinForm.BehaviourModels
             h.Speed = Config.CraftsmanSpeed;
         }
 
+        private void dying(int dt)
+        {
+            bool isAlive = base.dying(dt);
+            if (isAlive)
+            {
+                body.Energy = 1;
+                StateMachine.PopState();
+                StateMachine.PushState("sleep");
+            }
+        }
+
         private void rest(int dt)
         {
             base.rest(dt);
@@ -134,7 +145,12 @@ namespace townWinForm.BehaviourModels
 
         public override void Update(int dt)
         {
-            dt = 50;
+            if (body.Energy <= 0 && body.IsAlive)
+            {
+                body.IsAlive = false;
+                StateMachine.PopState();
+                StateMachine.PushState("dying");
+            } 
             switch (StateMachine.GetCurrentState())
             {
                 case "rest":
@@ -151,6 +167,9 @@ namespace townWinForm.BehaviourModels
                     break;
                 case "sleep":
                     sleep(dt);
+                    break;
+                case "dying":
+                     dying(dt);
                     break;
             }
         }
