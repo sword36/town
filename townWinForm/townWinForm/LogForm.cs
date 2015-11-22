@@ -13,9 +13,19 @@ namespace townWinForm
     public partial class LogForm : Form
     {
         private string type = "all";
-        public LogForm()
+        private townWinForm.MainForm mainForm;
+        public LogForm(MainForm main)
         {
             InitializeComponent();
+
+            mainForm = main;
+            if (mainForm.IsPause)
+            {
+                pauseBtn.Text = "Unpause";
+            } else
+            {
+                pauseBtn.Text = "Pause";
+            }
 
             comboBox.Text = "All";
             comboBox.Items.Add("All");
@@ -42,6 +52,19 @@ namespace townWinForm
             {
                 textBox.Text = "";
                 textBox.AppendText(Log.Print(type));
+            }
+        }
+
+        private void pauseBtn_Click(object sender, EventArgs e)
+        {
+            if (mainForm.IsPause)
+            {
+                mainForm.UnPause();
+                pauseBtn.Text = "Pause";
+            } else
+            {
+                mainForm.Pause();
+                pauseBtn.Text = "Unpause";
             }
         }
     }
