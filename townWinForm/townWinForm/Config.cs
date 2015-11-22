@@ -80,7 +80,8 @@ namespace townWinForm
         public static float TraderSpeed = 0.1f / MoveK;
 
         public static float HappyAfterDeathe = 0;
-        public static float ExpForWork = 100;
+        public static float ExpForCraft = 100;
+        public static float ExpForWorking = 0.5f;
         #endregion
 
         #region Craft

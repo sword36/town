@@ -226,6 +226,8 @@ namespace townWinForm
         //decrease energy, and if energy in low level then decrease happiness
         protected virtual void work(int dt)
         {
+            body.AddExp(Config.ExpForWorking);
+
             float dEnergy = WorkCost * dt;
             if (body.Energy - dEnergy > 0)
             {
