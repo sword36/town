@@ -77,6 +77,8 @@ namespace townWinForm
         public static float GuardianSpeed = 0.125f / MoveK;
         public static float ThiefSpeed = 0.15f / MoveK;
         public static float TraderSpeed = 0.1f / MoveK;
+
+        public static float HappyAfterDeathe = 0;
         #endregion
 
         #region Craft
