@@ -122,7 +122,7 @@ namespace townWinForm
 
             initBehaviourModel(CurrentProf); 
 
-            Log.Add("citizens:Human" + Name + " created");
+            Log.Add("citizens:Human " + Name + " created");
 
             Food f = new Food();
             Bag.Add(f);
@@ -152,7 +152,7 @@ namespace townWinForm
                 default: throw new Exception("Wrong proffession");
             }
 
-            Log.Add("citizens:Human" + Name + " behaviour: " + prof);
+            Log.Add("citizens:Human " + Name + " behaviour: " + prof);
         }
 
         public float Eat()
