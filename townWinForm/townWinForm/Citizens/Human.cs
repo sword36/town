@@ -123,6 +123,9 @@ namespace townWinForm
             initBehaviourModel(CurrentProf); 
 
             Log.Add("citizens:Human" + Name + " created");
+
+            Food f = new Food();
+            Bag.Add(f);
         }
 
 
