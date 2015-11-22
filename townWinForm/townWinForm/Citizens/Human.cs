@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using VkNet.Model;
 
 namespace townWinForm
 {
@@ -80,9 +81,9 @@ namespace townWinForm
             get; set;
         }
 
-        public Human(Town t)
+        public Human(Town t, string u)
         {
-            
+            name = u;
             town = t;
             Money = Util.GetRandomDistribution(Config.StartMoney, Config.StartMoneyDelta);
             Happiness = Util.GetRandomDistribution(Config.StartHappiness, Config.StartHappinessDelta);
@@ -283,9 +284,28 @@ namespace townWinForm
         public void Draw(Graphics g)
         {
             if (IsClicked)
-            g.FillRectangle(Brushes.Chartreuse, Position.X + dx, 
+            {
+                g.FillRectangle(Brushes.Chartreuse, Position.X + dx,
                 Position.Y + dy,
                 Config.TileSize, Config.TileSize);
+
+                using (Font f = new Font("Courier New", 12, FontStyle.Regular))
+                {
+                    SizeF size = g.MeasureString(name, f);
+
+                    g.FillRectangle(new SolidBrush(Color.FromArgb(100, 255, 255, 255)),
+                        Position.X + Config.TileSize + 5 + dx,
+                        Position.Y + dy, size.Width + 10, size.Height + 10);
+
+                    g.DrawRectangle(new Pen(Color.FromArgb(100, 20, 20, 20)),
+                        Position.X + Config.TileSize + 5 + dx,
+                        Position.Y + dy, size.Width + 10, size.Height + 10);
+
+                    g.DrawString(name, f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + dy + 5);
+                }
+
+            }
+
             else
                 g.FillRectangle(Brushes.Red, Position.X + dx,
                 Position.Y + dy,

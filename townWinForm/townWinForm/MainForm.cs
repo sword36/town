@@ -24,8 +24,11 @@ namespace townWinForm
         private SettingsForm settingsForm;
         private LogForm logForm;
 
+        Vk vkapi;
+
         public MainForm()
         {
+            vkapi = new Vk();
             InitializeComponent();
             DoubleBuffered = true;
 
@@ -138,6 +141,8 @@ namespace townWinForm
                 clickedHuman.IsClicked = false;
                 h.IsClicked = true;
                 clickedHuman = h;
+                town.Citizens.Add(h);
+                town.Citizens.Remove(h);
             }
         }
 

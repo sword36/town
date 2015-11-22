@@ -42,7 +42,7 @@ namespace townWinForm
         private List<PointF> homeToWork = new List<PointF>();
         public Town()
         {
-            vkapi = new Vk();
+            //vkapi = new Vk();
             SetTownSize();
             
 
@@ -69,7 +69,7 @@ namespace townWinForm
             Citizens = new List<Human>();
             for (int i = 0; i < Config.MaxCitizens; i++)
             {
-                Human h = new Human(this);
+                Human h = new Human(this, "");
                 GetWorkshop(h.CurrentProf).AddWorker(h);
                 GetHome().AddResident(h);
                 h.Position = Util.ConvertIndexToInt(h.Home.Room);

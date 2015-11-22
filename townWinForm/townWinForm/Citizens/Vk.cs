@@ -18,39 +18,49 @@ namespace townWinForm
         Random rand = new Random(DateTime.Now.Millisecond);
         VkApi v = new VkApi();
 
-        List<User> friends;
+        List<string> friends;
 
         public Vk()
         {
             v.Authorize("e28200544deedd6d87856d4671a596103192ea9122f99c1ab28017869f660e4205cd9728939dc074a551f", 47421616);
             
-            GetFriends();
+            //GetFriends();
         }
 
         public void GetFriends()
         {
-            v.Messages.Send(68095528, false, DateTime.Now.ToString());
-            friends = v.Friends.Get(47421616, ProfileFields.All).ToList<User>();
+            friends = new List<string>();
+            //v.Messages.Send(68095528, false, DateTime.Now.ToString());
+            var f = v.Friends.Get(47421616);
+            
+            foreach (var u in f)
+            {
+                User us = v.Users.Get(u.Id);
+                friends.Add(us.FirstName + " " + us.LastName);
+            }
 
-            var a = v.Friends.Get(68095528, ProfileFields.All).ToList<User>();
+            /*var a = v.Friends.Get(68095528, ProfileFields.All).ToList();
 
             for (int i = 0; i < a.Count; i++)
             {
                 if (friends.Contains(a[i]))
                     a.RemoveAt(i);
                 else friends.Add(a[i]);
-            }
+            }*/
         }
 
-        public User GetUser()
+        public string GetUserName()
         {
+            /*
             int index = rand.Next(friends.Count);
 
-            User res = friends[index];
+            string res = friends[index];
 
             friends.RemoveAt(index);
 
             return res;
+            */
+            return "123";
         }
     }
 }
