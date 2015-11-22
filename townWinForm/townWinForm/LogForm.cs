@@ -23,6 +23,7 @@ namespace townWinForm
             comboBox.Items.Add("Citizens");
             comboBox.Items.Add("Things");
             comboBox.Items.Add("Path");
+            comboBox.Items.Add("Levels");
             comboBox.Items.Add("Other");
 
             textBox.AppendText(Log.Print(type));
@@ -37,8 +38,11 @@ namespace townWinForm
 
         public void UpdateLog()
         {
-            textBox.Text = "";
-            textBox.AppendText(Log.Print(type));
+            if (this.Visible == true)
+            {
+                textBox.Text = "";
+                textBox.AppendText(Log.Print(type));
+            }
         }
     }
 }

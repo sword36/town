@@ -13,6 +13,7 @@ namespace townWinForm
         private static List<string> citizens = new List<string>();
         private static List<string> things = new List<string>();
         private static List<string> paths = new List<string>();
+        private static List<string> levels = new List<string>();
         private static List<string> other = new List<string>();
 
         public delegate void logUpdateHandler();
@@ -75,6 +76,9 @@ namespace townWinForm
                 case "paths":
                     paths.Add(message);
                     break;
+                case "levels":
+                    paths.Add(message);
+                    break;
                 default:
                     other.Add(message);
                     break;
@@ -107,6 +111,8 @@ namespace townWinForm
                 case "things":
                     return listToSting(things);
                 case "paths":
+                    return listToSting(paths);
+                case "levels":
                     return listToSting(paths);
                 default:
                     return listToSting(other);

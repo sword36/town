@@ -69,10 +69,10 @@ namespace townWinForm.BehaviourModels
                 try
                 {
                     Product p = new Product();
-                    this.body.Bag.Add(p);
+                    body.Bag.Add(p);
                     Log.Add("things:Product with price: " + p.Price + " crafted by craftsman, " + this.body.Name);
                     Log.Add("citizens:Human" + body.Name + " crafted new product with price: " + p.Price);
-
+                    body.AddExp(Config.ExpForWork);
                 }
                 catch (OverloadedBagExeption ex)
                 {

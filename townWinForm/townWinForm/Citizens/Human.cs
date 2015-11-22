@@ -57,7 +57,8 @@ namespace townWinForm
             set { currentRoom = value; }
         }
 
-        public Dictionary<string, int> ProfSkills;
+        public Dictionary<string, int> ProfLevels;
+        private Dictionary<string, double> profExp;
 
         private IResidence home;
         private IWorkshop work;
@@ -94,8 +95,12 @@ namespace townWinForm
             Happiness = Util.GetRandomDistribution(Config.StartHappiness, Config.StartHappinessDelta);
             Energy = 1;
             IsAlive = true;
-            ProfSkills = new Dictionary<string, int>();
+
+            ProfLevels = new Dictionary<string, int>();
+            profExp = new Dictionary<string, double>();
+
             Bag = new Bag();
+
             path = new List<PointF>();
             originalPath = new List<PointF>();
             id = Util.GetNewID();
@@ -104,7 +109,12 @@ namespace townWinForm
             //set all proffesion skills to 1 level
             foreach (string prof in Config.ProfList)
             {
-                ProfSkills.Add(prof, 1);
+                ProfLevels.Add(prof, 1);
+            }
+
+            foreach (string prof in Config.ProfList)
+            {
+                profExp.Add(prof, 0);
             }
 
             //random proffesion from Config.ProfList
@@ -122,19 +132,19 @@ namespace townWinForm
             switch(prof)
             {
                 case "craftsman":
-                    Behaviour = new BehaviourModels.Craftsman(this, ProfSkills[prof]);
+                    Behaviour = new BehaviourModels.Craftsman(this, ProfLevels[prof]);
                     break;
                 case "farmer":
-                    Behaviour = new BehaviourModels.Farmer(this, ProfSkills[prof]);
+                    Behaviour = new BehaviourModels.Farmer(this, ProfLevels[prof]);
                     break;
                 case "guardian":
-                    Behaviour = new BehaviourModels.Guardian(this, ProfSkills[prof]);
+                    Behaviour = new BehaviourModels.Guardian(this, ProfLevels[prof]);
                     break;
                 case "thief":
-                    Behaviour = new BehaviourModels.Thief(this, ProfSkills[prof]);
+                    Behaviour = new BehaviourModels.Thief(this, ProfLevels[prof]);
                     break;
                 case "trader":
-                    Behaviour = new BehaviourModels.Trader(this, ProfSkills[prof]);
+                    Behaviour = new BehaviourModels.Trader(this, ProfLevels[prof]);
                     break;
                 default: throw new Exception("Wrong proffession");
             }
@@ -362,6 +372,17 @@ namespace townWinForm
         public override string ToString()
         {
             return "Id: " + id + " X:" + Position.X + " Y:" + Position.Y;
+        }
+
+        public void AddExp(double exp)
+        {
+            profExp[CurrentProf] += exp;
+            if (ProfLevels[CurrentProf] < Config.MaxLevel - 1 &&
+                profExp[CurrentProf] > Config.exp[ProfLevels[CurrentProf] - 1])
+            {
+                ProfLevels[CurrentProf]++;
+                Log.Add("levels: Human " + Name + "(" + CurrentProf + ") " + "level up to " + ProfLevels[CurrentProf]);
+            }
         }
     }
 }

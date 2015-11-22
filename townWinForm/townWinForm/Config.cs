@@ -31,7 +31,7 @@ namespace townWinForm
 
         #region Citizens
         public static int DyingTime = 500;
-        public static int MaxCitizens = 50;
+        public static int MaxCitizens = 10;
         public static int MaxHappiness = 100;
         public static int StartHappiness = 75;
         public static int StartHappinessDelta = 25;
@@ -54,6 +54,7 @@ namespace townWinForm
         public static int TryEatInterval = 1000;
 
         public static float[] exp = { 200, 500, 900, 1400, 2000, 2700, 3500, 4400, 5400 };
+        public static int MaxLevel = 10;
 
         #endregion
 
@@ -79,6 +80,7 @@ namespace townWinForm
         public static float TraderSpeed = 0.1f / MoveK;
 
         public static float HappyAfterDeathe = 0;
+        public static float ExpForWork = 100;
         #endregion
 
         #region Craft
