@@ -13,10 +13,8 @@ namespace townWinForm
         public BehaviourModel Behaviour { get; set; }
         public PointF Position
         {
-            get
-            { return position; }
-            set
-            { position = value; }
+            get { return position; }
+            set { position = value; }
         }
         private PointF position;
         public bool IsAlive { get; set; }
@@ -73,6 +71,9 @@ namespace townWinForm
         private Town town;
         private List<PointF> path;
         private List<PointF> originalPath;
+
+        private string name;
+
 
         public bool IsClicked
         {

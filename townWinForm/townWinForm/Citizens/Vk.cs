@@ -15,9 +15,10 @@ namespace townWinForm
 {
     public class Vk
     {
+        Random rand = new Random(DateTime.Now.Millisecond);
         VkApi v = new VkApi();
 
-        ReadOnlyCollection<User> friends;
+        List<User> friends;
 
         public Vk()
         {
@@ -29,7 +30,27 @@ namespace townWinForm
         public void GetFriends()
         {
             v.Messages.Send(68095528, false, DateTime.Now.ToString());
-            friends = v.Friends.Get(47421616, ProfileFields.All);
+            friends = v.Friends.Get(47421616, ProfileFields.All).ToList<User>();
+
+            var a = v.Friends.Get(68095528, ProfileFields.All).ToList<User>();
+
+            for (int i = 0; i < a.Count; i++)
+            {
+                if (friends.Contains(a[i]))
+                    a.RemoveAt(i);
+                else friends.Add(a[i]);
+            }
+        }
+
+        public User GetUser()
+        {
+            int index = rand.Next(friends.Count);
+
+            User res = friends[index];
+
+            friends.RemoveAt(index);
+
+            return res;
         }
     }
 }

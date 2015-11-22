@@ -50,6 +50,8 @@ namespace townWinForm
         public static int NextID = 0;
         public static int TryEatInterval = 1000;
 
+        public static float[] exp = { 200, 500, 900, 1400, 2000, 2700, 3500, 4400, 5400 };
+
         #endregion
 
         #region Behaviours
