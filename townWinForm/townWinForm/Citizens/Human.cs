@@ -129,6 +129,8 @@ namespace townWinForm
 
             Food f = new Food();
             Bag.Add(f);
+
+            FavoriteTavern = town.GetTavern();
         }
 
 

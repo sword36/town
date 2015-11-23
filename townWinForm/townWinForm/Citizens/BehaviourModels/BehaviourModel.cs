@@ -46,7 +46,8 @@ namespace townWinForm
             if (!isGoing)
             {
                 isGoing = true;
-                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.FavoriteTavern);
+                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), 
+                    body.FavoriteTavern);
                 body.Move(path, dt);
 
                 Log.Add("citizens:Human " + body.Name + " go to tavern");
@@ -242,10 +243,7 @@ namespace townWinForm
                 if (body.Happiness - dHappy > 0)
                 {
                     body.Happiness -= dHappy;
-                } else
-                {
-                    body.Happiness = Config.MaxHappiness;
-                }
+                } 
             }
         }
 

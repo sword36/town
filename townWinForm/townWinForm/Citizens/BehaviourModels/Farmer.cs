@@ -97,7 +97,6 @@ namespace townWinForm.BehaviourModels
                 if (body.Happiness < Config.LowerBoundHappyToDrink)
                 {
                     StateMachine.PushState("goToTavern");
-                    Log.Add("citizens:Human " + body.Name + " go to tavern");
                 }
                 else
                 {
