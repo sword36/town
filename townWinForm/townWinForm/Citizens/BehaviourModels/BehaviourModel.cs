@@ -19,6 +19,11 @@ namespace townWinForm
         {
         }
 
+        public virtual string State
+        {
+            get;
+        }
+
         //increase energy and happiness
         protected virtual void rest(int dt)
         {

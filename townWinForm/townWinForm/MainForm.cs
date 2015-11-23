@@ -115,7 +115,7 @@ namespace townWinForm
                         break;
                     }
 
-                case Keys.Space:
+                case Keys.Home:
                     {
                         Config.dx = 0;
                         Config.dy = 24;
@@ -160,6 +160,23 @@ namespace townWinForm
             Log.UpdateEvent += logForm.UpdateLog;
             logForm.Show();
             logForm.TopMost = true;
+        }
+
+        private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case (char)32:
+                    {
+                        if (clickedHuman != null)
+                        {
+                            Config.dx = -clickedHuman.Position.X + Width / 2;
+                            Config.dy = -clickedHuman.Position.Y + Height / 2;
+                        }
+
+                        break;
+                    }
+            }
         }
     }
 }

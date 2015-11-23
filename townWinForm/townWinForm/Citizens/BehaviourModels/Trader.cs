@@ -10,6 +10,11 @@ namespace townWinForm.BehaviourModels
     {
         public StackFSM StateMachine;
 
+        public override string State
+        {
+            get { return StateMachine.GetCurrentState(); }
+        }
+
         public Trader(Human h, int level)
         {
             body = h;
