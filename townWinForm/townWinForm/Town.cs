@@ -644,7 +644,6 @@ namespace townWinForm
 
         public Building IsHumanInBuilding(Human h)
         {
-            Building b;
             for (int i = 0; i < Structures.Count; i++)
             {
                 if (Util.IsInRectangle(h.Position, Structures[i].Position))
