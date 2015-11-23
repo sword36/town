@@ -92,7 +92,6 @@ namespace townWinForm
             if (body.Happiness + dHappy > Config.MaxHappiness)
             {
                 body.Happiness = Config.MaxHappiness;
-
             }
             else
             {

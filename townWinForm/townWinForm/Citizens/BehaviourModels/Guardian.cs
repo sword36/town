@@ -75,10 +75,19 @@ namespace townWinForm.BehaviourModels
             {
                 if (true) { }
                 StateMachine.PopState();
-                StateMachine.PushState("goHome");
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(guardian)");
-                //StateMachine.EnqueueState("rest");
+                Log.Add("citizens:Human " + body.Name + " finish work(craftsman)");
+
+                if (body.Happiness < Config.LowerBoundHappyToDrink)
+                {
+                    StateMachine.PushState("goToTavern");
+                    Log.Add("citizens:Human " + body.Name + " go to tavern");
+                }
+                else
+                {
+                    StateMachine.PushState("goHome");
+                    Log.Add("citizens:Human " + body.Name + " go to home");
+                }
             }
         }
 
@@ -128,6 +137,35 @@ namespace townWinForm.BehaviourModels
             }
         }
 
+        private void goToTavern(int dt)
+        {
+            bool isAtTavern = base.goToTavern(dt);
+            if (isAtTavern)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("tavernDrink");
+                body.Money -= Config.DrinkInTavernCost;
+                Log.Add("citizens:Human " + body.Name + " drinking!");
+                return;
+            }
+
+            if (body.Energy < 5)
+            {
+                StateMachine.PushState("rest");
+            }
+        }
+
+        private void tavernDrink(int dt)
+        {
+            base.tavernDrink(dt);
+            if (body.Energy < Config.LimitEnergyInTavern || body.Happiness > Config.LimitHappyInTavern)
+            {
+                Log.Add("citizens:Human " + body.Name + " drunk, go home!");
+                StateMachine.PopState();
+                StateMachine.PushState("goHome");
+            }
+        }
+
         public override void Update(int dt)
         {
             if (body.Energy <= 0 && body.IsAlive)
@@ -157,6 +195,12 @@ namespace townWinForm.BehaviourModels
                     break;
                 case "dying":
                     dying(dt);
+                    break;
+                case "goToTavern":
+                    goToTavern(dt);
+                    break;
+                case "tavernDrink":
+                    tavernDrink(dt);
                     break;
             }
         }

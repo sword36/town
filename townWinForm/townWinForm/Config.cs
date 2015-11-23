@@ -82,6 +82,9 @@ namespace townWinForm
         public static float HappyAfterDeathe = 0;
         public static float ExpForCraft = 100;
         public static float ExpForWorking = 0.5f;
+        public static float LimitHappyInTavern = 95;
+        public static float LimitEnergyInTavern = 20;
+        public static float LowerBoundHappyToDrink = 30;
         #endregion
 
         #region Craft
@@ -155,6 +158,7 @@ namespace townWinForm
         #region Economic
         public static int StartMoney = 1000;
         public static int StartMoneyDelta = 500;
+        public static int DrinkInTavernCost = 200;
 
         #endregion
 
