@@ -83,8 +83,11 @@ namespace townWinForm
 
         public Human(Town t)
         {
+            id = Util.GetNewID();
             town = t;
-            KeyValuePair<string, Image> inf = town.GetInfo();
+
+            
+            KeyValuePair<string, Image> inf = town.GetInfo(id);
 
             name = inf.Key;
             img = inf.Value;
@@ -97,7 +100,7 @@ namespace townWinForm
             Bag = new Bag();
             path = new List<PointF>();
             originalPath = new List<PointF>();
-            id = Util.GetNewID();
+            
             currentBuilding = home as Building;
 
             //set all proffesion skills to 1 level

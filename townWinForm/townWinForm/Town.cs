@@ -75,6 +75,64 @@ namespace townWinForm
             return res;
         }
 
+        public KeyValuePair<string, Image> GetInfo(int id)
+        {
+            switch (id)
+            {
+                case 0:
+                    {
+                        KeyValuePair<string, Image> res = new KeyValuePair<string, Image>("Андрей Ханин", CitizensInfo["Андрей Ханин"]);
+                        CitizensInfo.Remove(res.Key);
+                        return res;
+                    }
+
+                case 1:
+                    {
+                        KeyValuePair<string, Image> res = new KeyValuePair<string, Image>("Евгений Кашин", CitizensInfo["Евгений Кашин"]);
+                        CitizensInfo.Remove(res.Key);
+                        return res;
+                    }
+
+                case 2:
+                    {
+                        KeyValuePair<string, Image> res = new KeyValuePair<string, Image>("Дмитрий Хорощенко", CitizensInfo["Дмитрий Хорощенко"]);
+                        CitizensInfo.Remove(res.Key);
+                        return res;
+                    }
+
+                case 3:
+                    {
+                        KeyValuePair<string, Image> res = new KeyValuePair<string, Image>("Кирилл Зенин", CitizensInfo["Кирилл Зенин"]);
+                        CitizensInfo.Remove(res.Key);
+                        return res;
+                    }
+
+                case 4:
+                    {
+                        KeyValuePair<string, Image> res = new KeyValuePair<string, Image>("Алексей Нужных", CitizensInfo["Алексей Нужных"]);
+                        CitizensInfo.Remove(res.Key);
+                        return res;
+                    }
+
+                case 5:
+                    {
+                        KeyValuePair<string, Image> res = new KeyValuePair<string, Image>("Игорь Бруев", CitizensInfo["Игорь Бруев"]);
+                        CitizensInfo.Remove(res.Key);
+                        return res;
+                    }
+                default:
+                    {
+                        int index = rand.Next(CitizensInfo.Count);
+
+                        KeyValuePair<string, Image> res = CitizensInfo.ElementAt(index);
+
+                        CitizensInfo.Remove(res.Key);
+
+                        return res;
+                    }
+            }
+        }
+
         private void InitInfo()
         {
             FileStream fs = new FileStream("..\\..\\Photos\\Info.txt", FileMode.Open, FileAccess.Read);
