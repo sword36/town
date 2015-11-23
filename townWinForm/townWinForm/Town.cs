@@ -637,9 +637,13 @@ namespace townWinForm
             Town.dy = dy;
         }
 
+        public Tavern GetTavern()
+        {
+            return taverns[rand.Next(taverns.Count)];
+        }
+
         public Building IsHumanInBuilding(Human h)
         {
-            Building b;
             for (int i = 0; i < Structures.Count; i++)
             {
                 if (Util.IsInRectangle(h.Position, Structures[i].Position))
