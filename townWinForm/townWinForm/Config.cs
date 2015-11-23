@@ -53,7 +53,7 @@ namespace townWinForm
         public static int NextID = 0;
         public static int TryEatInterval = 1000;
 
-        public static float[] exp = { 200, 500, 900, 1400, 2000, 2700, 3500, 4400, 5400 };
+        public static float[] exp = { 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800 };
         public static int MaxLevel = 10;
 
         #endregion

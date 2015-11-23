@@ -315,21 +315,29 @@ namespace townWinForm
 
                 using (Font f = new Font("Courier New", 12, FontStyle.Regular))
                 {
+                    
                     SizeF nameSize = g.MeasureString(Name, f);
-                    SizeF profSize = g.MeasureString(CurrentProf, f);
+                    SizeF profSize = g.MeasureString(CurrentProf + " " + ProfLevels[CurrentProf] + " lvl", f);
 
                     float width = Math.Max(nameSize.Width, profSize.Width);
 
+                    int percent = (int)Math.Round((float)profExp[CurrentProf] / Config.exp[ProfLevels[CurrentProf] - 1] * 100);
+
+                    SizeF profPercent = g.MeasureString(percent.ToString() + "%", f);
+
                     g.FillRectangle(new SolidBrush(Color.FromArgb(100, 255, 255, 255)),
                         Position.X + Config.TileSize + 5 + dx,
-                        Position.Y + dy, width + 10, nameSize.Height + profSize.Height + 10);
+                        Position.Y + dy, width + 10, nameSize.Height + profSize.Height + 10 + 20);
 
                     g.DrawRectangle(new Pen(Color.FromArgb(100, 20, 20, 20), 2),
                         Position.X + Config.TileSize + 5 + dx,
-                        Position.Y + dy, width + 10, nameSize.Height + profSize.Height + 10);
+                        Position.Y + dy, width + 10, nameSize.Height + profSize.Height + 10 + 20);
 
                     g.DrawString(Name, f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + dy + 5);
-                    g.DrawString(CurrentProf, f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + nameSize.Height + dy + 5);
+                    g.DrawString(CurrentProf + " " + ProfLevels[CurrentProf] + " lvl", f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + nameSize.Height + dy + 5);
+                    g.FillRectangle(Brushes.CornflowerBlue, position.X + Config.TileSize + 5 + 5 + dx, position.Y + dy + 5 + profSize.Height + nameSize.Height, width, 20);
+                    g.FillRectangle(Brushes.Gold, position.X + Config.TileSize + 5 + 5 + dx, position.Y + dy + 5 + profSize.Height + nameSize.Height, (float)profExp[CurrentProf] / Config.exp[ProfLevels[CurrentProf] - 1] * width , 20);
+                    g.DrawString(percent.ToString() + "%", f, Brushes.Black, position.X + dx + Config.TileSize + 5 + width / 2 - profPercent.Width / 2, position.Y + nameSize.Height + profSize.Height + dy + 5);
                 }
 
             }
@@ -386,6 +394,7 @@ namespace townWinForm
             if (ProfLevels[CurrentProf] < Config.MaxLevel - 1 &&
                 profExp[CurrentProf] > Config.exp[ProfLevels[CurrentProf] - 1])
             {
+                profExp[CurrentProf] -= Config.exp[ProfLevels[CurrentProf] - 1];
                 ProfLevels[CurrentProf]++;
                 Log.Add("levels: Human " + Name + "(" + CurrentProf + ") " + "level up to " + ProfLevels[CurrentProf]);
             }
