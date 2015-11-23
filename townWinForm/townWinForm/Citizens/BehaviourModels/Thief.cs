@@ -20,6 +20,16 @@ namespace townWinForm.BehaviourModels
             h.Speed = Config.ThiefSpeed;
         }
 
+        private void dying(int dt)
+        {
+            bool isAlive = base.dying(dt);
+            if (isAlive)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("sleep");
+            }
+        }
+
         private void rest(int dt)
         {
             base.rest(dt);
@@ -58,7 +68,7 @@ namespace townWinForm.BehaviourModels
             if (!isWorking)
             {
                 isWorking = true;
-                Log.Add("citizens:Human" + body.Id + " working(thief)");
+                Log.Add("citizens:Human " + body.Name + " working(thief)");
             }
 
             if (body.Energy < 30)
@@ -67,7 +77,7 @@ namespace townWinForm.BehaviourModels
                 StateMachine.PopState();
                 StateMachine.PushState("goHome");
                 isWorking = false;
-                Log.Add("citizens:Human" + body.Id + " finish work(thief)");
+                Log.Add("citizens:Human " + body.Name + " finish work(thief)");
                 //StateMachine.EnqueueState("rest");
             }
         }
@@ -120,6 +130,14 @@ namespace townWinForm.BehaviourModels
 
         public override void Update(int dt)
         {
+            if (body.Energy <= 0 && body.IsAlive)
+            {
+                body.IsAlive = false;
+                StateMachine.PopState();
+                StateMachine.PushState("dying");
+                Log.Add("citizens:Human " + body.Name + " died");
+            }
+
             switch (StateMachine.GetCurrentState())
             {
                 case "rest":
@@ -136,6 +154,9 @@ namespace townWinForm.BehaviourModels
                     break;
                 case "sleep":
                     sleep(dt);
+                    break;
+                case "dying":
+                    dying(dt);
                     break;
             }
         }

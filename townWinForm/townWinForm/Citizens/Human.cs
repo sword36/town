@@ -32,6 +32,7 @@ namespace townWinForm
                 work = value;
             }
         }
+        public Tavern FavoriteTavern { get; set; }
         public Bag Bag { get; set; }
         public float Speed { get; set; }
         public IResidence Home
@@ -56,7 +57,8 @@ namespace townWinForm
             set { currentRoom = value; }
         }
 
-        public Dictionary<string, int> ProfSkills;
+        public Dictionary<string, int> ProfLevels;
+        private Dictionary<string, double> profExp;
 
         private IResidence home;
         private IWorkshop work;
@@ -72,7 +74,7 @@ namespace townWinForm
         private List<PointF> path;
         private List<PointF> originalPath;
 
-        private string name;
+        public string Name;
         private Image img;
 
 
@@ -89,15 +91,19 @@ namespace townWinForm
             
             KeyValuePair<string, Image> inf = town.GetInfo(id);
 
-            name = inf.Key;
+            Name = inf.Key;
             img = inf.Value;
 
             Money = Util.GetRandomDistribution(Config.StartMoney, Config.StartMoneyDelta);
             Happiness = Util.GetRandomDistribution(Config.StartHappiness, Config.StartHappinessDelta);
             Energy = 1;
             IsAlive = true;
-            ProfSkills = new Dictionary<string, int>();
+
+            ProfLevels = new Dictionary<string, int>();
+            profExp = new Dictionary<string, double>();
+
             Bag = new Bag();
+
             path = new List<PointF>();
             originalPath = new List<PointF>();
             
@@ -106,7 +112,12 @@ namespace townWinForm
             //set all proffesion skills to 1 level
             foreach (string prof in Config.ProfList)
             {
-                ProfSkills.Add(prof, 1);
+                ProfLevels.Add(prof, 1);
+            }
+
+            foreach (string prof in Config.ProfList)
+            {
+                profExp.Add(prof, 0);
             }
 
             //random proffesion from Config.ProfList
@@ -114,7 +125,10 @@ namespace townWinForm
 
             initBehaviourModel(CurrentProf); 
 
-            Log.Add("citizens:Human" + id + " created");
+            Log.Add("citizens:Human " + Name + " created");
+
+            Food f = new Food();
+            Bag.Add(f);
         }
 
 
@@ -124,24 +138,24 @@ namespace townWinForm
             switch(prof)
             {
                 case "craftsman":
-                    Behaviour = new BehaviourModels.Craftsman(this, ProfSkills[prof]);
+                    Behaviour = new BehaviourModels.Craftsman(this, ProfLevels[prof]);
                     break;
                 case "farmer":
-                    Behaviour = new BehaviourModels.Farmer(this, ProfSkills[prof]);
+                    Behaviour = new BehaviourModels.Farmer(this, ProfLevels[prof]);
                     break;
                 case "guardian":
-                    Behaviour = new BehaviourModels.Guardian(this, ProfSkills[prof]);
+                    Behaviour = new BehaviourModels.Guardian(this, ProfLevels[prof]);
                     break;
                 case "thief":
-                    Behaviour = new BehaviourModels.Thief(this, ProfSkills[prof]);
+                    Behaviour = new BehaviourModels.Thief(this, ProfLevels[prof]);
                     break;
                 case "trader":
-                    Behaviour = new BehaviourModels.Trader(this, ProfSkills[prof]);
+                    Behaviour = new BehaviourModels.Trader(this, ProfLevels[prof]);
                     break;
                 default: throw new Exception("Wrong proffession");
             }
 
-            Log.Add("citizens:Human" + id + " behaviour: " + prof);
+            Log.Add("citizens:Human " + Name + " behaviour: " + prof);
         }
 
         public float Eat()
@@ -301,7 +315,7 @@ namespace townWinForm
 
                 using (Font f = new Font("Courier New", 12, FontStyle.Regular))
                 {
-                    SizeF nameSize = g.MeasureString(name, f);
+                    SizeF nameSize = g.MeasureString(Name, f);
                     SizeF profSize = g.MeasureString(CurrentProf, f);
 
                     float width = Math.Max(nameSize.Width, profSize.Width);
@@ -314,7 +328,7 @@ namespace townWinForm
                         Position.X + Config.TileSize + 5 + dx,
                         Position.Y + dy, width + 10, nameSize.Height + profSize.Height + 10);
 
-                    g.DrawString(name, f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + dy + 5);
+                    g.DrawString(Name, f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + dy + 5);
                     g.DrawString(CurrentProf, f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + nameSize.Height + dy + 5);
                 }
 
@@ -364,6 +378,17 @@ namespace townWinForm
         public override string ToString()
         {
             return "Id: " + id + " X:" + Position.X + " Y:" + Position.Y;
+        }
+
+        public void AddExp(double exp)
+        {
+            profExp[CurrentProf] += exp;
+            if (ProfLevels[CurrentProf] < Config.MaxLevel - 1 &&
+                profExp[CurrentProf] > Config.exp[ProfLevels[CurrentProf] - 1])
+            {
+                ProfLevels[CurrentProf]++;
+                Log.Add("levels: Human " + Name + "(" + CurrentProf + ") " + "level up to " + ProfLevels[CurrentProf]);
+            }
         }
     }
 }

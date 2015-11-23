@@ -30,15 +30,18 @@ namespace townWinForm
         #endregion
 
         #region Citizens
-        public static int MaxCitizens = 50;
+        public static int DyingTime = 500;
+        public static int MaxCitizens = 10;
         public static int MaxHappiness = 100;
         public static int StartHappiness = 75;
         public static int StartHappinessDelta = 25;
         public static string[] ProfList = new string[] { "craftsman", "farmer", "guardian", "trader", "thief" };
         public static int MaxProfLevel = 10;
         public static int MaxEnergy = 100;
-        public static float EnergyForSleep = 0.001f;
+        public static float EnergyForDrink = 0.001f;
+        public static float EnergyForSleep = 0.003f;
         public static float HappyForSleep = 0.005f;
+        public static float HappyForDrink = 0.007f;
         public static float EnergyLowerBoundToUnhappy = 50;
         public static float UnhappyForWork = 1;
         public static float EnergyMoveCost = 0.001f;
@@ -51,6 +54,7 @@ namespace townWinForm
         public static int TryEatInterval = 1000;
 
         public static float[] exp = { 200, 500, 900, 1400, 2000, 2700, 3500, 4400, 5400 };
+        public static int MaxLevel = 10;
 
         #endregion
 
@@ -74,6 +78,10 @@ namespace townWinForm
         public static float GuardianSpeed = 0.125f / MoveK;
         public static float ThiefSpeed = 0.15f / MoveK;
         public static float TraderSpeed = 0.1f / MoveK;
+
+        public static float HappyAfterDeathe = 0;
+        public static float ExpForCraft = 100;
+        public static float ExpForWorking = 0.5f;
         #endregion
 
         #region Craft
@@ -131,7 +139,7 @@ namespace townWinForm
         public static int maxBuildingSize = 8;
         public static int TownWidth = 0;
         public static int Blocks = 0;
-
+        
         public static int BuildingBagCapacity = 1000;
         
         #endregion

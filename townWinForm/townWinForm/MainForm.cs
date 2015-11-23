@@ -24,6 +24,12 @@ namespace townWinForm
         private SettingsForm settingsForm;
         private LogForm logForm;
 
+        private bool isPause = false;
+
+        public bool IsPause
+        {
+            get { return isPause; }
+        }
         //Vk vkapi;
 
         public MainForm()
@@ -55,15 +61,17 @@ namespace townWinForm
             town.Update(dt);
         }
 
-        private void pause()
+        public void Pause()
         {
             animationTimer.Enabled = false;
+            isPause = true;
         }
 
-        private void unPause()
+        public void UnPause()
         {
             lastTime = DateTime.Now.Ticks;
             animationTimer.Enabled = true;
+            isPause = false;
         }
 
         private void AnimationTimer_Tick(object sender, EventArgs e)
@@ -77,13 +85,13 @@ namespace townWinForm
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pause();
+            Pause();
             settingsForm.UpdateInputsFromConfig();
 
             settingsForm.ShowDialog();
 
             settingsForm.ErrorLabel.Visible = false;
-            unPause();
+            UnPause();
         }
 
         private void draw(object sender, PaintEventArgs e)
@@ -148,8 +156,8 @@ namespace townWinForm
 
         private void logToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            logForm = new LogForm();
-            Log.UpdateEvent += logForm.Update;
+            logForm = new LogForm(this);
+            Log.UpdateEvent += logForm.UpdateLog;
             logForm.Show();
             logForm.TopMost = true;
         }

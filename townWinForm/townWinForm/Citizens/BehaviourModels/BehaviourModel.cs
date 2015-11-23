@@ -15,7 +15,9 @@ namespace townWinForm
         protected bool isGoing = false;
         private int lastTryingEat = Config.TryEatInterval;
 
-        public virtual void Update(int dt) { }
+        public virtual void Update(int dt)
+        {
+        }
 
         //increase energy and happiness
         protected virtual void rest(int dt)
@@ -39,6 +41,65 @@ namespace townWinForm
             }
         }
 
+        protected virtual bool goToTavern(int dt)
+        {
+            if (!isGoing)
+            {
+                isGoing = true;
+                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.FavoriteTavern);
+                body.Move(path, dt);
+
+                Log.Add("citizens:Human " + body.Name + " go to tavern");
+            }
+            else
+            {
+                bool isAtTavern = body.MoveAlongThePath(dt);
+                if (isAtTavern)
+                {
+                    isGoing = false;
+                    Log.Add("citizens:Human " + body.Name + " came to tavern");
+                }
+                return isAtTavern;
+            }
+
+            float dEnergy = Config.EnergyMoveCost * dt;
+            //move
+            if (body.Energy - dEnergy > 0)
+            {
+                body.Energy -= dEnergy;
+                body.Move(body.Home.Position, dt);
+            }
+            else
+            {
+                body.Energy = 0;
+            }
+            return false;
+        }
+
+        protected virtual void tavernDrink(int dt)
+        {
+            float dEnergy = Config.EnergyForDrink * dt;
+            if (body.Energy - dEnergy > 0)
+            {
+                body.Energy -= dEnergy;
+            }
+            else
+            {
+                body.Energy = 0;
+            }
+
+            float dHappy = Config.HappyForDrink * dt;
+            if (body.Happiness + dHappy > Config.MaxHappiness)
+            {
+                body.Happiness = Config.MaxHappiness;
+
+            }
+            else
+            {
+                body.Happiness += dHappy;
+            }
+        }
+
         protected virtual void eat(int dt)
         {
             lastTryingEat += dt;
@@ -58,7 +119,7 @@ namespace townWinForm
                         body.Happiness = Config.MaxHappiness;
                     }
 
-                    Log.Add("citizens:Human" + body.Id + " eat: " + dHappy);
+                    Log.Add("citizens:Human " + body.Name + " eat: " + dHappy);
                 }
 
             }
@@ -73,8 +134,24 @@ namespace townWinForm
                     body.Happiness = 0;
                 }
 
-                Log.Add("citizens:Human" + body.Id + " can't eat: " + " no food");
+                Log.Add("citizens:Human " + body.Name + " can't eat: " + " no food");
             }
+        }
+
+        int timeToAlive = Config.DyingTime;
+        protected virtual bool dying(int dt)
+        {
+            timeToAlive -= dt;
+            if (timeToAlive < 0)
+            {
+                Log.Add("citizens:Human " + body.Name + " alive");
+                timeToAlive = Config.DyingTime;
+                body.IsAlive = true;
+                body.Position = Util.ConvertIndexToInt(new PointF(body.Home.Position.X + 1, body.Home.Position.Y + 1));
+                body.Happiness = Config.HappyAfterDeathe;
+                return true;
+            }
+            return false;
         }
 
         protected virtual bool goHome(int dt)
@@ -85,7 +162,7 @@ namespace townWinForm
                 var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.Home);
                 body.Move(path, dt);
 
-                Log.Add("citizens:Human" + body.Id + " go home");
+                Log.Add("citizens:Human " + body.Name + " go home");
             }
             else
             {
@@ -93,7 +170,7 @@ namespace townWinForm
                 if (isAtHome)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human" + body.Id + " came home");
+                    Log.Add("citizens:Human " + body.Name + " came home");
                 }
                 return isAtHome;
             }
@@ -120,7 +197,7 @@ namespace townWinForm
                 var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.WorkBuilding);
                 body.Move(path, dt);
 
-                Log.Add("citizens:Human" + body.Id + " go to work");
+                Log.Add("citizens:Human " + body.Name + " go to work");
             }
             //if path exist already, go along the path
             else
@@ -129,7 +206,7 @@ namespace townWinForm
                 if (isAtWork)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human" + body.Id + " came at work");
+                    Log.Add("citizens:Human " + body.Name + " came at work");
                 }
                 return isAtWork;
             }
@@ -149,6 +226,8 @@ namespace townWinForm
         //decrease energy, and if energy in low level then decrease happiness
         protected virtual void work(int dt)
         {
+            body.AddExp(Config.ExpForWorking);
+
             float dEnergy = WorkCost * dt;
             if (body.Energy - dEnergy > 0)
             {
@@ -197,7 +276,7 @@ namespace townWinForm
                 body.Happiness += Config.MaxHappiness;
             }
 
-            Log.Add("citizens:Human" + body.Id + " sleep");
+            //Log.Add("citizens:Human" + body.Name + " sleep");
         }
     }
 }
