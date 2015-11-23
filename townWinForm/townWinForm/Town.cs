@@ -637,6 +637,11 @@ namespace townWinForm
             Town.dy = dy;
         }
 
+        public Tavern GetTavern()
+        {
+            return taverns[rand.Next(taverns.Count)];
+        }
+
         public Building IsHumanInBuilding(Human h)
         {
             Building b;

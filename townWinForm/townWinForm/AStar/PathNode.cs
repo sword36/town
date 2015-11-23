@@ -51,7 +51,7 @@ namespace townWinForm
                 //step 4.
                 if (currentNode.Position == goal)
                     return GetPathForNode(currentNode);
-                // Шаг 5.
+                //step 5.
                 openSet.Remove(currentNode);
                 closedSet.Add(currentNode);
                 //step 6.
