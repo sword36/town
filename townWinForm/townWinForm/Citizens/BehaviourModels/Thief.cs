@@ -176,6 +176,7 @@ namespace townWinForm.BehaviourModels
         {
             if (body.Energy <= 0 && body.IsAlive)
             {
+                body.WaitTime = Config.DyingTime;
                 body.IsAlive = false;
                 StateMachine.PopState();
                 StateMachine.PushState("dying");

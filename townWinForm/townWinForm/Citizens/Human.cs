@@ -308,6 +308,19 @@ namespace townWinForm
             }
         }
 
+        public int WaitTime
+        {
+            get
+            {
+                return waitTime;
+            }
+
+            set
+            {
+                waitTime = value;
+            }
+        }
+
         public void Draw(Graphics g)
         {
             if (!Util.CheckPoint(Position))

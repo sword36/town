@@ -49,7 +49,7 @@ namespace townWinForm
         protected virtual bool goToTavern(int dt)
         {
             float dEnergy = Config.EnergyMoveCost * dt;
-            if (body.Energy - dEnergy > 0)
+            if (body.Energy - dEnergy > -1)
             {
                 body.Energy -= dEnergy;
             }
@@ -83,6 +83,16 @@ namespace townWinForm
 
         protected virtual void tavernDrink(int dt)
         {
+            float dEnergy = Config.EnergyForDrink * dt;
+            if (body.Energy - dEnergy < -1)
+            {
+                body.Energy = 0;
+            }
+            else
+            {
+                body.Energy -= dEnergy;
+            }
+
             float dHappy = Config.HappyForDrink * dt;
             if (body.Happiness + dHappy > Config.MaxHappiness)
             {
@@ -132,15 +142,15 @@ namespace townWinForm
             }
         }
 
-        int timeToAlive = Config.DyingTime;
         protected virtual bool dying(int dt)
         {
-            timeToAlive -= dt;
-            if (timeToAlive < 0)
+            body.WaitTime -= dt;
+            if (body.WaitTime < 0)
             {
                 Log.Add("citizens:Human " + body.Name + " alive");
-                timeToAlive = Config.DyingTime;
+                body.WaitTime = Config.DyingTime;
                 body.IsAlive = true;
+                body.Energy = 1;
                 body.Position = Util.ConvertIndexToInt(new PointF(body.Home.Position.X + 1, body.Home.Position.Y + 1));
                 body.Happiness = Config.HappyAfterDeath;
                 return true;
@@ -151,7 +161,7 @@ namespace townWinForm
         protected virtual bool goHome(int dt)
         {
             float dEnergy = Config.EnergyMoveCost * dt;
-            if (body.Energy - dEnergy > 0)
+            if (body.Energy - dEnergy > -1)
             {
                 body.Energy -= dEnergy;
             }
@@ -185,7 +195,7 @@ namespace townWinForm
         protected virtual bool goToWork(int dt)
         {
             float dEnergy = Config.EnergyMoveCost * dt;
-            if (body.Energy - dEnergy > 0)
+            if (body.Energy - dEnergy > -1)
             {
                 body.Energy -= dEnergy;
             }

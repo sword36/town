@@ -50,7 +50,6 @@ namespace townWinForm.BehaviourModels
                 {
                     StateMachine.PopState();
                     StateMachine.PushState("goHome");
-                    //StateMachine.EnqueueState("sleep");
                 } else
                 {
                     Log.Add("citizens:Humant " + body.Name + " sleeping");
@@ -189,6 +188,7 @@ namespace townWinForm.BehaviourModels
         {
             if (body.Energy <= 0 && body.IsAlive)
             {
+                body.WaitTime = Config.DyingTime;
                 body.IsAlive = false;
                 StateMachine.PopState();
                 StateMachine.PushState("dying");
