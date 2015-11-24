@@ -44,13 +44,9 @@ namespace townWinForm.BehaviourModels
                 StateMachine.PopState();
                 StateMachine.PushState("goToWork");
             }
-            else if (body.Energy < 40)
+            else if (body.Energy < 20)
             {
-                eat(dt);
-            }
-            else if (body.Energy < 25)
-            {
-                if (body.DistanceToHome() < Config.HomeNear)
+                if (body.DistanceToHome() < Config.HomeNear && body.CurrentBuilding as IResidence != body.Home)
                 {
                     StateMachine.PopState();
                     StateMachine.PushState("goHome");
@@ -58,9 +54,14 @@ namespace townWinForm.BehaviourModels
                 }
                 else
                 {
+                    Log.Add("citizens:Humant " + body.Name + " sleeping");
                     StateMachine.PopState();
                     StateMachine.PushState("sleep");
                 }
+            }
+            else if (body.Energy < 60)
+            {
+                eat(dt);
             }
         }
 
@@ -81,7 +82,7 @@ namespace townWinForm.BehaviourModels
                 if (true) { }
                 StateMachine.PopState();
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(craftsman)");
+                Log.Add("citizens:Human " + body.Name + " finish work(craftsman), energy too low");
 
                 if (body.Happiness < Config.LowerBoundHappyToDrink)
                 {
@@ -92,6 +93,13 @@ namespace townWinForm.BehaviourModels
                     StateMachine.PushState("goHome");
                     Log.Add("citizens:Human " + body.Name + " go to home");
                 }
+            }
+            else if (body.Happiness < 20)
+            {
+                isWorking = false;
+                Log.Add("citizens:Human " + body.Name + " finish work(craftsman), happy too low");
+                StateMachine.PopState();
+                StateMachine.PushState("goToTavern");
             }
         }
 
@@ -162,7 +170,7 @@ namespace townWinForm.BehaviourModels
         private void tavernDrink(int dt)
         {
             base.tavernDrink(dt);
-            if (body.Energy < Config.LimitEnergyInTavern || body.Happiness > Config.LimitHappyInTavern)
+            if (body.Happiness > Config.LimitHappyInTavern)
             {
                 Log.Add("citizens:Human " + body.Name + " drunk, go home!");
                 StateMachine.PopState();
@@ -175,6 +183,7 @@ namespace townWinForm.BehaviourModels
         {
             if (body.Energy <= 0 && body.IsAlive)
             {
+                body.WaitTime = Config.DyingTime;
                 body.IsAlive = false;
                 StateMachine.PopState();
                 StateMachine.PushState("dying");

@@ -30,30 +30,30 @@ namespace townWinForm
         #endregion
 
         #region Citizens
-        public static int DyingTime = 500;
-        public static int MaxCitizens = 50;
+        public static int DyingTime = 1000;
+        public static int MaxCitizens = 5;
         public static int MaxHappiness = 100;
         public static int StartHappiness = 80;
         public static int StartHappinessDelta = 15;
         public static string[] ProfList = new string[] { "craftsman", "farmer", "guardian", "trader", "thief" };
         public static int MaxProfLevel = 10;
         public static int MaxEnergy = 100;
-        public static int StartEnergy = 50;
-        public static int StartEnergyDelta = 30;
+        public static int StartEnergy = 70;
+        public static int StartEnergyDelta = 25;
         public static float EnergyForDrink = 0.001f;
         public static float EnergyForSleep = 0.004f;
         public static float HappyForSleep = 0.001f;
         public static float HappyForDrink = 0.007f;
-        public static float EnergyLowerBoundToUnhappy = 60;
-        public static float UnhappyForWork = 0.001f;
-        public static float EnergyMoveCost = 0.001f;
-        public static float EnergyForRest = 0.004f;
+        public static float EnergyLowerBoundToUnhappy = 70;
+        public static float UnhappyForWork = 0.003f;
+        public static float EnergyMoveCost = 0.0005f;
+        public static float EnergyForRest = 0.002f;
         public static float HappyForRest = 0.001f;
         public static float UnhappyForNoFood = 10;
-        public static float HomeNear = 200;
+        public static float HomeNear = 300;
         public static float MovePrecision = 3;
         public static int NextID = 0;
-        public static int TryEatInterval = 2000;
+        public static int TryEatInterval = 1000;
 
         public static float[] exp = { 200, 250, 350, 500, 700, 950, 1250, 1600, 2000, 1 };
         public static int MaxLevel = 10;
@@ -94,12 +94,12 @@ namespace townWinForm
         #endregion
 
         #region Things
-        public static float ProductCost = 300;
+        public static float ProductCost = 400;
         public static float ProductCostDelta = 200;
         public static float ProductWeight = 50;
         public static float ProductWeightDelta = 20;
 
-        public static float FoodCost = 200;
+        public static float FoodCost = 300;
         public static float FoodCostDelta = 150;
         public static float FoodWeight = 30;
         public static float FoodWeightDelta = 20;

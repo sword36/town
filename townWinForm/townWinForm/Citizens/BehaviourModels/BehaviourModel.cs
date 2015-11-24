@@ -48,6 +48,16 @@ namespace townWinForm
 
         protected virtual bool goToTavern(int dt)
         {
+            float dEnergy = Config.EnergyMoveCost * dt;
+            if (body.Energy - dEnergy > -1)
+            {
+                body.Energy -= dEnergy;
+            }
+            else
+            {
+                return false;
+            }
+
             if (!isGoing)
             {
                 isGoing = true;
@@ -68,30 +78,19 @@ namespace townWinForm
                 return isAtTavern;
             }
 
-            float dEnergy = Config.EnergyMoveCost * dt;
-            //move
-            if (body.Energy - dEnergy > 0)
-            {
-                body.Energy -= dEnergy;
-                body.Move(body.Home.Position, dt);
-            }
-            else
-            {
-                body.Energy = 0;
-            }
             return false;
         }
 
         protected virtual void tavernDrink(int dt)
         {
             float dEnergy = Config.EnergyForDrink * dt;
-            if (body.Energy - dEnergy > 0)
+            if (body.Energy - dEnergy < -1)
             {
-                body.Energy -= dEnergy;
+                body.Energy = 0;
             }
             else
             {
-                body.Energy = 0;
+                body.Energy -= dEnergy;
             }
 
             float dHappy = Config.HappyForDrink * dt;
@@ -139,19 +138,19 @@ namespace townWinForm
                     body.Happiness = 0;
                 }
 
-                Log.Add("citizens:Human " + body.Name + " can't eat: " + " no food");
+                Log.Add("citizens:Human " + body.Name + " can't eat: " + " no food((");
             }
         }
 
-        int timeToAlive = Config.DyingTime;
         protected virtual bool dying(int dt)
         {
-            timeToAlive -= dt;
-            if (timeToAlive < 0)
+            body.WaitTime -= dt;
+            if (body.WaitTime < 0)
             {
                 Log.Add("citizens:Human " + body.Name + " alive");
-                timeToAlive = Config.DyingTime;
+                body.WaitTime = Config.DyingTime;
                 body.IsAlive = true;
+                body.Energy = 1;
                 body.Position = Util.ConvertIndexToInt(new PointF(body.Home.Position.X + 1, body.Home.Position.Y + 1));
                 body.Happiness = Config.HappyAfterDeath;
                 return true;
@@ -161,6 +160,16 @@ namespace townWinForm
 
         protected virtual bool goHome(int dt)
         {
+            float dEnergy = Config.EnergyMoveCost * dt;
+            if (body.Energy - dEnergy > -1)
+            {
+                body.Energy -= dEnergy;
+            }
+            else
+            {
+                return false;
+            }
+
             if (!isGoing)
             {
                 isGoing = true;
@@ -180,21 +189,21 @@ namespace townWinForm
                 return isAtHome;
             }
 
-            float dEnergy = Config.EnergyMoveCost * dt;
-            //move
-            if (body.Energy - dEnergy > 0)
-            {
-                body.Energy -= dEnergy;
-                body.Move(body.Home.Position, dt);
-            } else
-            {
-                body.Energy = 0;
-            }
             return false;
         }
 
         protected virtual bool goToWork(int dt)
         {
+            float dEnergy = Config.EnergyMoveCost * dt;
+            if (body.Energy - dEnergy > -1)
+            {
+                body.Energy -= dEnergy;
+            }
+            else
+            {
+                return false;
+            }
+
             //if didn't go before, we should find the path
             if (!isGoing)
             {
@@ -216,15 +225,6 @@ namespace townWinForm
                 return isAtWork;
             }
 
-            float dEnergy = Config.EnergyMoveCost * dt;
-            if (body.Energy - dEnergy > 0)
-            {
-                body.Energy -= dEnergy;
-                body.Move(body.WorkBuilding.Position, dt);
-            } else
-            {
-                body.Energy = 0;
-            }
             return false;
         }
 
