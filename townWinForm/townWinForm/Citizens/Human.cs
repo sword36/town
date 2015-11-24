@@ -193,6 +193,7 @@ namespace townWinForm
             {
                 MoveAlongThePath(dt);
             }
+            Energy -= Config.EnergyMoveCost;
         }
 
         public bool MoveAlongThePath(int dt)

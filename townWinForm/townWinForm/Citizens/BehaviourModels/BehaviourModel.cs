@@ -48,6 +48,16 @@ namespace townWinForm
 
         protected virtual bool goToTavern(int dt)
         {
+            float dEnergy = Config.EnergyMoveCost * dt;
+            if (body.Energy - dEnergy > 0)
+            {
+                body.Energy -= dEnergy;
+            }
+            else
+            {
+                return false;
+            }
+
             if (!isGoing)
             {
                 isGoing = true;
@@ -68,17 +78,6 @@ namespace townWinForm
                 return isAtTavern;
             }
 
-            float dEnergy = Config.EnergyMoveCost * dt;
-            //move
-            if (body.Energy - dEnergy > 0)
-            {
-                body.Energy -= dEnergy;
-                body.Move(body.Home.Position, dt);
-            }
-            else
-            {
-                body.Energy = 0;
-            }
             return false;
         }
 
@@ -161,6 +160,16 @@ namespace townWinForm
 
         protected virtual bool goHome(int dt)
         {
+            float dEnergy = Config.EnergyMoveCost * dt;
+            if (body.Energy - dEnergy > 0)
+            {
+                body.Energy -= dEnergy;
+            }
+            else
+            {
+                return false;
+            }
+
             if (!isGoing)
             {
                 isGoing = true;
@@ -180,21 +189,21 @@ namespace townWinForm
                 return isAtHome;
             }
 
-            float dEnergy = Config.EnergyMoveCost * dt;
-            //move
-            if (body.Energy - dEnergy > 0)
-            {
-                body.Energy -= dEnergy;
-                body.Move(body.Home.Position, dt);
-            } else
-            {
-                body.Energy = 0;
-            }
             return false;
         }
 
         protected virtual bool goToWork(int dt)
         {
+            float dEnergy = Config.EnergyMoveCost * dt;
+            if (body.Energy - dEnergy > 0)
+            {
+                body.Energy -= dEnergy;
+            }
+            else
+            {
+                return false;
+            }
+
             //if didn't go before, we should find the path
             if (!isGoing)
             {
@@ -216,15 +225,6 @@ namespace townWinForm
                 return isAtWork;
             }
 
-            float dEnergy = Config.EnergyMoveCost * dt;
-            if (body.Energy - dEnergy > 0)
-            {
-                body.Energy -= dEnergy;
-                body.Move(body.WorkBuilding.Position, dt);
-            } else
-            {
-                body.Energy = 0;
-            }
             return false;
         }
 
