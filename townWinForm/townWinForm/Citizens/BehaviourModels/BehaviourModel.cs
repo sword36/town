@@ -153,7 +153,7 @@ namespace townWinForm
                 timeToAlive = Config.DyingTime;
                 body.IsAlive = true;
                 body.Position = Util.ConvertIndexToInt(new PointF(body.Home.Position.X + 1, body.Home.Position.Y + 1));
-                body.Happiness = Config.HappyAfterDeathe;
+                body.Happiness = Config.HappyAfterDeath;
                 return true;
             }
             return false;

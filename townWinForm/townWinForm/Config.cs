@@ -42,13 +42,13 @@ namespace townWinForm
         public static int StartEnergyDelta = 30;
         public static float EnergyForDrink = 0.001f;
         public static float EnergyForSleep = 0.003f;
-        public static float HappyForSleep = 0.00f;
+        public static float HappyForSleep = 0.001f;
         public static float HappyForDrink = 0.007f;
         public static float EnergyLowerBoundToUnhappy = 60;
         public static float UnhappyForWork = 0.001f;
         public static float EnergyMoveCost = 0.001f;
         public static float EnergyForRest = 0.002f;
-        public static float HappyForRest = 0.000f;
+        public static float HappyForRest = 0.001f;
         public static float UnhappyForNoFood = 10;
         public static float HomeNear = 200;
         public static float MovePrecision = 3;
@@ -65,7 +65,7 @@ namespace townWinForm
         public static float FarmerWorkCost = 0.005f;
         public static float GuardianWorkCost = 0.004f;
         public static float ThiefWorkCost = 0.002f;
-        public static float TraderWorkCost = 0.003f;
+        public static float TraderWorkCost = 0.0015f;
 
         public static float CraftsmanBagCapacity = 200;
         public static float FarmerBagCapacity = 150;
@@ -80,7 +80,7 @@ namespace townWinForm
         public static float ThiefSpeed = 0.15f;
         public static float TraderSpeed = 0.09f;
 
-        public static float HappyAfterDeathe = 0;
+        public static float HappyAfterDeath = 0;
         public static float ExpForCraft = 100;
         public static float ExpForWorking = 0.5f;
         public static float LimitHappyInTavern = 95;
