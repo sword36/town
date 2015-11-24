@@ -47,7 +47,7 @@ namespace townWinForm.BehaviourModels
             {
                 eat(dt);
             }
-            else if (body.Energy < 20)
+            else if (body.Energy < 40)
             {
                 if (body.DistanceToHome() < Config.HomeNear)
                 {

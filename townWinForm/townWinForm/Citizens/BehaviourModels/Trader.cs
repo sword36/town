@@ -44,11 +44,11 @@ namespace townWinForm.BehaviourModels
                 StateMachine.PopState();
                 StateMachine.PushState("goToWork");
             }
-            else if (body.Energy < 40)
+            else if (body.Energy < 50)
             {
                 eat(dt);
             }
-            else if (body.Energy < 25)
+            else if (body.Energy < 45)
             {
                 if (body.DistanceToHome() < Config.HomeNear)
                 {
@@ -183,24 +183,6 @@ namespace townWinForm.BehaviourModels
 
             switch (StateMachine.GetCurrentState())
             {
-                /*case "rest":
-                    rest(dt);
-                    break;
-                case "work":
-                    work(dt);
-                    break;
-                case "goToWork":
-                    goToWork(dt);
-                    break;
-                case "goHome":
-                    goHome(dt);
-                    break;
-                case "sleep":
-                    sleep(dt);
-                    break;
-                case "dying":
-                    dying(dt);
-                    break;*/
                 case "rest":
                     rest(dt);
                     break;

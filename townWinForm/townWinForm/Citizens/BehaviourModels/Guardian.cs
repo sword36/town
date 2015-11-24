@@ -44,11 +44,11 @@ namespace townWinForm.BehaviourModels
                 StateMachine.PopState();
                 StateMachine.PushState("goToWork");
             }
-            else if (body.Energy < 40)
+            else if (body.Energy < 45)
             {
                 eat(dt);
             }
-            else if (body.Energy < 25)
+            else if (body.Energy < 35)
             {
                 if (body.DistanceToHome() < Config.HomeNear)
                 {
