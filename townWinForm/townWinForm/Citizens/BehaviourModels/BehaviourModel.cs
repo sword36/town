@@ -269,7 +269,7 @@ namespace townWinForm
                 body.Energy = Config.MaxEnergy;
             }
 
-            float dHappy = Config.EnergyForSleep * dt;
+            float dHappy = Config.HappyForSleep * dt;
             if (body.Happiness + dHappy <= Config.MaxHappiness)
             {
                 body.Happiness += dHappy;
