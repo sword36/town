@@ -54,10 +54,10 @@ namespace townWinForm.BehaviourModels
                 {
                     StateMachine.PopState();
                     StateMachine.PushState("goHome");
-                    //StateMachine.EnqueueState("sleep");
                 }
                 else
                 {
+                    Log.Add("citizens:Humant " + body.Name + " sleeping");
                     StateMachine.PopState();
                     StateMachine.PushState("sleep");
                 }

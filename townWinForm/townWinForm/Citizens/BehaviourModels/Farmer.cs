@@ -52,6 +52,7 @@ namespace townWinForm.BehaviourModels
             {
                 if (body.DistanceToHome() < Config.HomeNear)
                 {
+                    Log.Add("citizens:Humant " + body.Name + " sleeping");
                     StateMachine.PopState();
                     StateMachine.PushState("goHome");
                     //StateMachine.EnqueueState("sleep");

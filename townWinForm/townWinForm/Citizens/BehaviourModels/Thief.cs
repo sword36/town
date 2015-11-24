@@ -58,6 +58,7 @@ namespace townWinForm.BehaviourModels
                 }
                 else
                 {
+                    Log.Add("citizens:Humant " + body.Name + " sleeping");
                     StateMachine.PopState();
                     StateMachine.PushState("sleep");
                 }
