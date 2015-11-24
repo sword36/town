@@ -96,7 +96,7 @@ namespace townWinForm
 
             Money = Util.GetRandomDistribution(Config.StartMoney, Config.StartMoneyDelta);
             Happiness = Util.GetRandomDistribution(Config.StartHappiness, Config.StartHappinessDelta);
-            Energy = 1;
+            Energy = Util.GetRandomDistribution(Config.StartEnergy, Config.StartEnergyDelta); ;
             IsAlive = true;
 
             ProfLevels = new Dictionary<string, int>();
@@ -325,7 +325,7 @@ namespace townWinForm
                 Config.TileSize, Config.TileSize);
 
             if (img != null)
-            g.DrawImage(img, position.X + 2 + dx, position.Y + 2 + dy, Config.TileSize - 4, Config.TileSize - 4);
+            g.DrawImage(img, position.X + 3 + dx, position.Y + 3 + dy, Config.TileSize - 6, Config.TileSize - 6);
         }
 
         private void DrawInfo(Graphics g)

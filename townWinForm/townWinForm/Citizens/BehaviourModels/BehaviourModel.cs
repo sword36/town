@@ -68,7 +68,7 @@ namespace townWinForm
                 return isAtTavern;
             }
 
-            float dEnergy = Config.EnergyMoveCost;
+            float dEnergy = Config.EnergyMoveCost * dt;
             //move
             if (body.Energy - dEnergy > 0)
             {
@@ -180,7 +180,7 @@ namespace townWinForm
                 return isAtHome;
             }
 
-            float dEnergy = Config.EnergyMoveCost;
+            float dEnergy = Config.EnergyMoveCost * dt;
             //move
             if (body.Energy - dEnergy > 0)
             {
@@ -216,7 +216,7 @@ namespace townWinForm
                 return isAtWork;
             }
 
-            float dEnergy = Config.EnergyMoveCost;
+            float dEnergy = Config.EnergyMoveCost * dt;
             if (body.Energy - dEnergy > 0)
             {
                 body.Energy -= dEnergy;
@@ -275,7 +275,7 @@ namespace townWinForm
                 body.Happiness += dHappy;
             } else
             {
-                body.Happiness += Config.MaxHappiness;
+                body.Happiness = Config.MaxHappiness;
             }
 
             //Log.Add("citizens:Human" + body.Name + " sleep");

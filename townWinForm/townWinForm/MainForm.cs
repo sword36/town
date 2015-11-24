@@ -143,6 +143,12 @@ namespace townWinForm
                 return;
             }
 
+            if ((h == null) && (clickedHuman != null))
+            {
+                clickedHuman.IsClicked = false;
+                clickedHuman = null;
+            }
+
             if (h != null)
             {
                 if (clickedHuman != null)
