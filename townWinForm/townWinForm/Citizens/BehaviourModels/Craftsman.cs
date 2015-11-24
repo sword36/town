@@ -177,7 +177,7 @@ namespace townWinForm.BehaviourModels
         private void tavernDrink(int dt)
         {
             base.tavernDrink(dt);
-            if (body.Energy < Config.LimitEnergyInTavern || body.Happiness > Config.LimitHappyInTavern) 
+            if (body.Happiness > Config.LimitHappyInTavern) 
             {
                 Log.Add("citizens:Human " + body.Name + " drunk, go home!");
                 StateMachine.PopState();
