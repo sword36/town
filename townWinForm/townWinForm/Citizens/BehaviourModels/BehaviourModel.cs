@@ -83,15 +83,15 @@ namespace townWinForm
 
         protected virtual void tavernDrink(int dt)
         {
-            float dEnergy = Config.EnergyForDrink * dt;
-            if (body.Energy - dEnergy > 0)
-            {
-                body.Energy -= dEnergy;
-            }
-            else
-            {
-                body.Energy = 0;
-            }
+            //float dEnergy = Config.EnergyForDrink * dt;
+            //if (body.Energy - dEnergy > 0)
+            //{
+            //    body.Energy -= dEnergy;
+            //}
+            //else
+            //{
+            //    body.Energy = 0;
+            //}
 
             float dHappy = Config.HappyForDrink * dt;
             if (body.Happiness + dHappy > Config.MaxHappiness)
