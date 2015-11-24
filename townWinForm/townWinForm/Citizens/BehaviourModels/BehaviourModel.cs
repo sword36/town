@@ -68,7 +68,7 @@ namespace townWinForm
                 return isAtTavern;
             }
 
-            float dEnergy = Config.EnergyMoveCost * dt;
+            float dEnergy = Config.EnergyMoveCost;
             //move
             if (body.Energy - dEnergy > 0)
             {
@@ -180,7 +180,7 @@ namespace townWinForm
                 return isAtHome;
             }
 
-            float dEnergy = Config.EnergyMoveCost * dt;
+            float dEnergy = Config.EnergyMoveCost;
             //move
             if (body.Energy - dEnergy > 0)
             {
@@ -216,7 +216,7 @@ namespace townWinForm
                 return isAtWork;
             }
 
-            float dEnergy = Config.EnergyMoveCost * dt;
+            float dEnergy = Config.EnergyMoveCost;
             if (body.Energy - dEnergy > 0)
             {
                 body.Energy -= dEnergy;

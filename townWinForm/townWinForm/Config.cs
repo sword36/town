@@ -18,13 +18,13 @@ namespace townWinForm
 
         #region Colors
 
-        public static Color MarketColor = Color.Tomato;
+        public static Color MarketColor = Color.FromArgb(205, 85, 85);
         public static Color HouseColor = Color.DimGray;
-        public static Color FarmColor = Color.DarkGoldenrod;
+        public static Color FarmColor = Color.FromArgb(139, 129, 76);
         public static Color GuildColor = Color.Indigo;
-        public static Color BarracksColor = Color.Maroon;
-        public static Color TavernColor = Color.RosyBrown;
-        public static Color FactoryColor = Color.DarkGreen;
+        public static Color BarracksColor = Color.FromArgb(139, 26, 26);
+        public static Color TavernColor = Color.FromArgb(205, 104, 57);
+        public static Color FactoryColor = Color.FromArgb(110, 139, 61);
         public static Color StreetColor = Color.Gainsboro;
 
         #endregion
@@ -53,7 +53,7 @@ namespace townWinForm
         public static int NextID = 0;
         public static int TryEatInterval = 1000;
 
-        public static float[] exp = { 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800 };
+        public static float[] exp = { 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 1 };
         public static int MaxLevel = 10;
 
         #endregion
@@ -137,7 +137,7 @@ namespace townWinForm
         public static int ThiefGuildsAmount = 2;
         public static int BarracksAmount = 2;
         public static int Markets = MaxCitizens / 50 + 2;
-        private static float tileSize = 28;
+        private static float tileSize = 32;
         public static int minBuildingSize = 6;
         public static int maxBuildingSize = 8;
         public static int TownWidth = 0;
@@ -152,6 +152,14 @@ namespace townWinForm
         public static float dy = 24;
         public static int FPS = 30;
         public static float ScrollSpeed = 1000;
+        public static Dictionary<string, Color> ProfColors = new Dictionary<string, Color>()
+        {
+            { "trader", MarketColor },
+            { "thief", GuildColor },
+            { "guardian", BarracksColor },
+            { "farmer", FarmColor },
+            { "craftsman", FactoryColor }
+        };
 
         #endregion
 
