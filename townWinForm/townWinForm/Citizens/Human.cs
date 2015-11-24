@@ -46,7 +46,7 @@ namespace townWinForm
             }
         }
 
-        protected Building currentBuilding;
+        private Building currentBuilding;
 
         private int id;
         protected PointF currentRoom;
@@ -107,7 +107,7 @@ namespace townWinForm
             path = new List<PointF>();
             originalPath = new List<PointF>();
             
-            currentBuilding = home as Building;
+            CurrentBuilding = home as Building;
 
             //set all proffesion skills to 1 level
             foreach (string prof in Config.ProfList)
@@ -176,11 +176,6 @@ namespace townWinForm
             }
         }
 
-        public void Move(PointF p, int dt)
-        {
-
-        }
-
         public void Move(List<PointF> pN, int dt)
         {
             if (pN.Count != 0)
@@ -225,11 +220,6 @@ namespace townWinForm
             double dx = Speed * dt * Math.Cos(angle);
             double dy = Speed * dt * Math.Sin(angle);
             Position = new PointF(Position.X + (float)dx, Position.Y + (float)dy);
-        }
-
-        public void Move(RectangleF rect, int dt)
-        {
-            Move(new PointF(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), dt);
         }
 
         public float DistanceToHome()
@@ -302,6 +292,19 @@ namespace townWinForm
             get
             {
                 return id;
+            }
+        }
+
+        public Building CurrentBuilding
+        {
+            get
+            {
+                return currentBuilding;
+            }
+
+            set
+            {
+                currentBuilding = value;
             }
         }
 
@@ -420,17 +423,17 @@ namespace townWinForm
         {
             Building b = town.IsHumanInBuilding(this);
 
-            if ((currentBuilding == null) && (b != null))
+            if ((CurrentBuilding == null) && (b != null))
             {
                 b.AddHuman(this);
-                currentBuilding = b;
+                CurrentBuilding = b;
                 return;
             }
 
-            if ((currentBuilding != null) && (b == null))
+            if ((CurrentBuilding != null) && (b == null))
             {
-                currentBuilding.RemoveHuman(this);
-                currentBuilding = null;
+                CurrentBuilding.RemoveHuman(this);
+                CurrentBuilding = null;
                 return;
             }
         }

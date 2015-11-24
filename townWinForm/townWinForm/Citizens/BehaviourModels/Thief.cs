@@ -44,13 +44,9 @@ namespace townWinForm.BehaviourModels
                 StateMachine.PopState();
                 StateMachine.PushState("goToWork");
             }
-            else if (body.Energy < 40)
+            else if (body.Energy < 20)
             {
-                eat(dt);
-            }
-            else if (body.Energy < 35)
-            {
-                if (body.DistanceToHome() < Config.HomeNear)
+                if (body.DistanceToHome() < Config.HomeNear && body.CurrentBuilding as IResidence != body.Home)
                 {
                     StateMachine.PopState();
                     StateMachine.PushState("goHome");
@@ -62,6 +58,10 @@ namespace townWinForm.BehaviourModels
                     StateMachine.PopState();
                     StateMachine.PushState("sleep");
                 }
+            }
+            else if (body.Energy < 60)
+            {
+                eat(dt);
             }
         }
 

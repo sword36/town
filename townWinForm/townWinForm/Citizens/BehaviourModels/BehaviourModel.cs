@@ -138,7 +138,7 @@ namespace townWinForm
                     body.Happiness = 0;
                 }
 
-                Log.Add("citizens:Human " + body.Name + " can't eat: " + " no food");
+                Log.Add("citizens:Human " + body.Name + " can't eat: " + " no food((");
             }
         }
 

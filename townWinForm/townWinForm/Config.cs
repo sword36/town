@@ -50,7 +50,7 @@ namespace townWinForm
         public static float EnergyForRest = 0.002f;
         public static float HappyForRest = 0.001f;
         public static float UnhappyForNoFood = 10;
-        public static float HomeNear = 200;
+        public static float HomeNear = 300;
         public static float MovePrecision = 3;
         public static int NextID = 0;
         public static int TryEatInterval = 1000;
