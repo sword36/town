@@ -79,7 +79,7 @@ namespace townWinForm
                 Position.Height * Config.TileSize);
 
             g.FillRectangle(Brushes.LightGreen, (Entrance.X + Position.Location.X) * Config.TileSize + dx, (Entrance.Y + Position.Location.Y) * Config.TileSize + dy, Config.TileSize, Config.TileSize);
-            g.DrawString(PeopleIn.Count.ToString(), SystemFonts.DialogFont, Brushes.Black, Position.Location.X * Config.TileSize + dx, Position.Location.Y * Config.TileSize + dy);
+            g.DrawString(buildingType[0] + "", new Font("Courier New", 12, FontStyle.Regular), Brushes.Black, Position.Location.X * Config.TileSize + dx, Position.Location.Y * Config.TileSize + dy);
         }
 
         protected virtual void SetEntrance()

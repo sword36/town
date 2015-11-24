@@ -96,7 +96,7 @@ namespace townWinForm
 
             Money = Util.GetRandomDistribution(Config.StartMoney, Config.StartMoneyDelta);
             Happiness = Util.GetRandomDistribution(Config.StartHappiness, Config.StartHappinessDelta);
-            Energy = 1;
+            Energy = Util.GetRandomDistribution(Config.StartEnergy, Config.StartEnergyDelta); ;
             IsAlive = true;
 
             ProfLevels = new Dictionary<string, int>();
@@ -315,59 +315,105 @@ namespace townWinForm
                 Position.Y + dy,
                 Config.TileSize, Config.TileSize);
 
-                using (Font f = new Font("Courier New", 12, FontStyle.Regular))
-                {
-                    
-                    SizeF nameSize = g.MeasureString(Name, f);
-                    SizeF profSize = g.MeasureString(CurrentProf + " " + ProfLevels[CurrentProf] + " lvl", f);
-
-                    float width = Math.Max(nameSize.Width, profSize.Width);
-
-                    int profPercent = (int)Math.Round((float)profExp[CurrentProf] / Config.exp[ProfLevels[CurrentProf] - 1] * 100);
-                    SizeF profPercentSize = g.MeasureString(profPercent.ToString() + "%", f);
-
-                    int energyPercent = (int)Math.Round(Energy / Config.MaxEnergy * 100);
-                    SizeF energyPercentSize = g.MeasureString(energyPercent.ToString() + "%", f);
-
-                    int happinessPercent = (int)Math.Round(Happiness / Config.MaxHappiness * 100);
-                    SizeF happinessPercentSize = g.MeasureString(profPercent.ToString() + "%", f);
-
-                    g.FillRectangle(new SolidBrush(Color.FromArgb(100, 255, 255, 255)),
-                        Position.X + Config.TileSize + 5 + dx,
-                        Position.Y + dy, width + 10, nameSize.Height + profSize.Height + 10 + 20 + 25 + 25);
-
-                    g.DrawRectangle(new Pen(Color.FromArgb(100, 20, 20, 20), 2),
-                        Position.X + Config.TileSize + 5 + dx,
-                        Position.Y + dy, width + 10, nameSize.Height + profSize.Height + 10 + 20 + 25 + 25);
-
-                    g.DrawString(Name, f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + dy + 5);
-                    g.DrawString(CurrentProf + " " + ProfLevels[CurrentProf] + " lvl", f, Brushes.Black, position.X + dx + Config.TileSize + 5, position.Y + nameSize.Height + dy + 5);
-                    g.FillRectangle(new SolidBrush(Color.FromArgb(50, 255, 255, 0)), position.X + Config.TileSize + 5 + 5 + dx, position.Y + dy + 5 + profSize.Height + nameSize.Height, width, 20);
-                    g.FillRectangle(Brushes.Gold, position.X + Config.TileSize + 5 + 5 + dx, position.Y + dy + 5 + profSize.Height + nameSize.Height, (float)profExp[CurrentProf] / Config.exp[ProfLevels[CurrentProf] - 1] * width , 20);
-
-                    g.FillRectangle(new SolidBrush(Color.FromArgb(50, 255, 0, 0)), position.X + Config.TileSize + 5 + 5 + dx, position.Y + dy + 5 + profSize.Height + 20 + nameSize.Height + 5, width, 20);
-                    g.FillRectangle(Brushes.Red, position.X + Config.TileSize + 5 + 5 + dx, position.Y + dy + 5 + profSize.Height + nameSize.Height + 20 + 5, Energy / Config.MaxEnergy * width, 20);
-
-                    g.FillRectangle(new SolidBrush(Color.FromArgb(50, 0, 255, 0)), position.X + Config.TileSize + 5 + 5 + dx, position.Y + dy + 5 + profSize.Height + nameSize.Height + 5 + 5 + 20 + 20, width, 20);
-                    g.FillRectangle(Brushes.Chartreuse, position.X + Config.TileSize + 5 + 5 + dx, position.Y + dy + 5 + profSize.Height + nameSize.Height + 5 + 5 + 20 + 20, Happiness / Config.MaxHappiness * width, 20);
-
-                    g.DrawString(profPercent.ToString() + "%", f, Brushes.Black, position.X + dx + Config.TileSize + 5 + width / 2 - profPercentSize.Width / 2, position.Y + nameSize.Height + profSize.Height + dy + 5);
-
-                    g.DrawString(energyPercent.ToString() + "%", f, Brushes.Black, position.X + dx + Config.TileSize + 5 + width / 2 - energyPercentSize.Width / 2, position.Y + 5 + nameSize.Height + profSize.Height + dy + 5 + 20);
-
-                    g.DrawString(happinessPercent.ToString() + "%", f, Brushes.Black, position.X + dx + Config.TileSize + 5 + width / 2 - happinessPercentSize.Width / 2, position.Y + 5 + 5 + nameSize.Height + profSize.Height + dy + 5 + 20 + 20);
-                }
+                DrawInfo(g);
 
             }
 
             else
-                g.FillRectangle(Brushes.Red, Position.X + dx,
+                g.FillRectangle(new SolidBrush(Config.ProfColors[CurrentProf]), Position.X + dx,
                 Position.Y + dy,
                 Config.TileSize, Config.TileSize);
 
             if (img != null)
-            g.DrawImage(img, position.X + 2 + dx, position.Y + 2 + dy, Config.TileSize - 4, Config.TileSize - 4);
+            g.DrawImage(img, position.X + 3 + dx, position.Y + 3 + dy, Config.TileSize - 6, Config.TileSize - 6);
         }
+
+        private void DrawInfo(Graphics g)
+        {
+            using (Font f = new Font("Courier New", 12, FontStyle.Regular))
+            {
+                int step = 5;
+                int barHeight = 20;
+
+                int profPercent = (int)Math.Round((float)profExp[CurrentProf] / 
+                    Config.exp[ProfLevels[CurrentProf] - 1] * 100);
+
+                int energyPercent = (int)Math.Round(Energy / Config.MaxEnergy * 100);
+                int happinessPercent = (int)Math.Round(Happiness / Config.MaxHappiness * 100);
+
+                string expString = "XP " + profPercent.ToString() + "%";
+                string energyString = "Energy " + energyPercent.ToString() + "%";
+                string happinessString = "Happiness " + happinessPercent.ToString() + "%";
+                string professionString = CurrentProf + " " + ProfLevels[CurrentProf] + " lvl";
+                string stateString = Behaviour.State + " " + Money;
+
+                SizeF profPercentSize = g.MeasureString(expString, f);
+                SizeF energyPercentSize = g.MeasureString(energyString, f);
+                SizeF happinessPercentSize = g.MeasureString(happinessString, f);
+                SizeF nameSize = g.MeasureString(Name, f);
+                SizeF profSize = g.MeasureString(professionString, f);
+                SizeF stateSize = g.MeasureString(stateString, f);
+
+                float width = Math.Max(Math.Max(nameSize.Width, happinessPercentSize.Width), Math.Max(profSize.Width, stateSize.Width));
+
+                SolidBrush background = new SolidBrush(Color.FromArgb(100, 255, 255, 255));
+                SolidBrush expBackground = new SolidBrush(Color.FromArgb(50, 255, 255, 0));
+                SolidBrush energyBackground = new SolidBrush(Color.FromArgb(50, 255, 0, 0));
+                SolidBrush happinessBackground = new SolidBrush(Color.FromArgb(50, 0, 255, 0));
+
+                float drawingX = position.X + dx + Config.TileSize + step;
+
+
+                g.FillRectangle(background,
+                    Position.X + Config.TileSize + step + dx,
+                    Position.Y + dy,
+                    width + step * 2,
+                    nameSize.Height + profSize.Height + stateSize.Height + step * 4 + barHeight * 3);
+
+                g.DrawRectangle(new Pen(Color.FromArgb(100, 20, 20, 20), 2),
+                    Position.X + Config.TileSize + step + dx,
+                    Position.Y + dy,
+                    width + step * 2,
+                    nameSize.Height + profSize.Height + stateSize.Height + step * 4 + barHeight * 3);
+
+                g.DrawString(Name, f, Brushes.Black, drawingX, position.Y + dy + step);
+
+                g.DrawString(professionString, f,
+                    Brushes.Black, drawingX, position.Y + nameSize.Height + dy + step);
+
+                g.DrawString(stateString, f, 
+                    Brushes.Black, drawingX, position.Y + nameSize.Height + stateSize.Height + dy + step);
+
+                g.FillRectangle(expBackground, position.X + Config.TileSize + step * 2 + dx, 
+                    position.Y + dy + step + profSize.Height + nameSize.Height + stateSize.Height, width, barHeight);
+
+                g.FillRectangle(Brushes.Gold, position.X + Config.TileSize + step * 2 + dx, 
+                    position.Y + dy + step + profSize.Height + nameSize.Height + stateSize.Height, 
+                    (float)profExp[CurrentProf] / Config.exp[ProfLevels[CurrentProf] - 1] * width, barHeight);
+
+                g.FillRectangle(energyBackground, position.X + Config.TileSize + step * 2 + dx, position.Y + dy + step + profSize.Height + stateSize.Height + barHeight + nameSize.Height + 5, width, barHeight);
+                g.FillRectangle(Brushes.Red, position.X + Config.TileSize + step * 2 + dx, position.Y + dy + step + profSize.Height + nameSize.Height + stateSize.Height + barHeight + step, Energy / Config.MaxEnergy * width, barHeight);
+
+                g.FillRectangle(happinessBackground, position.X + Config.TileSize + step * 2 + dx, 
+                    position.Y + dy + profSize.Height + stateSize.Height + nameSize.Height + step * 3 + barHeight * 2,
+                    width, barHeight);
+
+                g.FillRectangle(Brushes.Chartreuse, position.X + Config.TileSize + step * 2 + dx, 
+                    position.Y + dy + profSize.Height + stateSize.Height + nameSize.Height + step * 3 + barHeight * 2,
+                    Happiness / Config.MaxHappiness * width, barHeight);
+
+                g.DrawString(expString, f, Brushes.Black, drawingX + width / 2 - profPercentSize.Width / 2, 
+                    position.Y + nameSize.Height + stateSize.Height + profSize.Height + dy + step);
+
+                g.DrawString(energyString, f, Brushes.Black, drawingX + width / 2 - energyPercentSize.Width / 2, 
+                    position.Y + step + nameSize.Height + stateSize.Height + profSize.Height + dy + step + barHeight);
+
+                g.DrawString(happinessString, f, Brushes.Black, step + drawingX + width / 2 - happinessPercentSize.Width / 2,
+                    position.Y + step * 2 + nameSize.Height + stateSize.Height + profSize.Height + dy + step + barHeight * 2);
+            }
+        }
+
+        
 
         private void UpdateBuilding()
         {
@@ -415,6 +461,17 @@ namespace townWinForm
                 profExp[CurrentProf] -= Config.exp[ProfLevels[CurrentProf] - 1];
                 ProfLevels[CurrentProf]++;
                 Log.Add("levels: Human " + Name + "(" + CurrentProf + ") " + "level up to " + ProfLevels[CurrentProf]);
+            }
+
+            if ((ProfLevels[CurrentProf] == Config.MaxLevel - 1) && 
+                (profExp[CurrentProf] >= Config.exp[ProfLevels[CurrentProf] - 1]))
+            {
+                ProfLevels[CurrentProf]++;
+            }
+
+            if (ProfLevels[CurrentProf] == Config.MaxLevel)
+            {
+                profExp[CurrentProf] = 1;
             }
         }
     }

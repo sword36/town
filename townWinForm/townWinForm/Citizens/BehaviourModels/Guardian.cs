@@ -10,6 +10,11 @@ namespace townWinForm.BehaviourModels
     {
         public StackFSM StateMachine;
 
+        public override string State
+        {
+            get { return StateMachine.GetCurrentState(); }
+        }
+
         public Guardian(Human h, int level)
         {
             body = h;

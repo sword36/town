@@ -19,6 +19,11 @@ namespace townWinForm
         {
         }
 
+        public virtual string State
+        {
+            get;
+        }
+
         //increase energy and happiness
         protected virtual void rest(int dt)
         {
@@ -148,7 +153,7 @@ namespace townWinForm
                 timeToAlive = Config.DyingTime;
                 body.IsAlive = true;
                 body.Position = Util.ConvertIndexToInt(new PointF(body.Home.Position.X + 1, body.Home.Position.Y + 1));
-                body.Happiness = Config.HappyAfterDeathe;
+                body.Happiness = Config.HappyAfterDeath;
                 return true;
             }
             return false;
@@ -270,7 +275,7 @@ namespace townWinForm
                 body.Happiness += dHappy;
             } else
             {
-                body.Happiness += Config.MaxHappiness;
+                body.Happiness = Config.MaxHappiness;
             }
 
             //Log.Add("citizens:Human" + body.Name + " sleep");

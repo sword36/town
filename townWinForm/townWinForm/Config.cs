@@ -18,13 +18,13 @@ namespace townWinForm
 
         #region Colors
 
-        public static Color MarketColor = Color.Tomato;
+        public static Color MarketColor = Color.FromArgb(205, 85, 85);
         public static Color HouseColor = Color.DimGray;
-        public static Color FarmColor = Color.DarkGoldenrod;
-        public static Color GuildColor = Color.Indigo;
-        public static Color BarracksColor = Color.Maroon;
-        public static Color TavernColor = Color.RosyBrown;
-        public static Color FactoryColor = Color.DarkGreen;
+        public static Color FarmColor = Color.FromArgb(139, 129, 76);
+        public static Color GuildColor = Color.FromArgb(75, 0, 129); //4b0082 75 00 129
+        public static Color BarracksColor = Color.FromArgb(139, 26, 26);
+        public static Color TavernColor = Color.FromArgb(205, 104, 57);
+        public static Color FactoryColor = Color.FromArgb(110, 139, 61);
         public static Color StreetColor = Color.Gainsboro;
 
         #endregion
@@ -33,19 +33,21 @@ namespace townWinForm
         public static int DyingTime = 500;
         public static int MaxCitizens = 50;
         public static int MaxHappiness = 100;
-        public static int StartHappiness = 75;
-        public static int StartHappinessDelta = 25;
+        public static int StartHappiness = 80;
+        public static int StartHappinessDelta = 15;
         public static string[] ProfList = new string[] { "craftsman", "farmer", "guardian", "trader", "thief" };
         public static int MaxProfLevel = 10;
         public static int MaxEnergy = 100;
+        public static int StartEnergy = 50;
+        public static int StartEnergyDelta = 30;
         public static float EnergyForDrink = 0.001f;
         public static float EnergyForSleep = 0.003f;
-        public static float HappyForSleep = 0.005f;
+        public static float HappyForSleep = 0.001f;
         public static float HappyForDrink = 0.007f;
         public static float EnergyLowerBoundToUnhappy = 60;
         public static float UnhappyForWork = 0.001f;
         public static float EnergyMoveCost = 0.001f;
-        public static float EnergyForRest = 0.02f;
+        public static float EnergyForRest = 0.002f;
         public static float HappyForRest = 0.001f;
         public static float UnhappyForNoFood = 10;
         public static float HomeNear = 200;
@@ -53,7 +55,7 @@ namespace townWinForm
         public static int NextID = 0;
         public static int TryEatInterval = 1000;
 
-        public static float[] exp = { 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800 };
+        public static float[] exp = { 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 1 };
         public static int MaxLevel = 10;
 
         #endregion
@@ -63,7 +65,7 @@ namespace townWinForm
         public static float FarmerWorkCost = 0.005f;
         public static float GuardianWorkCost = 0.004f;
         public static float ThiefWorkCost = 0.002f;
-        public static float TraderWorkCost = 0.001f;
+        public static float TraderWorkCost = 0.0015f;
 
         public static float CraftsmanBagCapacity = 200;
         public static float FarmerBagCapacity = 150;
@@ -72,14 +74,13 @@ namespace townWinForm
         public static float TraderBagCapacity = 300;
 
 
-        private static float MoveK = 1f;
-        public static float CraftsmanSpeed = 0.1f / MoveK;
-        public static float FarmerSpeed = 0.1f / MoveK;
-        public static float GuardianSpeed = 0.125f / MoveK;
-        public static float ThiefSpeed = 0.15f / MoveK;
-        public static float TraderSpeed = 0.1f / MoveK;
+        public static float CraftsmanSpeed = 0.1f;
+        public static float FarmerSpeed = 0.1f;
+        public static float GuardianSpeed = 0.125f;
+        public static float ThiefSpeed = 0.15f;
+        public static float TraderSpeed = 0.09f;
 
-        public static float HappyAfterDeathe = 0;
+        public static float HappyAfterDeath = 0;
         public static float ExpForCraft = 100;
         public static float ExpForWorking = 0.5f;
         public static float LimitHappyInTavern = 95;
@@ -137,7 +138,7 @@ namespace townWinForm
         public static int ThiefGuildsAmount = 2;
         public static int BarracksAmount = 2;
         public static int Markets = MaxCitizens / 50 + 2;
-        private static float tileSize = 28;
+        private static float tileSize = 32;
         public static int minBuildingSize = 6;
         public static int maxBuildingSize = 8;
         public static int TownWidth = 0;
@@ -152,6 +153,14 @@ namespace townWinForm
         public static float dy = 24;
         public static int FPS = 30;
         public static float ScrollSpeed = 1000;
+        public static Dictionary<string, Color> ProfColors = new Dictionary<string, Color>()
+        {
+            { "trader", Color.FromArgb(245, 125, 125) },
+            { "thief", Color.FromArgb(115, 40, 169) },
+            { "guardian", Color.FromArgb(179, 66, 66) },
+            { "farmer", Color.FromArgb(179, 169, 116) },
+            { "craftsman", Color.FromArgb(150, 179, 101) }
+        };
 
         #endregion
 

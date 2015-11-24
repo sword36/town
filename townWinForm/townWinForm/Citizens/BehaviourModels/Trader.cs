@@ -10,6 +10,11 @@ namespace townWinForm.BehaviourModels
     {
         public StackFSM StateMachine;
 
+        public override string State
+        {
+            get { return StateMachine.GetCurrentState(); }
+        }
+
         public Trader(Human h, int level)
         {
             body = h;
@@ -80,6 +85,7 @@ namespace townWinForm.BehaviourModels
 
                 if (body.Happiness < Config.LowerBoundHappyToDrink)
                 {
+                    StateMachine.PushState("goToTavern");
                     Log.Add("citizens:Human " + body.Name + " go to tavern");
                 }
                 else
@@ -177,6 +183,24 @@ namespace townWinForm.BehaviourModels
 
             switch (StateMachine.GetCurrentState())
             {
+                /*case "rest":
+                    rest(dt);
+                    break;
+                case "work":
+                    work(dt);
+                    break;
+                case "goToWork":
+                    goToWork(dt);
+                    break;
+                case "goHome":
+                    goHome(dt);
+                    break;
+                case "sleep":
+                    sleep(dt);
+                    break;
+                case "dying":
+                    dying(dt);
+                    break;*/
                 case "rest":
                     rest(dt);
                     break;
@@ -194,6 +218,12 @@ namespace townWinForm.BehaviourModels
                     break;
                 case "dying":
                     dying(dt);
+                    break;
+                case "goToTavern":
+                    goToTavern(dt);
+                    break;
+                case "tavernDrink":
+                    tavernDrink(dt);
                     break;
             }
         }

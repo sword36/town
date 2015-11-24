@@ -9,6 +9,10 @@ namespace townWinForm.BehaviourModels
     public class Craftsman : BehaviourModel
     {
         public StackFSM StateMachine;
+        public override string State
+        {
+            get { return StateMachine.GetCurrentState(); }
+        }
 
         public Craftsman(Human h, int level)
         {
