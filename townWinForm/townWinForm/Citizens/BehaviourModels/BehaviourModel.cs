@@ -13,7 +13,7 @@ namespace townWinForm
         protected Human body;
         public int Level { get; set; }
         protected bool isGoing = false;
-        private int lastTryingEat = Config.TryEatInterval;
+        private int lastTryingEat = 0;
 
         public virtual void Update(int dt)
         {
@@ -36,7 +36,7 @@ namespace townWinForm
                 body.Energy = Config.MaxEnergy;
             }
 
-            float dHappy = Config.HappyForRest * dt;
+            float dHappy = Config.HappyForRest;
             if (body.Happiness + dHappy <= Config.MaxHappiness)
             {
                 body.Happiness += dHappy;
@@ -260,7 +260,7 @@ namespace townWinForm
         //increase energy and happiness
         protected virtual void sleep(int dt)
         {
-            float dEnergy = Config.EnergyForSleep * dt;
+            float dEnergy = Config.EnergyForSleep;
             if (body.Energy + dEnergy <= Config.MaxEnergy)
             {
                 body.Energy += dEnergy;

@@ -170,7 +170,8 @@ namespace townWinForm
                     Energy += f.Energy;
                 }
                 return f.Energy;
-            } else
+            }
+            else
             {
                 return 0;
             }

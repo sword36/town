@@ -41,21 +41,21 @@ namespace townWinForm
         public static int StartEnergy = 50;
         public static int StartEnergyDelta = 30;
         public static float EnergyForDrink = 0.001f;
-        public static float EnergyForSleep = 0.003f;
+        public static float EnergyForSleep = 0.004f;
         public static float HappyForSleep = 0.001f;
         public static float HappyForDrink = 0.007f;
         public static float EnergyLowerBoundToUnhappy = 60;
         public static float UnhappyForWork = 0.001f;
         public static float EnergyMoveCost = 0.001f;
-        public static float EnergyForRest = 0.002f;
+        public static float EnergyForRest = 0.004f;
         public static float HappyForRest = 0.001f;
         public static float UnhappyForNoFood = 10;
         public static float HomeNear = 200;
         public static float MovePrecision = 3;
         public static int NextID = 0;
-        public static int TryEatInterval = 1000;
+        public static int TryEatInterval = 2000;
 
-        public static float[] exp = { 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 1 };
+        public static float[] exp = { 200, 250, 350, 500, 700, 950, 1250, 1600, 2000, 1 };
         public static int MaxLevel = 10;
 
         #endregion

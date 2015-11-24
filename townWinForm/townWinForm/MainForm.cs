@@ -179,6 +179,12 @@ namespace townWinForm
                             Config.dx = -clickedHuman.Position.X + Width / 2;
                             Config.dy = -clickedHuman.Position.Y + Height / 2;
                         }
+                        else
+                        {
+                            Config.dx = 0;
+                            Config.dy = 24;
+                            break;
+                        }
 
                         break;
                     }
