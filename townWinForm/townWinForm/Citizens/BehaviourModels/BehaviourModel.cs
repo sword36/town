@@ -13,7 +13,7 @@ namespace townWinForm
         protected Human body;
         public int Level { get; set; }
         protected bool isGoing = false;
-        private int lastTryingEat = 0;
+        private int lastTryingEat = Config.TryEatInterval;
 
         public virtual void Update(int dt)
         {
@@ -31,16 +31,18 @@ namespace townWinForm
             if (body.Energy + dEnergy < Config.MaxEnergy)
             {
                 body.Energy += dEnergy;
-            } else
+            }
+            else
             {
                 body.Energy = Config.MaxEnergy;
             }
 
-            float dHappy = Config.HappyForRest;
+            float dHappy = Config.HappyForRest * dt;
             if (body.Happiness + dHappy <= Config.MaxHappiness)
             {
                 body.Happiness += dHappy;
-            } else
+            }
+            else
             {
                 body.Happiness = Config.MaxHappiness;
             }
@@ -61,7 +63,7 @@ namespace townWinForm
             if (!isGoing)
             {
                 isGoing = true;
-                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), 
+                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
                     body.FavoriteTavern);
                 body.Move(path, dt);
 
@@ -237,7 +239,8 @@ namespace townWinForm
             if (body.Energy - dEnergy > 0)
             {
                 body.Energy -= dEnergy;
-            } else
+            }
+            else
             {
                 body.Energy = 0;
             }
@@ -248,7 +251,7 @@ namespace townWinForm
                 if (body.Happiness - dHappy > 0)
                 {
                     body.Happiness -= dHappy;
-                } 
+                }
             }
         }
 
@@ -260,11 +263,12 @@ namespace townWinForm
         //increase energy and happiness
         protected virtual void sleep(int dt)
         {
-            float dEnergy = Config.EnergyForSleep;
+            float dEnergy = Config.EnergyForSleep * dt;
             if (body.Energy + dEnergy <= Config.MaxEnergy)
             {
                 body.Energy += dEnergy;
-            } else
+            }
+            else
             {
                 body.Energy = Config.MaxEnergy;
             }
@@ -273,7 +277,8 @@ namespace townWinForm
             if (body.Happiness + dHappy <= Config.MaxHappiness)
             {
                 body.Happiness += dHappy;
-            } else
+            }
+            else
             {
                 body.Happiness = Config.MaxHappiness;
             }
