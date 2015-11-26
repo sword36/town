@@ -49,7 +49,8 @@ namespace townWinForm.BehaviourModels
                 {
                     StateMachine.PopState();
                     StateMachine.PushState("goHome");
-                } else
+                }
+                else
                 {
                     Log.Add("citizens:Humant " + body.Name + " sleeping");
                     StateMachine.PopState();
@@ -183,12 +184,12 @@ namespace townWinForm.BehaviourModels
         private void tavernDrink(int dt)
         {
             base.tavernDrink(dt);
-            if (body.Happiness > Config.LimitHappyInTavern) 
+            if (body.Happiness > Config.LimitHappyInTavern)
             {
                 Log.Add("citizens:Human " + body.Name + " drunk, go home!");
                 StateMachine.PopState();
                 StateMachine.PushState("goHome");
-            } 
+            }
         }
 
         public override void Update(int dt)
@@ -200,7 +201,7 @@ namespace townWinForm.BehaviourModels
                 StateMachine.PopState();
                 StateMachine.PushState("dying");
                 Log.Add("citizens:Human " + body.Name + " died during: " + StateMachine.GetCurrentState());
-            } 
+            }
             switch (StateMachine.GetCurrentState())
             {
                 case "rest":
@@ -219,7 +220,7 @@ namespace townWinForm.BehaviourModels
                     sleep(dt);
                     break;
                 case "dying":
-                     dying(dt);
+                    dying(dt);
                     break;
                 case "goToTavern":
                     goToTavern(dt);
