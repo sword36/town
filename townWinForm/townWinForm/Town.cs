@@ -336,6 +336,22 @@ namespace townWinForm
             }
         }
 
+        public List<PointF> FindPath(Point start, PointF finish)
+        {
+            Point finishEntrance = Util.ConvertFromPointF(finish);
+            path = PathNode.FindPath(AstarMatrix, Util.ConvertIntToIndex(start), finishEntrance);
+
+            List<PointF> finalPath = new List<PointF>();
+
+            for (int i = 0; i < path.Count; i++)
+            {
+                PointF pathPoint = Util.ConvertIndexToInt(path[i]);
+                finalPath.Add(pathPoint);
+            }
+
+            return finalPath;
+        }
+
         //Returns path from point start to finish building
         public List<PointF> FindPath(Point start, Building finish)
         {
