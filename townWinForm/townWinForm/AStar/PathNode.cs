@@ -118,7 +118,8 @@ namespace townWinForm
                     continue;
                 if (point.Y < 0 || point.Y >= field.GetLength(1))
                     continue;
-                if ((field[point.X, point.Y] != 0) && (field[point.X, point.Y] != 1))
+                //mark1
+                if ((field[point.X, point.Y] != 0) && (field[point.X, point.Y] != 1) && (field[point.X, point.Y] != 2))
                     continue;
                 var neighbourNode = new PathNode()
                 {

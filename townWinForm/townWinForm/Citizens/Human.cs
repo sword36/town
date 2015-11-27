@@ -280,6 +280,14 @@ namespace townWinForm
             }
         }
 
+        public int CurrentLevel
+        {
+            get
+            {
+                return ProfLevels[CurrentProf];
+            }
+        }
+
         public Town Town
         {
             get
@@ -363,7 +371,7 @@ namespace townWinForm
                 string energyString = "Energy " + energyPercent.ToString() + "%";
                 string happinessString = "Happiness " + happinessPercent.ToString() + "%";
                 string professionString = CurrentProf + " " + ProfLevels[CurrentProf] + " lvl";
-                string stateString = Behaviour.State + " " + Money;
+                string stateString = Behaviour.State + " " + Money + "Њ";
 
                 SizeF profPercentSize = g.MeasureString(expString, f);
                 SizeF energyPercentSize = g.MeasureString(energyString, f);

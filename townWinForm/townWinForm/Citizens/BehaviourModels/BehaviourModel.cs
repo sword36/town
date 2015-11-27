@@ -19,6 +19,8 @@ namespace townWinForm
         {
         }
 
+       
+
         public virtual string State
         {
             get;

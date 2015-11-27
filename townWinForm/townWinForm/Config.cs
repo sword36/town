@@ -31,23 +31,23 @@ namespace townWinForm
 
         #region Citizens
         public static int DyingTime = 1000;
-        public static int MaxCitizens = 5;
+        public static int MaxCitizens = 100;
         public static int MaxHappiness = 100;
         public static int StartHappiness = 80;
         public static int StartHappinessDelta = 15;
         public static string[] ProfList = new string[] { "craftsman", "farmer", "guardian", "trader", "thief" };
         public static int MaxProfLevel = 10;
         public static int MaxEnergy = 100;
-        public static int StartEnergy = 70;
-        public static int StartEnergyDelta = 25;
+        public static int StartEnergy = 50;
+        public static int StartEnergyDelta = 40;
         public static float EnergyForDrink = 0.001f;
-        public static float EnergyForSleep = 0.003f;
+        public static float EnergyForSleep = 0.005f;
         public static float HappyForSleep = 0.0005f;
-        public static float HappyForDrink = 0.007f;
+        public static float HappyForDrink = 0.005f;
         public static float EnergyLowerBoundToUnhappy = 70;
-        public static float UnhappyForWork = 0.003f;
+        public static float UnhappyForWork = 0.002f;
         public static float EnergyMoveCost = 0.0005f;
-        public static float EnergyForRest = 0.002f;
+        public static float EnergyForRest = 0.004f;
         public static float HappyForRest = 0.0005f;
         public static float UnhappyForNoFood = 10;
         public static float HomeNear = 300;
@@ -55,8 +55,8 @@ namespace townWinForm
         public static int NextID = 0;
         public static int TryEatInterval = 1000;
 
-        public static float[] exp = { 200, 250, 350, 500, 700, 950, 1200, 1600, 2000, 1 };
-        public static int MaxLevel = 10;
+        public static float[] exp = { 200, 250, 350, 500, 700, 950, 1200, 1600, 2000, 2500, 3100, 3800, 4700, 5600, 6600, 7700, 8900, 10200, 11500, 1 };
+        public static int MaxLevel = 20;
 
         #endregion
 

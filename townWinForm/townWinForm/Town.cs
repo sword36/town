@@ -288,6 +288,34 @@ namespace townWinForm
             return result;
         }
 
+        public PointF GetRandomStreetPoint()
+        {
+            int x = rand.Next(Config.TownWidth);
+            int y = rand.Next(Config.TownHeight);
+
+            while (AstarMatrix[x, y] != 1)
+            {
+                x = rand.Next(Config.TownWidth);
+                y = rand.Next(Config.TownHeight);
+            }
+
+            return Util.ConvertIndexToInt(new PointF(x, y));
+        }
+
+        public PointF GetRandomStreetPoint(PointF startPoint, float distance)
+        {
+            int x = rand.Next(Config.TownWidth);
+            int y = rand.Next(Config.TownHeight);
+
+            while ((AstarMatrix[x, y] != 1) || (Util.Distance(startPoint, Util.ConvertIndexToInt(new PointF(x, y)))) < distance)
+            {
+                x = rand.Next(Config.TownWidth);
+                y = rand.Next(Config.TownHeight);
+            }
+
+            return Util.ConvertIndexToInt(new PointF(x, y));
+        }
+
         private void SetTownSize()
         {
             Random rand = new Random();
@@ -364,7 +392,7 @@ namespace townWinForm
 
                         if ((x != 0) && (y != 0) && (x != s.Position.Width - 1) && (y != s.Position.Height - 1))
                         {
-                            AstarMatrix[s.Position.X + x, s.Position.Y + y] = 1;
+                            AstarMatrix[s.Position.X + x, s.Position.Y + y] = 2;
                         }
                     }
                 }
