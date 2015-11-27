@@ -162,6 +162,41 @@ namespace townWinForm
             return false;
         }
 
+        protected virtual bool patrol(int dt)
+        {
+            float dEnergy = Config.EnergyMoveCost * dt;
+            if (body.Energy - dEnergy > -1)
+            {
+                body.Energy -= dEnergy;
+            }
+            else
+            {
+                return false;
+            }
+
+            if (!isGoing)
+            {
+                isGoing = true;
+                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
+                    body.Town.GetRandomStreetPoint());
+                body.Move(path, dt);
+
+                Log.Add("citizens:Human " + body.Name + " patrol streen");
+            }
+            else
+            {
+                bool isAtHome = body.MoveAlongThePath(dt);
+                if (isAtHome)
+                {
+                    isGoing = false;
+                    Log.Add("citizens:Human " + body.Name + " came home");
+                }
+                return isAtHome;
+            }
+
+            return false;
+        }
+
         protected virtual bool goHome(int dt)
         {
             float dEnergy = Config.EnergyMoveCost * dt;
