@@ -299,7 +299,7 @@ namespace townWinForm
                 y = rand.Next(Config.TownHeight);
             }
 
-            return Util.ConvertIndexToInt(new PointF(x, y));
+            return new PointF(x, y); //return Util.ConvertIndexToInt(new PointF(x, y));
         }
 
         public PointF GetRandomStreetPoint(PointF startPoint, float distance)
@@ -313,7 +313,7 @@ namespace townWinForm
                 y = rand.Next(Config.TownHeight);
             }
 
-            return Util.ConvertIndexToInt(new PointF(x, y));
+            return new PointF(x, y);//Util.ConvertIndexToInt(new PointF(x, y));
         }
 
         private void SetTownSize()

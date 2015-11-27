@@ -164,7 +164,9 @@ namespace townWinForm
 
         protected virtual bool patrol(int dt)
         {
-            float dEnergy = Config.EnergyMoveCost * dt;
+            body.AddExp(Config.ExpForParol);
+
+            float dEnergy = Config.EnergyPatrolCost * dt;
             if (body.Energy - dEnergy > -1)
             {
                 body.Energy -= dEnergy;
@@ -181,17 +183,17 @@ namespace townWinForm
                     body.Town.GetRandomStreetPoint());
                 body.Move(path, dt);
 
-                Log.Add("citizens:Human " + body.Name + " patrol streen");
+                //Log.Add("citizens:Human " + body.Name + " patrol streen");
             }
             else
             {
-                bool isAtHome = body.MoveAlongThePath(dt);
-                if (isAtHome)
+                bool isAtPoint = body.MoveAlongThePath(dt);
+                if (isAtPoint)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human " + body.Name + " came home");
+                    //Log.Add("citizens:Human " + body.Name + " came home");
                 }
-                return isAtHome;
+                return isAtPoint;
             }
 
             return false;
