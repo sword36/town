@@ -19,7 +19,7 @@ namespace townWinForm
         {
         }
 
-       
+
 
         public virtual string State
         {
@@ -174,6 +174,15 @@ namespace townWinForm
             else
             {
                 return false;
+            }
+
+            if (body.Energy < Config.EnergyLowerBoundToUnhappy)
+            {
+                float dHappy = Config.UnhappyForWork * dt;
+                if (body.Happiness - dHappy > 0)
+                {
+                    body.Happiness -= dHappy;
+                }
             }
 
             if (!isGoing)
