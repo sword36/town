@@ -119,7 +119,6 @@ namespace townWinForm
             {
                 profExp.Add(prof, 0);
             }
-
             //random proffesion from Config.ProfList
             CurrentProf = Config.ProfList[Util.GetRandomFromInterval(0, Config.ProfList.Length - 1)];
 
@@ -127,8 +126,9 @@ namespace townWinForm
 
             Log.Add("citizens:Human " + Name + " created");
 
-            Food f = new Food();
-            Bag.Add(f);
+            Bag.Add(new Food());
+            Bag.Add(new Food());
+            Bag.Add(new Product());
 
             FavoriteTavern = town.GetTavern();
         }
@@ -187,6 +187,11 @@ namespace townWinForm
                 float priceWithPercent = thing.Price * (1 + percent);
                 buyer.Money -= priceWithPercent;
                 buyer.Bag.Add(thing);
+
+                string type = thing.GetType().Name;
+                Log.Add("other:Human " + Name + " sold " + type + " with price: " + priceWithPercent +
+                    " to " + buyer.Name );
+
                 return true;
             }
             return false;

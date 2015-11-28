@@ -56,7 +56,7 @@ namespace townWinForm.BehaviourModels
                     StateMachine.PopState();
                     StateMachine.PushState("sleep");
                 }
-            } else if (body.Energy > 60 && body.Bag.Count > 0)
+            } else if (body.Energy > 60 && body.Bag.Count > Config.ThingsLimitForSelling)
             {
                 StateMachine.PopState();
                 StateMachine.PushState("goToMarket");
@@ -102,7 +102,7 @@ namespace townWinForm.BehaviourModels
                 isWorking = false;
                 Log.Add("citizens:Human " + body.Name + " finish work(craftsman), energy too low");
 
-                if (body.Bag.Count > 0)
+                if (body.Bag.Count > Config.ThingsLimitForSelling)
                 {
                     StateMachine.PushState("goToMarket");
                     return;
@@ -223,7 +223,7 @@ namespace townWinForm.BehaviourModels
             bool isSold = base.sell(dt, out isGoOut);
             if (isSold)
             {
-                if (body.Money < Config.MoneyLimitForSelling && body.Bag.Count > 0)
+                if (body.Money < Config.MoneyLimitForSelling && body.Bag.Count > Config.ThingsLimitForSelling)
                 {
                     //continue selling
                 } else

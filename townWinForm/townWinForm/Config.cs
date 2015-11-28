@@ -59,6 +59,7 @@ namespace townWinForm
         public static int HappyForSelling = 15;
         public static int SellingTime = 500;
         public static float MoneyLimitForSelling = 1000;
+        public static float ThingsLimitForSelling = 2;
 
         public static float[] exp = { 200, 250, 350, 500, 700, 950, 1200, 1600, 2000, 2500, 3100, 3800, 4700, 5600, 6600, 7700, 8900, 10200, 11500, 1 };
         public static int MaxLevel = 20;
@@ -70,13 +71,13 @@ namespace townWinForm
         public static float FarmerWorkCost = 0.005f;
         public static float GuardianWorkCost = 0.004f;
         public static float ThiefWorkCost = 0.002f;
-        public static float TraderWorkCost = 0.0015f;
+        public static float TraderWorkCost = 0.001f;
 
-        public static float CraftsmanBagCapacity = 200;
-        public static float FarmerBagCapacity = 150;
-        public static float GuardianBagCapacity = 100;
-        public static float ThiefBagCapacity = 250;
-        public static float TraderBagCapacity = 300;
+        public static float CraftsmanBagCapacity = 600;
+        public static float FarmerBagCapacity = 450;
+        public static float GuardianBagCapacity = 300;
+        public static float ThiefBagCapacity = 750;
+        public static float TraderBagCapacity = 900;
 
 
         public static float CraftsmanSpeed = 0.1f;
@@ -171,7 +172,7 @@ namespace townWinForm
         #endregion
 
         #region Economic
-        public static int StartMoney = 1000;
+        public static int StartMoney = 1200;
         public static int StartMoneyDelta = 500;
         public static int DrinkInTavernCost = 200;
 

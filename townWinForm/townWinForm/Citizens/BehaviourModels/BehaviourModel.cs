@@ -150,7 +150,11 @@ namespace townWinForm
                     isSold = body.Sell(peopleInMarket[i]);
                     if (isSold)
                     {
-                        Log.Add("other:Human " + body.Name + " sold smth to " + peopleInMarket[i].Name);
+                        body.Happiness += Config.HappyForSelling;
+                        if (body.Happiness > Config.MaxHappiness)
+                        {
+                            body.Happiness = Config.MaxHappiness;
+                        }
                         return true;
                     }
                 }
