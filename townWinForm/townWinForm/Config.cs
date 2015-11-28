@@ -84,7 +84,7 @@ namespace townWinForm
         public static float HappyAfterDeath = 0;
         public static float ExpForCraft = 100;
         public static float ExpForWorking = 0.5f;
-        public static float ExpForParol = 0.5f;
+        public static float ExpForParol = 0.4f;
         public static float LimitHappyInTavern = 95;
         public static float LimitEnergyInTavern = 20;
         public static float LowerBoundHappyToDrink = 30;
