@@ -186,7 +186,7 @@ namespace townWinForm.BehaviourModels
                 body.IsAlive = false;
                 StateMachine.PopState();
                 StateMachine.PushState("dying");
-                Log.Add("citizens:Human " + body.Name + " died");
+                Log.Add("citizens:Human " + body.Name + " died during: " + StateMachine.GetCurrentState());
             }
 
             switch (StateMachine.GetCurrentState())

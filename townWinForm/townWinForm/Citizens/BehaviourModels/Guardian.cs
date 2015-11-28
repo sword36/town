@@ -65,15 +65,24 @@ namespace townWinForm.BehaviourModels
             }
         }
 
+        private bool isWorking = false;
+
         private void work(int dt)
         {
+            if (!isWorking)
+            {
+                isWorking = true;
+                Log.Add("citizens:Human " + body.Name + " working(guardian)");
+            }
+
             base.patrol(dt);
          
             if (body.Energy < 30)
             {
                 if (true) { }
                 StateMachine.PopState();
-                Log.Add("citizens:Human " + body.Name + " finish work(craftsman), energy too low");
+                isWorking = false;
+                Log.Add("citizens:Human " + body.Name + " finish work(guardian), energy too low");
 
                 if (body.Happiness < Config.LowerBoundHappyToDrink)
                 {
@@ -87,8 +96,8 @@ namespace townWinForm.BehaviourModels
             }
             else if (body.Happiness < 20)
             {
-                //isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(craftsman), happy too low");
+                isWorking = false;
+                Log.Add("citizens:Human " + body.Name + " finish work(guardian), happy too low");
                 StateMachine.PopState();
                 StateMachine.PushState("goToTavern");
             }
@@ -177,7 +186,7 @@ namespace townWinForm.BehaviourModels
                 body.IsAlive = false;
                 StateMachine.PopState();
                 StateMachine.PushState("dying");
-                Log.Add("citizens:Human" + body.Name + " died");
+                Log.Add("citizens:Human " + body.Name + " died during: " + StateMachine.GetCurrentState());
             }
 
             switch (StateMachine.GetCurrentState())
