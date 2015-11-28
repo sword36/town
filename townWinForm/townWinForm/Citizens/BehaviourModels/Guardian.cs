@@ -82,6 +82,7 @@ namespace townWinForm.BehaviourModels
                 if (true) { }
                 StateMachine.PopState();
                 isWorking = false;
+                base.isGoing = false;
                 Log.Add("citizens:Human " + body.Name + " finish work(guardian), energy too low");
 
                 if (body.Happiness < Config.LowerBoundHappyToDrink)
@@ -99,6 +100,8 @@ namespace townWinForm.BehaviourModels
                 isWorking = false;
                 Log.Add("citizens:Human " + body.Name + " finish work(guardian), happy too low");
                 StateMachine.PopState();
+
+                base.isGoing = false;
                 StateMachine.PushState("goToTavern");
             }
         }
