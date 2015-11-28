@@ -98,7 +98,7 @@ namespace townWinForm.BehaviourModels
                 if (true) { }
                 StateMachine.PopState();
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(craftsman), energy too low");
+                Log.Add("citizens:Human " + body.Name + " finish work(farmer), energy too low");
 
                 if (body.Happiness < Config.LowerBoundHappyToDrink)
                 {
@@ -112,7 +112,7 @@ namespace townWinForm.BehaviourModels
             } else if (body.Happiness < 20)
             {
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(craftsman), happy too low");
+                Log.Add("citizens:Human " + body.Name + " finish work(farmer), happy too low");
                 StateMachine.PopState();
                 StateMachine.PushState("goToTavern");
             }
