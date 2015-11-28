@@ -19,7 +19,7 @@ namespace townWinForm
         private PointF position;
         public bool IsAlive { get; set; }
         public float Happiness { get; set; }
-        public int Money { get; set; }
+        public float Money { get; set; }
         public string CurrentProf { get; set; }
         public float Energy { get; set; }
         public IWorkshop WorkBuilding
@@ -175,6 +175,21 @@ namespace townWinForm
             {
                 return 0;
             }
+        }
+
+        public bool Sell(Human buyer)
+        {
+            float percent = ProfLevels["trader"] / Config.MaxLevel;
+            Thing thing = Bag.GetWithPriceLower(buyer.Money, percent);
+
+            if (thing != null)
+            {
+                float priceWithPercent = thing.Price * (1 + percent);
+                buyer.Money -= priceWithPercent;
+                buyer.Bag.Add(thing);
+                return true;
+            }
+            return false;
         }
 
         public void Move(List<PointF> pN, int dt)
@@ -389,6 +404,11 @@ namespace townWinForm
 
                 float drawingX = position.X + dx + Config.TileSize + step;
 
+                g.FillEllipse(new SolidBrush(Color.FromArgb(100, 0, 200, 0)),
+                    Position.X + dx - Config.VisionRadius,
+                    Position.Y + dy - Config.VisionRadius,
+                    2 * Config.VisionRadius,
+                    2 * Config.VisionRadius);
 
                 g.FillRectangle(background,
                     Position.X + Config.TileSize + step + dx,

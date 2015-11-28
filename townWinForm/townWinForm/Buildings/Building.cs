@@ -39,7 +39,7 @@ namespace townWinForm
         protected PointF localEntrance;
         protected List<PointF> OccupiedRooms;
         protected List<PointF> FreeRooms;
-        protected List<Human> PeopleIn;
+        public List<Human> PeopleIn;
 
         //Entrance in town
         public virtual PointF Entrance

@@ -55,6 +55,10 @@ namespace townWinForm
         public static float MovePrecision = 3;
         public static int NextID = 0;
         public static int TryEatInterval = 1000;
+        public static float VisionRadius = 200;
+        public static int HappyForSelling = 15;
+        public static int SellingTime = 500;
+        public static float MoneyLimitForSelling = 1000;
 
         public static float[] exp = { 200, 250, 350, 500, 700, 950, 1200, 1600, 2000, 2500, 3100, 3800, 4700, 5600, 6600, 7700, 8900, 10200, 11500, 1 };
         public static int MaxLevel = 20;

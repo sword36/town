@@ -30,7 +30,7 @@ namespace townWinForm
 
         private List<Building> Structures;
         private List<Tavern> taverns;
-        private List<Market> Markets;
+        private List<Market> markets;
         private List<Barracks> Rax;
         private List<IResidence> Houses;
         private List<IWorkshop> Workshops;
@@ -60,7 +60,7 @@ namespace townWinForm
             Houses = new List<IResidence>();
             Workshops = new List<IWorkshop>();
             Guilds = new List<ThievesGuild>();
-            Markets = new List<Market>();
+            markets = new List<Market>();
 
             matrix = new int[Config.TownWidth, Config.TownHeight];
             AstarMatrix = new int[Config.TownWidth, Config.TownHeight];
@@ -191,6 +191,11 @@ namespace townWinForm
             }
         }
 
+        public Market GetNearestMarket(Human h)
+        {
+            return markets.OrderBy(m => Util.Distance(m.Entrance, h.Position)).ElementAt(0);
+        }
+
         public IWorkshop GetGuild()
         {
             if (Guilds.Count == 0)
@@ -247,7 +252,7 @@ namespace townWinForm
 
                 case "trader":
                     {
-                        return Markets[rand.Next(Markets.Count)];
+                        return markets[rand.Next(markets.Count)];
                         /*IWorkshop result = Workshops[rand.Next(Workshops.Count)];
                         while ((!result.IsFree()) || !(result is Market))
                         {
@@ -455,10 +460,10 @@ namespace townWinForm
                             
 
                             if ((rand.Next() % 4 == 0) && (w >= 5) && (h >= 5) 
-                                && (Markets.Count < Config.Markets))
+                                && (markets.Count < Config.Markets))
                             {
                                 Workshops.Add(new Market(x, y, w , h, "market"));
-                                Markets.Add(Workshops[Workshops.Count - 1] as Market);
+                                markets.Add(Workshops[Workshops.Count - 1] as Market);
                                 Structures.Add(Workshops[Workshops.Count - 1] as Building);
                                 idCounter.Add(buildIndex);
                                 continue;

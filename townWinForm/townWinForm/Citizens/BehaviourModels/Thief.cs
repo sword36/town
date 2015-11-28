@@ -91,7 +91,6 @@ namespace townWinForm.BehaviourModels
                 else
                 {
                     StateMachine.PushState("goHome");
-                    Log.Add("citizens:Human " + body.Name + " go to home");
                 }
             }
             else if (body.Happiness < 20)

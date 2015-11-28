@@ -85,6 +85,85 @@ namespace townWinForm
             return false;
         }
 
+        protected virtual bool goToMarket(int dt)
+        {
+            float dEnergy = Config.EnergyMoveCost * dt;
+            if (body.Energy - dEnergy > -1)
+            {
+                body.Energy -= dEnergy;
+            }
+            else
+            {
+                return false;
+            }
+
+            if (!isGoing)
+            {
+                isGoing = true;
+                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
+                    body.Town.GetNearestMarket(body) as Building);
+                body.Move(path, dt);
+
+                Log.Add("citizens:Human " + body.Name + " go to market");
+            }
+            else
+            {
+                bool isAtMarket = body.MoveAlongThePath(dt);
+                if (isAtMarket)
+                {
+                    isGoing = false;
+                    Log.Add("citizens:Human " + body.Name + " came to market");
+                }
+                return isAtMarket;
+            }
+
+            return false;
+        }
+
+        protected bool isSelling = false;
+
+        protected virtual bool sell(int dt, out bool goOut)
+        {
+            goOut = false;
+            if (!isSelling)
+            {
+                isSelling = true;
+                body.WaitTime = Config.SellingTime;
+            }
+
+            body.WaitTime -= dt;
+            if (body.WaitTime > 0)
+            {
+                return false;
+            } else
+            {
+                body.WaitTime = 0;
+            }
+
+            bool isSold = false;
+            List<Human> peopleInMarket = (body.Town.GetNearestMarket(body) as Building).PeopleIn;
+
+            for (int i = 0; i < peopleInMarket.Count; i++)
+            {
+                if (peopleInMarket[i].CurrentProf == "trader" && peopleInMarket[i] != body)
+                {
+                    isSold = body.Sell(peopleInMarket[i]);
+                    if (isSold)
+                    {
+                        Log.Add("other:Human " + body.Name + " sold smth to " + peopleInMarket[i].Name);
+                        return true;
+                    }
+                }
+            }
+
+            if (!isSold)
+            {
+                goOut = true;
+            }
+            isSelling = false;
+            return isSold;
+        }
+
         protected virtual void tavernDrink(int dt)
         {
             float dEnergy = Config.EnergyForDrink * dt;

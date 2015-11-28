@@ -26,6 +26,14 @@ namespace townWinForm
             }
         }
 
+        public float Count
+        {
+            get
+            {
+                return things.Count;
+            }
+        }
+
         public float MaxCapacity
         {
             get
@@ -97,14 +105,29 @@ namespace townWinForm
             throw new NoProductExeption();
         }
 
-        public void DropRandom()
+        public Thing DropRandom()
         {
+            Thing thing = null;
             int l = things.Count;
             if (l != 0)
             {
                 int i = Util.GetRandomFromInterval(0, l);
+                thing = things.ElementAt(i);
                 things.RemoveAt(i);
             }
+            return thing;
+        }
+
+        public Thing GetWithPriceLower(float price, float percect)
+        {
+            float priceWithPercent = price * (1 + percect);
+            Thing thing =  things.Find(t => t.Price < priceWithPercent);
+            if (things.Contains(thing))
+            {
+                things.Remove(thing);
+                return thing;
+            }
+            return null;
         }
     }
 }
