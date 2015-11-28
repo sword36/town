@@ -31,7 +31,7 @@ namespace townWinForm
 
         #region Citizens
         public static int DyingTime = 1000;
-        public static int MaxCitizens = 10;
+        public static int MaxCitizens = 50;
         public static int MaxHappiness = 100;
         public static int StartHappiness = 80;
         public static int StartHappinessDelta = 15;
@@ -45,7 +45,7 @@ namespace townWinForm
         public static float HappyForSleep = 0.0005f;
         public static float HappyForDrink = 0.005f;
         public static float EnergyLowerBoundToUnhappy = 70;
-        public static float UnhappyForWork = 0.002f;
+        public static float UnhappyForWork = 0.001f;
         public static float EnergyMoveCost = 0.0005f;
         public static float EnergyPatrolCost = 0.001f;
         public static float EnergyForRest = 0.004f;
