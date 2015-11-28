@@ -69,6 +69,12 @@ namespace townWinForm.BehaviourModels
 
         private void work(int dt)
         {
+            if (!isWorking)
+            {
+                isWorking = true;
+                Log.Add("citizens:Human " + body.Name + " working(farmer)");
+            }
+
             base.work(dt);
 
             if (Util.GetRandomNumberF() < Config.ChanceToCraftFood)
@@ -85,12 +91,6 @@ namespace townWinForm.BehaviourModels
                 {
                     Log.Add("citizens:Human " + body.Name + " haven't enougth place for new food");
                 }
-            }
-
-            if (!isWorking)
-            {
-                isWorking = true;
-                Log.Add("citizens:Human " + body.Name + " working(farmer)");
             }
 
             if (body.Energy < 25)

@@ -67,6 +67,12 @@ namespace townWinForm.BehaviourModels
 
         private void work(int dt)
         {
+            if (!isWorking)
+            {
+                isWorking = true;
+                Log.Add("citizens:Human " + body.Name + " working(craftsman)");
+            }
+
             base.work(dt);
 
             if (Util.GetRandomNumberF() < Config.ChanceToCraftProduct)
@@ -83,12 +89,6 @@ namespace townWinForm.BehaviourModels
                 {
                     Log.Add("citizens:Human " + body.Name + " haven't enougth place for new product");
                 }
-            }
-
-            if (!isWorking)
-            {
-                isWorking = true;
-                Log.Add("citizens:Human " + body.Name + " working(craftsman)");
             }
 
             if (body.Energy < 30)

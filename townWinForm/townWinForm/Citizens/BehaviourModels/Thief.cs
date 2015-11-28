@@ -69,13 +69,13 @@ namespace townWinForm.BehaviourModels
 
         private void work(int dt)
         {
-            base.work(dt);
-
             if (!isWorking)
             {
                 isWorking = true;
                 Log.Add("citizens:Human " + body.Name + " working(thief)");
             }
+
+            base.work(dt);
 
             if (body.Energy < 30)
             {
