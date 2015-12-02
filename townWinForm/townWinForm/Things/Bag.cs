@@ -34,6 +34,14 @@ namespace townWinForm
             }
         }
 
+        public int FoodCount
+        {
+            get
+            {
+                return things.Count(t => t.GetType().Name == "Food");
+            }
+        }
+
         public float MaxCapacity
         {
             get
@@ -118,10 +126,11 @@ namespace townWinForm
             return thing;
         }
 
-        public Thing GetWithPriceLower(float price, float percect)
+        public Thing GetWithPriceLower(float price, float percect, bool isFood)
         {
             float priceWithPercent = price * (1 + percect);
-            Thing thing =  things.Find(t => t.Price < priceWithPercent);
+            Thing thing =  things.Find(t => t.Price < priceWithPercent && 
+                (t.GetType().Name == "Food" && isFood || !isFood));
             if (things.Contains(thing))
             {
                 things.Remove(thing);

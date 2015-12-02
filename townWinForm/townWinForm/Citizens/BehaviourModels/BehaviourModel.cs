@@ -168,6 +168,55 @@ namespace townWinForm
             return isSold;
         }
 
+        protected bool isBuying = false;
+
+        protected virtual bool buyFood(int dt, out bool goOut)
+        {
+            goOut = false;
+            if (!isBuying)
+            {
+                isBuying = true;
+                body.WaitTime = Config.SellingTime;
+            }
+
+            body.WaitTime -= dt;
+            if (body.WaitTime > 0)
+            {
+                return false;
+            }
+            else
+            {
+                body.WaitTime = 0;
+            }
+
+            bool isBought = false;
+            List<Human> peopleInMarket = (body.Town.GetNearestMarket(body) as Building).PeopleIn;
+
+            for (int i = 0; i < peopleInMarket.Count; i++)
+            {
+                if (peopleInMarket[i].CurrentProf == "trader" && peopleInMarket[i] != body)
+                {
+                    isBought = body.Buy(peopleInMarket[i], true);
+                    if (isBought)
+                    {
+                        body.Happiness += Config.HappyForSelling;
+                        if (body.Happiness > Config.MaxHappiness)
+                        {
+                            body.Happiness = Config.MaxHappiness;
+                        }
+                        return true;
+                    }
+                }
+            }
+
+            if (!isBought)
+            {
+                goOut = true;
+            }
+            isBought = false;
+            return isBought;
+        }
+
         protected virtual void tavernDrink(int dt)
         {
             float dEnergy = Config.EnergyForDrink * dt;

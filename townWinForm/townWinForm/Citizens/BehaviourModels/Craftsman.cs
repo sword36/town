@@ -60,6 +60,12 @@ namespace townWinForm.BehaviourModels
             {
                 StateMachine.PopState();
                 StateMachine.PushState("goToMarket");
+                StateMachine.EnqueueState("sell");
+            } else if (body.Bag.FoodCount < 3 && body.Money > Config.MoneyLimitForBuying)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("goToMarket");
+                StateMachine.EnqueueState("buyFood");
             }
             else if (body.Energy < 60)
             {
@@ -105,8 +111,17 @@ namespace townWinForm.BehaviourModels
                 if (body.Bag.Count > Config.ThingsLimitForSelling)
                 {
                     StateMachine.PushState("goToMarket");
+                    StateMachine.EnqueueState("sell");
                     return;
                 }
+
+                if (body.Bag.FoodCount < 3 && body.Money > Config.MoneyLimitForBuying)
+                {
+                    StateMachine.PushState("goToMarket");
+                    StateMachine.EnqueueState("buyFood");
+                    return;
+                }
+
                 if (body.Happiness < Config.LowerBoundHappyToDrink)
                 {
                     StateMachine.PushState("goToTavern");
@@ -206,7 +221,6 @@ namespace townWinForm.BehaviourModels
             if (isAtMarket)
             {
                 StateMachine.PopState();
-                StateMachine.PushState("sell");
                 Log.Add("citizens:Human " + body.Name + " at market");
                 return;
             }
@@ -232,6 +246,29 @@ namespace townWinForm.BehaviourModels
                     StateMachine.PushState("goHome");
                 }
             } else if (isGoOut)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("goHome");
+            }
+        }
+
+        private void buyFood(int dt)
+        {
+            bool isGoOut;
+            bool isBougth = base.buyFood(dt, out isGoOut);
+            if (isBougth)
+            {
+                if (body.Bag.FoodCount < 3 && body.Money > 500)
+                {
+                    //continue selling
+                }
+                else
+                {
+                    StateMachine.PopState();
+                    StateMachine.PushState("goHome");
+                }
+            }
+            else if (isGoOut)
             {
                 StateMachine.PopState();
                 StateMachine.PushState("goHome");
@@ -279,6 +316,9 @@ namespace townWinForm.BehaviourModels
                     break;
                 case "sell":
                     sell(dt);
+                    break;
+                case "buyFood":
+                    buyFood(dt);
                     break;
             }
         }
