@@ -186,6 +186,7 @@ namespace townWinForm
             {
                 float priceWithPercent = thing.Price * (1 + percent);
                 buyer.Money -= priceWithPercent;
+                Money += priceWithPercent;
                 buyer.Bag.Add(thing);
 
                 string type = thing.GetType().Name;
@@ -391,7 +392,7 @@ namespace townWinForm
                 string energyString = "Energy " + energyPercent.ToString() + "%";
                 string happinessString = "Happiness " + happinessPercent.ToString() + "%";
                 string professionString = CurrentProf + " " + ProfLevels[CurrentProf] + " lvl";
-                string stateString = Behaviour.State + " " + Money + "Њ";
+                string stateString = Behaviour.State + " " + (int)Money + "Њ";
 
                 SizeF profPercentSize = g.MeasureString(expString, f);
                 SizeF energyPercentSize = g.MeasureString(energyString, f);
