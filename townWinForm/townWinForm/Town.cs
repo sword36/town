@@ -154,6 +154,18 @@ namespace townWinForm
                         CitizensInfo.Remove(res.Key);
                         return res;
                     }
+                case 8:
+                    {
+                        KeyValuePair<string, Image> res = new KeyValuePair<string, Image>("Маша Заволокина", CitizensInfo["Маша Заволокина"]);
+                        CitizensInfo.Remove(res.Key);
+                        return res;
+                    }
+                case 9:
+                    {
+                        KeyValuePair<string, Image> res = new KeyValuePair<string, Image>("Виктория Синьчук", CitizensInfo["Виктория Синьчук"]);
+                        CitizensInfo.Remove(res.Key);
+                        return res;
+                    }
 
                 default:
                     {

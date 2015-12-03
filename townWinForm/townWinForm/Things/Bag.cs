@@ -53,6 +53,9 @@ namespace townWinForm
         {
             get
             {
+                var b = things[0].GetType();
+                var m = b.Name == "Food";
+                var l = b.Name == "Product";
                 return things.Count(t => t.GetType().Name == "Product");
             }
         }
@@ -143,14 +146,13 @@ namespace townWinForm
 
         public Thing GetWithPriceLower(float price, float percect, ThingType type)
         {
-            float priceWithPercent = price * (1 + percect);
             Thing thing;
             if (type == ThingType.ANY)
             {
-                thing = things.Find(t => t.Price < priceWithPercent);
+                thing = things.Find(t => t.Price * (1 + percect) < price);
             } else
             {
-                thing = things.Find(t => t.Price < priceWithPercent &&
+                thing = things.Find(t => t.Price * (1 + percect) < price &&
                    ((t.GetType().Name == "Food" && type == ThingType.FOOD) ||
                    (t.GetType().Name == "Product" && type == ThingType.PRODUCT)));
             }

@@ -179,7 +179,7 @@ namespace townWinForm
 
         public bool Sell(Human buyer, ThingType type)
         {
-            float percent = ProfLevels["trader"] / Config.MaxLevel;
+            float percent = (float)ProfLevels["trader"] / Config.MaxLevel;
             Thing thing = Bag.GetWithPriceLower(buyer.Money, percent, type);
 
             if (thing != null)
@@ -187,7 +187,14 @@ namespace townWinForm
                 float priceWithPercent = thing.Price * (1 + percent);
                 buyer.Money -= priceWithPercent;
                 Money += priceWithPercent;
-                buyer.Bag.Add(thing);
+                try
+                {
+                    buyer.Bag.Add(thing);
+                }
+                catch (OverloadedBagExeption ex)
+                {
+                    Log.Add("citizens:Human " + buyer.Name + " haven't enougth place for new thing after buying");
+                }
 
                 string typeName = thing.GetType().Name;
                 Log.Add("other:Human " + Name + " sold " + typeName + " with price: " + priceWithPercent +
@@ -200,7 +207,7 @@ namespace townWinForm
 
         public bool Buy(Human trader, ThingType type)
         {
-            float percent = trader.ProfLevels["trader"] / Config.MaxLevel;
+            float percent = (float)trader.ProfLevels["trader"] / Config.MaxLevel;
             Thing thing = trader.Bag.GetWithPriceLower(Money, percent, type);
 
             if (thing != null)
@@ -208,7 +215,15 @@ namespace townWinForm
                 float priceWithPercent = thing.Price * (1 + percent);
                 Money -= priceWithPercent;
                 trader.Money += priceWithPercent;
-                Bag.Add(thing);
+
+                try
+                {
+                    Bag.Add(thing);
+                }
+                catch (OverloadedBagExeption ex)
+                {
+                    Log.Add("citizens:Human " + Name + " haven't enougth place for new thing after buying");
+                }
 
                 string typeName = thing.GetType().Name;
                 Log.Add("other:Human " + Name + " buy " + typeName + " with price: " + priceWithPercent +

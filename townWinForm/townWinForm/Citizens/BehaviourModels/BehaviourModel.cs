@@ -159,7 +159,7 @@ namespace townWinForm
             {
                 if (peopleInMarket[i].CurrentProf == "trader" && peopleInMarket[i] != body)
                 {
-                    isSold = body.Sell(peopleInMarket[i], ThingType.ANY);
+                    isSold = body.Sell(peopleInMarket[i], sellingType);
                     if (isSold)
                     {
                         body.Happiness += Config.HappyForSelling;
