@@ -76,6 +76,11 @@ namespace townWinForm.BehaviourModels
 
             base.work(dt);
 
+            if (body.Bag.ProductCount > Config.MaxProductForTrader)
+            {
+
+            }
+
             if (body.Energy < 30)
             {
                 if (true) { }

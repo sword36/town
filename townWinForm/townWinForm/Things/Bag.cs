@@ -12,6 +12,13 @@ namespace townWinForm
 
     public class NoProductExeption : Exception { }
 
+    public enum ThingType
+    {
+        FOOD,
+        PRODUCT,
+        ANY
+    }
+
     public class Bag
     {
         private List<Thing> things;
@@ -39,6 +46,14 @@ namespace townWinForm
             get
             {
                 return things.Count(t => t.GetType().Name == "Food");
+            }
+        }
+
+        public int ProductCount
+        {
+            get
+            {
+                return things.Count(t => t.GetType().Name == "Product");
             }
         }
 
@@ -126,11 +141,20 @@ namespace townWinForm
             return thing;
         }
 
-        public Thing GetWithPriceLower(float price, float percect, bool isFood)
+        public Thing GetWithPriceLower(float price, float percect, ThingType type)
         {
             float priceWithPercent = price * (1 + percect);
-            Thing thing =  things.Find(t => t.Price < priceWithPercent && 
-                (t.GetType().Name == "Food" && isFood || !isFood));
+            Thing thing;
+            if (type == ThingType.ANY)
+            {
+                thing = things.Find(t => t.Price < priceWithPercent);
+            } else
+            {
+                thing = things.Find(t => t.Price < priceWithPercent &&
+                   ((t.GetType().Name == "Food" && type == ThingType.FOOD) ||
+                   (t.GetType().Name == "Product" && type == ThingType.PRODUCT)));
+            }
+
             if (things.Contains(thing))
             {
                 things.Remove(thing);

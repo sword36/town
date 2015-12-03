@@ -143,11 +143,23 @@ namespace townWinForm
             bool isSold = false;
             List<Human> peopleInMarket = (body.Town.GetNearestMarket(body) as Building).PeopleIn;
 
+            ThingType sellingType;
+            if (body.Bag.FoodCount > body.Bag.ProductCount)
+            {
+                sellingType = ThingType.FOOD;
+            } else if (body.Bag.ProductCount > body.Bag.FoodCount)
+            {
+                sellingType = ThingType.PRODUCT;
+            } else
+            {
+                sellingType = ThingType.ANY;
+            }
+
             for (int i = 0; i < peopleInMarket.Count; i++)
             {
                 if (peopleInMarket[i].CurrentProf == "trader" && peopleInMarket[i] != body)
                 {
-                    isSold = body.Sell(peopleInMarket[i]);
+                    isSold = body.Sell(peopleInMarket[i], ThingType.ANY);
                     if (isSold)
                     {
                         body.Happiness += Config.HappyForSelling;
@@ -196,7 +208,7 @@ namespace townWinForm
             {
                 if (peopleInMarket[i].CurrentProf == "trader" && peopleInMarket[i] != body)
                 {
-                    isBought = body.Buy(peopleInMarket[i], true);
+                    isBought = body.Buy(peopleInMarket[i], ThingType.FOOD);
                     if (isBought)
                     {
                         body.Happiness += Config.HappyForSelling;

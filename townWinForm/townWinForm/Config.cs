@@ -94,6 +94,7 @@ namespace townWinForm
         public static float LimitHappyInTavern = 95;
         public static float LimitEnergyInTavern = 20;
         public static float LowerBoundHappyToDrink = 30;
+        public static int MaxProductForTrader = 2;
         #endregion
 
         #region Craft

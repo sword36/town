@@ -81,8 +81,7 @@ namespace townWinForm
             InitBuildings();
             InitAstarMatrix();
             InitPeople();
-
-            god = new Human(this);
+            createGod();
         }
 
         public KeyValuePair<string, Image> GetInfo()
@@ -197,6 +196,7 @@ namespace townWinForm
             god.Bag.MaxCapacity = float.MaxValue;
             god.Happiness = float.MaxValue;
             god.Energy = float.MaxValue;
+            god.Name = "GOD";
         }
 
         private void InitPeople()

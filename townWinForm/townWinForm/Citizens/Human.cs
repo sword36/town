@@ -177,10 +177,10 @@ namespace townWinForm
             }
         }
 
-        public bool Sell(Human buyer)
+        public bool Sell(Human buyer, ThingType type)
         {
             float percent = ProfLevels["trader"] / Config.MaxLevel;
-            Thing thing = Bag.GetWithPriceLower(buyer.Money, percent, false);
+            Thing thing = Bag.GetWithPriceLower(buyer.Money, percent, type);
 
             if (thing != null)
             {
@@ -189,8 +189,8 @@ namespace townWinForm
                 Money += priceWithPercent;
                 buyer.Bag.Add(thing);
 
-                string type = thing.GetType().Name;
-                Log.Add("other:Human " + Name + " sold " + type + " with price: " + priceWithPercent +
+                string typeName = thing.GetType().Name;
+                Log.Add("other:Human " + Name + " sold " + typeName + " with price: " + priceWithPercent +
                     " to " + buyer.Name );
 
                 return true;
@@ -198,10 +198,10 @@ namespace townWinForm
             return false;
         }
 
-        public bool Buy(Human trader, bool isFood)
+        public bool Buy(Human trader, ThingType type)
         {
             float percent = trader.ProfLevels["trader"] / Config.MaxLevel;
-            Thing thing = trader.Bag.GetWithPriceLower(Money, percent, isFood);
+            Thing thing = trader.Bag.GetWithPriceLower(Money, percent, type);
 
             if (thing != null)
             {
@@ -210,8 +210,8 @@ namespace townWinForm
                 trader.Money += priceWithPercent;
                 Bag.Add(thing);
 
-                string type = thing.GetType().Name;
-                Log.Add("other:Human " + Name + " buy " + type + " with price: " + priceWithPercent +
+                string typeName = thing.GetType().Name;
+                Log.Add("other:Human " + Name + " buy " + typeName + " with price: " + priceWithPercent +
                     " at " + trader.Name);
 
                 return true;
