@@ -49,6 +49,16 @@ namespace townWinForm
             }
         }
 
+        private Human god;
+
+        public Human God
+        {
+            get
+            {
+                return god;
+            }
+        }
+
         public Town()
         {
             SetTownSize();
@@ -71,6 +81,8 @@ namespace townWinForm
             InitBuildings();
             InitAstarMatrix();
             InitPeople();
+
+            god = new Human(this);
         }
 
         public KeyValuePair<string, Image> GetInfo()
@@ -176,6 +188,15 @@ namespace townWinForm
 
             sr.Close();
             fs.Close();
+        }
+
+        private void createGod()
+        {
+            god = new Human(this);
+            god.Money = float.MaxValue;
+            god.Bag.MaxCapacity = float.MaxValue;
+            god.Happiness = float.MaxValue;
+            god.Energy = float.MaxValue;
         }
 
         private void InitPeople()
