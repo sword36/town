@@ -31,7 +31,7 @@ namespace townWinForm
 
         #region Citizens
         public static int DyingTime = 1000;
-        public static int MaxCitizens = 50;
+        public static int MaxCitizens = 20;
         public static int MaxHappiness = 100;
         public static int StartHappiness = 80;
         public static int StartHappinessDelta = 15;

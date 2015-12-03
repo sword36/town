@@ -190,6 +190,8 @@ namespace townWinForm.BehaviourModels
         {
             if (body.Energy <= 0 && body.IsAlive)
             {
+                Log.Add("citizens:Human " + body.Name + " died during: " + StateMachine.GetCurrentState());
+
                 body.WaitTime = Config.DyingTime;
                 body.IsAlive = false;
                 StateMachine.PopState();
