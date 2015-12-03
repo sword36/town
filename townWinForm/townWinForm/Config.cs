@@ -78,7 +78,7 @@ namespace townWinForm
         public static float FarmerBagCapacity = 450;
         public static float GuardianBagCapacity = 300;
         public static float ThiefBagCapacity = 750;
-        public static float TraderBagCapacity = 2000;
+        public static float TraderBagCapacity = 1000;
 
 
         public static float CraftsmanSpeed = 0.1f;

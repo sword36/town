@@ -78,7 +78,7 @@ namespace townWinForm.BehaviourModels
 
             if (body.Bag.ProductCount > Config.MaxProductForTrader)
             {
-
+                body.Sell(body.Town.God, ThingType.PRODUCT);
             }
 
             if (body.Energy < 30)
