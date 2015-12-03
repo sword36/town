@@ -154,8 +154,16 @@ namespace townWinForm.BehaviourModels
             if (isAtTavern)
             {
                 StateMachine.PopState();
-                StateMachine.PushState("tavernDrink");
+
+                if (body.Money - Config.DrinkInTavernCost < 0)
+                {
+                    StateMachine.PushState("goHome");
+                    Log.Add("citizens:Human " + body.Name + " havent money for drinking");
+                    return;
+                }
+
                 body.Money -= Config.DrinkInTavernCost;
+                StateMachine.PushState("tavernDrink");
                 Log.Add("citizens:Human " + body.Name + " drinking!");
                 return;
             }
