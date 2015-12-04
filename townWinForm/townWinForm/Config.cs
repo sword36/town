@@ -178,7 +178,7 @@ namespace townWinForm
         public static int StartMoneyDelta = 500;
         public static int DrinkInTavernCost = 200;
 
-        public static int TaxesTimerInterval = 60000;
+        public static int TaxesTimerInterval = 10000;
         #endregion
 
         #region Log

@@ -733,6 +733,20 @@ namespace townWinForm
             }
         }
 
+        public void GuariansPayment()
+        {
+            for (int i = 0; i < Citizens.Count; i++)
+            {
+                if (Citizens[i].CurrentProf == "guardian")
+                {
+                    float payment = 1000f * (1 + Citizens[i].CurrentLevel / Config.MaxLevel);
+                    god.Money -= payment;
+                    Citizens[i].Money += payment;
+                    Log.Add("citizens:Guardian " + Citizens[i].Name + " got payment " + payment.ToString());
+                }
+            }
+        }
+
         public Building IsHumanInBuilding(Human h)
         {
             for (int i = 0; i < Structures.Count; i++)

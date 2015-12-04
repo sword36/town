@@ -64,6 +64,7 @@ namespace townWinForm
         public void Pause()
         {
             animationTimer.Enabled = false;
+            TaxTimer.Enabled = false;
             isPause = true;
         }
 
@@ -71,6 +72,7 @@ namespace townWinForm
         {
             lastTime = DateTime.Now.Ticks;
             animationTimer.Enabled = true;
+            TaxTimer.Enabled = true;
             isPause = false;
         }
 
@@ -194,9 +196,10 @@ namespace townWinForm
 
         private void TaxTimer_Tick(object sender, EventArgs e)
         {
+            town.GuariansPayment();
             town.Taxes();
             Log.Add("other:Taxes collected");
-
+            
         }
     }
 }
