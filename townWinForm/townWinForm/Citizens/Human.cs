@@ -374,6 +374,16 @@ namespace townWinForm
             }
         }
 
+        public float Tax
+        {
+            get
+            {
+                float res = Money / 10;
+                Money -= res;
+                return res;
+            }
+        }
+
         public int WaitTime
         {
             get

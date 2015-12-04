@@ -64,6 +64,7 @@ namespace townWinForm
         public void Pause()
         {
             animationTimer.Enabled = false;
+            TaxTimer.Enabled = false;
             isPause = true;
         }
 
@@ -71,6 +72,7 @@ namespace townWinForm
         {
             lastTime = DateTime.Now.Ticks;
             animationTimer.Enabled = true;
+            TaxTimer.Enabled = true;
             isPause = false;
         }
 
@@ -126,6 +128,7 @@ namespace townWinForm
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            TaxTimer.Interval = Config.TaxesTimerInterval;
             Util.UpdateCamera += Building.UpdateD;
             Util.UpdateCamera += Human.UpdateD;
             Util.UpdateCamera += Town.UpdateD;
@@ -189,6 +192,14 @@ namespace townWinForm
                         break;
                     }
             }
+        }
+
+        private void TaxTimer_Tick(object sender, EventArgs e)
+        {
+            town.GuariansPayment();
+            town.Taxes();
+            Log.Add("other:Taxes collected");
+            
         }
     }
 }

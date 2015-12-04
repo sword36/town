@@ -724,6 +724,29 @@ namespace townWinForm
             return taverns[rand.Next(taverns.Count)];
         }
 
+        public void Taxes()
+        {
+            for (int i = 0; i < Citizens.Count; i++)
+            {
+                god.Money = Citizens[i].Tax;
+
+            }
+        }
+
+        public void GuariansPayment()
+        {
+            for (int i = 0; i < Citizens.Count; i++)
+            {
+                if (Citizens[i].CurrentProf == "guardian")
+                {
+                    float payment = 1000f * (1 + Citizens[i].CurrentLevel / Config.MaxLevel);
+                    god.Money -= payment;
+                    Citizens[i].Money += payment;
+                    Log.Add("citizens:Guardian " + Citizens[i].Name + " got payment " + payment.ToString());
+                }
+            }
+        }
+
         public Building IsHumanInBuilding(Human h)
         {
             for (int i = 0; i < Structures.Count; i++)
