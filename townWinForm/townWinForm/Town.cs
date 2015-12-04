@@ -724,6 +724,14 @@ namespace townWinForm
             return taverns[rand.Next(taverns.Count)];
         }
 
+        public void Taxes()
+        {
+            for (int i = 0; i < Citizens.Count; i++)
+            {
+                god.Money = Citizens[i].Tax;
+            }
+        }
+
         public Building IsHumanInBuilding(Human h)
         {
             for (int i = 0; i < Structures.Count; i++)

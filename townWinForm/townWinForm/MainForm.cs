@@ -126,6 +126,7 @@ namespace townWinForm
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            TaxTimer.Interval = Config.TaxesTimerInterval;
             Util.UpdateCamera += Building.UpdateD;
             Util.UpdateCamera += Human.UpdateD;
             Util.UpdateCamera += Town.UpdateD;
@@ -189,6 +190,11 @@ namespace townWinForm
                         break;
                     }
             }
+        }
+
+        private void TaxTimer_Tick(object sender, EventArgs e)
+        {
+            town.Taxes();
         }
     }
 }
