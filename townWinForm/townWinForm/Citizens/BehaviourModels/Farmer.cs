@@ -278,13 +278,29 @@ namespace townWinForm.BehaviourModels
                 else
                 {
                     StateMachine.PopState();
-                    StateMachine.PushState("goHome");
+                    if (body.Energy > 60)
+                    {
+                        StateMachine.PushState("goToWork");
+                    }
+                    else
+                    {
+                        StateMachine.PushState("goHome");
+
+                    }
                 }
             }
             else if (isGoOut)
             {
                 StateMachine.PopState();
-                StateMachine.PushState("goHome");
+                if (body.Energy > 60)
+                {
+                    StateMachine.PushState("goToWork");
+                }
+                else
+                {
+                    StateMachine.PushState("goHome");
+
+                }
             }
         }
 

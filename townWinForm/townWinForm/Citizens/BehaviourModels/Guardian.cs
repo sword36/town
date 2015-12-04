@@ -59,6 +59,12 @@ namespace townWinForm.BehaviourModels
                     StateMachine.PushState("sleep");
                 }
             }
+            else if (body.Bag.FoodCount < 3 && body.Money > Config.MoneyLimitForBuying)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("goToMarket");
+                StateMachine.EnqueueState("buyFood");
+            }
             else if (body.Energy < 60)
             {
                 eat(dt);
@@ -84,6 +90,13 @@ namespace townWinForm.BehaviourModels
                 isWorking = false;
                 base.isGoing = false;
                 Log.Add("citizens:Human " + body.Name + " finish work(guardian), energy too low");
+
+                if (body.Bag.FoodCount < 3 && body.Money > Config.MoneyLimitForBuying)
+                {
+                    StateMachine.PushState("goToMarket");
+                    StateMachine.EnqueueState("buyFood");
+                    return;
+                }
 
                 if (body.Happiness < Config.LowerBoundHappyToDrink)
                 {
@@ -188,6 +201,59 @@ namespace townWinForm.BehaviourModels
             }
         }
 
+        private void buyFood(int dt)
+        {
+            bool isGoOut;
+            bool isBougth = base.buyFood(dt, out isGoOut);
+            if (isBougth)
+            {
+                if (body.Bag.FoodCount < 3 && body.Money > 500)
+                {
+                    //continue selling
+                }
+                else
+                {
+                    StateMachine.PopState();
+                    if (body.Energy > 60)
+                    {
+                        StateMachine.PushState("goToWork");
+                    } else
+                    {
+                        StateMachine.PushState("goHome");
+
+                    }
+                }
+            }
+            else if (isGoOut)
+            {
+                if (body.Energy > 60)
+                {
+                    StateMachine.PushState("goToWork");
+                }
+                else
+                {
+                    StateMachine.PushState("goHome");
+
+                }
+            }
+        }
+
+        private void goToMarket(int dt)
+        {
+            bool isAtMarket = base.goToMarket(dt);
+            if (isAtMarket)
+            {
+                StateMachine.PopState();
+                Log.Add("citizens:Human " + body.Name + " at market");
+                return;
+            }
+
+            if (body.Energy < 5)
+            {
+                StateMachine.PushState("rest");
+            }
+        }
+
         public override void Update(int dt)
         {
             if (body.Energy <= 0 && body.IsAlive)
@@ -225,6 +291,12 @@ namespace townWinForm.BehaviourModels
                     break;
                 case "tavernDrink":
                     tavernDrink(dt);
+                    break;
+                case "buyFood":
+                    buyFood(dt);
+                    break;
+                case "goToMarket":
+                    goToMarket(dt);
                     break;
             }
         }
