@@ -195,6 +195,8 @@ namespace townWinForm
         private void TaxTimer_Tick(object sender, EventArgs e)
         {
             town.Taxes();
+            Log.Add("other:Taxes collected");
+
         }
     }
 }

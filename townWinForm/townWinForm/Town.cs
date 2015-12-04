@@ -729,6 +729,7 @@ namespace townWinForm
             for (int i = 0; i < Citizens.Count; i++)
             {
                 god.Money = Citizens[i].Tax;
+
             }
         }
 
