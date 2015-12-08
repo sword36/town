@@ -226,7 +226,7 @@ namespace townWinForm
                 }
 
                 string typeName = thing.GetType().Name;
-                Log.Add("other:Human " + Name + " buy " + typeName + " with price: " + priceWithPercent +
+                Log.Add("other:Human " + Name + " bought " + typeName + " with price: " + priceWithPercent +
                     " at " + trader.Name);
 
                 return true;
@@ -434,7 +434,7 @@ namespace townWinForm
                 int energyPercent = (int)Math.Round(Energy / Config.MaxEnergy * 100);
                 int happinessPercent = (int)Math.Round(Happiness / Config.MaxHappiness * 100);
 
-                string expString = "EXP " + profPercent.ToString() + "%";
+                string expString = "XP " + profPercent.ToString() + "%";
                 string energyString = "Energy " + energyPercent.ToString() + "%";
                 string happinessString = "Happiness " + happinessPercent.ToString() + "%";
                 string professionString = CurrentProf + " " + ProfLevels[CurrentProf] + " lvl";
@@ -456,11 +456,11 @@ namespace townWinForm
 
                 float drawingX = position.X + dx + Config.TileSize + step;
 
-                g.FillEllipse(new SolidBrush(Color.FromArgb(100, 0, 200, 0)),
+                /*g.FillEllipse(new SolidBrush(Color.FromArgb(100, 0, 200, 0)),
                     Position.X + dx - Config.VisionRadius,
                     Position.Y + dy - Config.VisionRadius,
                     2 * Config.VisionRadius,
-                    2 * Config.VisionRadius);
+                    2 * Config.VisionRadius);*/
 
                 g.FillRectangle(background,
                     Position.X + Config.TileSize + step + dx,
@@ -558,7 +558,7 @@ namespace townWinForm
             {
                 profExp[CurrentProf] -= Config.exp[ProfLevels[CurrentProf] - 1];
                 ProfLevels[CurrentProf]++;
-                Log.Add("levels: Human " + Name + "(" + CurrentProf + ") " + "level up to " + ProfLevels[CurrentProf]);
+                Log.Add("levels: Human " + Name + " (" + CurrentProf + ") " + "leveled up to " + ProfLevels[CurrentProf]);
             }
 
             if ((ProfLevels[CurrentProf] == Config.MaxLevel - 1) && 

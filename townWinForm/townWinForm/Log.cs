@@ -63,24 +63,52 @@ namespace townWinForm
             switch(type)
             {
                 case "all":
+                    {
+                        if (all.Count > 500)
+                            all.RemoveAt(0);
+                    }
                     break; //because allready added
                 case "buildings":
-                    buildings.Add(message);
+                    {
+                        if (buildings.Count > 100)
+                            buildings.RemoveAt(0);
+                        buildings.Add(message);
+                    }
                     break;
                 case "citizens":
-                    citizens.Add(message);
+                    {
+                        if (citizens.Count > 100)
+                            citizens.RemoveAt(0);
+                        citizens.Add(message);
+                    }
                     break;
                 case "things":
-                    things.Add(message);
+                    {
+                        if (things.Count > 100)
+                            things.RemoveAt(0);
+                        things.Add(message);
+                    }
                     break;
                 case "paths":
-                    paths.Add(message);
+                    {
+                        if (paths.Count > 100)
+                            paths.RemoveAt(0);
+                        paths.Add(message);
+                    }
                     break;
                 case "levels":
-                    paths.Add(message);
+                    {
+                        if (levels.Count > 100)
+                            levels.RemoveAt(0);
+                        levels.Add(message);
+                    }
                     break;
                 default:
-                    other.Add(message);
+                    {
+                        if (other.Count > 100)
+                            other.RemoveAt(0);
+                        other.Add(message);
+                    }
                     break;
             }
 
@@ -113,7 +141,7 @@ namespace townWinForm
                 case "paths":
                     return listToSting(paths);
                 case "levels":
-                    return listToSting(paths);
+                    return listToSting(levels);
                 default:
                     return listToSting(other);
             }
