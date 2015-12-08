@@ -98,7 +98,6 @@ namespace townWinForm
 
         private void draw(object sender, PaintEventArgs e)
         {
-            //e.Graphics.Clear(Color.White);
             town.Draw(e.Graphics);
         }
 

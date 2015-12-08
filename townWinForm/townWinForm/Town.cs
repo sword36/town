@@ -28,13 +28,15 @@ namespace townWinForm
         public List<Human> Citizens;
         private Dictionary<string, Image> CitizensInfo = new Dictionary<string, Image>();
 
-        private List<Building> Structures;
+        private List<Building> structures;
         private List<Tavern> taverns;
         private List<Market> markets;
-        private List<Barracks> Rax;
-        private List<IResidence> Houses;
-        private List<IWorkshop> Workshops;
-        private List<ThievesGuild> Guilds;
+        private List<Barracks> barracks;
+        private List<IResidence> houses;
+        private List<IWorkshop> workshops;
+        private List<Factory> factories;
+        private List<Farm> farms;
+        private List<ThievesGuild> guilds;
 
         private int[,] matrix;
         private int[,] AstarMatrix;
@@ -64,12 +66,15 @@ namespace townWinForm
             SetTownSize();
             
 
-            Structures = new List<Building>();
+            structures = new List<Building>();
             taverns = new List<Tavern>();
-            Rax = new List<Barracks>();
-            Houses = new List<IResidence>();
-            Workshops = new List<IWorkshop>();
-            Guilds = new List<ThievesGuild>();
+            barracks = new List<Barracks>();
+            houses = new List<IResidence>();
+            workshops = new List<IWorkshop>();
+            factories = new List<Factory>();
+            farms = new List<Farm>();
+            
+            guilds = new List<ThievesGuild>();
             markets = new List<Market>();
 
             matrix = new int[Config.TownWidth, Config.TownHeight];
@@ -166,6 +171,12 @@ namespace townWinForm
                         CitizensInfo.Remove(res.Key);
                         return res;
                     }
+                case 10:
+                    {
+                        KeyValuePair<string, Image> res = new KeyValuePair<string, Image>("Ирина Серикова", CitizensInfo["Ирина Серикова"]);
+                        CitizensInfo.Remove(res.Key);
+                        return res;
+                    }
 
                 default:
                     {
@@ -218,6 +229,7 @@ namespace townWinForm
             {
                 Human h = new Human(this);
                 GetWorkshop(h.CurrentProf).AddWorker(h);
+                sortWorkshops();
                 GetHome().AddResident(h);
                 h.Position = Util.ConvertIndexToInt(h.Home.Room);
                 Citizens.Add(h);
@@ -231,32 +243,69 @@ namespace townWinForm
 
         public IWorkshop GetGuild()
         {
-            if (Guilds.Count == 0)
+            if (guilds.Count == 0)
                 return null;
             int index = 0;
-            int n = Guilds[0].Workers.Count;
-            for (int i = 1; i < Guilds.Count; i++)
+            int n = guilds[0].Workers.Count;
+            for (int i = 1; i < guilds.Count; i++)
             {
-                n = Math.Min(n, Guilds[i].Workers.Count);
-                if (n == Guilds[i].Workers.Count) index = i;
+                n = Math.Min(n, guilds[i].Workers.Count);
+                if (n == guilds[i].Workers.Count) index = i;
             }
-            return Guilds[index];
+            return guilds[index];
         }
 
         public IWorkshop GetBarracks()
         {
-            if (Rax.Count == 0)
+            if (barracks.Count == 0)
                 return null;
             int index = 0;
-            int n = Rax[0].Workers.Count;
-            for (int i = 1; i < Rax.Count; i++)
+            int n = barracks[0].Workers.Count;
+            for (int i = 1; i < barracks.Count; i++)
             {
-                n = Math.Min(n, Rax[i].Workers.Count);
-                if (n == Rax[i].Workers.Count) index = i;
+                n = Math.Min(n, barracks[i].Workers.Count);
+                if (n == barracks[i].Workers.Count) index = i;
             }
-            return Rax[index];
+            return barracks[index];
         }
 
+        private void sortWorkshops()
+        {
+            markets.Sort(new Comparison<Market>((m1, m2) => 
+            {
+                if (m1 > m2) return 1;
+                if (m1 < m2) return -1;
+                return 0;
+            }));
+
+            guilds.Sort(new Comparison<ThievesGuild>((m1, m2) =>
+            {
+                if (m1 > m2) return 1;
+                if (m1 < m2) return -1;
+                return 0;
+            }));
+
+            barracks.Sort(new Comparison<Barracks>((m1, m2) =>
+            {
+                if (m1 > m2) return 1;
+                if (m1 < m2) return -1;
+                return 0;
+            }));
+
+            farms.Sort(new Comparison<Farm>((m1, m2) =>
+            {
+                if (m1 > m2) return 1;
+                if (m1 < m2) return -1;
+                return 0;
+            }));
+
+            factories.Sort(new Comparison<Factory>((m1, m2) =>
+            {
+                if (m1 > m2) return 1;
+                if (m1 < m2) return -1;
+                return 0;
+            }));
+        }
 
 
         public IWorkshop GetWorkshop(string prof)
@@ -265,51 +314,49 @@ namespace townWinForm
             {
                 case "craftsman":
                     {
-                        IWorkshop result = Workshops[rand.Next(Workshops.Count)];
+                        return factories[0];
+                        IWorkshop result = workshops[rand.Next(workshops.Count)];
                         while ((!result.IsFree()) || !(result is Factory))
                         {
-                            result = Workshops[rand.Next(Workshops.Count)];
+                            result = workshops[rand.Next(workshops.Count)];
                         }
                         return result;
                     }
 
                 case "farmer":
                     {
-                        IWorkshop result = Workshops[rand.Next(Workshops.Count)];
+                        return farms[0];
+                        IWorkshop result = workshops[rand.Next(workshops.Count)];
                         while ((!result.IsFree()) || !(result is Farm))
                         {
-                            result = Workshops[rand.Next(Workshops.Count)];
+                            result = workshops[rand.Next(workshops.Count)];
                         }
                         return result;
                     }
 
                 case "trader":
                     {
-                        return markets[rand.Next(markets.Count)];
-                        /*IWorkshop result = Workshops[rand.Next(Workshops.Count)];
-                        while ((!result.IsFree()) || !(result is Market))
-                        {
-                            result = Workshops[rand.Next(Workshops.Count)];
-                        }
-                        return result;*/
+                        return markets[0];
                     }
 
                 case "thief":
                     {
+                        return guilds[0];
                         return GetGuild();
                     }
 
                 case "guardian":
                     {
+                        return barracks[0];
                         return GetBarracks();
                     }
 
                 default:
                     {
-                        IWorkshop result = Workshops[rand.Next(Workshops.Count)];
+                        IWorkshop result = workshops[rand.Next(workshops.Count)];
                         while (!result.IsFree())
                         {
-                            result = Workshops[rand.Next(Workshops.Count)];
+                            result = workshops[rand.Next(workshops.Count)];
                         }
                         return result;
                     }
@@ -318,10 +365,10 @@ namespace townWinForm
 
         public IResidence GetHome()
         {
-            IResidence result = Houses[rand.Next(Houses.Count)];
+            IResidence result = houses[rand.Next(houses.Count)];
             while (!result.HavePlace())
             {
-                result = Houses[rand.Next(Houses.Count)];
+                result = houses[rand.Next(houses.Count)];
             }
             return result;
         }
@@ -428,7 +475,7 @@ namespace townWinForm
                 }
             }
 
-            foreach (var s in Structures)
+            foreach (var s in structures)
             {
                 for (int x = 0; x < s.Position.Width; x++)
                 {
@@ -495,33 +542,33 @@ namespace townWinForm
                             if ((rand.Next() % 4 == 0) && (w >= 5) && (h >= 5) 
                                 && (markets.Count < Config.Markets))
                             {
-                                Workshops.Add(new Market(x, y, w , h, "market"));
-                                markets.Add(Workshops[Workshops.Count - 1] as Market);
-                                Structures.Add(Workshops[Workshops.Count - 1] as Building);
+                                workshops.Add(new Market(x, y, w , h, "market"));
+                                markets.Add(workshops[workshops.Count - 1] as Market);
+                                structures.Add(workshops[workshops.Count - 1] as Building);
                                 idCounter.Add(buildIndex);
                                 continue;
                             }
 
-                            if ((rand.Next() % 4 == 0) && (Houses.Count < Config.Houses))
+                            if ((rand.Next() % 4 == 0) && (houses.Count < Config.Houses))
                             {
-                                Houses.Add(new House(x, y, w, h, "house"));
-                                Structures.Add(Houses[Houses.Count - 1] as Building);
+                                houses.Add(new House(x, y, w, h, "house"));
+                                structures.Add(houses[houses.Count - 1] as Building);
                                 idCounter.Add(buildIndex);
                                 continue;
                             }
 
-                            if ((rand.Next() % 3 == 0) && (Guilds.Count < Config.ThiefGuildsAmount) && (w >= 5) && (h >= 5))
+                            if ((rand.Next() % 3 == 0) && (guilds.Count < Config.ThiefGuildsAmount) && (w >= 5) && (h >= 5))
                             {
-                                Guilds.Add(new ThievesGuild(x, y, w, h, "guild"));
-                                Structures.Add(Guilds[Guilds.Count - 1] as Building);
+                                guilds.Add(new ThievesGuild(x, y, w, h, "guild"));
+                                structures.Add(guilds[guilds.Count - 1] as Building);
                                 idCounter.Add(buildIndex);
                                 continue;
                             }
 
-                            if ((rand.Next() % 3 == 0) && (Rax.Count < Config.BarracksAmount) && (w >= 5) && (h >= 5))
+                            if ((rand.Next() % 3 == 0) && (barracks.Count < Config.BarracksAmount) && (w >= 5) && (h >= 5))
                             {
-                                Rax.Add(new Barracks(x, y, w, h, "barracks"));
-                                Structures.Add(Rax[Rax.Count - 1]);
+                                barracks.Add(new Barracks(x, y, w, h, "barracks"));
+                                structures.Add(barracks[barracks.Count - 1]);
                                 idCounter.Add(buildIndex);
                                 continue;
                             }
@@ -529,29 +576,32 @@ namespace townWinForm
                             if ((rand.Next() % 5 == 0) && (taverns.Count < Config.Taverns))
                             {
                                 taverns.Add(new Tavern(x, y, w, h, "tavern"));
-                                Structures.Add(taverns[taverns.Count - 1]);
+                                structures.Add(taverns[taverns.Count - 1]);
                                 idCounter.Add(buildIndex);
                                 continue;
                             }
 
                             if (farmCount < factoryCount)
                             {
-                                if (((rand.Next() % 2 == 0) || (rand.Next() % 10 == 0)) && (Workshops.Count < Config.Productions))
+                                if (((rand.Next() % 2 == 0) || (rand.Next() % 10 == 0)) && (workshops.Count < Config.Productions))
                                 {
                                     farmCount++;
-                                    Workshops.Add(new Farm(x, y, w, h, "farm"));
-                                    Structures.Add(Workshops[Workshops.Count - 1] as Building);
+                                    workshops.Add(new Farm(x, y, w, h, "farm"));
+                                    farms.Add(workshops.Last() as Farm);
+                                    structures.Add(workshops[workshops.Count - 1] as Building);
                                     idCounter.Add(buildIndex);
                                     continue;
                                 }
                             }
                             else
                             { 
-                                if (((rand.Next() % 2 == 0) || (rand.Next() % 10 == 0)) && (Workshops.Count < Config.Productions))
+                                if (((rand.Next() % 2 == 0) || (rand.Next() % 10 == 0)) && (workshops.Count < Config.Productions))
                                 {
                                     factoryCount++;
-                                    Workshops.Add(new Factory(x, y, w, h, "factory"));
-                                    Structures.Add(Workshops[Workshops.Count - 1] as Building);
+                                    workshops.Add(new Factory(x, y, w, h, "factory"));
+                                    
+                                    structures.Add(workshops[workshops.Count - 1] as Building);
+                                    factories.Add(structures[structures.Count - 1] as Factory);
                                     idCounter.Add(buildIndex);
                                     continue;
                                 }
@@ -702,7 +752,7 @@ namespace townWinForm
         {
             g.FillRectangle(new SolidBrush(Config.StreetColor), dx, dy, Config.TownWidth * Config.TileSize, Config.TownHeight * Config.TileSize);
 
-            foreach (var s in Structures)
+            foreach (var s in structures)
             {
                 s.Draw(g);
             }
@@ -749,10 +799,10 @@ namespace townWinForm
 
         public Building IsHumanInBuilding(Human h)
         {
-            for (int i = 0; i < Structures.Count; i++)
+            for (int i = 0; i < structures.Count; i++)
             {
-                if (Util.IsInRectangle(h.Position, Structures[i].Position))
-                    return Structures[i];
+                if (Util.IsInRectangle(h.Position, structures[i].Position))
+                    return structures[i];
             }
             return null;
         }

@@ -52,7 +52,7 @@ namespace townWinForm
         public static float HappyForRest = 0.0005f;
         public static float UnhappyForNoFood = 10;
         public static float HomeNear = 300;
-        public static float MovePrecision = 3;
+        public static float MovePrecision = 4;
         public static int NextID = 0;
         public static int TryEatInterval = 1000;
         public static float VisionRadius = 200;
@@ -84,7 +84,7 @@ namespace townWinForm
         public static float CraftsmanSpeed = 0.1f;
         public static float FarmerSpeed = 0.1f;
         public static float GuardianSpeed = 0.125f;
-        public static float ThiefSpeed = 0.15f;
+        public static float ThiefSpeed = 0.125f;
         public static float TraderSpeed = 0.09f;
 
         public static float HappyAfterDeath = 0;

@@ -12,6 +12,10 @@ namespace townWinForm
 
         private List<Human> workers;
 
+        public int Count
+        {
+            get { return Workers.Count; }
+        }
         public List<Human> Workers
         {
             get { return workers; }
@@ -39,6 +43,16 @@ namespace townWinForm
         public bool IsFree()
         {
             return workers.Count < Config.MaxWorkers;
+        }
+
+        public static bool operator <(Farm w1, Farm w2)
+        {
+            return w1.Count < w2.Count;
+        }
+
+        public static bool operator >(Farm w1, Farm w2)
+        {
+            return w1.Count > w2.Count;
         }
     }
 }

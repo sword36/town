@@ -15,6 +15,8 @@ namespace townWinForm
             get;
         }
 
+        int Count { get; }
+
         void AddWorker(Human h);
 
         void RemoveWorker(Human h);

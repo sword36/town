@@ -11,6 +11,11 @@ namespace townWinForm
     {
         private List<Human> workers;
 
+        public int Count
+        {
+            get { return Workers.Count; }
+        }
+
         public List<Human> Workers
         {
             get { return workers; }
@@ -62,6 +67,16 @@ namespace townWinForm
         public bool HavePlace()
         {
             return true;
+        }
+
+        public static bool operator <(Barracks w1, Barracks w2)
+        {
+            return w1.Count < w2.Count;
+        }
+
+        public static bool operator >(Barracks w1, Barracks w2)
+        {
+            return w1.Count > w2.Count;
         }
     }
 }

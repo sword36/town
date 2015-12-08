@@ -120,7 +120,7 @@ namespace townWinForm
                 profExp.Add(prof, 0);
             }
             //random proffesion from Config.ProfList
-            CurrentProf = Config.ProfList[Util.GetRandomFromInterval(0, Config.ProfList.Length - 1)];
+            CurrentProf = Config.ProfList[Util.GetRandomFromInterval(0, Config.ProfList.Length)];
 
             initBehaviourModel(CurrentProf); 
 
@@ -134,7 +134,10 @@ namespace townWinForm
         }
 
 
-
+        ~Human()
+        {
+            img.Dispose();
+        }
         private void initBehaviourModel(string prof)
         {
             switch(prof)
