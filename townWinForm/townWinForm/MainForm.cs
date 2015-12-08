@@ -24,6 +24,7 @@ namespace townWinForm
 
         private SettingsForm settingsForm;
         private LogForm logForm;
+        private StatisticsForm statsForm;
 
         private bool isPause = false;
 
@@ -58,6 +59,8 @@ namespace townWinForm
 
         private void update(int dt)
         {
+            if (statsForm != null)
+                statsForm.UpdateStats();
             Util.Move(MousePosition, Width, Height, dt);
             town.Update(dt);
         }
@@ -200,6 +203,14 @@ namespace townWinForm
             town.Taxes();
             Log.Add("other:Taxes collected");
             
+        }
+
+        private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            statsForm = new StatisticsForm(this);
+            statsForm.UpdateEvent += statsForm.UpdateStats;
+            statsForm.Show();
+            statsForm.TopMost = true;
         }
     }
 }
