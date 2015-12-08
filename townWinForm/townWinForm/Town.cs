@@ -73,7 +73,6 @@ namespace townWinForm
             workshops = new List<IWorkshop>();
             factories = new List<Factory>();
             farms = new List<Farm>();
-            
             guilds = new List<ThievesGuild>();
             markets = new List<Market>();
 

@@ -308,7 +308,7 @@ namespace townWinForm
 
         protected virtual bool patrol(int dt)
         {
-            body.AddExp(Config.ExpForParol);
+            body.AddExp(Config.ExpForPatrol);
 
             float dEnergy = Config.EnergyPatrolCost * dt;
             if (body.Energy - dEnergy > -1)
@@ -425,7 +425,9 @@ namespace townWinForm
         //decrease energy, and if energy in low level then decrease happiness
         protected virtual void work(int dt)
         {
-            body.AddExp(Config.ExpForWorking);
+            if (body.CurrentProf == "trader")
+            body.AddExp(Config.ExpForWorking / 2);
+            else body.AddExp(Config.ExpForWorking);
 
             float dEnergy = WorkCost * dt;
             if (body.Energy - dEnergy > 0)

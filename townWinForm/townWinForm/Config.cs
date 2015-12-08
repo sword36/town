@@ -31,7 +31,7 @@ namespace townWinForm
 
         #region Citizens
         public static int DyingTime = 1000;
-        public static int MaxCitizens = 20;
+        public static int MaxCitizens = 35;
         public static int MaxHappiness = 100;
         public static int StartHappiness = 80;
         public static int StartHappinessDelta = 15;
@@ -72,13 +72,13 @@ namespace townWinForm
         public static float FarmerWorkCost = 0.005f;
         public static float GuardianWorkCost = 0.004f;
         public static float ThiefWorkCost = 0.002f;
-        public static float TraderWorkCost = 0.001f;
+        public static float TraderWorkCost = 0.0005f;
 
         public static float CraftsmanBagCapacity = 600;
         public static float FarmerBagCapacity = 450;
         public static float GuardianBagCapacity = 300;
         public static float ThiefBagCapacity = 750;
-        public static float TraderBagCapacity = 1000;
+        public static float TraderBagCapacity = 1500;
 
 
         public static float CraftsmanSpeed = 0.1f;
@@ -90,7 +90,7 @@ namespace townWinForm
         public static float HappyAfterDeath = 0;
         public static float ExpForCraft = 100;
         public static float ExpForWorking = 0.5f;
-        public static float ExpForParol = 0.4f;
+        public static float ExpForPatrol = 0.4f;
         public static float LimitHappyInTavern = 95;
         public static float LimitEnergyInTavern = 20;
         public static float LowerBoundHappyToDrink = 30;

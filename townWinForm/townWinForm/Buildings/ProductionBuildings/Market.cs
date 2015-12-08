@@ -40,7 +40,6 @@ namespace townWinForm
         public void RemoveWorker(Human h)
         {
             workers.Remove(h);
-            
         }
 
         public bool IsFree()
