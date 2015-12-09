@@ -16,6 +16,13 @@ namespace townWinForm
 
     public partial class MainForm : Form
     {
+        public Statistics HappinessStat
+        {
+            get { return happinessStat; }
+        }
+
+        private Statistics happinessStat;
+
         Human clickedHuman = null;
         private Town town;
 
@@ -36,7 +43,8 @@ namespace townWinForm
 
         public MainForm()
         {
-            //vkapi = new Vk();
+            happinessStat = new Statistics();
+
             InitializeComponent();
             DoubleBuffered = true;
 
@@ -131,11 +139,12 @@ namespace townWinForm
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            StatsTimer.Enabled = true;
+            StatsUpdateTimer.Enabled = true;
             TaxTimer.Interval = Config.TaxesTimerInterval;
             Util.UpdateCamera += Building.UpdateD;
             Util.UpdateCamera += Human.UpdateD;
             Util.UpdateCamera += Town.UpdateD;
-            //Util.UpdateCamera += Tile.UpdateD;
         }
 
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
@@ -208,9 +217,23 @@ namespace townWinForm
         private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             statsForm = new StatisticsForm(this);
-            statsForm.UpdateEvent += statsForm.UpdateStats;
             statsForm.Show();
             statsForm.TopMost = true;
+        }
+
+        private void StatsTimer_Tick(object sender, EventArgs e)
+        {
+            happinessStat.AddValue(town.AverageHappiness);
+            happinessStat.Update();
+            if (statsForm != null)
+            {
+                statsForm.UpdateStats();
+            }
+        }
+
+        private void StatsUpdateTimer_Tick(object sender, EventArgs e)
+        {
+            //happinessStat.Update();
         }
     }
 }

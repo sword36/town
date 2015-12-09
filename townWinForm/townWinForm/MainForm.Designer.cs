@@ -36,6 +36,8 @@
             this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TaxTimer = new System.Windows.Forms.Timer(this.components);
             this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.StatsTimer = new System.Windows.Forms.Timer(this.components);
+            this.StatsUpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,6 +95,15 @@
             this.statisticsToolStripMenuItem.Text = "Statistics";
             this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.statisticsToolStripMenuItem_Click);
             // 
+            // StatsTimer
+            // 
+            this.StatsTimer.Tick += new System.EventHandler(this.StatsTimer_Tick);
+            // 
+            // StatsUpdateTimer
+            // 
+            this.StatsUpdateTimer.Interval = 1000;
+            this.StatsUpdateTimer.Tick += new System.EventHandler(this.StatsUpdateTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -123,6 +134,8 @@
         private System.Windows.Forms.ToolStripMenuItem logToolStripMenuItem;
         private System.Windows.Forms.Timer TaxTimer;
         private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
+        private System.Windows.Forms.Timer StatsTimer;
+        private System.Windows.Forms.Timer StatsUpdateTimer;
     }
 }
 

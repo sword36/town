@@ -90,6 +90,7 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Statistics.cs" />
     <Compile Include="StatisticsForm.cs">
       <SubType>Form</SubType>
     </Compile>

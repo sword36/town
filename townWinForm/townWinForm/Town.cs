@@ -15,6 +15,13 @@ namespace townWinForm
         private int minStructCount = Config.Houses + Config.Productions +
              Config.Markets + Config.Taverns;
 
+        double avgHappiness;
+
+        public double AverageHappiness
+        {
+            get { return avgHappiness; }
+        }
+
 
         private static float dx = 0;
         private static float dy = 0;
@@ -64,7 +71,6 @@ namespace townWinForm
         public Town()
         {
             SetTownSize();
-            
 
             structures = new List<Building>();
             taverns = new List<Tavern>();
@@ -404,6 +410,8 @@ namespace townWinForm
         {
             Random rand = new Random();
             int sign = Math.Sign(rand.Next(-10, 10));
+            while (sign == 0)
+                sign = Math.Sign(rand.Next(-10, 10));
             int n = 0;
             int avg = Config.StreetHeight / 2;
 
@@ -741,10 +749,13 @@ namespace townWinForm
 
         public void Update(int dt)
         {
+            double happiness = 0;
             foreach (Human h in Citizens)
             {
+                happiness += h.Happiness;
                 h.Update(dt);
             }
+            avgHappiness = happiness / Citizens.Count;
         }
 
         public void Draw(Graphics g)

@@ -67,5 +67,10 @@ namespace townWinForm
                 pauseBtn.Text = "Unpause";
             }
         }
+
+        private void LogForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -39,6 +39,7 @@
             // 
             chartArea1.Name = "ChartArea1";
             this.StatsChart.ChartAreas.Add(chartArea1);
+            this.StatsChart.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.StatsChart.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.Name = "Legend1";
             this.StatsChart.Legends.Add(legend1);
@@ -46,11 +47,12 @@
             this.StatsChart.Name = "StatsChart";
             this.StatsChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
             series1.EmptyPointStyle.Color = System.Drawing.Color.Black;
             series1.Legend = "Legend1";
             series1.Name = "Happiness";
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series1.YValuesPerPoint = 2;
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
             this.StatsChart.Series.Add(series1);
             this.StatsChart.Size = new System.Drawing.Size(509, 337);

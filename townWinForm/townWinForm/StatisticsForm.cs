@@ -20,13 +20,12 @@ namespace townWinForm
 
         private MainForm mainForm;
 
-        public delegate void statsUpdateHandler();
-        public event statsUpdateHandler UpdateEvent;
-
         public StatisticsForm(MainForm main)
         {
+            Location = new Point(600, 100);
+            StartPosition = new FormStartPosition();
             InitializeComponent();
-
+            //Location = new Point(600, 100);
             mainForm = main;
             
         }
@@ -40,6 +39,21 @@ namespace townWinForm
         {
             if (this.Visible == true)
             {
+                Statistics happinessStat = mainForm.HappinessStat;
+
+                StatsChart.Series["Happiness"].Points.Clear();
+                StatsChart.Series["Happiness"].MarkerStyle = MarkerStyle.None;
+
+                for (int i = 0; i < happinessStat.Values.Count; i++)
+                {
+
+                    string minutes = (happinessStat.Time[i] / 10 / 60).ToString();
+                    string seconds = (happinessStat.Time[i] / 10 % 60).ToString();
+
+                    StatsChart.Series["Happiness"].Points.AddXY(minutes + ":" + seconds, happinessStat.Values[i]);
+                    
+                }
+
                 
             }
         }
