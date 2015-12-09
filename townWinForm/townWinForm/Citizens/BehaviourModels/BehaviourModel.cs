@@ -426,10 +426,11 @@ namespace townWinForm
         protected virtual void work(int dt)
         {
             if (body.CurrentProf == "trader")
-            body.AddExp(Config.ExpForWorking / 2);
+                body.AddExp(Config.ExpForWorking / 2);
             else body.AddExp(Config.ExpForWorking);
 
             float dEnergy = WorkCost * dt;
+
             if (body.Energy - dEnergy > 0)
             {
                 body.Energy -= dEnergy;
@@ -441,7 +442,13 @@ namespace townWinForm
 
             if (body.Energy < Config.EnergyLowerBoundToUnhappy)
             {
+
                 float dHappy = Config.UnhappyForWork * dt;
+                if (body.CurrentProf == "trader")
+                {
+                    dHappy /= 2;
+                }
+
                 if (body.Happiness - dHappy > 0)
                 {
                     body.Happiness -= dHappy;
