@@ -437,7 +437,7 @@ namespace townWinForm
                 int energyPercent = (int)Math.Round(Energy / Config.MaxEnergy * 100);
                 int happinessPercent = (int)Math.Round(Happiness / Config.MaxHappiness * 100);
 
-                string expString = "XP " + profPercent.ToString() + "%";
+                string expString = "XP " + ((int)profExp[CurrentProf]).ToString() + "/" + Config.exp[CurrentLevel - 1];
                 string energyString = "Energy " + energyPercent.ToString() + "%";
                 string happinessString = "Happiness " + happinessPercent.ToString() + "%";
                 string professionString = CurrentProf + " " + ProfLevels[CurrentProf] + " lvl";
