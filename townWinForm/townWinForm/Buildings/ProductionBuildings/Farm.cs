@@ -18,22 +18,6 @@ namespace townWinForm
             base.Draw(g);
         }
 
-        public void AddWorker(Human h)
-        {
-            workers.Add(h);
-            h.WorkBuilding = this;
-        }
-
-        public void RemoveWorker(Human h)
-        {
-            workers.Remove(h);
-        }
-
-        public bool IsFree()
-        {
-            return workers.Count < Config.MaxWorkers;
-        }
-
         public static bool operator <(Farm w1, Farm w2)
         {
             return w1.Count < w2.Count;
