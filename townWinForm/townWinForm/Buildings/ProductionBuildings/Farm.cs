@@ -7,19 +7,8 @@ using System.Drawing;
 
 namespace townWinForm
 {
-    public class Farm : Building, IWorkshop
+    public class Farm : Workshop
     {
-
-        private List<Human> workers;
-
-        public int Count
-        {
-            get { return Workers.Count; }
-        }
-        public List<Human> Workers
-        {
-            get { return workers; }
-        }
         public Farm(int x, int y, int width, int height, string type) : base(x, y, width, height, type)
         {
             workers = new List<Human>();

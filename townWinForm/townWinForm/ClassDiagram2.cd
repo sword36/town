@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="townWinForm.PathNode" Collapsed="true">
+    <Position X="24" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAgAAAAAAAhAgEAAIAAAAAEIAAAAgA=</HashCode>
+      <FileName>AStar\PathNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Building" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIBAAAAAQgBgABAIAAAYAABAAAQAAAJoEACABhA=</HashCode>
+      <FileName>Buildings\Building.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="townWinForm.House" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Buildings\House.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Barracks" Collapsed="true">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAACAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Buildings\ProductionBuildings\Barracks.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Factory" Collapsed="true">
+    <Position X="14.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAACAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Buildings\ProductionBuildings\Factory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Farm" Collapsed="true">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAABAAAAAAAAAgAAAACAAgAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Buildings\ProductionBuildings\Farm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Market" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAACAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Buildings\ProductionBuildings\Market.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.ThievesGuild" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAACAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Buildings\ProductionBuildings\ThievesGuild.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Tavern" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Buildings\Tavern.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.BehaviourModel" Collapsed="true">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYRAIAIAABZAAkAAAAAoCAAAQAAAACBEABABAAAAEA=</HashCode>
+      <FileName>Citizens\BehaviourModels\BehaviourModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="townWinForm.Human" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AYYWAECIGok0kgIkQAAeIAQBUJREAgAEBgIwgAIABgA=</HashCode>
+      <FileName>Citizens\Human.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="townWinForm.StackFSM" Collapsed="true">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAEAAAAAAAAACAAAAAAIAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Citizens\StateFSM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Config" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>pBIOqDAEFTDDEa0gARnMgQYQFgA1goQJsSLwiVsiB2I=</HashCode>
+      <FileName>Config.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Log" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAIAAAAAAQAAAAAAAIAAAAACAAECAAAAAAAAAESGAAA=</HashCode>
+      <FileName>Log.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.LogForm" Collapsed="true">
+    <Position X="24" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAABAAACAAAAASAgCAAAACAAABAAAACAAAAAAAAAQ=</HashCode>
+      <FileName>LogForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.MainForm" Collapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IYCgAAAAhCAooIIAAiKSEwASAgoAAAAAEgAECIgEBAA=</HashCode>
+      <FileName>MainForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Program" Collapsed="true">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.SettingsForm" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAACIAECAAAgEAIACAAAACBAAACAAAAAAABgAAAAA=</HashCode>
+      <FileName>SettingsForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Statistics" Collapsed="true">
+    <Position X="17" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAAAAAAAAAAAQAAAAAAAAAAASAAAAAgAAAAAQA=</HashCode>
+      <FileName>Statistics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.StatisticsForm" Collapsed="true">
+    <Position X="18.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAECAAAAAAAgCAAAACAAAACAAAAAAIAAAAAAA=</HashCode>
+      <FileName>StatisticsForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.OverloadedBagExeption" Collapsed="true">
+    <Position X="22.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Things\Bag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.NoFoodExeption" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Things\Bag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.NoProductExeption" Collapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Things\Bag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Bag" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAAAAAAAAAIAICAAAUIACAAAAAgAAgACIAAAAA=</HashCode>
+      <FileName>Things\Bag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Food" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Things\Food.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Product" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Things\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Thing" Collapsed="true">
+    <Position X="1.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Things\Thing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Town" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BGSQgIQAKAEQAkCAAAAfATAIEDBgCuBAQABgBgkCJIA=</HashCode>
+      <FileName>Town.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="townWinForm.Util" Collapsed="true">
+    <Position X="22.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QkQAEIAAAIAIUgAAEAAAAgAAJAAAAADAAAABAACQAAA=</HashCode>
+      <FileName>Util.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.BehaviourModels.Craftsman" Collapsed="true">
+    <Position X="9.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYBAIAIAABBAAkAAAAAIAAAAAAAAAAAEABAFAAAAAA=</HashCode>
+      <FileName>Citizens\BehaviourModels\Craftsman.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.BehaviourModels.Farmer" Collapsed="true">
+    <Position X="0.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYBAIAIAABBAAkAAAAAIAAAAAAAAAAAEABAFAAAAAA=</HashCode>
+      <FileName>Citizens\BehaviourModels\Farmer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.BehaviourModels.Guardian" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYBAIAIAAABAAkAAAAAIAAAAAAAAAAAEABAFAAAAAA=</HashCode>
+      <FileName>Citizens\BehaviourModels\Guardian.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.BehaviourModels.Thief" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYBAIAIAAAAAAkAAAAAIAAAAAAAAAAAEABAFAAAAAA=</HashCode>
+      <FileName>Citizens\BehaviourModels\Thief.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.BehaviourModels.Trader" Collapsed="true">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYBAIAIAAAAAAkAAAAAIAAAAAAAAAAAEABAFAAAAAA=</HashCode>
+      <FileName>Citizens\BehaviourModels\Trader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Properties.Resources" Collapsed="true">
+    <Position X="18.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="townWinForm.Properties.Settings" Collapsed="true">
+    <Position X="20.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="townWinForm.IResidence" Collapsed="true">
+    <Position X="18.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAgARAAEAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Buildings\IResidence.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="townWinForm.IWorkshop" Collapsed="true">
+    <Position X="22.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAABAAAAAAAAAAAgAAAAAAQAAAAAAAAAAAAgAACAAAA=</HashCode>
+      <FileName>Buildings\IWorkshop.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="townWinForm.IDrawable" Collapsed="true">
+    <Position X="17" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDrawable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="townWinForm.IUpdatable" Collapsed="true">
+    <Position X="20.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IUpdatable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="townWinForm.ThingType" Collapsed="true">
+    <Position X="17" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAgAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Things\Bag.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

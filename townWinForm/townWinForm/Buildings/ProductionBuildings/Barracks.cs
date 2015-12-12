@@ -7,26 +7,8 @@ using System.Drawing;
 
 namespace townWinForm
 {
-    public class Barracks : Building, IResidence, IWorkshop
+    public class Barracks : CombinedBuilding
     {
-        private List<Human> workers;
-
-        public int Count
-        {
-            get { return Workers.Count; }
-        }
-
-        public List<Human> Workers
-        {
-            get { return workers; }
-        }
-
-        private List<Human> residents;
-        public List<Human> Residents
-        {
-            get { return residents; }
-        }
-
         public Barracks(int x, int y, int width, int height, string type) : base(x, y, width, height, type)
         {
             residents = new List<Human>();
@@ -35,38 +17,6 @@ namespace townWinForm
         public override void Draw(Graphics g)
         {
             base.Draw(g);
-        }
-
-        public void RemoveResident(Human h)
-        {
-            residents.Remove(h);
-        }
-
-        public void AddResident(Human h)
-        {
-            residents.Add(h);
-            h.Home = this;
-        }
-
-        public void AddWorker(Human h)
-        {
-            workers.Add(h);
-            h.WorkBuilding = this;
-        }
-
-        public void RemoveWorker(Human h)
-        {
-            workers.Remove(h);
-        }
-
-        public bool IsFree()
-        {
-            return true;
-        }
-
-        public bool HavePlace()
-        {
-            return true;
         }
 
         public static bool operator <(Barracks w1, Barracks w2)
