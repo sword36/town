@@ -416,14 +416,13 @@ namespace townWinForm
             path = PathNode.FindPath(AstarMatrix, Util.ConvertIntToIndex(start), finishEntrance);
 
             List<PointF> finalPath = new List<PointF>();
-            /*
+
             for (int i = 0; i < path.Count; i++)
             {
                 PointF pathPoint = Util.ConvertIndexToInt(path[i]);
                 finalPath.Add(pathPoint);
             }
-            */
-            finalPath.Add(Util.ConvertFromPointF(finish.Room));
+            
             return finalPath;
         }
 
