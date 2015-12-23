@@ -94,7 +94,7 @@ namespace townWinForm
                         break;
                     }
             }
-            entrance = entrance - new Size(Position.Location.X, Position.Location.Y);
+            Entrance = entrance - new Size(Position.Location.X, Position.Location.Y);
         }
 
         public void AddHuman(ICitizen h)
