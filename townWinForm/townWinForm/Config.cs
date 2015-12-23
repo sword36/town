@@ -9,7 +9,7 @@ namespace townWinForm
 {
     public static class Config
     {
-        
+
         #region Common
 
         public static int GameSpeed = 1; //control: Track bar
@@ -139,11 +139,6 @@ namespace townWinForm
             get { return MaxCitizens / MaxWorkers + 4; }
         }
 
-        public static int TotalBuilings
-        {
-            get { return Productions + Houses + Taverns + Markets + ThiefGuildsAmount + BarracksAmount; }
-        }
-
         public static string[] BuildingTypes = new string[] { "house", "tavern", "barracks", "market", "guild", "farm", "factory" };
 
         public static int Taverns = 2;
@@ -153,13 +148,13 @@ namespace townWinForm
         public static int BarracksAmount = 2;
         public static int Markets = MaxCitizens / 50 + 2;
         private static float tileSize = 32;
-        public static int minBuildingSize = 7;
-        public static int maxBuildingSize = 7;
+        public static int minBuildingSize = 6;
+        public static int maxBuildingSize = 8;
         public static int TownWidth = 0;
         public static int Blocks = 0;
-        
+
         public static int BuildingBagCapacity = 1000;
-        
+
         #endregion
 
         #region Display
