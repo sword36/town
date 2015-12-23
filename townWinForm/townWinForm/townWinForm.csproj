@@ -51,8 +51,6 @@
     <Compile Include="Buildings\BuildingClassification\CombinedBuilding.cs" />
     <Compile Include="Buildings\BuildingClassification\Residence.cs" />
     <Compile Include="Buildings\BuildingClassification\Workshop.cs" />
-    <Compile Include="Buildings\IResidence.cs" />
-    <Compile Include="Buildings\IWorkshop.cs" />
     <Compile Include="Buildings\ProductionBuildings\Barracks.cs" />
     <Compile Include="Buildings\ProductionBuildings\Factory.cs" />
     <Compile Include="Buildings\ProductionBuildings\Farm.cs" />
@@ -70,8 +68,6 @@
     <Compile Include="Citizens\StateFSM.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="AStar\PathNode.cs" />
-    <Compile Include="IDrawable.cs" />
-    <Compile Include="IUpdatable.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogForm.cs">
       <SubType>Form</SubType>
@@ -144,6 +140,12 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TownInterfaces\TownInterfaces.csproj">
+      <Project>{8e5e6e4e-92c8-4ace-926f-c0ef6b6797ca}</Project>
+      <Name>TownInterfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

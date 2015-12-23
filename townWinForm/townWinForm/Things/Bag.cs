@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TownInterfaces;
 
 namespace townWinForm
 {
@@ -19,9 +20,16 @@ namespace townWinForm
         ANY
     }
 
-    public class Bag
+    public class Bag : IBag
     {
-        private List<Thing> things;
+        public enum ThingType
+        {
+            FOOD,
+            PRODUCT,
+            ANY
+        }
+
+        private List<IThing> things;
         private float weight;
         private float maxCapacity;
 
@@ -81,17 +89,17 @@ namespace townWinForm
         {
             weight = 0;
             maxCapacity = maxCapacity_;
-            things = new List<Thing>();
+            things = new List<IThing>();
         }
 
         public Bag()
         {
             weight = 0;
             maxCapacity = 0;
-            things = new List<Thing>();
+            things = new List<IThing>();
         }
 
-        public void Add(Thing th)
+        public void Add(IThing th)
         {
             if (weight + th.Weight > maxCapacity)
             {
@@ -103,13 +111,13 @@ namespace townWinForm
             }
         }
 
-        public Food GetFood()
+        public IFood GetFood()
         {
             for (int i = 0; i < things.Count; i++)
             {
-                if (things[i] is Food)
+                if (things[i] is IFood)
                 {
-                    Food f = things[i] as Food;
+                    IFood f = things[i] as IFood;
                     things.RemoveAt(i);
                     return f;
                 }
@@ -117,13 +125,13 @@ namespace townWinForm
             throw new NoFoodExeption();
         }
 
-        public Product GetProduct()
+        public IProduct GetProduct()
         {
             for (int i = 0; i < things.Count; i++)
             {
-                if (things[i] is Product)
+                if (things[i] is IProduct)
                 {
-                    Product p = things[i] as Product;
+                    IProduct p = things[i] as IProduct;
                     things.RemoveAt(i);
                     return p;
                 }
@@ -131,9 +139,9 @@ namespace townWinForm
             throw new NoProductExeption();
         }
 
-        public Thing DropRandom()
+        public IThing DropRandom()
         {
-            Thing thing = null;
+            IThing thing = null;
             int l = things.Count;
             if (l != 0)
             {
@@ -144,17 +152,18 @@ namespace townWinForm
             return thing;
         }
 
-        public Thing GetWithPriceLower(float price, float percect, ThingType type)
+        public IThing GetWithPriceLower(float price, float percect, TownInterfaces.ThingType type)
         {
-            Thing thing;
-            if (type == ThingType.ANY)
+            IThing thing;
+            if (type == TownInterfaces.ThingType.ANY)
             {
                 thing = things.Find(t => t.Price * (1 + percect) < price);
-            } else
+            }
+            else
             {
                 thing = things.Find(t => t.Price * (1 + percect) < price &&
-                   ((t.GetType().Name == "Food" && type == ThingType.FOOD) ||
-                   (t.GetType().Name == "Product" && type == ThingType.PRODUCT)));
+                   ((t.GetType().Name == "Food" && type == TownInterfaces.ThingType.FOOD) ||
+                   (t.GetType().Name == "Product" && type == TownInterfaces.ThingType.PRODUCT)));
             }
 
             if (things.Contains(thing))

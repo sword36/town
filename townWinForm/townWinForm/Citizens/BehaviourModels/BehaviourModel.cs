@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using TownInterfaces;
 
 namespace townWinForm
 {
     public class BehaviourModel : IUpdatable
     {
         public float WorkCost { get; set; }
-        protected Human body;
+        protected ICitizen body;
         public int Level { get; set; }
         protected bool isGoing = false;
         private int lastTryingEat = Config.TryEatInterval;
@@ -65,7 +66,7 @@ namespace townWinForm
             if (!isGoing)
             {
                 isGoing = true;
-                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
+                var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
                     body.FavoriteTavern);
                 body.Move(path, dt);
 
@@ -100,8 +101,8 @@ namespace townWinForm
             if (!isGoing)
             {
                 isGoing = true;
-                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
-                    body.Town.GetNearestMarket(body) as Building);
+                var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
+                    body.town.GetNearestMarket(body) as Building);
                 body.Move(path, dt);
 
                 Log.Add("citizens:Human " + body.Name + " go to market");
@@ -141,7 +142,7 @@ namespace townWinForm
             }
 
             bool isSold = false;
-            List<Human> peopleInMarket = (body.Town.GetNearestMarket(body) as Building).PeopleIn;
+            List<ICitizen> peopleInMarket = (body.town.GetNearestMarket(body) as Building).PeopleIn;
 
             ThingType sellingType;
             if (body.Bag.FoodCount > body.Bag.ProductCount)
@@ -159,7 +160,7 @@ namespace townWinForm
             {
                 if (peopleInMarket[i].CurrentProf == "trader" && peopleInMarket[i] != body)
                 {
-                    isSold = body.Sell(peopleInMarket[i], sellingType);
+                    isSold = body.Sell(peopleInMarket[i], (TownInterfaces.ThingType)sellingType);
                     if (isSold)
                     {
                         body.Happiness += Config.HappyForSelling;
@@ -202,13 +203,13 @@ namespace townWinForm
             }
 
             bool isBought = false;
-            List<Human> peopleInMarket = (body.Town.GetNearestMarket(body) as Building).PeopleIn;
+            List<ICitizen> peopleInMarket = (body.town.GetNearestMarket(body) as Building).PeopleIn;
 
             for (int i = 0; i < peopleInMarket.Count; i++)
             {
                 if (peopleInMarket[i].CurrentProf == "trader" && peopleInMarket[i] != body)
                 {
-                    isBought = body.Buy(peopleInMarket[i], ThingType.FOOD);
+                    isBought = body.Buy(peopleInMarket[i], TownInterfaces.ThingType.FOOD);
                     if (isBought)
                     {
                         body.Happiness += Config.HappyForSelling;
@@ -332,8 +333,8 @@ namespace townWinForm
             if (!isGoing)
             {
                 isGoing = true;
-                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
-                    body.Town.GetRandomStreetPoint());
+                var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
+                    body.town.GetRandomStreetPoint());
                 body.Move(path, dt);
 
                 //Log.Add("citizens:Human " + body.Name + " patrol streen");
@@ -367,7 +368,7 @@ namespace townWinForm
             if (!isGoing)
             {
                 isGoing = true;
-                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.Home);
+                var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.Home);
                 body.Move(path, dt);
 
                 Log.Add("citizens:Human " + body.Name + " go home");
@@ -402,7 +403,7 @@ namespace townWinForm
             if (!isGoing)
             {
                 isGoing = true;
-                var path = body.Town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.WorkBuilding);
+                var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.WorkBuilding);
                 body.Move(path, dt);
 
                 Log.Add("citizens:Human " + body.Name + " go to work");

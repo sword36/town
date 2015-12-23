@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TownInterfaces;
 
 namespace townWinForm
 {
-    public class Food : Thing
+    public class Food : Thing, IFood
     {
         public float Energy { get; set; }
 

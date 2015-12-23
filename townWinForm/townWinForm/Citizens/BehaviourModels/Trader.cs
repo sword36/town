@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TownInterfaces;
 
 namespace townWinForm.BehaviourModels
 {
@@ -15,7 +16,7 @@ namespace townWinForm.BehaviourModels
             get { return StateMachine.GetCurrentState(); }
         }
 
-        public Trader(Human h, int level)
+        public Trader(ICitizen h, int level)
         {
             body = h;
             Level = level;
@@ -78,7 +79,7 @@ namespace townWinForm.BehaviourModels
 
             if (body.Bag.ProductCount > Config.MaxProductForTrader)
             {
-                body.Sell(body.Town.God, ThingType.PRODUCT);
+                body.Sell(body.town.God, TownInterfaces.ThingType.PRODUCT);
             }
 
             if (body.Energy < 30)

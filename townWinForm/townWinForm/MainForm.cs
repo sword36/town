@@ -10,6 +10,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Windows.Forms.DataVisualization.Charting;
+using TownInterfaces;
 
 namespace townWinForm
 {
@@ -23,7 +24,7 @@ namespace townWinForm
 
         private Statistics happinessStat;
 
-        Human clickedHuman = null;
+        ICitizen clickedHuman = null;
         private Town town;
 
         private System.Windows.Forms.Timer animationTimer;
@@ -149,7 +150,7 @@ namespace townWinForm
 
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
         {
-            Human h = town.IsMouseOnHuman(e.Location - new Size((int)Config.dx, (int)Config.dy));
+            ICitizen h = town.IsMouseOnHuman(e.Location - new Size((int)Config.dx, (int)Config.dy));
 
             if ((h == clickedHuman) && (h != null))
             {

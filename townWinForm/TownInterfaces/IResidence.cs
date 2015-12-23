@@ -5,21 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace townWinForm
+namespace TownInterfaces
 {
-    public interface IResidence
+    public interface IResidence : IBuilding
     {
-        Rectangle Position { get; set; }
-        void RemoveResident(Human h);
+        //Rectangle Position { get; set; }
+        void RemoveResident(ICitizen h);
 
-        void AddResident(Human h);
+        void AddResident(ICitizen h);
 
         PointF Room
         {
             get;
         }
 
-        List<Human> Residents
+        List<ICitizen> Residents
         {
             get;
         }

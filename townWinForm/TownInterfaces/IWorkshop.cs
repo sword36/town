@@ -5,21 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace townWinForm
+namespace TownInterfaces
 {
-    public interface IWorkshop
+    public interface IWorkshop : IBuilding
     {
-        Rectangle Position { get; set; }
-        List<Human> Workers
+        //Rectangle Position { get; set; }
+        List<ICitizen> Workers
         {
             get;
         }
 
         int Count { get; }
 
-        void AddWorker(Human h);
+        void AddWorker(ICitizen h);
 
-        void RemoveWorker(Human h);
+        void RemoveWorker(ICitizen h);
 
         bool IsFree();
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TownInterfaces;
 
 namespace townWinForm
 {
@@ -10,47 +11,47 @@ namespace townWinForm
     {
         public CombinedBuilding(int x, int y, int width, int height, string type) : base(x, y, width, height, type)
         {
-            residents = new List<Human>();
-            workers = new List<Human>();
+            residents = new List<ICitizen>();
+            workers = new List<ICitizen>();
         }
 
-        protected List<Human> residents;
+        protected List<ICitizen> residents;
 
-        public virtual List<Human> Residents
+        public virtual List<ICitizen> Residents
         {
             get { return residents; }
         }
 
-        protected List<Human> workers;
+        protected List<ICitizen> workers;
 
         public virtual int Count
         {
             get { return Workers.Count; }
         }
 
-        public virtual List<Human> Workers
+        public virtual List<ICitizen> Workers
         {
             get { return workers; }
         }
 
-        public virtual void RemoveResident(Human h)
+        public virtual void RemoveResident(ICitizen h)
         {
             residents.Remove(h);
         }
 
-        public virtual void AddResident(Human h)
+        public virtual void AddResident(ICitizen h)
         {
             residents.Add(h);
             h.Home = this;
         }
 
-        public virtual void AddWorker(Human h)
+        public virtual void AddWorker(ICitizen h)
         {
             workers.Add(h);
             h.WorkBuilding = this;
         }
 
-        public virtual void RemoveWorker(Human h)
+        public virtual void RemoveWorker(ICitizen h)
         {
             workers.Remove(h);
         }

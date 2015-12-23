@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TownInterfaces;
 
 namespace townWinForm.BehaviourModels
 {
@@ -14,7 +15,7 @@ namespace townWinForm.BehaviourModels
             get { return StateMachine.GetCurrentState(); }
         }
 
-        public Craftsman(Human h, int level)
+        public Craftsman(ICitizen h, int level)
         {
             body = h;
             Level = level;

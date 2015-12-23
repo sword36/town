@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using TownInterfaces;
 
 namespace townWinForm
 {
@@ -11,7 +12,7 @@ namespace townWinForm
     {
         public Farm(int x, int y, int width, int height, string type) : base(x, y, width, height, type)
         {
-            workers = new List<Human>();
+            workers = new List<ICitizen>();
         }
         public override void Draw(Graphics g)
         {

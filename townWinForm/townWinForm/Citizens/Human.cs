@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using TownInterfaces;
 
 namespace townWinForm
 {
-    public class Human : IDrawable, IUpdatable
+    public class Human : ICitizen, IDrawable, IUpdatable
     {
         
         public BehaviourModel Behaviour { get; set; }
@@ -32,8 +33,8 @@ namespace townWinForm
                 work = value;
             }
         }
-        public Tavern FavoriteTavern { get; set; }
-        public Bag Bag { get; set; }
+        public IEntertainment FavoriteTavern { get; set; }
+        public IBag Bag { get; set; }
         public float Speed { get; set; }
         public IResidence Home
         {
@@ -46,10 +47,10 @@ namespace townWinForm
             }
         }
 
-        private Building currentBuilding;
+        public IBuilding currentBuilding { get; set; }
 
-        private int id;
-        protected PointF currentRoom;
+        public int id { get; set; }
+        public PointF currentRoom { get; set; }
 
         public PointF CurrentRoom
         {
@@ -57,25 +58,25 @@ namespace townWinForm
             set { currentRoom = value; }
         }
 
-        public Dictionary<string, int> ProfLevels;
-        private Dictionary<string, double> profExp;
+        public Dictionary<string, int> ProfLevels { get; set; }
+        public Dictionary<string, double> profExp { get; set; }
 
-        private IResidence home;
-        private IWorkshop work;
+        public IResidence home { get; set; }
+        public IWorkshop work { get; set; }
 
         public static float dx = 0;
         public static float dy = 0;
-        private int damage;
-        private Human attackTarget = null;
-        private Human activeTarget = null;
-        private int waitTime = 0;
-        private PointF tempTarget;
-        private Town town;
-        private List<PointF> path;
-        private List<PointF> originalPath;
+        public int damage { get; set; }
+        public ICitizen attackTarget { get; set; }
+        public ICitizen activeTarget { get; set; }
+        public int waitTime { get; set; }
+        public PointF tempTarget { get; set; }
+        public ITown town { get; set; }
+        public List<PointF> Path { get; set; }
+        public List<PointF> originalPath { get; set; }
 
-        public string Name;
-        private Image img;
+        public string Name { get; set; }
+        public Image img { get; set; }
 
 
         public bool IsClicked
@@ -83,7 +84,7 @@ namespace townWinForm
             get; set;
         }
 
-        public Human(Town t)
+        public Human(ITown t)
         {
             id = Util.GetNewID();
             town = t;
@@ -104,7 +105,7 @@ namespace townWinForm
 
             Bag = new Bag();
 
-            path = new List<PointF>();
+            Path = new List<PointF>();
             originalPath = new List<PointF>();
             
             CurrentBuilding = home as Building;
@@ -165,7 +166,7 @@ namespace townWinForm
 
         public float Eat()
         {
-            Food f = Bag.GetFood();
+            IFood f = Bag.GetFood();
             if (f != null)
             {
                 if (Energy + f.Energy <= Config.MaxEnergy)
@@ -180,10 +181,10 @@ namespace townWinForm
             }
         }
 
-        public bool Sell(Human buyer, ThingType type)
+        public bool Sell(ICitizen buyer, TownInterfaces.ThingType type)
         {
             float percent = (float)ProfLevels["trader"] / Config.MaxLevel;
-            Thing thing = Bag.GetWithPriceLower(buyer.Money, percent, type);
+            IThing thing = Bag.GetWithPriceLower(buyer.Money, percent, (TownInterfaces.ThingType)type);
 
             if (thing != null)
             {
@@ -208,10 +209,10 @@ namespace townWinForm
             return false;
         }
 
-        public bool Buy(Human trader, ThingType type)
+        public bool Buy(ICitizen trader, TownInterfaces.ThingType type)
         {
             float percent = (float)trader.ProfLevels["trader"] / Config.MaxLevel;
-            Thing thing = trader.Bag.GetWithPriceLower(Money, percent, type);
+            IThing thing = trader.Bag.GetWithPriceLower(Money, percent, type);
 
             if (thing != null)
             {
@@ -241,9 +242,9 @@ namespace townWinForm
         {
             if (pN.Count != 0)
             {
-                path = pN;
-                tempTarget = path.First();
-                path.RemoveAt(0);
+                Path = pN;
+                tempTarget = Path.First();
+                Path.RemoveAt(0);
                 MoveAlongThePath(dt);
             } else //last point
             {
@@ -254,7 +255,7 @@ namespace townWinForm
 
         public bool MoveAlongThePath(int dt)
         {
-            if (path == null)
+            if (Path == null)
             {
                 throw new Exception("Wrong path");
             }
@@ -262,10 +263,10 @@ namespace townWinForm
             if (Util.Distance(Position, tempTarget) < Config.MovePrecision)
             {
                 Position = tempTarget;
-                if (path.Count != 0)
+                if (Path.Count != 0)
                 {
-                    tempTarget = path.First();
-                    path.RemoveAt(0);
+                    tempTarget = Path.First();
+                    Path.RemoveAt(0);
                 } else
                 {
                     return true;
@@ -293,7 +294,7 @@ namespace townWinForm
             return Util.Distance(WorkBuilding.Position, Position);
         }
 
-        public void Attack(Human target)
+        public void Attack(ICitizen target)
         {
             attackTarget = target;
             Attack();
@@ -332,14 +333,6 @@ namespace townWinForm
             }
         }
 
-        public List<PointF> Path
-        {
-            get
-            {
-                return path;
-            }
-        }
-
         public int CurrentLevel
         {
             get
@@ -348,7 +341,7 @@ namespace townWinForm
             }
         }
 
-        public Town Town
+        public ITown Town
         {
             get
             {
@@ -364,7 +357,7 @@ namespace townWinForm
             }
         }
 
-        public Building CurrentBuilding
+        public IBuilding CurrentBuilding
         {
             get
             {
@@ -518,7 +511,7 @@ namespace townWinForm
 
         private void UpdateBuilding()
         {
-            Building b = town.IsHumanInBuilding(this);
+            IBuilding b = town.IsHumanInBuilding(this);
 
             if ((CurrentBuilding == null) && (b != null))
             {

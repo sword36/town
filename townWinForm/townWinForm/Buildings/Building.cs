@@ -6,51 +6,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using TownInterfaces;
 
 namespace townWinForm
 {
-    public abstract class Building : IDrawable
+    public class Building : IDrawable, IBuilding
     {
-        private string buildingType = "";
-        public Color BuildingColor = Color.Black;
+        public string buildingType { get; set; }
+        public Color BuildingColor { get; set; }
 
         static Random rand = new Random(DateTime.Now.Millisecond);
-        protected static int idCounter = 0;
-        protected int id;
+        public int idCounter { get; set; }
+        public int id { get; set; }
 
         private static float dx = 0;
         private static float dy = 0;
 
-        //Building id
-        public int Id
-        {
-            get { return id; }
-        }
-
-        private Bag chest;
-
-        public Bag Chest
-        {
-            get { return chest; }
-        }
 
         protected PointF entrance;
         protected PointF room;
         protected PointF localEntrance;
         protected List<PointF> OccupiedRooms;
         protected List<PointF> FreeRooms;
-        public List<Human> PeopleIn;
+        public List<ICitizen> PeopleIn;
 
         //Entrance in town
-        public virtual PointF Entrance
-        {
-            get { return entrance; }
-        }
-
-        public PointF GlobalEntrance
-        {
-            get { return new PointF(Position.Location.X + entrance.X, Position.Location.Y + entrance.Y); }
-        }
+        public virtual PointF Entrance { get; set; }
 
         public PointF Room
         {
@@ -60,12 +41,7 @@ namespace townWinForm
                 OccupiedRooms.Add(res);
                 return res;
             }
-        }
-
-        //Left upper point's position
-        public PointF LeftPosition
-        {
-            get { return Util.ConvertIndexToInt(Position.Location); }
+            
         }
 
         public Rectangle Position { get; set; }
@@ -121,24 +97,24 @@ namespace townWinForm
             entrance = entrance - new Size(Position.Location.X, Position.Location.Y);
         }
 
-        public void AddHuman(Human h)
+        public void AddHuman(ICitizen h)
         {
             PeopleIn.Add(h);
             if (h.Path.Count != 0)
             h.CurrentRoom = Util.ConvertIntToIndex(h.Path.Last());
         }
 
-        public void RemoveHuman(Human h)
+        public void RemoveHuman(ICitizen h)
         {
             PeopleIn.Remove(h);
         }
 
         public Building(int x, int y, int width, int height, string type)
         {
-            chest = new Bag(Config.BuildingBagCapacity);
+            
             FreeRooms = new List<PointF>();
             OccupiedRooms = new List<PointF>();
-            PeopleIn = new List<Human>();
+            PeopleIn = new List<ICitizen>();
 
             buildingType = type;
             id = ++idCounter;

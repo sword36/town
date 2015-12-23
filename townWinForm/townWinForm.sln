@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "townWinForm", "townWinForm\townWinForm.csproj", "{BD737351-5746-43AF-81BB-3C8D99DADB65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TownInterfaces", "TownInterfaces\TownInterfaces.csproj", "{8E5E6E4E-92C8-4ACE-926F-C0EF6B6797CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BD737351-5746-43AF-81BB-3C8D99DADB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD737351-5746-43AF-81BB-3C8D99DADB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD737351-5746-43AF-81BB-3C8D99DADB65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E5E6E4E-92C8-4ACE-926F-C0EF6B6797CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E5E6E4E-92C8-4ACE-926F-C0EF6B6797CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E5E6E4E-92C8-4ACE-926F-C0EF6B6797CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E5E6E4E-92C8-4ACE-926F-C0EF6B6797CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

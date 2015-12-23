@@ -7,10 +7,11 @@ using System.Drawing;
 using System.Web;
 using System.Net;
 using System.IO;
+using TownInterfaces;
 
 namespace townWinForm
 {
-    public class Town : IDrawable, IUpdatable
+    public class Town : IDrawable, IUpdatable, ITown
     {
         private int minStructCount = Config.Houses + Config.Productions +
              Config.Markets + Config.Taverns;
@@ -28,59 +29,61 @@ namespace townWinForm
 
         private Random rand = new Random(DateTime.Now.Millisecond);
 
-        private List<Point> path;
-        public Point MousePosition;
-        public Point CurrentTile;
+        private List<Point> path = new List<Point>();
+        public Point MousePosition { get; set; }
+        public Point CurrentTile { get; set; }
 
-        public List<Human> Citizens;
+        public List<ICitizen> Citizens { get; set; }
         private Dictionary<string, Image> CitizensInfo = new Dictionary<string, Image>();
 
-        private List<Building> structures;
-        private List<Tavern> taverns;
-        private List<Market> markets;
+        private List<IBuilding> structures;
+        private List<IEntertainment> taverns;
+        private List<IWorkshop> markets;
         private List<Barracks> barracks;
         private List<IResidence> houses;
         private List<IWorkshop> workshops;
-        private List<Factory> factories;
-        private List<Farm> farms;
+        private List<IWorkshop> factories;
+        private List<IWorkshop> farms;
         private List<ThievesGuild> guilds;
 
-        private int[,] matrix;
-        private int[,] AstarMatrix;
+        public int[,] matrix { get; set; }
+        public int[,] AstarMatrix { get; set; }
 
-        private List<PointF> homeToWork = new List<PointF>();
+        //private List<PointF> homeToWork = new List<PointF>();
 
-        public List<Tavern> Taverns
+        public List<IEntertainment> Taverns
         {
             get
             {
                 return taverns;
             }
+            set { taverns = value; }
         }
 
-        private Human god;
+        public ICitizen god { get; set; }
 
-        public Human God
+        public ICitizen God
         {
             get
             {
                 return god;
             }
+            set { god = value; }
         }
 
         public Town()
         {
             SetTownSize();
 
-            structures = new List<Building>();
-            taverns = new List<Tavern>();
+            structures = new List<IBuilding>();
+            taverns = new List<IEntertainment>();
             barracks = new List<Barracks>();
             houses = new List<IResidence>();
             workshops = new List<IWorkshop>();
-            factories = new List<Factory>();
-            farms = new List<Farm>();
+            factories = new List<IWorkshop>();
+            farms = new List<IWorkshop>();
             guilds = new List<ThievesGuild>();
-            markets = new List<Market>();
+            markets = new List<IWorkshop>();
 
             matrix = new int[Config.TownWidth, Config.TownHeight];
             AstarMatrix = new int[Config.TownWidth, Config.TownHeight];
@@ -229,10 +232,10 @@ namespace townWinForm
 
         private void InitPeople()
         {
-            Citizens = new List<Human>();
+            Citizens = new List<ICitizen>();
             for (int i = 0; i < Config.MaxCitizens; i++)
             {
-                Human h = new Human(this);
+                ICitizen h = new Human(this);
                 GetWorkshop(h.CurrentProf).AddWorker(h);
                 sortWorkshops();
                 GetHome().AddResident(h);
@@ -241,77 +244,48 @@ namespace townWinForm
             }
         }
 
-        public Market GetNearestMarket(Human h)
+        public IWorkshop GetNearestMarket(ICitizen h)
         {
             return markets.OrderBy(m => Util.Distance(m.Entrance, h.Position)).ElementAt(0);
         }
 
-        public IWorkshop GetGuild()
-        {
-            if (guilds.Count == 0)
-                return null;
-            int index = 0;
-            int n = guilds[0].Workers.Count;
-            for (int i = 1; i < guilds.Count; i++)
-            {
-                n = Math.Min(n, guilds[i].Workers.Count);
-                if (n == guilds[i].Workers.Count) index = i;
-            }
-            return guilds[index];
-        }
-
-        public IWorkshop GetBarracks()
-        {
-            if (barracks.Count == 0)
-                return null;
-            int index = 0;
-            int n = barracks[0].Workers.Count;
-            for (int i = 1; i < barracks.Count; i++)
-            {
-                n = Math.Min(n, barracks[i].Workers.Count);
-                if (n == barracks[i].Workers.Count) index = i;
-            }
-            return barracks[index];
-        }
-
         private void sortWorkshops()
         {
-            markets.Sort(new Comparison<Market>((m1, m2) => 
+            markets.Sort(new Comparison<IWorkshop>((m1, m2) => 
             {
-                if (m1 > m2) return 1;
-                if (m1 < m2) return -1;
+                if (m1.Workers.Count > m2.Workers.Count) return 1;
+                if (m1.Workers.Count < m2.Workers.Count) return -1;
                 return 0;
             }));
 
-            guilds.Sort(new Comparison<ThievesGuild>((m1, m2) =>
+            guilds.Sort(new Comparison<IWorkshop>((m1, m2) =>
             {
-                if (m1 > m2) return 1;
-                if (m1 < m2) return -1;
+                if (m1.Workers.Count > m2.Workers.Count) return 1;
+                if (m1.Workers.Count < m2.Workers.Count) return -1;
                 return 0;
             }));
 
-            barracks.Sort(new Comparison<Barracks>((m1, m2) =>
+            barracks.Sort(new Comparison<IWorkshop>((m1, m2) =>
             {
-                if (m1 > m2) return 1;
-                if (m1 < m2) return -1;
+                if (m1.Workers.Count > m2.Workers.Count) return 1;
+                if (m1.Workers.Count < m2.Workers.Count) return -1;
                 return 0;
             }));
 
-            farms.Sort(new Comparison<Farm>((m1, m2) =>
+            farms.Sort(new Comparison<IWorkshop>((m1, m2) =>
             {
-                if (m1 > m2) return 1;
-                if (m1 < m2) return -1;
+                if (m1.Workers.Count > m2.Workers.Count) return 1;
+                if (m1.Workers.Count < m2.Workers.Count) return -1;
                 return 0;
             }));
 
-            factories.Sort(new Comparison<Factory>((m1, m2) =>
+            factories.Sort(new Comparison<IWorkshop>((m1, m2) =>
             {
-                if (m1 > m2) return 1;
-                if (m1 < m2) return -1;
+                if (m1.Workers.Count > m2.Workers.Count) return 1;
+                if (m1.Workers.Count < m2.Workers.Count) return -1;
                 return 0;
             }));
         }
-
 
         public IWorkshop GetWorkshop(string prof)
         {
@@ -320,23 +294,13 @@ namespace townWinForm
                 case "craftsman":
                     {
                         return factories[0];
-                        IWorkshop result = workshops[rand.Next(workshops.Count)];
-                        while ((!result.IsFree()) || !(result is Factory))
-                        {
-                            result = workshops[rand.Next(workshops.Count)];
-                        }
-                        return result;
+                        
                     }
 
                 case "farmer":
                     {
                         return farms[0];
-                        IWorkshop result = workshops[rand.Next(workshops.Count)];
-                        while ((!result.IsFree()) || !(result is Farm))
-                        {
-                            result = workshops[rand.Next(workshops.Count)];
-                        }
-                        return result;
+                        
                     }
 
                 case "trader":
@@ -347,13 +311,13 @@ namespace townWinForm
                 case "thief":
                     {
                         return guilds[0];
-                        return GetGuild();
+                        
                     }
 
                 case "guardian":
                     {
                         return barracks[0];
-                        return GetBarracks();
+                        
                     }
 
                 default:
@@ -408,6 +372,7 @@ namespace townWinForm
 
         private void SetTownSize()
         {
+
             Random rand = new Random();
             int sign = Math.Sign(rand.Next(-10, 10));
             while (sign == 0)
@@ -445,7 +410,7 @@ namespace townWinForm
         }
 
         //Returns path from point start to finish building
-        public List<PointF> FindPath(Point start, Building finish)
+        public List<PointF> FindPath(Point start, IBuilding finish)
         {
             Point finishEntrance = Util.ConvertFromPointF(finish.Room);
             path = PathNode.FindPath(AstarMatrix, Util.ConvertIntToIndex(start), finishEntrance);
@@ -463,12 +428,12 @@ namespace townWinForm
 
         public List<PointF> FindPath(Point start, IResidence finish)
         {
-            return FindPath(start, finish as Building);
+            return FindPath(start, finish as IBuilding);
         }
 
         public List<PointF> FindPath(Point start, IWorkshop finish)
         {
-            return FindPath(start, finish as Building);
+            return FindPath(start, finish as IBuilding);
         }
 
         //Initialization of matrix for A* algorithm
@@ -625,6 +590,15 @@ namespace townWinForm
         //First matrix initialization
         private void MatrixInit()
         {
+            /*for (int x = 0; x < Config.TownWidth; x++)
+            {
+                for (int y = 0; y < Config.TownHeight; y++)
+                {
+                    matrix[x, y] = 0;
+                    AstarMatrix[x, y] = -1;
+                }
+            }*/
+
             for (int x = 0; x < Config.TownWidth; x++)
             {
                 for (int y = 0; y < Config.TownHeight; y++)
@@ -750,7 +724,7 @@ namespace townWinForm
         public void Update(int dt)
         {
             double happiness = 0;
-            foreach (Human h in Citizens)
+            foreach (ICitizen h in Citizens)
             {
                 happiness += h.Happiness;
                 h.Update(dt);
@@ -767,7 +741,7 @@ namespace townWinForm
                 s.Draw(g);
             }
 
-            foreach (Human h in Citizens)
+            foreach (ICitizen h in Citizens)
             {
                 h.Draw(g);
             }
@@ -779,7 +753,7 @@ namespace townWinForm
             Town.dy = dy;
         }
 
-        public Tavern GetTavern()
+        public IEntertainment GetTavern()
         {
             return taverns[rand.Next(taverns.Count)];
         }
@@ -807,7 +781,7 @@ namespace townWinForm
             }
         }
 
-        public Building IsHumanInBuilding(Human h)
+        public IBuilding IsHumanInBuilding(ICitizen h)
         {
             for (int i = 0; i < structures.Count; i++)
             {
@@ -817,7 +791,7 @@ namespace townWinForm
             return null;
         }
 
-        public Human IsMouseOnHuman(Point p)
+        public ICitizen IsMouseOnHuman(Point p)
         {
             for (int i = 0; i < Citizens.Count; i++)
             {
