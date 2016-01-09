@@ -43,6 +43,7 @@ namespace townWinForm
         {
             residents.Add(h);
             h.Home = this;
+
         }
 
         public virtual void AddWorker(ICitizen h)
