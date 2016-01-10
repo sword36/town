@@ -16,16 +16,24 @@ namespace townWinForm
         protected bool isGoing = false;
         private int lastTryingEat = Config.TryEatInterval;
 
+        public StackFSM StateMachine;
+
+        public virtual string State
+        {
+            get { return StateMachine.GetCurrentState(); }
+        }
+
+        public BehaviourModel(ICitizen human, int level)
+        {
+            body = human;
+            Level = level;
+            StateMachine = new StackFSM("rest");
+        }
+
         public virtual void Update(int dt)
         {
         }
 
-
-
-        public virtual string State
-        {
-            get;
-        }
 
         //increase energy and happiness
         protected virtual void rest(int dt)
@@ -79,10 +87,29 @@ namespace townWinForm
                 {
                     isGoing = false;
                     Log.Add("citizens:Human " + body.Name + " came to tavern");
+
+                    StateMachine.PopState();
+
+                    if (body.Money - Config.DrinkInTavernCost < 0)
+                    {
+                        StateMachine.PushState("goHome");
+                        Log.Add("citizens:Human " + body.Name + " havent money for drinking");
+                        return false;
+                    }
+
+                    body.Money -= Config.DrinkInTavernCost;
+                    StateMachine.PushState("tavernDrink");
+                    Log.Add("citizens:Human " + body.Name + " drinking!");
+                    return true;
                 }
                 return isAtTavern;
             }
 
+            if (body.Energy < 5)
+            {
+                StateMachine.PushState("rest");
+            }
+     
             return false;
         }
 
@@ -95,6 +122,12 @@ namespace townWinForm
             }
             else
             {
+                return false;
+            }
+
+            if (body.Energy < 5)
+            {
+                StateMachine.PushState("rest");
                 return false;
             }
 
@@ -114,6 +147,8 @@ namespace townWinForm
                 {
                     isGoing = false;
                     Log.Add("citizens:Human " + body.Name + " came to market");
+
+                    StateMachine.PopState();
                 }
                 return isAtMarket;
             }
@@ -123,9 +158,9 @@ namespace townWinForm
 
         protected bool isSelling = false;
 
-        protected virtual bool sell(int dt, out bool goOut)
+        protected virtual bool sell(int dt)
         {
-            goOut = false;
+            bool isGoOut = false;
             if (!isSelling)
             {
                 isSelling = true;
@@ -168,24 +203,41 @@ namespace townWinForm
                         {
                             body.Happiness = Config.MaxHappiness;
                         }
-                        return true;
+
+                        if (body.Money < Config.MoneyLimitForSelling && body.Bag.Count > Config.ThingsLimitForSelling)
+                        {
+                            //continue selling
+                        }
+                        else
+                        {
+                            StateMachine.PopState();
+                            StateMachine.PushState("goHome");
+                            return true;
+                        }
                     }
                 }
             }
 
             if (!isSold)
             {
-                goOut = true;
+                isGoOut = true;
             }
+
+            if (isGoOut)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("goHome");
+            }
+
             isSelling = false;
             return isSold;
         }
 
         protected bool isBuying = false;
 
-        protected virtual bool buyFood(int dt, out bool goOut)
+        protected virtual bool buyFood(int dt)
         {
-            goOut = false;
+            bool goOut = false;
             if (!isBuying)
             {
                 isBuying = true;
@@ -217,7 +269,25 @@ namespace townWinForm
                         {
                             body.Happiness = Config.MaxHappiness;
                         }
-                        return true;
+
+                        if (body.Bag.FoodCount < 3 && body.Money > 500)
+                        {
+                            //continue selling
+                        }
+                        else
+                        {
+                            StateMachine.PopState();
+                            if (body.Energy > 60)
+                            {
+                                StateMachine.PushState("goToWork");
+                            }
+                            else
+                            {
+                                StateMachine.PushState("goHome");
+                            }
+
+                            return true;
+                        }
                     }
                 }
             }
@@ -225,7 +295,17 @@ namespace townWinForm
             if (!isBought)
             {
                 goOut = true;
+                StateMachine.PopState();
+                if (body.Energy > 60)
+                {
+                    StateMachine.PushState("goToWork");
+                }
+                else
+                {
+                    StateMachine.PushState("goHome");
+                }
             }
+
             isBought = false;
             return isBought;
         }
@@ -250,6 +330,13 @@ namespace townWinForm
             else
             {
                 body.Happiness += dHappy;
+            }
+
+            if (body.Happiness > Config.LimitHappyInTavern)
+            {
+                Log.Add("citizens:Human " + body.Name + " drunk, go home!");
+                StateMachine.PopState();
+                StateMachine.PushState("goHome");
             }
         }
 
@@ -291,7 +378,7 @@ namespace townWinForm
             }
         }
 
-        protected virtual bool dying(int dt)
+        protected virtual void dying(int dt)
         {
             body.WaitTime -= dt;
             if (body.WaitTime < 0)
@@ -302,9 +389,10 @@ namespace townWinForm
                 body.Energy = 1;
                 body.Position = Util.ConvertIndexToInt(new PointF(body.Home.Position.X + 1, body.Home.Position.Y + 1));
                 body.Happiness = Config.HappyAfterDeath;
-                return true;
+
+                StateMachine.PopState();
+                StateMachine.PushState("sleep");
             }
-            return false;
         }
 
         protected virtual bool patrol(int dt)
@@ -358,11 +446,13 @@ namespace townWinForm
             float dEnergy = Config.EnergyMoveCost * dt;
             if (body.Energy - dEnergy > -1)
             {
+                if (body.Energy < 5)
+                {
+                    //not pop state
+                    StateMachine.PushState("rest");
+                    return false;
+                }
                 body.Energy -= dEnergy;
-            }
-            else
-            {
-                return false;
             }
 
             if (!isGoing)
@@ -380,6 +470,9 @@ namespace townWinForm
                 {
                     isGoing = false;
                     Log.Add("citizens:Human " + body.Name + " came home");
+
+                    StateMachine.PopState();
+                    StateMachine.PushState("rest");
                 }
                 return isAtHome;
             }
@@ -392,11 +485,13 @@ namespace townWinForm
             float dEnergy = Config.EnergyMoveCost * dt;
             if (body.Energy - dEnergy > -1)
             {
+                if (body.Energy < 5)
+                {
+                    //not pop state
+                    StateMachine.PushState("rest");
+                    return false;
+                }
                 body.Energy -= dEnergy;
-            }
-            else
-            {
-                return false;
             }
 
             //if didn't go before, we should find the path
@@ -416,6 +511,9 @@ namespace townWinForm
                 {
                     isGoing = false;
                     Log.Add("citizens:Human " + body.Name + " came at work");
+
+                    StateMachine.PopState();
+                    StateMachine.PushState("work");
                 }
                 return isAtWork;
             }
@@ -485,6 +583,11 @@ namespace townWinForm
                 body.Happiness = Config.MaxHappiness;
             }
 
+            if (body.Energy > 90)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("rest");
+            }
             //Log.Add("citizens:Human" + body.Name + " sleep");
         }
     }
