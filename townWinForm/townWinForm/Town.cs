@@ -8,6 +8,7 @@ using System.Web;
 using System.Net;
 using System.IO;
 using TownInterfaces;
+using System.Reflection;
 
 namespace townWinForm
 {
@@ -514,7 +515,10 @@ namespace townWinForm
                             if ((rand.Next() % 4 == 0) && (w >= 5) && (h >= 5) 
                                 && (markets.Count < Config.Markets))
                             {
-                                workshops.Add(new Market(x, y, w , h, "market"));
+                                dynamic a = Activator.CreateInstance(Config.Marketplaces[rand.Next(0, Config.Marketplaces.Count)]);
+                                
+                                workshops.Add(a);
+                                workshops.Last().Init(x, y, w, h, "market");
                                 markets.Add(workshops[workshops.Count - 1] as Market);
                                 structures.Add(workshops[workshops.Count - 1] as Building);
                                 idCounter.Add(buildIndex);
@@ -523,7 +527,11 @@ namespace townWinForm
 
                             if ((rand.Next() % 4 == 0) && (houses.Count < Config.Houses))
                             {
-                                houses.Add(new House(x, y, w, h, "house"));
+                                dynamic a = Activator.CreateInstance(Config.Residences[rand.Next(0, Config.Residences.Count)]);
+
+                                houses.Add(a);
+                                houses.Last().Init(x, y, w, h, "house");
+
                                 structures.Add(houses[houses.Count - 1] as Building);
                                 idCounter.Add(buildIndex);
                                 continue;
@@ -531,7 +539,13 @@ namespace townWinForm
 
                             if ((rand.Next() % 3 == 0) && (guilds.Count < Config.ThiefGuildsAmount) && (w >= 5) && (h >= 5))
                             {
-                                guilds.Add(new ThievesGuild(x, y, w, h, "guild"));
+
+                                dynamic a = Activator.CreateInstance(Config.Guilds[rand.Next(0, Config.Guilds.Count)]);
+
+                                guilds.Add(a);
+                                guilds.Last().Init(x, y, w, h, "guild");
+
+                                
                                 structures.Add(guilds[guilds.Count - 1] as Building);
                                 idCounter.Add(buildIndex);
                                 continue;
@@ -539,7 +553,11 @@ namespace townWinForm
 
                             if ((rand.Next() % 3 == 0) && (barracks.Count < Config.BarracksAmount) && (w >= 5) && (h >= 5))
                             {
-                                barracks.Add(new Barracks(x, y, w, h, "barracks"));
+                                dynamic a = Activator.CreateInstance(Config.Barracks[rand.Next(0, Config.Barracks.Count)]);
+
+                                barracks.Add(a);
+                                barracks.Last().Init(x, y, w, h, "barracks");
+
                                 structures.Add(barracks[barracks.Count - 1]);
                                 idCounter.Add(buildIndex);
                                 continue;
@@ -547,7 +565,12 @@ namespace townWinForm
 
                             if ((rand.Next() % 5 == 0) && (taverns.Count < Config.Taverns))
                             {
-                                taverns.Add(new Tavern(x, y, w, h, "tavern"));
+                                dynamic a = Activator.CreateInstance(Config.Entertainments[rand.Next(0, Config.Entertainments.Count)]);
+
+                                taverns.Add(a);
+                                taverns.Last().Init(x, y, w, h, "tavern");
+
+
                                 structures.Add(taverns[taverns.Count - 1]);
                                 idCounter.Add(buildIndex);
                                 continue;
@@ -558,7 +581,12 @@ namespace townWinForm
                                 if (((rand.Next() % 2 == 0) || (rand.Next() % 10 == 0)) && (workshops.Count < Config.Productions))
                                 {
                                     farmCount++;
-                                    workshops.Add(new Farm(x, y, w, h, "farm"));
+
+                                    dynamic a = Activator.CreateInstance(Config.FoodProductions[rand.Next(0, Config.FoodProductions.Count)]);
+
+                                    workshops.Add(a);
+                                    workshops.Last().Init(x, y, w, h, "farm");
+
                                     farms.Add(workshops.Last() as Farm);
                                     structures.Add(workshops[workshops.Count - 1] as Building);
                                     idCounter.Add(buildIndex);
@@ -570,7 +598,13 @@ namespace townWinForm
                                 if (((rand.Next() % 2 == 0) || (rand.Next() % 10 == 0)) && (workshops.Count < Config.Productions))
                                 {
                                     factoryCount++;
-                                    workshops.Add(new Factory(x, y, w, h, "factory"));
+
+                                    dynamic a = Activator.CreateInstance(Config.Workshops[rand.Next(0, Config.Workshops.Count)]);
+
+                                    workshops.Add(a);
+                                    workshops.Last().Init(x, y, w, h, "factory");
+
+                                    
                                     
                                     structures.Add(workshops[workshops.Count - 1] as Building);
                                     factories.Add(structures[structures.Count - 1] as Factory);

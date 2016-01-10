@@ -14,6 +14,8 @@ namespace townWinForm
         {
             workers = new List<ICitizen>();
         }
+
+        public Factory() { }
         public override void Draw(Graphics g)
         {
             base.Draw(g);

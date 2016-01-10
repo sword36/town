@@ -14,6 +14,8 @@ namespace townWinForm
             residents = new List<TownInterfaces.ICitizen>();
         }
 
+        public Residence() { residents = new List<TownInterfaces.ICitizen>(); }
+
         protected List<TownInterfaces.ICitizen> residents;
         public virtual List<TownInterfaces.ICitizen> Residents
         {

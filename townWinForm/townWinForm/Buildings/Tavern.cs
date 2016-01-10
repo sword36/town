@@ -17,6 +17,10 @@ namespace townWinForm
         public override void Draw(Graphics g)
         {
             base.Draw(g);
+
+
         }
+
+        public Tavern() { }
     }
 }

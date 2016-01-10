@@ -14,6 +14,8 @@ namespace townWinForm
             workers = new List<ICitizen>();
         }
 
+        public Workshop() { workers = new List<ICitizen>(); }
+
         protected List<ICitizen> workers;
 
         public virtual int Count

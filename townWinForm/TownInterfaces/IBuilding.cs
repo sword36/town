@@ -9,6 +9,7 @@ namespace TownInterfaces
 {
     public interface IBuilding
     {
+        void Init(int x, int y, int width, int height, string type);
         string buildingType { get; set; }
         Color BuildingColor { get; set; }
 

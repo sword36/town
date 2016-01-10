@@ -38,7 +38,7 @@ namespace townWinForm
             get
             {
                 PointF res = FreeRooms[rand.Next(FreeRooms.Count)];
-                OccupiedRooms.Add(res);
+                
                 return res;
             }
             
@@ -55,7 +55,7 @@ namespace townWinForm
                 Position.Height * Config.TileSize);
 
             g.FillRectangle(Brushes.LightGreen, (Entrance.X + Position.Location.X) * Config.TileSize + dx, (Entrance.Y + Position.Location.Y) * Config.TileSize + dy, Config.TileSize, Config.TileSize);
-            g.DrawString(buildingType[0] + "", new Font("Courier New", 12, FontStyle.Regular), Brushes.Black, Position.Location.X * Config.TileSize + dx, Position.Location.Y * Config.TileSize + dy);
+            //g.DrawString(buildingType[0] + "", new Font("Courier New", 12, FontStyle.Regular), Brushes.Black, Position.Location.X * Config.TileSize + dx, Position.Location.Y * Config.TileSize + dy);
         }
 
         protected virtual void SetEntrance()
@@ -109,9 +109,10 @@ namespace townWinForm
             PeopleIn.Remove(h);
         }
 
-        public Building(int x, int y, int width, int height, string type)
+        public Building() { }
+
+        public void Init(int x, int y, int width, int height, string type)
         {
-            
             FreeRooms = new List<PointF>();
             OccupiedRooms = new List<PointF>();
             PeopleIn = new List<ICitizen>();
@@ -181,6 +182,12 @@ namespace townWinForm
                     FreeRooms.Add(new PointF(xx + Position.Location.X, yy + Position.Location.Y));
                 }
             }
+        }
+
+        public Building(int x, int y, int width, int height, string type)
+        {
+            
+            
         }
 
         public static void UpdateD(float dx, float dy)

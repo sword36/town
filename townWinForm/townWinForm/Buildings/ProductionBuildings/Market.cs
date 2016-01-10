@@ -20,6 +20,8 @@ namespace townWinForm
             base.Draw(g);
         }
 
+        public Market() { }
+
         public static bool operator <(Market w1, Market w2)
         {
             return w1.Count < w2.Count;

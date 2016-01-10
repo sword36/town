@@ -19,5 +19,7 @@ namespace townWinForm
         {
             residents = new List<TownInterfaces.ICitizen>();
         }
+
+        public House() { }
     }
 }

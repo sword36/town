@@ -19,6 +19,8 @@ namespace townWinForm
             base.Draw(g);
         }
 
+        public Farm() { }
+
         public static bool operator <(Farm w1, Farm w2)
         {
             return w1.Count < w2.Count;

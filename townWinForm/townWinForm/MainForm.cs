@@ -46,6 +46,14 @@ namespace townWinForm
         {
             happinessStat = new Statistics();
 
+            Config.Workshops.Add(typeof(Factory));
+            Config.Barracks.Add(typeof(Barracks));
+            Config.Guilds.Add(typeof(ThievesGuild));
+            Config.FoodProductions.Add(typeof(Farm));
+            Config.Marketplaces.Add(typeof(Market));
+            Config.Entertainments.Add(typeof(Tavern));
+            Config.Residences.Add(typeof(House));
+
             InitializeComponent();
             DoubleBuffered = true;
 

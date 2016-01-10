@@ -15,6 +15,12 @@ namespace townWinForm
             workers = new List<ICitizen>();
         }
 
+        public CombinedBuilding()
+        {
+            residents = new List<ICitizen>();
+            workers = new List<ICitizen>();
+        }
+
         protected List<ICitizen> residents;
 
         public virtual List<ICitizen> Residents

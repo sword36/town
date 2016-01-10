@@ -117,6 +117,15 @@ namespace townWinForm
         #endregion
 
         #region Town
+
+        public static List<Type> Marketplaces = new List<Type>();
+        public static List<Type> Workshops = new List<Type>();
+        public static List<Type> Residences = new List<Type>();
+        public static List<Type> Entertainments = new List<Type>();
+        public static List<Type> Guilds = new List<Type>();
+        public static List<Type> Barracks = new List<Type>();
+        public static List<Type> FoodProductions = new List<Type>();
+
         public static float TileSize
         {
             get { return tileSize; }
