@@ -47,6 +47,7 @@
     <Compile Include="IDrawable.cs" />
     <Compile Include="IEntertainment.cs" />
     <Compile Include="IFood.cs" />
+    <Compile Include="IMarketplace.cs" />
     <Compile Include="IProduct.cs" />
     <Compile Include="IResidence.cs" />
     <Compile Include="IThing.cs" />
