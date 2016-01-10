@@ -9,33 +9,14 @@ namespace townWinForm.BehaviourModels
 {
     public class Craftsman : BehaviourModel
     {
-        public StackFSM StateMachine;
-        public override string State
+        public Craftsman(ICitizen h, int level) : base(h, level)
         {
-            get { return StateMachine.GetCurrentState(); }
-        }
-
-        public Craftsman(ICitizen h, int level)
-        {
-            body = h;
-            Level = level;
-            StateMachine = new StackFSM("rest");
             WorkCost = Config.CraftsmanWorkCost;
             h.Bag.MaxCapacity = Config.CraftsmanBagCapacity;
             h.Speed = Config.CraftsmanSpeed;
         }
 
-        private void dying(int dt)
-        {
-            bool isAlive = base.dying(dt);
-            if (isAlive)
-            {
-                StateMachine.PopState();
-                StateMachine.PushState("sleep");
-            }
-        }
-
-        private void rest(int dt)
+        protected override void rest(int dt)
         {
             base.rest(dt);
 
@@ -76,7 +57,7 @@ namespace townWinForm.BehaviourModels
 
         private bool isWorking = false;
 
-        private void work(int dt)
+        protected override void work(int dt)
         {
             if (!isWorking)
             {
@@ -138,165 +119,6 @@ namespace townWinForm.BehaviourModels
                 Log.Add("citizens:Human " + body.Name + " finish work(craftsman), happy too low");
                 StateMachine.PopState();
                 StateMachine.PushState("goToTavern");
-            }
-        }
-
-        private void goToWork(int dt)
-        {
-            bool isAtWork = base.goToWork(dt);
-            if (isAtWork)
-            {
-                StateMachine.PopState();
-                StateMachine.PushState("work");
-                return;
-            }
-
-            if (body.Energy < 5)
-            {
-                //not pop state
-                StateMachine.PushState("rest");
-            }
-        }
-
-        private void goHome(int dt)
-        {
-            bool isAtHome = base.goHome(dt);
-
-            if (isAtHome)
-            {
-                StateMachine.PopState();
-                StateMachine.PushState("rest");
-                return;
-            }
-
-            if (body.Energy < 5)
-            {
-                StateMachine.PopState();
-                StateMachine.PushState("rest");
-            }
-        }
-
-        private void sleep(int dt)
-        {
-            base.sleep(dt);
-
-            if (body.Energy > 90)
-            {
-                StateMachine.PopState();
-                StateMachine.PushState("rest");
-            }
-        }
-
-        private void goToTavern(int dt)
-        {
-            bool isAtTavern = base.goToTavern(dt);
-            if (isAtTavern)
-            {
-                StateMachine.PopState();
-
-                if (body.Money - Config.DrinkInTavernCost < 0)
-                {
-                    StateMachine.PushState("goHome");
-                    Log.Add("citizens:Human " + body.Name + " havent money for drinking");
-                    return;
-                }
-
-                body.Money -= Config.DrinkInTavernCost;
-                StateMachine.PushState("tavernDrink");
-                Log.Add("citizens:Human " + body.Name + " drinking!");
-                return;
-            }
-
-            if (body.Energy < 5)
-            {
-                StateMachine.PushState("rest");
-            }
-        }
-
-        private void tavernDrink(int dt)
-        {
-            base.tavernDrink(dt);
-            if (body.Happiness > Config.LimitHappyInTavern)
-            {
-                Log.Add("citizens:Human " + body.Name + " drunk, go home!");
-                StateMachine.PopState();
-                StateMachine.PushState("goHome");
-            }
-        }
-
-        private void goToMarket(int dt)
-        {
-            bool isAtMarket = base.goToMarket(dt);
-            if (isAtMarket)
-            {
-                StateMachine.PopState();
-                Log.Add("citizens:Human " + body.Name + " at market");
-                return;
-            }
-
-            if (body.Energy < 5)
-            {
-                StateMachine.PushState("rest");
-            }
-        }
-
-        private void sell(int dt)
-        {
-            bool isGoOut;
-            bool isSold = base.sell(dt, out isGoOut);
-            if (isSold)
-            {
-                if (body.Money < Config.MoneyLimitForSelling && body.Bag.Count > Config.ThingsLimitForSelling)
-                {
-                    //continue selling
-                } else
-                {
-                    StateMachine.PopState();
-                    StateMachine.PushState("goHome");
-                }
-            } else if (isGoOut)
-            {
-                StateMachine.PopState();
-                StateMachine.PushState("goHome");
-            }
-        }
-
-        private void buyFood(int dt)
-        {
-            bool isGoOut;
-            bool isBougth = base.buyFood(dt, out isGoOut);
-            if (isBougth)
-            {
-                if (body.Bag.FoodCount < 3 && body.Money > 500)
-                {
-                    //continue selling
-                }
-                else
-                {
-                    StateMachine.PopState();
-                    if (body.Energy > 60)
-                    {
-                        StateMachine.PushState("goToWork");
-                    }
-                    else
-                    {
-                        StateMachine.PushState("goHome");
-
-                    }
-                }
-            }
-            else if (isGoOut)
-            {
-                StateMachine.PopState();
-                if (body.Energy > 60)
-                {
-                    StateMachine.PushState("goToWork");
-                }
-                else
-                {
-                    StateMachine.PushState("goHome");
-
-                }
             }
         }
 
