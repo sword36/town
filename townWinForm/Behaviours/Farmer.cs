@@ -30,7 +30,6 @@ namespace Behaviours
             {
                 if (body.DistanceToHome() < Config.HomeNear && body.CurrentBuilding as IResidence != body.Home)
                 {
-                    Log.Add("citizens:Humant " + body.Name + " sleeping");
                     StateMachine.PopState();
                     StateMachine.PushState("goHome");
                     //StateMachine.EnqueueState("sleep");
@@ -66,7 +65,6 @@ namespace Behaviours
             if (!isWorking)
             {
                 isWorking = true;
-                Log.Add("citizens:Human " + body.Name + " working(farmer)");
             }
 
             base.work(dt);
@@ -77,13 +75,10 @@ namespace Behaviours
                 {
                     Food f = new Food();
                     body.Bag.Add(f);
-                    Log.Add("things:Food with price: " + f.Price + " crafted by farmer, " + this.body.Name);
-                    Log.Add("citizens:Human " + body.Name + " crafted new food with price: " + f.Price);
                     body.AddExp(Config.ExpForCraft * (1 + body.CurrentLevel / 10));
                 }
-                catch (OverloadedBagExeption ex)
+                catch (Exception ex)
                 {
-                    Log.Add("citizens:Human " + body.Name + " haven't enougth place for new food");
                 }
             }
 
@@ -92,7 +87,6 @@ namespace Behaviours
                 if (true) { }
                 StateMachine.PopState();
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(farmer), energy too low");
 
                 if (body.Bag.Count > Config.ThingsLimitForSelling)
                 {
@@ -119,7 +113,6 @@ namespace Behaviours
             } else if (body.Happiness < 20)
             {
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(farmer), happy too low");
                 StateMachine.PopState();
                 StateMachine.PushState("goToTavern");
             }
@@ -129,8 +122,6 @@ namespace Behaviours
         {
             if (body.Energy <= 0 && body.IsAlive)
             {
-                Log.Add("citizens:Human " + body.Name + " died during: " + StateMachine.GetCurrentState());
-
                 body.WaitTime = Config.DyingTime;
                 body.IsAlive = false;
                 StateMachine.PopState();

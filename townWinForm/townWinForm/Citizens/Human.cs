@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using TownInterfaces;
+using BehaviourModel;
 
 namespace townWinForm
 {
     public class Human : ICitizen, IDrawable, IUpdatable
     {
         
-        public BehaviourModel Behaviour { get; set; }
+        public BehaviourModel.BehaviourModel Behaviour { get; set; }
         public PointF Position
         {
             get { return position; }

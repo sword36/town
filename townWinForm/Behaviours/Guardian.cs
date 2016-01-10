@@ -37,7 +37,6 @@ namespace Behaviours
                 }
                 else
                 {
-                    Log.Add("citizens:Humant " + body.Name + " sleeping");
                     StateMachine.PopState();
                     StateMachine.PushState("sleep");
                 }
@@ -61,7 +60,6 @@ namespace Behaviours
             if (!isWorking)
             {
                 isWorking = true;
-                Log.Add("citizens:Human " + body.Name + " working(guardian)");
             }
 
             base.patrol(dt);
@@ -72,7 +70,6 @@ namespace Behaviours
                 StateMachine.PopState();
                 isWorking = false;
                 base.isGoing = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(guardian), energy too low");
 
                 if (body.Bag.FoodCount < 3 && body.Money > Config.MoneyLimitForBuying)
                 {
@@ -93,7 +90,6 @@ namespace Behaviours
             else if (body.Happiness < 20)
             {
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(guardian), happy too low");
                 StateMachine.PopState();
 
                 base.isGoing = false;
@@ -105,8 +101,6 @@ namespace Behaviours
         {
             if (body.Energy <= 0 && body.IsAlive)
             {
-                Log.Add("citizens:Human " + body.Name + " died during: " + StateMachine.GetCurrentState());
-
                 body.WaitTime = Config.DyingTime;
                 body.IsAlive = false;
                 StateMachine.PopState();
