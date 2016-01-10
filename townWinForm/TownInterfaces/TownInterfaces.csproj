@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBag.cs" />
+    <Compile Include="IBehaviourable.cs" />
     <Compile Include="IBuilding.cs" />
     <Compile Include="ICitizen.cs" />
     <Compile Include="IDrawable.cs" />

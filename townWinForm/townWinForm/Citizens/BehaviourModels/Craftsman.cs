@@ -7,7 +7,7 @@ using TownInterfaces;
 
 namespace townWinForm.BehaviourModels
 {
-    public class Craftsman : BehaviourModel
+    public class Craftsman : BehaviourModel, IUpdatable, IBehaviourable
     {
         public Craftsman(ICitizen h, int level) : base(h, level)
         {
@@ -16,7 +16,7 @@ namespace townWinForm.BehaviourModels
             h.Speed = 0.1f; //Config.CraftsmanSpeed;
         }
 
-        protected override void rest(int dt)
+        public override void rest(int dt)
         {
             base.rest(dt);
 
@@ -57,7 +57,7 @@ namespace townWinForm.BehaviourModels
 
         private bool isWorking = false;
 
-        protected override void work(int dt)
+        public override void work(int dt)
         {
             if (!isWorking)
             {

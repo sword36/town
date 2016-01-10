@@ -7,7 +7,7 @@ using TownInterfaces;
 
 namespace townWinForm.BehaviourModels
 {
-    public class Trader : BehaviourModel
+    public class Trader : BehaviourModel, IUpdatable, IBehaviourable
     {
         public Trader(ICitizen h, int level) : base(h, level)
         {
@@ -16,7 +16,7 @@ namespace townWinForm.BehaviourModels
             h.Speed = 0.09f; //Config.TraderSpeed;
         }
 
-        protected override void rest(int dt)
+        public override void rest(int dt)
         {
             base.rest(dt);
 
@@ -47,7 +47,7 @@ namespace townWinForm.BehaviourModels
 
         private bool isWorking = false;
 
-        protected override void work(int dt)
+        public override void work(int dt)
         {
             if (!isWorking)
             {

@@ -7,7 +7,7 @@ using TownInterfaces;
 
 namespace townWinForm.BehaviourModels
 {
-    public class Guardian : BehaviourModel
+    public class Guardian : BehaviourModel, IUpdatable, IBehaviourable
     {
         public Guardian(ICitizen h, int level) : base(h, level)
         {
@@ -16,7 +16,7 @@ namespace townWinForm.BehaviourModels
             h.Speed = 0.125f; //Config.GuardianSpeed;
         }
 
-        protected override void rest(int dt)
+        public override void rest(int dt)
         {
             base.rest(dt);
 
@@ -54,7 +54,7 @@ namespace townWinForm.BehaviourModels
 
         private bool isWorking = false;
 
-        protected override void work(int dt)
+        public override void work(int dt)
         {
             if (!isWorking)
             {

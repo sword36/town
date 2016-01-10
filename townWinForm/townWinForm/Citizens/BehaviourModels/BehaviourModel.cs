@@ -36,7 +36,7 @@ namespace townWinForm
 
 
         //increase energy and happiness
-        protected virtual void rest(int dt)
+        public virtual void rest(int dt)
         {
             float dEnergy = Config.EnergyForRest * dt;
             if (body.Energy + dEnergy < Config.MaxEnergy)
@@ -522,7 +522,7 @@ namespace townWinForm
         }
 
         //decrease energy, and if energy in low level then decrease happiness
-        protected virtual void work(int dt)
+        public virtual void work(int dt)
         {
             if (body.CurrentProf == "trader")
                 body.AddExp(Config.ExpForWorking / 2);

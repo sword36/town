@@ -7,7 +7,7 @@ using TownInterfaces;
 
 namespace townWinForm.BehaviourModels
 {
-    public class Thief : BehaviourModel
+    public class Thief : BehaviourModel, IUpdatable, IBehaviourable
     {
         public Thief(ICitizen h, int level) : base(h, level)
         {
@@ -16,7 +16,7 @@ namespace townWinForm.BehaviourModels
             h.Speed = 0.125f; //Config.ThiefSpeed;
         }
 
-        protected override void rest(int dt)
+        public override void rest(int dt)
         {
             base.rest(dt);
 
@@ -48,7 +48,7 @@ namespace townWinForm.BehaviourModels
 
         private bool isWorking = false;
 
-        protected override void work(int dt)
+        public override void work(int dt)
         {
             if (!isWorking)
             {
