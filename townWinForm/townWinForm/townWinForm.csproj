@@ -59,11 +59,6 @@
     <Compile Include="Buildings\House.cs" />
     <Compile Include="Buildings\Tavern.cs" />
     <Compile Include="Citizens\BehaviourModels\BehaviourModel.cs" />
-    <Compile Include="Citizens\BehaviourModels\Craftsman.cs" />
-    <Compile Include="Citizens\BehaviourModels\Farmer.cs" />
-    <Compile Include="Citizens\BehaviourModels\Guardian.cs" />
-    <Compile Include="Citizens\BehaviourModels\Thief.cs" />
-    <Compile Include="Citizens\BehaviourModels\Trader.cs" />
     <Compile Include="Citizens\Human.cs" />
     <Compile Include="Citizens\StateFSM.cs" />
     <Compile Include="Config.cs" />

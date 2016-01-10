@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using TownInterfaces;
 
-namespace townWinForm.BehaviourModels
+namespace Behaviours
 {
-    public class Thief : BehaviourModel, IUpdatable, IBehaviourable
+    public class Guardian : BehaviourModel, IUpdatable, IBehaviourable
     {
-        public Thief(ICitizen h, int level) : base(h, level)
+        public Guardian(ICitizen h, int level) : base(h, level)
         {
-            base.WorkCost = 0.002f; //Config.ThiefWorkCost;
-            h.Bag.MaxCapacity = 750; //Config.ThiefBagCapacity;
-            h.Speed = 0.125f; //Config.ThiefSpeed;
+            base.WorkCost = 0.004f; //Config.GuardianWorkCost;
+            h.Bag.MaxCapacity = 300; //Config.GuardianBagCapacity;
+            h.Speed = 0.125f; //Config.GuardianSpeed;
         }
 
         public override void rest(int dt)
@@ -25,7 +25,7 @@ namespace townWinForm.BehaviourModels
                 StateMachine.PopState();
                 StateMachine.PushState("goToWork");
             }
-            else if (body.Energy < 20)
+            else if (body.Energy < 25)
             {
                 if (body.DistanceToHome() < Config.HomeNear && body.CurrentBuilding as IResidence != body.Home)
                 {
@@ -40,6 +40,12 @@ namespace townWinForm.BehaviourModels
                     StateMachine.PushState("sleep");
                 }
             }
+            else if (body.Bag.FoodCount < 3 && body.Money > Config.MoneyLimitForBuying)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("goToMarket");
+                StateMachine.EnqueueState("buyFood");
+            }
             else if (body.Energy < 60)
             {
                 eat(dt);
@@ -53,21 +59,29 @@ namespace townWinForm.BehaviourModels
             if (!isWorking)
             {
                 isWorking = true;
-                Log.Add("citizens:Human " + body.Name + " working(thief)");
+                Log.Add("citizens:Human " + body.Name + " working(guardian)");
             }
 
-            base.work(dt);
-
+            base.patrol(dt);
+         
             if (body.Energy < 30)
             {
                 if (true) { }
                 StateMachine.PopState();
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(thief), energy too low");
+                base.isGoing = false;
+                Log.Add("citizens:Human " + body.Name + " finish work(guardian), energy too low");
+
+                if (body.Bag.FoodCount < 3 && body.Money > Config.MoneyLimitForBuying)
+                {
+                    StateMachine.PushState("goToMarket");
+                    StateMachine.EnqueueState("buyFood");
+                    return;
+                }
 
                 if (body.Happiness < Config.LowerBoundHappyToDrink)
                 {
-                    Log.Add("citizens:Human " + body.Name + " go to tavern");
+                    StateMachine.PushState("goToTavern");
                 }
                 else
                 {
@@ -77,8 +91,10 @@ namespace townWinForm.BehaviourModels
             else if (body.Happiness < 20)
             {
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(thief), happy too low");
+                Log.Add("citizens:Human " + body.Name + " finish work(guardian), happy too low");
                 StateMachine.PopState();
+
+                base.isGoing = false;
                 StateMachine.PushState("goToTavern");
             }
         }
@@ -93,7 +109,6 @@ namespace townWinForm.BehaviourModels
                 body.IsAlive = false;
                 StateMachine.PopState();
                 StateMachine.PushState("dying");
-                Log.Add("citizens:Human " + body.Name + " died during: " + StateMachine.GetCurrentState());
             }
 
             switch (StateMachine.GetCurrentState())
@@ -121,6 +136,12 @@ namespace townWinForm.BehaviourModels
                     break;
                 case "tavernDrink":
                     tavernDrink(dt);
+                    break;
+                case "buyFood":
+                    buyFood(dt);
+                    break;
+                case "goToMarket":
+                    goToMarket(dt);
                     break;
             }
         }

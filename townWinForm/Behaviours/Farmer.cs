@@ -5,39 +5,52 @@ using System.Text;
 using System.Threading.Tasks;
 using TownInterfaces;
 
-namespace townWinForm.BehaviourModels
+namespace Behaviours
 {
-    public class Trader : BehaviourModel, IUpdatable, IBehaviourable
+    public class Farmer : BehaviourModel, IUpdatable, IBehaviourable
     {
-        public Trader(ICitizen h, int level) : base(h, level)
+        public Farmer(ICitizen h, int level) : base(h, level)
         {
-            base.WorkCost = 0.0005f; //Config.TraderWorkCost;
-            h.Bag.MaxCapacity = 1500; //Config.TraderBagCapacity;
-            h.Speed = 0.09f; //Config.TraderSpeed;
+            base.WorkCost = 0.005f; //Config.FarmerWorkCost;
+            h.Bag.MaxCapacity = 450; //Config.FarmerBagCapacity;
+            h.Speed = 0.1f; //Config.FarmerSpeed;
         }
 
         public override void rest(int dt)
         {
             base.rest(dt);
 
-            if (body.Energy > 95)
+            if (body.Energy > 90)
             {
                 StateMachine.PopState();
                 StateMachine.PushState("goToWork");
             }
-            else if (body.Energy < 35)
+            else if (body.Energy < 30)
             {
                 if (body.DistanceToHome() < Config.HomeNear && body.CurrentBuilding as IResidence != body.Home)
                 {
+                    Log.Add("citizens:Humant " + body.Name + " sleeping");
                     StateMachine.PopState();
                     StateMachine.PushState("goHome");
+                    //StateMachine.EnqueueState("sleep");
                 }
                 else
                 {
-                    Log.Add("citizens:Humant " + body.Name + " sleeping");
                     StateMachine.PopState();
                     StateMachine.PushState("sleep");
                 }
+            }
+            else if (body.Energy > 60 && body.Bag.Count > Config.ThingsLimitForSelling)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("goToMarket");
+                StateMachine.EnqueueState("sell");
+            }
+            else if (body.Bag.FoodCount < 3 && body.Money > Config.MoneyLimitForBuying)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("goToMarket");
+                StateMachine.EnqueueState("buyFood");
             }
             else if (body.Energy < 60)
             {
@@ -52,14 +65,25 @@ namespace townWinForm.BehaviourModels
             if (!isWorking)
             {
                 isWorking = true;
-                Log.Add("citizens:Human " + body.Name + " working(trader)");
+                Log.Add("citizens:Human " + body.Name + " working(farmer)");
             }
 
             base.work(dt);
 
-            if (body.Bag.ProductCount > Config.MaxProductForTrader)
+            if (Util.GetRandomNumberF() < Config.ChanceToCraftFood)
             {
-                body.Sell(body.town.God, TownInterfaces.ThingType.PRODUCT);
+                try
+                {
+                    Food f = new Food();
+                    body.Bag.Add(f);
+                    Log.Add("things:Food with price: " + f.Price + " crafted by farmer, " + this.body.Name);
+                    Log.Add("citizens:Human " + body.Name + " crafted new food with price: " + f.Price);
+                    body.AddExp(Config.ExpForCraft * (1 + body.CurrentLevel / 10));
+                }
+                catch (OverloadedBagExeption ex)
+                {
+                    Log.Add("citizens:Human " + body.Name + " haven't enougth place for new food");
+                }
             }
 
             if (body.Energy < 30)
@@ -67,22 +91,34 @@ namespace townWinForm.BehaviourModels
                 if (true) { }
                 StateMachine.PopState();
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(trader), energy too low");
+                Log.Add("citizens:Human " + body.Name + " finish work(farmer), energy too low");
+
+                if (body.Bag.Count > Config.ThingsLimitForSelling)
+                {
+                    StateMachine.PushState("goToMarket");
+                    StateMachine.EnqueueState("sell");
+                    return;
+                }
+
+                if (body.Bag.FoodCount < 3 && body.Money > Config.MoneyLimitForBuying)
+                {
+                    StateMachine.PushState("goToMarket");
+                    StateMachine.EnqueueState("buyFood");
+                    return;
+                }
 
                 if (body.Happiness < Config.LowerBoundHappyToDrink)
                 {
                     StateMachine.PushState("goToTavern");
-                    Log.Add("citizens:Human " + body.Name + " go to tavern");
                 }
                 else
                 {
                     StateMachine.PushState("goHome");
                 }
-            }
-            else if (body.Happiness < 20)
+            } else if (body.Happiness < 20)
             {
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(trader), happy too low");
+                Log.Add("citizens:Human " + body.Name + " finish work(farmer), happy too low");
                 StateMachine.PopState();
                 StateMachine.PushState("goToTavern");
             }
@@ -98,7 +134,6 @@ namespace townWinForm.BehaviourModels
                 body.IsAlive = false;
                 StateMachine.PopState();
                 StateMachine.PushState("dying");
-                Log.Add("citizens:Human " + body.Name + " died during: " + StateMachine.GetCurrentState());
             }
 
             switch (StateMachine.GetCurrentState())
@@ -126,6 +161,15 @@ namespace townWinForm.BehaviourModels
                     break;
                 case "tavernDrink":
                     tavernDrink(dt);
+                    break;
+                case "goToMarket":
+                    goToMarket(dt);
+                    break;
+                case "sell":
+                    sell(dt);
+                    break;
+                case "buyFood":
+                    buyFood(dt);
                     break;
             }
         }
