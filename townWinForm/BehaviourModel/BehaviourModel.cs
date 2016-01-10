@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using TownInterfaces;
 
-namespace townWinForm
+namespace BehaviourModel
 {
     public class BehaviourModel : IUpdatable
     {

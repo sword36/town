@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TownInterfaces", "TownInter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviours", "Behaviours\Behaviours.csproj", "{58917EF3-F0C8-40D4-91A8-9C7829ECDF4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BehaviourModel", "BehaviourModel\BehaviourModel.csproj", "{FD571D9B-4CB0-4871-83D6-96986D40A01A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{58917EF3-F0C8-40D4-91A8-9C7829ECDF4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58917EF3-F0C8-40D4-91A8-9C7829ECDF4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58917EF3-F0C8-40D4-91A8-9C7829ECDF4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD571D9B-4CB0-4871-83D6-96986D40A01A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD571D9B-4CB0-4871-83D6-96986D40A01A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD571D9B-4CB0-4871-83D6-96986D40A01A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD571D9B-4CB0-4871-83D6-96986D40A01A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

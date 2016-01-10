@@ -58,9 +58,7 @@
     <Compile Include="Buildings\ProductionBuildings\ThievesGuild.cs" />
     <Compile Include="Buildings\House.cs" />
     <Compile Include="Buildings\Tavern.cs" />
-    <Compile Include="Citizens\BehaviourModels\BehaviourModel.cs" />
     <Compile Include="Citizens\Human.cs" />
-    <Compile Include="Citizens\StateFSM.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="AStar\PathNode.cs" />
     <Compile Include="Log.cs" />
