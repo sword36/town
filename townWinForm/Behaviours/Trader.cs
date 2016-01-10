@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TownInterfaces;
+using BehaviourModel;
 
 namespace Behaviours
 {
-    public class Trader : BehaviourModel, IUpdatable, IBehaviourable
+    public class Trader : BehaviourModel.BehaviourModel, IUpdatable, IBehaviourable
     {
         public Trader(ICitizen h, int level) : base(h, level)
         {

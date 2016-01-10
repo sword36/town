@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TownInterfaces;
+using BehaviourModel;
 
 namespace Behaviours
 {
-    public class Craftsman : BehaviourModel, IUpdatable, IBehaviourable
+    public class Craftsman : BehaviourModel.BehaviourModel, IUpdatable, IBehaviourable
     {
         public Craftsman(ICitizen h, int level) : base(h, level)
         {
@@ -34,7 +35,6 @@ namespace Behaviours
                 }
                 else
                 {
-                    Log.Add("citizens:Humant " + body.Name + " sleeping");
                     StateMachine.PopState();
                     StateMachine.PushState("sleep");
                 }
@@ -62,7 +62,6 @@ namespace Behaviours
             if (!isWorking)
             {
                 isWorking = true;
-                Log.Add("citizens:Human " + body.Name + " working(craftsman)");
             }
 
             base.work(dt);
@@ -73,13 +72,10 @@ namespace Behaviours
                 {
                     Product p = new Product();
                     body.Bag.Add(p);
-                    Log.Add("things:Product with price: " + p.Price + " crafted by craftsman, " + this.body.Name);
-                    Log.Add("citizens:Human" + body.Name + " crafted new product with price: " + p.Price);
                     body.AddExp(Config.ExpForCraft * (1 + body.CurrentLevel / 10));
                 }
-                catch (OverloadedBagExeption ex)
+                catch (Exception ex)
                 {
-                    Log.Add("citizens:Human " + body.Name + " haven't enougth place for new product");
                 }
             }
 
@@ -88,7 +84,6 @@ namespace Behaviours
                 if (true) { }
                 StateMachine.PopState();
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(craftsman), energy too low");
 
                 if (body.Bag.Count > Config.ThingsLimitForSelling)
                 {
@@ -116,7 +111,6 @@ namespace Behaviours
             else if (body.Happiness < 20)
             {
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(craftsman), happy too low");
                 StateMachine.PopState();
                 StateMachine.PushState("goToTavern");
             }
@@ -126,8 +120,6 @@ namespace Behaviours
         {
             if (body.Energy <= 0 && body.IsAlive)
             {
-                Log.Add("citizens:Human " + body.Name + " died during: " + StateMachine.GetCurrentState());
-
                 body.WaitTime = Config.DyingTime;
                 body.IsAlive = false;
                 StateMachine.PopState();

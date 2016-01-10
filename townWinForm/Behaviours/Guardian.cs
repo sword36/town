@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TownInterfaces;
+using BehaviourModel;
+
 
 namespace Behaviours
 {
-    public class Guardian : BehaviourModel, IUpdatable, IBehaviourable
+    public class Guardian : BehaviourModel.BehaviourModel, IUpdatable, IBehaviourable
     {
         public Guardian(ICitizen h, int level) : base(h, level)
         {

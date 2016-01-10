@@ -245,7 +245,7 @@ namespace BehaviourModel
             }
 
             bool isBought = false;
-            List<ICitizen> peopleInMarket = (body.town.GetNearestMarket(body) as Building).PeopleIn;
+            List<ICitizen> peopleInMarket = body.town.GetNearestMarket(body).PeopleIn;
 
             for (int i = 0; i < peopleInMarket.Count; i++)
             {

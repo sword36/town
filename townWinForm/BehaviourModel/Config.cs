@@ -96,12 +96,75 @@ namespace BehaviourModel
 
         #endregion
 
+        #region Town
+        public static float TileSize
+        {
+            get { return tileSize; }
+        }
+        public static int StreetHeight
+        {
+            get { return minBuildingSize + maxBuildingSize; }
+        }
+        public static int TownHeight
+        {
+            get { return StreetHeight * Blocks; }
+        }
+
+        public static int Houses
+        {
+            get { return MaxCitizens / MaxResidents + 7; }
+        }
+
+        public static int Productions
+        {
+            get { return MaxCitizens / MaxWorkers + 4; }
+        }
+
+        public static string[] BuildingTypes = new string[] { "house", "tavern", "barracks", "market", "guild", "farm", "factory" };
+
+        public static int Taverns = 2;
+        public static int MaxResidents = 2;
+        public static int MaxWorkers = 4;
+        public static int ThiefGuildsAmount = 2;
+        public static int BarracksAmount = 2;
+        public static int Markets = MaxCitizens / 50 + 2;
+        private static float tileSize = 32;
+        public static int minBuildingSize = 6;
+        public static int maxBuildingSize = 8;
+        public static int TownWidth = 0;
+        public static int Blocks = 0;
+
+        public static int BuildingBagCapacity = 1000;
+
+        #endregion
+
+        #region Display
+        public static float dx = 0;
+        public static float dy = 24;
+        public static int FPS = 30;
+        public static float ScrollSpeed = 1000;
+        public static Dictionary<string, Color> ProfColors = new Dictionary<string, Color>()
+        {
+            { "trader", Color.FromArgb(245, 125, 125) },
+            { "thief", Color.FromArgb(115, 40, 169) },
+            { "guardian", Color.FromArgb(179, 66, 66) },
+            { "farmer", Color.FromArgb(179, 169, 116) },
+            { "craftsman", Color.FromArgb(150, 179, 101) }
+        };
+
+        #endregion
+
         #region Economic
         public static int StartMoney = 1200;
         public static int StartMoneyDelta = 500;
         public static int DrinkInTavernCost = 200;
 
         public static int TaxesTimerInterval = 60000;
+        #endregion
+
+        #region Log
+        public static int MaxMessageLength = 100;
+
         #endregion
     }
 }
