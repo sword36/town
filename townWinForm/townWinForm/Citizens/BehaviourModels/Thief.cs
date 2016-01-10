@@ -11,9 +11,9 @@ namespace townWinForm.BehaviourModels
     {
         public Thief(ICitizen h, int level) : base(h, level)
         {
-            base.WorkCost = Config.ThiefWorkCost;
-            h.Bag.MaxCapacity = Config.ThiefBagCapacity;
-            h.Speed = Config.ThiefSpeed;
+            base.WorkCost = 0.002f; //Config.ThiefWorkCost;
+            h.Bag.MaxCapacity = 750; //Config.ThiefBagCapacity;
+            h.Speed = 0.125f; //Config.ThiefSpeed;
         }
 
         protected override void rest(int dt)

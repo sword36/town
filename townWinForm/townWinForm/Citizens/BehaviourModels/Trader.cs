@@ -11,9 +11,9 @@ namespace townWinForm.BehaviourModels
     {
         public Trader(ICitizen h, int level) : base(h, level)
         {
-            base.WorkCost = Config.TraderWorkCost;
-            h.Bag.MaxCapacity = Config.ThiefBagCapacity;
-            h.Speed = Config.TraderSpeed;
+            base.WorkCost = 0.0005f; //Config.TraderWorkCost;
+            h.Bag.MaxCapacity = 1500; //Config.TraderBagCapacity;
+            h.Speed = 0.09f; //Config.TraderSpeed;
         }
 
         protected override void rest(int dt)

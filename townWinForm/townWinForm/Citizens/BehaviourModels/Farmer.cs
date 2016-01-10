@@ -11,9 +11,9 @@ namespace townWinForm.BehaviourModels
     {
         public Farmer(ICitizen h, int level) : base(h, level)
         {
-            base.WorkCost = Config.FarmerWorkCost;
-            h.Bag.MaxCapacity = Config.FarmerBagCapacity;
-            h.Speed = Config.FarmerSpeed;
+            base.WorkCost = 0.005f; //Config.FarmerWorkCost;
+            h.Bag.MaxCapacity = 450; //Config.FarmerBagCapacity;
+            h.Speed = 0.1f; //Config.FarmerSpeed;
         }
 
         protected override void rest(int dt)

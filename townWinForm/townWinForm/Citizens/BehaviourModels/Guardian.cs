@@ -11,9 +11,9 @@ namespace townWinForm.BehaviourModels
     {
         public Guardian(ICitizen h, int level) : base(h, level)
         {
-            base.WorkCost = Config.GuardianWorkCost;
-            h.Bag.MaxCapacity = Config.GuardianBagCapacity;
-            h.Speed = Config.GuardianSpeed;
+            base.WorkCost = 0.004f; //Config.GuardianWorkCost;
+            h.Bag.MaxCapacity = 300; //Config.GuardianBagCapacity;
+            h.Speed = 0.125f; //Config.GuardianSpeed;
         }
 
         protected override void rest(int dt)

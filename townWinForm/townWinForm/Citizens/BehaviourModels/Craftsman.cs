@@ -11,9 +11,9 @@ namespace townWinForm.BehaviourModels
     {
         public Craftsman(ICitizen h, int level) : base(h, level)
         {
-            WorkCost = Config.CraftsmanWorkCost;
-            h.Bag.MaxCapacity = Config.CraftsmanBagCapacity;
-            h.Speed = Config.CraftsmanSpeed;
+            WorkCost = 0.005f; //Config.CraftsmanWorkCost;
+            h.Bag.MaxCapacity = 600; //Config.CraftsmanBagCapacity;
+            h.Speed = 0.1f; //Config.CraftsmanSpeed;
         }
 
         protected override void rest(int dt)
