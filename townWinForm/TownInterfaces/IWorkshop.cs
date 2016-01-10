@@ -21,6 +21,8 @@ namespace TownInterfaces
 
         void RemoveWorker(ICitizen h);
 
+        List<ICitizen> PeopleIn { get; set; }
+
         bool IsFree();
     }
 }

@@ -28,7 +28,7 @@ namespace townWinForm
         protected PointF localEntrance;
         protected List<PointF> OccupiedRooms;
         protected List<PointF> FreeRooms;
-        public List<ICitizen> PeopleIn;
+        private List<ICitizen> peopleIn;
 
         //Entrance in town
         public virtual PointF Entrance { get; set; }
@@ -45,6 +45,19 @@ namespace townWinForm
         }
 
         public Rectangle Position { get; set; }
+
+        public List<ICitizen> PeopleIn
+        {
+            get
+            {
+                return peopleIn;
+            }
+
+            set
+            {
+                peopleIn = value;
+            }
+        }
 
         public virtual void Draw(Graphics g)
         {

@@ -77,8 +77,6 @@ namespace BehaviourModel
                 var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
                     body.FavoriteTavern);
                 body.Move(path, dt);
-
-                Log.Add("citizens:Human " + body.Name + " go to tavern");
             }
             else
             {
@@ -86,20 +84,16 @@ namespace BehaviourModel
                 if (isAtTavern)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human " + body.Name + " came to tavern");
-
                     StateMachine.PopState();
 
                     if (body.Money - Config.DrinkInTavernCost < 0)
                     {
                         StateMachine.PushState("goHome");
-                        Log.Add("citizens:Human " + body.Name + " havent money for drinking");
                         return false;
                     }
 
                     body.Money -= Config.DrinkInTavernCost;
                     StateMachine.PushState("tavernDrink");
-                    Log.Add("citizens:Human " + body.Name + " drinking!");
                     return true;
                 }
                 return isAtTavern;
@@ -135,10 +129,8 @@ namespace BehaviourModel
             {
                 isGoing = true;
                 var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
-                    body.town.GetNearestMarket(body) as Building);
+                    body.town.GetNearestMarket(body));
                 body.Move(path, dt);
-
-                Log.Add("citizens:Human " + body.Name + " go to market");
             }
             else
             {
@@ -146,8 +138,6 @@ namespace BehaviourModel
                 if (isAtMarket)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human " + body.Name + " came to market");
-
                     StateMachine.PopState();
                 }
                 return isAtMarket;
@@ -177,7 +167,7 @@ namespace BehaviourModel
             }
 
             bool isSold = false;
-            List<ICitizen> peopleInMarket = (body.town.GetNearestMarket(body) as Building).PeopleIn;
+            List<ICitizen> peopleInMarket = body.town.GetNearestMarket(body).PeopleIn;
 
             ThingType sellingType;
             if (body.Bag.FoodCount > body.Bag.ProductCount)
@@ -334,7 +324,6 @@ namespace BehaviourModel
 
             if (body.Happiness > Config.LimitHappyInTavern)
             {
-                Log.Add("citizens:Human " + body.Name + " drunk, go home!");
                 StateMachine.PopState();
                 StateMachine.PushState("goHome");
             }
@@ -358,12 +347,10 @@ namespace BehaviourModel
                     {
                         body.Happiness = Config.MaxHappiness;
                     }
-
-                    Log.Add("citizens:Human " + body.Name + " eat: " + dHappy);
                 }
 
             }
-            catch (NoFoodExeption ex)
+            catch (Exception ex)
             {
                 if (body.Happiness - Config.UnhappyForNoFood > 0)
                 {
@@ -373,8 +360,6 @@ namespace BehaviourModel
                 {
                     body.Happiness = 0;
                 }
-
-                Log.Add("citizens:Human " + body.Name + " can't eat: " + " no food((");
             }
         }
 
@@ -383,7 +368,6 @@ namespace BehaviourModel
             body.WaitTime -= dt;
             if (body.WaitTime < 0)
             {
-                Log.Add("citizens:Human " + body.Name + " alive");
                 body.WaitTime = Config.DyingTime;
                 body.IsAlive = true;
                 body.Energy = 1;
@@ -460,8 +444,6 @@ namespace BehaviourModel
                 isGoing = true;
                 var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.Home);
                 body.Move(path, dt);
-
-                Log.Add("citizens:Human " + body.Name + " go home");
             }
             else
             {
@@ -469,8 +451,6 @@ namespace BehaviourModel
                 if (isAtHome)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human " + body.Name + " came home");
-
                     StateMachine.PopState();
                     StateMachine.PushState("rest");
                 }
@@ -500,8 +480,6 @@ namespace BehaviourModel
                 isGoing = true;
                 var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.WorkBuilding);
                 body.Move(path, dt);
-
-                Log.Add("citizens:Human " + body.Name + " go to work");
             }
             //if path exist already, go along the path
             else
@@ -510,8 +488,6 @@ namespace BehaviourModel
                 if (isAtWork)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human " + body.Name + " came at work");
-
                     StateMachine.PopState();
                     StateMachine.PushState("work");
                 }
