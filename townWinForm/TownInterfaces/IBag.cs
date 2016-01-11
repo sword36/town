@@ -9,7 +9,7 @@ namespace TownInterfaces
     public enum ThingType
     {
         FOOD,
-        PRODUCT,
+        PRODUCT, 
         ANY
     }
     public interface IBag
