@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using TownInterfaces;
 using BehaviourModel;
+using Behaviours;
 
 namespace townWinForm
 {
@@ -145,19 +146,19 @@ namespace townWinForm
             switch(prof)
             {
                 case "craftsman":
-                    Behaviour = new BehaviourModels.Craftsman(this, ProfLevels[prof]);
+                    Behaviour = new Craftsman(this, ProfLevels[prof]);
                     break;
                 case "farmer":
-                    Behaviour = new BehaviourModels.Farmer(this, ProfLevels[prof]);
+                    Behaviour = new Farmer(this, ProfLevels[prof]);
                     break;
                 case "guardian":
-                    Behaviour = new BehaviourModels.Guardian(this, ProfLevels[prof]);
+                    Behaviour = new Guardian(this, ProfLevels[prof]);
                     break;
                 case "thief":
-                    Behaviour = new BehaviourModels.Thief(this, ProfLevels[prof]);
+                    Behaviour = new Thief(this, ProfLevels[prof]);
                     break;
                 case "trader":
-                    Behaviour = new BehaviourModels.Trader(this, ProfLevels[prof]);
+                    Behaviour = new Trader(this, ProfLevels[prof]);
                     break;
                 default: throw new Exception("Wrong proffession");
             }
