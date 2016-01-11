@@ -10,7 +10,7 @@ using TownInterfaces;
 
 namespace BuildingPlugins
 {
-    public class Building : IDrawable, IBuilding
+    public class Building : IBuilding
     {
         public string buildingType { get; set; }
         public Color BuildingColor { get; set; }
@@ -19,8 +19,8 @@ namespace BuildingPlugins
         public int idCounter { get; set; }
         public int id { get; set; }
 
-        private static float dx = 0;
-        private static float dy = 0;
+        //private static float dx = 0;
+        //private static float dy = 0;
 
 
         protected PointF entrance;
@@ -46,7 +46,7 @@ namespace BuildingPlugins
 
         public Rectangle Position { get; set; }
 
-        public virtual void Draw(Graphics g)
+        public virtual void Draw(Graphics g, float dx, float dy)
         {
 
             g.FillRectangle(new SolidBrush(BuildingColor), Position.Location.X * Config.TileSize + dx,
@@ -190,11 +190,7 @@ namespace BuildingPlugins
             
         }
 
-        public static void UpdateD(float dx, float dy)
-        {
-            Building.dx = dx;
-            Building.dy = dy;
-        }
+
 
 
         

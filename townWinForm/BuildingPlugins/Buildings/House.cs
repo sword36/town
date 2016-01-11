@@ -10,10 +10,7 @@ namespace BuildingPlugins
 {
     public class House : Residence, INotIgnore
     {
-        public override void Draw(Graphics g)
-        {
-            base.Draw(g);
-        }
+
 
         public House(int x, int y, int width, int height, string type) : base(x, y, width, height, type)
         {

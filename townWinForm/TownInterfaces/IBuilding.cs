@@ -25,7 +25,7 @@ namespace TownInterfaces
 
         Rectangle Position { get; set; }
 
-        void Draw(Graphics g);
+        void Draw(Graphics g, float dx, float dy);
 
         void AddHuman(ICitizen h);
 

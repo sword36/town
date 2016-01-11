@@ -17,10 +17,7 @@ namespace BuildingPlugins
         }
 
         public ThievesGuild() { }
-        public override void Draw(Graphics g)
-        {
-            base.Draw(g);
-        }
+
 
         
         public static bool operator <(ThievesGuild w1, ThievesGuild w2)

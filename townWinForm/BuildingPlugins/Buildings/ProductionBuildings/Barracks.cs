@@ -17,10 +17,6 @@ namespace BuildingPlugins
         }
 
         public Barracks() { }
-        public override void Draw(Graphics g)
-        {
-            base.Draw(g);
-        }
 
         public static bool operator <(Barracks w1, Barracks w2)
         {

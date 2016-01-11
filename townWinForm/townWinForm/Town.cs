@@ -775,7 +775,7 @@ namespace townWinForm
 
             foreach (var s in structures)
             {
-                s.Draw(g);
+                s.Draw(g, Config.dx, Config.dy);
             }
 
             foreach (ICitizen h in Citizens)

@@ -14,10 +14,7 @@ namespace BuildingPlugins
         {
             workers = new List<ICitizen>();
         }
-        public override void Draw(Graphics g)
-        {
-            base.Draw(g);
-        }
+
 
         public Farm() { }
 

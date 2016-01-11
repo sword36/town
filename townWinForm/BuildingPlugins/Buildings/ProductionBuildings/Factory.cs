@@ -16,10 +16,7 @@ namespace BuildingPlugins
         }
 
         public Factory() { }
-        public override void Draw(Graphics g)
-        {
-            base.Draw(g);
-        }
+
         public static bool operator <(Factory w1, Factory w2)
         {
             return w1.Count < w2.Count;
