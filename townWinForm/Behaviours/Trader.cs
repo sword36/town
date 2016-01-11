@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TownInterfaces;
+using BehaviourModel;
 
-namespace townWinForm.BehaviourModels
+namespace Behaviours
 {
-    public class Trader : BehaviourModel
+    public class Trader : BehaviourModel.BehaviourModel, IUpdatable, IBehaviourable
     {
         public Trader(ICitizen h, int level) : base(h, level)
         {
@@ -16,7 +17,7 @@ namespace townWinForm.BehaviourModels
             h.Speed = 0.09f; //Config.TraderSpeed;
         }
 
-        protected override void rest(int dt)
+        public override void rest(int dt)
         {
             base.rest(dt);
 
@@ -34,7 +35,6 @@ namespace townWinForm.BehaviourModels
                 }
                 else
                 {
-                    Log.Add("citizens:Humant " + body.Name + " sleeping");
                     StateMachine.PopState();
                     StateMachine.PushState("sleep");
                 }
@@ -47,12 +47,11 @@ namespace townWinForm.BehaviourModels
 
         private bool isWorking = false;
 
-        protected override void work(int dt)
+        public override void work(int dt)
         {
             if (!isWorking)
             {
                 isWorking = true;
-                Log.Add("citizens:Human " + body.Name + " working(trader)");
             }
 
             base.work(dt);
@@ -67,12 +66,10 @@ namespace townWinForm.BehaviourModels
                 if (true) { }
                 StateMachine.PopState();
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(trader), energy too low");
 
                 if (body.Happiness < Config.LowerBoundHappyToDrink)
                 {
                     StateMachine.PushState("goToTavern");
-                    Log.Add("citizens:Human " + body.Name + " go to tavern");
                 }
                 else
                 {
@@ -82,7 +79,6 @@ namespace townWinForm.BehaviourModels
             else if (body.Happiness < 20)
             {
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(trader), happy too low");
                 StateMachine.PopState();
                 StateMachine.PushState("goToTavern");
             }
@@ -92,13 +88,10 @@ namespace townWinForm.BehaviourModels
         {
             if (body.Energy <= 0 && body.IsAlive)
             {
-                Log.Add("citizens:Human " + body.Name + " died during: " + StateMachine.GetCurrentState());
-
                 body.WaitTime = Config.DyingTime;
                 body.IsAlive = false;
                 StateMachine.PopState();
                 StateMachine.PushState("dying");
-                Log.Add("citizens:Human " + body.Name + " died during: " + StateMachine.GetCurrentState());
             }
 
             switch (StateMachine.GetCurrentState())

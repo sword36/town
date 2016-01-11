@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BehaviourModel">
+      <HintPath>..\BehaviourModel\obj\Debug\BehaviourModel.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -47,14 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Citizens\BehaviourModels\BehaviourModel.cs" />
-    <Compile Include="Citizens\BehaviourModels\Craftsman.cs" />
-    <Compile Include="Citizens\BehaviourModels\Farmer.cs" />
-    <Compile Include="Citizens\BehaviourModels\Guardian.cs" />
-    <Compile Include="Citizens\BehaviourModels\Thief.cs" />
-    <Compile Include="Citizens\BehaviourModels\Trader.cs" />
     <Compile Include="Citizens\Human.cs" />
-    <Compile Include="Citizens\StateFSM.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="AStar\PathNode.cs" />
     <Compile Include="Log.cs" />
@@ -131,6 +127,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Behaviours\Behaviours.csproj">
+      <Project>{58917ef3-f0c8-40d4-91a8-9c7829ecdf4a}</Project>
+      <Name>Behaviours</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Products\Products.csproj">
+      <Project>{b801a7d9-df8d-4746-afc3-1738845a093a}</Project>
+      <Name>Products</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TownInterfaces\TownInterfaces.csproj">
       <Project>{8e5e6e4e-92c8-4ace-926f-c0ef6b6797ca}</Project>
       <Name>TownInterfaces</Name>

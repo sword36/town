@@ -4,28 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TownInterfaces;
+using BehaviourModel;
 
-namespace townWinForm.BehaviourModels
+
+namespace Behaviours
 {
-    public class Guardian : BehaviourModel
+    public class Farmer : BehaviourModel.BehaviourModel, IUpdatable, IBehaviourable
     {
-        public Guardian(ICitizen h, int level) : base(h, level)
+        public Farmer(ICitizen h, int level) : base(h, level)
         {
-            base.WorkCost = 0.004f; //Config.GuardianWorkCost;
-            h.Bag.MaxCapacity = 300; //Config.GuardianBagCapacity;
-            h.Speed = 0.125f; //Config.GuardianSpeed;
+            base.WorkCost = 0.005f; //Config.FarmerWorkCost;
+            h.Bag.MaxCapacity = 450; //Config.FarmerBagCapacity;
+            h.Speed = 0.1f; //Config.FarmerSpeed;
         }
 
-        protected override void rest(int dt)
+        public override void rest(int dt)
         {
             base.rest(dt);
 
-            if (body.Energy > 95)
+            if (body.Energy > 90)
             {
                 StateMachine.PopState();
                 StateMachine.PushState("goToWork");
             }
-            else if (body.Energy < 25)
+            else if (body.Energy < 30)
             {
                 if (body.DistanceToHome() < Config.HomeNear && body.CurrentBuilding as IResidence != body.Home)
                 {
@@ -35,10 +37,15 @@ namespace townWinForm.BehaviourModels
                 }
                 else
                 {
-                    Log.Add("citizens:Humant " + body.Name + " sleeping");
                     StateMachine.PopState();
                     StateMachine.PushState("sleep");
                 }
+            }
+            else if (body.Energy > 60 && body.Bag.Count > Config.ThingsLimitForSelling)
+            {
+                StateMachine.PopState();
+                StateMachine.PushState("goToMarket");
+                StateMachine.EnqueueState("sell");
             }
             else if (body.Bag.FoodCount < 3 && body.Money > Config.MoneyLimitForBuying)
             {
@@ -54,23 +61,40 @@ namespace townWinForm.BehaviourModels
 
         private bool isWorking = false;
 
-        protected override void work(int dt)
+        public override void work(int dt)
         {
             if (!isWorking)
             {
                 isWorking = true;
-                Log.Add("citizens:Human " + body.Name + " working(guardian)");
             }
 
-            base.patrol(dt);
-         
+            base.work(dt);
+
+            if (Util.GetRandomNumberF() < Config.ChanceToCraftFood)
+            {
+                try
+                {
+                    products.Food f = new products.Food();
+                    body.Bag.Add(f);
+                    body.AddExp(Config.ExpForCraft * (1 + body.CurrentLevel / 10));
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
             if (body.Energy < 30)
             {
                 if (true) { }
                 StateMachine.PopState();
                 isWorking = false;
-                base.isGoing = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(guardian), energy too low");
+
+                if (body.Bag.Count > Config.ThingsLimitForSelling)
+                {
+                    StateMachine.PushState("goToMarket");
+                    StateMachine.EnqueueState("sell");
+                    return;
+                }
 
                 if (body.Bag.FoodCount < 3 && body.Money > Config.MoneyLimitForBuying)
                 {
@@ -87,14 +111,10 @@ namespace townWinForm.BehaviourModels
                 {
                     StateMachine.PushState("goHome");
                 }
-            }
-            else if (body.Happiness < 20)
+            } else if (body.Happiness < 20)
             {
                 isWorking = false;
-                Log.Add("citizens:Human " + body.Name + " finish work(guardian), happy too low");
                 StateMachine.PopState();
-
-                base.isGoing = false;
                 StateMachine.PushState("goToTavern");
             }
         }
@@ -103,8 +123,6 @@ namespace townWinForm.BehaviourModels
         {
             if (body.Energy <= 0 && body.IsAlive)
             {
-                Log.Add("citizens:Human " + body.Name + " died during: " + StateMachine.GetCurrentState());
-
                 body.WaitTime = Config.DyingTime;
                 body.IsAlive = false;
                 StateMachine.PopState();
@@ -137,11 +155,14 @@ namespace townWinForm.BehaviourModels
                 case "tavernDrink":
                     tavernDrink(dt);
                     break;
-                case "buyFood":
-                    buyFood(dt);
-                    break;
                 case "goToMarket":
                     goToMarket(dt);
+                    break;
+                case "sell":
+                    sell(dt);
+                    break;
+                case "buyFood":
+                    buyFood(dt);
                     break;
             }
         }

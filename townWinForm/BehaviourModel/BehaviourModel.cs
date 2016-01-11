@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using TownInterfaces;
 
-namespace townWinForm
+namespace BehaviourModel
 {
     public class BehaviourModel : IUpdatable
     {
@@ -36,7 +36,7 @@ namespace townWinForm
 
 
         //increase energy and happiness
-        protected virtual void rest(int dt)
+        public virtual void rest(int dt)
         {
             float dEnergy = Config.EnergyForRest * dt;
             if (body.Energy + dEnergy < Config.MaxEnergy)
@@ -77,8 +77,6 @@ namespace townWinForm
                 var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
                     body.FavoriteTavern);
                 body.Move(path, dt);
-
-                Log.Add("citizens:Human " + body.Name + " go to tavern");
             }
             else
             {
@@ -86,20 +84,16 @@ namespace townWinForm
                 if (isAtTavern)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human " + body.Name + " came to tavern");
-
                     StateMachine.PopState();
 
                     if (body.Money - Config.DrinkInTavernCost < 0)
                     {
                         StateMachine.PushState("goHome");
-                        Log.Add("citizens:Human " + body.Name + " havent money for drinking");
                         return false;
                     }
 
                     body.Money -= Config.DrinkInTavernCost;
                     StateMachine.PushState("tavernDrink");
-                    Log.Add("citizens:Human " + body.Name + " drinking!");
                     return true;
                 }
                 return isAtTavern;
@@ -135,10 +129,8 @@ namespace townWinForm
             {
                 isGoing = true;
                 var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
-                    body.town.GetNearestMarket(body) as IBuilding);
+                    body.town.GetNearestMarket(body));
                 body.Move(path, dt);
-
-                Log.Add("citizens:Human " + body.Name + " go to market");
             }
             else
             {
@@ -146,8 +138,6 @@ namespace townWinForm
                 if (isAtMarket)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human " + body.Name + " came to market");
-
                     StateMachine.PopState();
                 }
                 return isAtMarket;
@@ -177,7 +167,7 @@ namespace townWinForm
             }
 
             bool isSold = false;
-            List<ICitizen> peopleInMarket = (body.town.GetNearestMarket(body) as IBuilding).PeopleIn;
+            List<ICitizen> peopleInMarket = body.town.GetNearestMarket(body).PeopleIn;
 
             ThingType sellingType;
             if (body.Bag.FoodCount > body.Bag.ProductCount)
@@ -255,7 +245,7 @@ namespace townWinForm
             }
 
             bool isBought = false;
-            List<ICitizen> peopleInMarket = (body.town.GetNearestMarket(body) as IBuilding).PeopleIn;
+            List<ICitizen> peopleInMarket = body.town.GetNearestMarket(body).PeopleIn;
 
             for (int i = 0; i < peopleInMarket.Count; i++)
             {
@@ -334,7 +324,6 @@ namespace townWinForm
 
             if (body.Happiness > Config.LimitHappyInTavern)
             {
-                Log.Add("citizens:Human " + body.Name + " drunk, go home!");
                 StateMachine.PopState();
                 StateMachine.PushState("goHome");
             }
@@ -358,12 +347,10 @@ namespace townWinForm
                     {
                         body.Happiness = Config.MaxHappiness;
                     }
-
-                    Log.Add("citizens:Human " + body.Name + " eat: " + dHappy);
                 }
 
             }
-            catch (NoFoodExeption ex)
+            catch (Exception ex)
             {
                 if (body.Happiness - Config.UnhappyForNoFood > 0)
                 {
@@ -373,8 +360,6 @@ namespace townWinForm
                 {
                     body.Happiness = 0;
                 }
-
-                Log.Add("citizens:Human " + body.Name + " can't eat: " + " no food((");
             }
         }
 
@@ -383,7 +368,6 @@ namespace townWinForm
             body.WaitTime -= dt;
             if (body.WaitTime < 0)
             {
-                Log.Add("citizens:Human " + body.Name + " alive");
                 body.WaitTime = Config.DyingTime;
                 body.IsAlive = true;
                 body.Energy = 1;
@@ -460,8 +444,6 @@ namespace townWinForm
                 isGoing = true;
                 var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.Home);
                 body.Move(path, dt);
-
-                Log.Add("citizens:Human " + body.Name + " go home");
             }
             else
             {
@@ -469,8 +451,6 @@ namespace townWinForm
                 if (isAtHome)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human " + body.Name + " came home");
-
                     StateMachine.PopState();
                     StateMachine.PushState("rest");
                 }
@@ -500,8 +480,6 @@ namespace townWinForm
                 isGoing = true;
                 var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y), body.WorkBuilding);
                 body.Move(path, dt);
-
-                Log.Add("citizens:Human " + body.Name + " go to work");
             }
             //if path exist already, go along the path
             else
@@ -510,8 +488,6 @@ namespace townWinForm
                 if (isAtWork)
                 {
                     isGoing = false;
-                    Log.Add("citizens:Human " + body.Name + " came at work");
-
                     StateMachine.PopState();
                     StateMachine.PushState("work");
                 }
@@ -522,7 +498,7 @@ namespace townWinForm
         }
 
         //decrease energy, and if energy in low level then decrease happiness
-        protected virtual void work(int dt)
+        public virtual void work(int dt)
         {
             if (body.CurrentProf == "trader")
                 body.AddExp(Config.ExpForWorking / 2);
