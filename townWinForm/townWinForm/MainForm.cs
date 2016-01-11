@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Windows.Forms.DataVisualization.Charting;
 using TownInterfaces;
+using System.IO;
+using System.Reflection;
 
 namespace townWinForm
 {
@@ -45,14 +47,15 @@ namespace townWinForm
         public MainForm()
         {
             happinessStat = new Statistics();
+            BuildingInterfacesConsuming();
 
-            Config.Workshops.Add(typeof(Factory));
+            /*Config.Workshops.Add(typeof(Factory));
             Config.Barracks.Add(typeof(Barracks));
             Config.Guilds.Add(typeof(ThievesGuild));
             Config.FoodProductions.Add(typeof(Farm));
             Config.Marketplaces.Add(typeof(Market));
             Config.Entertainments.Add(typeof(Tavern));
-            Config.Residences.Add(typeof(House));
+            Config.Residences.Add(typeof(House));*/
 
             InitializeComponent();
             DoubleBuffered = true;
@@ -146,12 +149,102 @@ namespace townWinForm
             }
         }
 
+        private string StartupPath
+        {
+            get
+            {
+                return Application.StartupPath;
+            }
+        }
+
+        public void BuildingInterfacesConsuming()
+        {
+            const string PluginsRelativeDir = "..\\..\\..\\..\\Plugins",
+                        AssemblySearchPattern = "*.dll";
+
+            string pluginsDir = StartupPath + PluginsRelativeDir;
+            // плагины (сборки) должны располагаться в поддиректориях
+            string[] pluginDirs = Directory.GetDirectories(pluginsDir);
+
+            foreach (string pluginDir in pluginDirs)
+            {
+                string[] assemblyFiles = Directory.GetFiles(pluginDir,
+                                                  AssemblySearchPattern);
+                foreach (string assemblyFile in assemblyFiles)
+                {
+                    try
+                    {
+                        Assembly assembly = Assembly.LoadFile(assemblyFile);
+                        // загрузка всех типов из сборки и поиск среди них плагинов
+                        Type[] types = assembly.GetTypes();
+                        foreach (Type type in types)
+                        {
+                            Type[] interfaces = type.GetInterfaces();
+
+                            if (!interfaces.Contains(typeof(INotIgnore)))
+                            {
+                                continue;
+                            }
+
+                            if (interfaces.Contains(typeof(IEntertainment)))
+                            {
+                                Config.Entertainments.Add(type);
+                                continue;
+                            }
+
+                            if (interfaces.Contains(typeof(IGuild)))
+                            {
+                                Config.Guilds.Add(type);
+                                continue;
+                            }
+
+                            if (interfaces.Contains(typeof(IMarketplace)))
+                            {
+                                Config.Marketplaces.Add(type);
+                                continue;
+                            }
+
+                            if (interfaces.Contains(typeof(IFoodProduction)))
+                            {
+                                Config.FoodProductions.Add(type);
+                                continue;
+                            }
+
+                            if (interfaces.Contains(typeof(IBarracks)))
+                            {
+                                Config.Barracks.Add(type);
+                                continue;
+                            }
+
+                            if (interfaces.Contains(typeof(IResidence)))
+                            {
+                                Config.Residences.Add(type);
+                                continue;
+                            }
+
+                            if (interfaces.Contains(typeof(IWorkshop)))
+                            {
+                                Config.Workshops.Add(type);
+                                continue;
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        // не удалось правильно загрузить сборку
+                        MessageBox.Show(e.ToString(),
+                                        string.Format("Error load assembly \"{0}\"", assemblyFile));
+                    }
+                }
+            }
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             StatsTimer.Enabled = true;
             StatsUpdateTimer.Enabled = true;
             TaxTimer.Interval = Config.TaxesTimerInterval;
-            Util.UpdateCamera += Building.UpdateD;
+            //Util.UpdateCamera += IBuilding.UpdateD;
             Util.UpdateCamera += Human.UpdateD;
             Util.UpdateCamera += Town.UpdateD;
         }

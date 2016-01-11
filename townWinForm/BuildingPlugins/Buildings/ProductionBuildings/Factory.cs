@@ -6,28 +6,26 @@ using System.Threading.Tasks;
 using System.Drawing;
 using TownInterfaces;
 
-namespace townWinForm
+namespace BuildingPlugins
 {
-    public class Barracks : CombinedBuilding
+    public class Factory : Workshop, INotIgnore
     {
-        public Barracks(int x, int y, int width, int height, string type) : base(x, y, width, height, type)
+        public Factory(int x, int y, int width, int height, string type) : base(x, y, width, height, type)
         {
-            residents = new List<ICitizen>();
             workers = new List<ICitizen>();
         }
 
-        public Barracks() { }
+        public Factory() { }
         public override void Draw(Graphics g)
         {
             base.Draw(g);
         }
-
-        public static bool operator <(Barracks w1, Barracks w2)
+        public static bool operator <(Factory w1, Factory w2)
         {
             return w1.Count < w2.Count;
         }
 
-        public static bool operator >(Barracks w1, Barracks w2)
+        public static bool operator >(Factory w1, Factory w2)
         {
             return w1.Count > w2.Count;
         }

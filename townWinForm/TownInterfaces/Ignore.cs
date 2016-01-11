@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TownInterfaces
 {
-    public interface IFoodProduction : IWorkshop
+    public interface INotIgnore
     {
     }
 }

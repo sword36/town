@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TownInterfaces
 {
-    interface IGuild : IWorkshop, IResidence
+    public interface IGuild : IWorkshop, IResidence
     {
     }
 }

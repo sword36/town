@@ -108,7 +108,7 @@ namespace townWinForm
             Path = new List<PointF>();
             originalPath = new List<PointF>();
             
-            CurrentBuilding = home as Building;
+            CurrentBuilding = home as IBuilding;
 
             //set all proffesion skills to 1 level
             foreach (string prof in Config.ProfList)

@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using TownInterfaces;
 
-namespace townWinForm
+namespace BuildingPlugins
 {
     public class Building : IDrawable, IBuilding
     {
@@ -28,7 +28,7 @@ namespace townWinForm
         protected PointF localEntrance;
         protected List<PointF> OccupiedRooms;
         protected List<PointF> FreeRooms;
-        public List<ICitizen> PeopleIn;
+        public List<ICitizen> PeopleIn { get; set; }
 
         //Entrance in town
         public virtual PointF Entrance { get; set; }
