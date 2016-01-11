@@ -10,6 +10,9 @@ namespace TownInterfaces
     public interface IBuilding
     {
         void Init(int x, int y, int width, int height, string type);
+
+        List<ICitizen> PeopleIn { get; set; }
+
         string buildingType { get; set; }
         Color BuildingColor { get; set; }
 

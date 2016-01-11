@@ -40,12 +40,12 @@ namespace townWinForm
         private List<IBuilding> structures;
         private List<IEntertainment> taverns;
         private List<IWorkshop> markets;
-        private List<Barracks> barracks;
+        private List<IWorkshop> barracks;
         private List<IResidence> houses;
         private List<IWorkshop> workshops;
         private List<IWorkshop> factories;
         private List<IWorkshop> farms;
-        private List<ThievesGuild> guilds;
+        private List<IWorkshop> guilds;
 
         public int[,] matrix { get; set; }
         public int[,] AstarMatrix { get; set; }
@@ -78,12 +78,12 @@ namespace townWinForm
 
             structures = new List<IBuilding>();
             taverns = new List<IEntertainment>();
-            barracks = new List<Barracks>();
+            barracks = new List<IWorkshop>();
             houses = new List<IResidence>();
             workshops = new List<IWorkshop>();
             factories = new List<IWorkshop>();
             farms = new List<IWorkshop>();
-            guilds = new List<ThievesGuild>();
+            guilds = new List<IWorkshop>();
             markets = new List<IWorkshop>();
 
             matrix = new int[Config.TownWidth, Config.TownHeight];
@@ -237,8 +237,9 @@ namespace townWinForm
             for (int i = 0; i < Config.MaxCitizens; i++)
             {
                 ICitizen h = new Human(this);
-                GetWorkshop(h.CurrentProf).AddWorker(h);
-                sortWorkshops();
+                IWorkshop w = GetWorkshop(h.CurrentProf);
+                w.AddWorker(h);
+                //sortWorkshops();
                 GetHome().AddResident(h);
                 h.Position = Util.ConvertIndexToInt(h.Home.Room);
                 Citizens.Add(h);
@@ -252,7 +253,7 @@ namespace townWinForm
 
         private void sortWorkshops()
         {
-            markets.Sort(new Comparison<IWorkshop>((m1, m2) => 
+            /*markets.Sort(new Comparison<IWorkshop>((m1, m2) => 
             {
                 if (m1.Workers.Count > m2.Workers.Count) return 1;
                 if (m1.Workers.Count < m2.Workers.Count) return -1;
@@ -285,7 +286,7 @@ namespace townWinForm
                 if (m1.Workers.Count > m2.Workers.Count) return 1;
                 if (m1.Workers.Count < m2.Workers.Count) return -1;
                 return 0;
-            }));
+            }));*/
         }
 
         public IWorkshop GetWorkshop(string prof)
@@ -516,11 +517,13 @@ namespace townWinForm
                                 && (markets.Count < Config.Markets))
                             {
                                 dynamic a = Activator.CreateInstance(Config.Marketplaces[rand.Next(0, Config.Marketplaces.Count)]);
-                                
+                                //dynamic a = Activator.CreateInstance(typeof(IBuilding));
+
                                 workshops.Add(a);
                                 workshops.Last().Init(x, y, w, h, "market");
-                                markets.Add(workshops[workshops.Count - 1] as Market);
-                                structures.Add(workshops[workshops.Count - 1] as Building);
+
+                                markets.Add(workshops[workshops.Count - 1] as IWorkshop);
+                                structures.Add(workshops[workshops.Count - 1] as IBuilding);
                                 idCounter.Add(buildIndex);
                                 continue;
                             }
@@ -532,7 +535,7 @@ namespace townWinForm
                                 houses.Add(a);
                                 houses.Last().Init(x, y, w, h, "house");
 
-                                structures.Add(houses[houses.Count - 1] as Building);
+                                structures.Add(houses[houses.Count - 1] as IBuilding);
                                 idCounter.Add(buildIndex);
                                 continue;
                             }
@@ -546,7 +549,7 @@ namespace townWinForm
                                 guilds.Last().Init(x, y, w, h, "guild");
 
                                 
-                                structures.Add(guilds[guilds.Count - 1] as Building);
+                                structures.Add(guilds[guilds.Count - 1] as IBuilding);
                                 idCounter.Add(buildIndex);
                                 continue;
                             }
@@ -587,8 +590,8 @@ namespace townWinForm
                                     workshops.Add(a);
                                     workshops.Last().Init(x, y, w, h, "farm");
 
-                                    farms.Add(workshops.Last() as Farm);
-                                    structures.Add(workshops[workshops.Count - 1] as Building);
+                                    farms.Add(workshops.Last() as IWorkshop);
+                                    structures.Add(workshops[workshops.Count - 1] as IBuilding);
                                     idCounter.Add(buildIndex);
                                     continue;
                                 }
@@ -606,8 +609,8 @@ namespace townWinForm
 
                                     
                                     
-                                    structures.Add(workshops[workshops.Count - 1] as Building);
-                                    factories.Add(structures[structures.Count - 1] as Factory);
+                                    structures.Add(workshops[workshops.Count - 1] as IBuilding);
+                                    factories.Add(structures[structures.Count - 1] as IWorkshop);
                                     idCounter.Add(buildIndex);
                                     continue;
                                 }

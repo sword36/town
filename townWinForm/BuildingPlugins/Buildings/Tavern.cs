@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TownInterfaces;
 
-namespace townWinForm
+namespace BuildingPlugins
 {
-    public class Tavern : Building, IEntertainment
+    public class Tavern : Building, IEntertainment, INotIgnore
     {
         public Tavern(int x, int y, int width, int height, string type) : base(x, y, width, height, type)
         {

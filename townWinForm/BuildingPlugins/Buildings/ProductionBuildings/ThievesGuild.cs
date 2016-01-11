@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Drawing;
 using TownInterfaces;
 
-namespace townWinForm
+namespace BuildingPlugins
 {
-    public class ThievesGuild : CombinedBuilding
+    public class ThievesGuild : CombinedBuilding, IGuild, INotIgnore
     {
         public ThievesGuild(int x, int y, int width, int height, string type) : base(x, y, width, height, type)
         {

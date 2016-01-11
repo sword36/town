@@ -135,7 +135,7 @@ namespace townWinForm
             {
                 isGoing = true;
                 var path = body.town.FindPath(new Point((int)body.Position.X, (int)body.Position.Y),
-                    body.town.GetNearestMarket(body) as Building);
+                    body.town.GetNearestMarket(body) as IBuilding);
                 body.Move(path, dt);
 
                 Log.Add("citizens:Human " + body.Name + " go to market");
@@ -177,7 +177,7 @@ namespace townWinForm
             }
 
             bool isSold = false;
-            List<ICitizen> peopleInMarket = (body.town.GetNearestMarket(body) as Building).PeopleIn;
+            List<ICitizen> peopleInMarket = (body.town.GetNearestMarket(body) as IBuilding).PeopleIn;
 
             ThingType sellingType;
             if (body.Bag.FoodCount > body.Bag.ProductCount)
@@ -255,7 +255,7 @@ namespace townWinForm
             }
 
             bool isBought = false;
-            List<ICitizen> peopleInMarket = (body.town.GetNearestMarket(body) as Building).PeopleIn;
+            List<ICitizen> peopleInMarket = (body.town.GetNearestMarket(body) as IBuilding).PeopleIn;
 
             for (int i = 0; i < peopleInMarket.Count; i++)
             {

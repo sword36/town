@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TownInterfaces
+namespace BuildingPlugins
 {
-    public interface IFoodProduction : IWorkshop
+    public class Class1
     {
     }
 }

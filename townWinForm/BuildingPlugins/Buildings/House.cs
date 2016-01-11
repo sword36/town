@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Drawing;
 using TownInterfaces;
 
-namespace townWinForm
+namespace BuildingPlugins
 {
-    public class House : Residence
+    public class House : Residence, INotIgnore
     {
         public override void Draw(Graphics g)
         {

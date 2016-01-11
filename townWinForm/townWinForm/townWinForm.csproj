@@ -47,17 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Buildings\Building.cs" />
-    <Compile Include="Buildings\BuildingClassification\CombinedBuilding.cs" />
-    <Compile Include="Buildings\BuildingClassification\Residence.cs" />
-    <Compile Include="Buildings\BuildingClassification\Workshop.cs" />
-    <Compile Include="Buildings\ProductionBuildings\Barracks.cs" />
-    <Compile Include="Buildings\ProductionBuildings\Factory.cs" />
-    <Compile Include="Buildings\ProductionBuildings\Farm.cs" />
-    <Compile Include="Buildings\ProductionBuildings\Market.cs" />
-    <Compile Include="Buildings\ProductionBuildings\ThievesGuild.cs" />
-    <Compile Include="Buildings\House.cs" />
-    <Compile Include="Buildings\Tavern.cs" />
     <Compile Include="Citizens\BehaviourModels\BehaviourModel.cs" />
     <Compile Include="Citizens\BehaviourModels\Craftsman.cs" />
     <Compile Include="Citizens\BehaviourModels\Farmer.cs" />

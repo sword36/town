@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TownInterfaces;
 
-namespace townWinForm
+namespace BuildingPlugins
 {
     public class Workshop : Building, IWorkshop
     {
@@ -41,7 +41,7 @@ namespace townWinForm
 
         public virtual bool IsFree()
         {
-            return workers.Count < Config.MaxWorkers;
+            return true;
         }
     }
 }

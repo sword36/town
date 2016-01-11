@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TownInterfaces;
 
-namespace townWinForm
+namespace BuildingPlugins
 {
     public class CombinedBuilding : Building, IWorkshop, IResidence
     {
