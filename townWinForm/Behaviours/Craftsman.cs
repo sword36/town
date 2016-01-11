@@ -70,7 +70,7 @@ namespace Behaviours
             {
                 try
                 {
-                    Product p = new Product();
+                    products.Product p = new products.Product();
                     body.Bag.Add(p);
                     body.AddExp(Config.ExpForCraft * (1 + body.CurrentLevel / 10));
                 }

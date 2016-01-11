@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TownInterfaces;
 using BehaviourModel;
 
+
 namespace Behaviours
 {
     public class Farmer : BehaviourModel.BehaviourModel, IUpdatable, IBehaviourable
@@ -73,7 +74,7 @@ namespace Behaviours
             {
                 try
                 {
-                    Food f = new Food();
+                    products.Food f = new products.Food();
                     body.Bag.Add(f);
                     body.AddExp(Config.ExpForCraft * (1 + body.CurrentLevel / 10));
                 }
